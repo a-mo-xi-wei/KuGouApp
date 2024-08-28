@@ -16,7 +16,8 @@ class KuGouApp : public QWidget
 public:
     KuGouApp(QWidget *parent = nullptr);
     ~KuGouApp();
-
+private:
+    void initPoster();
 private:
     Ui::KuGouApp *ui;
 };

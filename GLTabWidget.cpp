@@ -13,8 +13,6 @@ GLTabWidget::GLTabWidget(QWidget *parent)
     initUi();
     layoutUi();
 
-    this->setStyleSheet("QWidget#basic_window_widget{background-color:blue;}");
-
 }
 
 void GLTabWidget::initUi()

@@ -12,3 +12,8 @@ KuGouApp::~KuGouApp()
 {
     delete ui;
 }
+
+void KuGouApp::initPoster()
+{
+    auto w ;
+}
