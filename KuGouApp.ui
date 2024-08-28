@@ -579,10 +579,13 @@
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="main_page">
              <layout class="QVBoxLayout" name="verticalLayout_4">
+              <property name="spacing">
+               <number>0</number>
+              </property>
               <item>
                <widget class="QWidget" name="widget_6" native="true">
                 <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -622,6 +625,18 @@
                      <horstretch>0</horstretch>
                      <verstretch>0</verstretch>
                     </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>150</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>300</width>
+                     <height>16777215</height>
+                    </size>
                    </property>
                   </widget>
                  </item>
@@ -772,7 +787,23 @@
                </widget>
               </item>
               <item>
-               <widget class="QWidget" name="table_widget" native="true"/>
+               <widget class="QWidget" name="table_widget" native="true">
+                <layout class="QVBoxLayout" name="verticalLayout_8">
+                 <item>
+                  <spacer name="verticalSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Orientation::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>191</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </widget>
               </item>
              </layout>
             </widget>
@@ -802,7 +833,7 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLabel" name="label_7">
+                  <widget class="QLabel" name="local_number__label">
                    <property name="text">
                     <string>0</string>
                    </property>
