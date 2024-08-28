@@ -45,6 +45,7 @@ private:
     QToolButton* m_play_ToolBtn{};
     QToolButton* m_like_ToolBtn{};
     QToolButton* m_refresh_ToolBtn{};
+    QToolButton* m_more_ToolBtn{};
 };
 
 
