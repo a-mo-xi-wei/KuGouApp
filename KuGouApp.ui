@@ -32,7 +32,7 @@
       <item>
        <spacer name="hs">
         <property name="orientation">
-         <enum>Qt::Orientation::Horizontal</enum>
+         <enum>Qt::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -58,6 +58,15 @@
         <property name="text">
          <string>音乐</string>
         </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item>
@@ -75,6 +84,12 @@
         </property>
         <property name="text">
          <string>直播</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -94,6 +109,12 @@
         <property name="text">
          <string>听书</string>
         </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item>
@@ -112,12 +133,18 @@
         <property name="text">
          <string>探索</string>
         </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item>
        <spacer name="hs2">
         <property name="orientation">
-         <enum>Qt::Orientation::Horizontal</enum>
+         <enum>Qt::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -135,25 +162,31 @@
           <height>30</height>
          </size>
         </property>
+        <property name="placeholderText">
+         <string>搜索音乐</string>
+        </property>
        </widget>
       </item>
       <item>
-       <widget class="QToolButton" name="toolButton">
+       <widget class="QToolButton" name="listen_toolButton">
         <property name="minimumSize">
          <size>
-          <width>30</width>
-          <height>30</height>
+          <width>20</width>
+          <height>20</height>
          </size>
         </property>
+        <property name="toolTip">
+         <string>按语音搜索</string>
+        </property>
         <property name="text">
-         <string>...</string>
+         <string/>
         </property>
        </widget>
       </item>
       <item>
        <spacer name="hs3">
         <property name="orientation">
-         <enum>Qt::Orientation::Horizontal</enum>
+         <enum>Qt::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -164,36 +197,81 @@
        </spacer>
       </item>
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="portrait_label">
         <property name="minimumSize">
          <size>
           <width>40</width>
           <height>40</height>
          </size>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>40</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string/>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_2">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string>威桑</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_3">
+       <widget class="QLabel" name="gender_label">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string>性别</string>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
       <item>
        <spacer name="hs4">
         <property name="orientation">
-         <enum>Qt::Orientation::Horizontal</enum>
+         <enum>Qt::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -204,51 +282,105 @@
        </spacer>
       </item>
       <item>
-       <widget class="QToolButton" name="toolButton_2">
+       <widget class="QToolButton" name="theme_toolButton">
+        <property name="toolTip">
+         <string>主题</string>
+        </property>
         <property name="text">
-         <string>...</string>
+         <string/>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QToolButton" name="toolButton_3">
+       <widget class="QToolButton" name="message_toolButton">
+        <property name="toolTip">
+         <string>消息</string>
+        </property>
         <property name="text">
-         <string>...</string>
+         <string/>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QToolButton" name="toolButton_4">
+       <widget class="QToolButton" name="menu_toolButton">
+        <property name="toolTip">
+         <string>菜单</string>
+        </property>
         <property name="text">
-         <string>...</string>
+         <string/>
         </property>
        </widget>
       </item>
       <item>
        <widget class="Line" name="line">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="palette">
+         <palette>
+          <active>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>100</red>
+              <green>100</green>
+              <blue>100</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </active>
+          <inactive>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>100</red>
+              <green>100</green>
+              <blue>100</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </inactive>
+          <disabled/>
+         </palette>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
         <property name="orientation">
-         <enum>Qt::Orientation::Vertical</enum>
+         <enum>Qt::Vertical</enum>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QToolButton" name="min_toolButton">
+        <property name="toolTip">
+         <string>最小化</string>
+        </property>
         <property name="text">
-         <string>...</string>
+         <string/>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QToolButton" name="max_toolButton">
+        <property name="toolTip">
+         <string>最大化</string>
+        </property>
         <property name="text">
-         <string>...</string>
+         <string/>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QToolButton" name="close_toolButton">
+        <property name="toolTip">
+         <string>关闭</string>
+        </property>
         <property name="text">
-         <string>...</string>
+         <string/>
         </property>
        </widget>
       </item>
@@ -263,11 +395,38 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="palette">
+      <palette>
+       <active>
+        <colorrole role="WindowText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>112</red>
+           <green>112</green>
+           <blue>112</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </active>
+       <inactive>
+        <colorrole role="WindowText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>112</red>
+           <green>112</green>
+           <blue>112</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </inactive>
+       <disabled/>
+      </palette>
+     </property>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
        <widget class="QScrollArea" name="menu_scrollArea">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -279,29 +438,35 @@
          </size>
         </property>
         <property name="verticalScrollBarPolicy">
-         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOn</enum>
+         <enum>Qt::ScrollBarAlwaysOn</enum>
         </property>
         <property name="horizontalScrollBarPolicy">
-         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+         <enum>Qt::ScrollBarAlwaysOff</enum>
         </property>
         <property name="widgetResizable">
          <bool>true</bool>
         </property>
         <property name="alignment">
-         <set>Qt::AlignmentFlag::AlignCenter</set>
+         <set>Qt::AlignCenter</set>
         </property>
         <widget class="QWidget" name="scrollAreaWidgetContents">
          <property name="geometry">
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>141</width>
-           <height>516</height>
+           <width>144</width>
+           <height>499</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
            <widget class="QWidget" name="widget_2" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="font">
              <font>
               <bold>true</bold>
@@ -341,6 +506,15 @@
                <property name="text">
                 <string>为你推荐</string>
                </property>
+               <property name="checkable">
+                <bool>false</bool>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+               <property name="autoExclusive">
+                <bool>false</bool>
+               </property>
               </widget>
              </item>
              <item>
@@ -353,6 +527,12 @@
                </property>
                <property name="text">
                 <string>乐库</string>
+               </property>
+               <property name="checkable">
+                <bool>false</bool>
+               </property>
+               <property name="autoExclusive">
+                <bool>false</bool>
                </property>
               </widget>
              </item>
@@ -367,6 +547,12 @@
                <property name="text">
                 <string>歌单</string>
                </property>
+               <property name="checkable">
+                <bool>false</bool>
+               </property>
+               <property name="autoExclusive">
+                <bool>false</bool>
+               </property>
               </widget>
              </item>
              <item>
@@ -379,6 +565,12 @@
                </property>
                <property name="text">
                 <string>频道</string>
+               </property>
+               <property name="checkable">
+                <bool>false</bool>
+               </property>
+               <property name="autoExclusive">
+                <bool>false</bool>
                </property>
               </widget>
              </item>
@@ -393,6 +585,12 @@
                <property name="text">
                 <string>视频</string>
                </property>
+               <property name="checkable">
+                <bool>false</bool>
+               </property>
+               <property name="autoExclusive">
+                <bool>false</bool>
+               </property>
               </widget>
              </item>
              <item>
@@ -406,6 +604,12 @@
                <property name="text">
                 <string>直播</string>
                </property>
+               <property name="checkable">
+                <bool>false</bool>
+               </property>
+               <property name="autoExclusive">
+                <bool>false</bool>
+               </property>
               </widget>
              </item>
             </layout>
@@ -413,6 +617,12 @@
           </item>
           <item>
            <widget class="QWidget" name="widget_3" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="font">
              <font>
               <bold>true</bold>
@@ -455,6 +665,12 @@
                <property name="text">
                 <string>我的收藏</string>
                </property>
+               <property name="checkable">
+                <bool>false</bool>
+               </property>
+               <property name="autoExclusive">
+                <bool>false</bool>
+               </property>
               </widget>
              </item>
              <item>
@@ -467,6 +683,12 @@
                </property>
                <property name="text">
                 <string>我的频道</string>
+               </property>
+               <property name="checkable">
+                <bool>false</bool>
+               </property>
+               <property name="autoExclusive">
+                <bool>false</bool>
                </property>
               </widget>
              </item>
@@ -481,6 +703,12 @@
                <property name="text">
                 <string>本地与下载</string>
                </property>
+               <property name="checkable">
+                <bool>false</bool>
+               </property>
+               <property name="autoExclusive">
+                <bool>false</bool>
+               </property>
               </widget>
              </item>
              <item>
@@ -493,6 +721,12 @@
                </property>
                <property name="text">
                 <string>音乐云盘</string>
+               </property>
+               <property name="checkable">
+                <bool>false</bool>
+               </property>
+               <property name="autoExclusive">
+                <bool>false</bool>
                </property>
               </widget>
              </item>
@@ -507,23 +741,16 @@
                <property name="text">
                 <string>已购音乐</string>
                </property>
+               <property name="checkable">
+                <bool>false</bool>
+               </property>
+               <property name="autoExclusive">
+                <bool>false</bool>
+               </property>
               </widget>
              </item>
              <item>
               <widget class="QToolButton" name="toolButton_20">
-               <property name="minimumSize">
-                <size>
-                 <width>120</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>最近播放</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QToolButton" name="toolButton_18">
                <property name="minimumSize">
                 <size>
                  <width>120</width>
@@ -558,10 +785,10 @@
       <item>
        <widget class="QScrollArea" name="context_scrollArea">
         <property name="verticalScrollBarPolicy">
-         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOn</enum>
+         <enum>Qt::ScrollBarAlwaysOn</enum>
         </property>
         <property name="horizontalScrollBarPolicy">
-         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+         <enum>Qt::ScrollBarAlwaysOff</enum>
         </property>
         <property name="widgetResizable">
          <bool>true</bool>
@@ -571,15 +798,15 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>888</width>
-           <height>449</height>
+           <width>876</width>
+           <height>422</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="main_page">
              <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -600,15 +827,27 @@
                      <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>200</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>400</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
                   </widget>
                  </item>
                  <item>
                   <spacer name="horizontalSpacer">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Preferred</enum>
+                    <enum>QSizePolicy::Preferred</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -629,12 +868,12 @@
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
-                     <height>150</height>
+                     <height>200</height>
                     </size>
                    </property>
                    <property name="maximumSize">
                     <size>
-                     <width>300</width>
+                     <width>400</width>
                      <height>16777215</height>
                     </size>
                    </property>
@@ -644,12 +883,12 @@
                </widget>
               </item>
               <item>
-               <widget class="QWidget" name="widget_5" native="true">
+               <widget class="QWidget" name="classify_widget" native="true">
                 <layout class="QHBoxLayout" name="horizontalLayout_3">
                  <item>
                   <spacer name="hs5">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -660,17 +899,20 @@
                   </spacer>
                  </item>
                  <item>
-                  <widget class="QToolButton" name="toolButton_22">
+                  <widget class="QPushButton" name="guess_love_pushButton">
                    <property name="minimumSize">
                     <size>
                      <width>150</width>
-                     <height>35</height>
+                     <height>40</height>
                     </size>
                    </property>
                    <property name="font">
                     <font>
                      <bold>true</bold>
                     </font>
+                   </property>
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
                    </property>
                    <property name="text">
                     <string>猜你喜欢</string>
@@ -680,7 +922,7 @@
                  <item>
                   <spacer name="hs9">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -691,17 +933,20 @@
                   </spacer>
                  </item>
                  <item>
-                  <widget class="QToolButton" name="toolButton_23">
+                  <widget class="QPushButton" name="recommend_pushButton">
                    <property name="minimumSize">
                     <size>
                      <width>150</width>
-                     <height>35</height>
+                     <height>40</height>
                     </size>
                    </property>
                    <property name="font">
                     <font>
                      <bold>true</bold>
                     </font>
+                   </property>
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
                    </property>
                    <property name="text">
                     <string>每日推荐</string>
@@ -711,7 +956,7 @@
                  <item>
                   <spacer name="hs10">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -722,17 +967,20 @@
                   </spacer>
                  </item>
                  <item>
-                  <widget class="QToolButton" name="toolButton_24">
+                  <widget class="QPushButton" name="ranking_list_pushButton">
                    <property name="minimumSize">
                     <size>
                      <width>150</width>
-                     <height>35</height>
+                     <height>40</height>
                     </size>
                    </property>
                    <property name="font">
                     <font>
                      <bold>true</bold>
                     </font>
+                   </property>
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
                    </property>
                    <property name="text">
                     <string>排行榜</string>
@@ -742,7 +990,7 @@
                  <item>
                   <spacer name="hs11">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -753,17 +1001,20 @@
                   </spacer>
                  </item>
                  <item>
-                  <widget class="QToolButton" name="toolButton_25">
+                  <widget class="QPushButton" name="classify_pushButton">
                    <property name="minimumSize">
                     <size>
                      <width>150</width>
-                     <height>35</height>
+                     <height>40</height>
                     </size>
                    </property>
                    <property name="font">
                     <font>
                      <bold>true</bold>
                     </font>
+                   </property>
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
                    </property>
                    <property name="text">
                     <string>分类</string>
@@ -773,7 +1024,7 @@
                  <item>
                   <spacer name="hs6">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -791,8 +1042,14 @@
                 <layout class="QVBoxLayout" name="verticalLayout_8">
                  <item>
                   <spacer name="verticalSpacer">
+                   <property name="minimumSize">
+                    <size>
+                     <width>45</width>
+                     <height>0</height>
+                    </size>
+                   </property>
                    <property name="orientation">
-                    <enum>Qt::Orientation::Vertical</enum>
+                    <enum>Qt::Vertical</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -842,7 +1099,7 @@
                  <item>
                   <spacer name="hs13">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -869,7 +1126,7 @@
                  <item>
                   <spacer name="hs14">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -896,7 +1153,7 @@
                  <item>
                   <spacer name="hs15">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -923,7 +1180,7 @@
                  <item>
                   <spacer name="hs12">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -970,7 +1227,7 @@
                  <item>
                   <spacer name="horizontalSpacer_16">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1043,7 +1300,7 @@
                  <item>
                   <spacer name="vs">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Vertical</enum>
+                    <enum>Qt::Vertical</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1070,16 +1327,37 @@
    <item>
     <widget class="QWidget" name="play_widget" native="true">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_6">
+      <property name="spacing">
+       <number>6</number>
+      </property>
       <item>
-       <widget class="QSlider" name="horizontalSlider">
+       <widget class="QSlider" name="progressSlider">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>10</height>
+         </size>
+        </property>
         <property name="orientation">
-         <enum>Qt::Orientation::Horizontal</enum>
+         <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>
@@ -1087,13 +1365,37 @@
        <layout class="QHBoxLayout" name="horizontalLayout_7">
         <item>
          <widget class="QLabel" name="cover_label">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>50</width>
+            <height>50</height>
+           </size>
+          </property>
           <property name="text">
-           <string>TextLabel</string>
+           <string/>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QWidget" name="widget_10" native="true">
+         <widget class="QWidget" name="song_info_widget" native="true">
           <layout class="QVBoxLayout" name="verticalLayout_5">
            <item>
             <widget class="QLabel" name="song_name_label">
@@ -1105,35 +1407,50 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_6">
              <item>
-              <widget class="QToolButton" name="toolButton_28">
+              <widget class="QToolButton" name="love_toolButton">
+               <property name="toolTip">
+                <string>收藏</string>
+               </property>
                <property name="text">
                 <string>...</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QToolButton" name="toolButton_27">
+              <widget class="QToolButton" name="download_toolButton">
+               <property name="toolTip">
+                <string>下载</string>
+               </property>
                <property name="text">
                 <string>...</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QToolButton" name="toolButton_26">
+              <widget class="QToolButton" name="comment_toolButton">
+               <property name="toolTip">
+                <string>评论</string>
+               </property>
                <property name="text">
                 <string>...</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QToolButton" name="toolButton_29">
+              <widget class="QToolButton" name="share_toolButton">
+               <property name="toolTip">
+                <string>分享</string>
+               </property>
                <property name="text">
                 <string>...</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QToolButton" name="toolButton_30">
+              <widget class="QToolButton" name="more_toolButton">
+               <property name="toolTip">
+                <string>更多</string>
+               </property>
                <property name="text">
                 <string>...</string>
                </property>
@@ -1147,7 +1464,7 @@
         <item>
          <spacer name="horizontalSpacer_7">
           <property name="orientation">
-           <enum>Qt::Orientation::Horizontal</enum>
+           <enum>Qt::Horizontal</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -1165,6 +1482,12 @@
             <height>30</height>
            </size>
           </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="toolTip">
+           <string>上一首</string>
+          </property>
           <property name="text">
            <string>...</string>
           </property>
@@ -1178,8 +1501,20 @@
             <height>40</height>
            </size>
           </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="toolTip">
+           <string>播放/暂停</string>
+          </property>
           <property name="text">
            <string>...</string>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>25</width>
+            <height>25</height>
+           </size>
           </property>
          </widget>
         </item>
@@ -1191,6 +1526,12 @@
             <height>30</height>
            </size>
           </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="toolTip">
+           <string>下一首</string>
+          </property>
           <property name="text">
            <string>...</string>
           </property>
@@ -1199,7 +1540,7 @@
         <item>
          <spacer name="horizontalSpacer_8">
           <property name="orientation">
-           <enum>Qt::Orientation::Horizontal</enum>
+           <enum>Qt::Horizontal</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -1211,48 +1552,102 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_5">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
           <property name="text">
            <string>标准</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_6">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>45</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
           <property name="text">
            <string>音效</string>
           </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="toolButton_32">
+         <widget class="QToolButton" name="volume_toolButton">
+          <property name="toolTip">
+           <string>调节音量</string>
+          </property>
           <property name="text">
            <string>...</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="toolButton_37">
+         <widget class="QToolButton" name="circle_toolButton">
+          <property name="toolTip">
+           <string>循环播放</string>
+          </property>
           <property name="text">
            <string>...</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="toolButton_38">
+         <widget class="QToolButton" name="erji_toolButton">
+          <property name="toolTip">
+           <string>一起听歌</string>
+          </property>
           <property name="text">
            <string>...</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="toolButton_39">
+         <widget class="QToolButton" name="ci_toolButton">
+          <property name="toolTip">
+           <string>歌词</string>
+          </property>
           <property name="text">
            <string>...</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="toolButton_41">
+         <widget class="QToolButton" name="list_toolButton">
+          <property name="toolTip">
+           <string>歌单</string>
+          </property>
           <property name="text">
            <string>...</string>
           </property>
