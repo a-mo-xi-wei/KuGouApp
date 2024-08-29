@@ -14,19 +14,12 @@
 TableWidget::TableWidget(const QString &title, QWidget *parent)
     :QWidget(parent)
 {
-    this->m_titleLab = new QLabel(title,this);
-    this->m_play_ToolBtn = new QToolButton(this);
-    this->m_adjust_ToolBtn = new QToolButton(this);
+    this->m_titleLab        = new QLabel(title,this);
+    this->m_play_ToolBtn    = new QToolButton(this);
+    this->m_adjust_ToolBtn  = new QToolButton(this);
     this->m_refresh_ToolBtn = new QToolButton(this);
-    this->m_more_ToolBtn = new QToolButton(this);
-    this->m_tabWidget = new QWidget;
-
-    this->m_titleLab->setObjectName("titleLab");
-    this->m_play_ToolBtn->setObjectName("play_ToolBtn");
-    this->m_adjust_ToolBtn->setObjectName("adjust_ToolBtn");
-    this->m_refresh_ToolBtn->setObjectName("refresh_ToolBtn");
-    this->m_more_ToolBtn->setObjectName("more_ToolBtn");
-    this->m_tabWidget->setObjectName("tabWidget");
+    this->m_more_ToolBtn    = new QToolButton(this);
+    this->m_tabWidget       = new QWidget;
 
     initUi();
 
@@ -53,6 +46,21 @@ void TableWidget::leaveEvent(QEvent *ev)
 
 void TableWidget::initUi()
 {
+    this->m_titleLab->setObjectName("titleLab");
+    this->m_play_ToolBtn->setObjectName("play_ToolBtn");
+    this->m_adjust_ToolBtn->setObjectName("adjust_ToolBtn");
+    this->m_refresh_ToolBtn->setObjectName("refresh_ToolBtn");
+    this->m_more_ToolBtn->setObjectName("more_ToolBtn");
+    this->m_tabWidget->setObjectName("tabWidget");
+
+    this->m_play_ToolBtn->setIcon(QIcon("://image/tabIcon/play2-gray.svg"));
+    this->m_adjust_ToolBtn->setIcon(QIcon("://image/tabIcon/adjust-column-gray.svg"));
+    this->m_refresh_ToolBtn->setIcon(QIcon("://image/tabIcon/refresh-gray.svg"));
+    this->m_more_ToolBtn->setIcon(QIcon("://image/tabIcon/more2-gray.svg"));
+
+    this->m_play_ToolBtn->setIconSize(QSize(20, 20));
+
+    this->setStyleSheet("QLabel#titleLab{font-size:20px;}QToolButton{background-color:rgba(255,255,255,0);}");
     QHBoxLayout* hlayout = new QHBoxLayout;
     hlayout->addWidget(this->m_titleLab);
     hlayout->addWidget(this->m_play_ToolBtn);
@@ -93,10 +101,13 @@ ItemListWidget::ItemListWidget(const QPixmap &coverPix, const QString &name, con
     this->m_like_ToolBtn->setObjectName("like_ToolBtn");
     this->m_more_ToolBtn->setObjectName("more_ToolBtn");
 
-
     this->m_coverLab->setFixedSize(60,60);
     this->m_coverLab->setPixmap(coverPix);
     this->m_coverLab->setScaledContents(true);
+
+    this->m_play_ToolBtn->setIcon(QIcon("://image/tabIcon/play3-gray.svg"));
+    this->m_like_ToolBtn->setIcon(QIcon("://image/playbar/collect.svg"));
+    this->m_more_ToolBtn->setIcon(QIcon("://image/playbar/more.svg"));
 
     initUi();
 

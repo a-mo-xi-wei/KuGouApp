@@ -3,11 +3,16 @@
 #include"TableWidget.h"
 #include"MusicItemWidget.h"
 
+#include<QMediaMetaData>
 #include<QMediaPlayer>
 #include<QAudioOutput>
 #include<QFileDialog>
 #include<QStandardPaths>
+#include<QPainterPath>
+#include<QPainter>
+#include<QPixmap>
 #include<QDir>
+#include<QFile>
 KuGouApp::KuGouApp(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::KuGouApp)
@@ -15,13 +20,63 @@ KuGouApp::KuGouApp(QWidget *parent)
     ,m_audioOutput(std::make_unique<QAudioOutput>())
 {
     ui->setupUi(this);
+
+    QFile file(":/style.css");
+    if (file.open(QIODevice::ReadOnly)) {
+        this->setStyleSheet(file.readAll());
+    }
+
+    initTitleWidget();
     initPoster();
     initTabWidget();
+    initPlayWidget();
+
+    this->m_player->setAudioOutput(this->m_audioOutput.get());
+
+    connect(this->m_player.get(),&QMediaPlayer::positionChanged,this,&KuGouApp::updateSliderPosition);
+    connect(this->m_player.get(),&QMediaPlayer::durationChanged,this,&KuGouApp::updateSliderRange);
+    connect(this->m_player.get(),&QMediaPlayer::metaDataChanged,this,[this]{
+        QMediaMetaData data = this->m_player->metaData();
+
+        QString title = data.value(QMediaMetaData::Title).toString();
+        QPixmap cover = data.value(QMediaMetaData::ThumbnailImage).value<QPixmap>();
+
+        ui->cover_label->setPixmap(cover);
+        ui->song_name_label->setText(title);
+    });
+
+
 }
 
 KuGouApp::~KuGouApp()
 {
     delete ui;
+}
+
+QPixmap roundedPixmap(const QPixmap& src, QSize size, int radius) {
+    QPixmap scaled = src.scaled(size, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+    QPixmap dest(size);
+    dest.fill(Qt::transparent);
+
+    QPainter painter(&dest);
+    painter.setRenderHint(QPainter::Antialiasing);
+    QPainterPath path;
+    path.addRoundedRect(0, 0, size.width(), size.height(), radius, radius);
+    painter.setClipPath(path);
+    painter.drawPixmap(0, 0, scaled);
+
+    return dest;
+}
+
+void KuGouApp::initTitleWidget()
+{
+    ui->search_lineEdit->addAction(QIcon(":/image/titlebar/search-black.svg"), QLineEdit::LeadingPosition);
+    //除非自定义QToolButton否则达不到CSS中的效果
+    //ui->listen_toolButton->setIcon(QIcon(":/image/titlebar/listen-music-black.svg"));
+    //ui->portrait_label->setPixmap(roundedPixmap(QPixmap(":/image/window/portrait.jpg"),10));
+    QPixmap rounded = roundedPixmap(QPixmap(":/image/window/portrait.jpg"), ui->portrait_label->size(), 20);  // 设置圆角半径
+    ui->portrait_label->setPixmap(rounded);
+    ui->gender_label->setPixmap(QPixmap(":/image/window/boy.svg"));
 }
 
 void KuGouApp::initPoster()
@@ -44,17 +99,33 @@ void KuGouApp::initTabWidget()
 
 }
 
+void KuGouApp::initPlayWidget()
+{
+    ui->love_toolButton->setIcon(QIcon(":/image/playbar/collect.svg"));
+    ui->download_toolButton->setIcon(QIcon(":/image/playbar/download.svg"));
+    ui->comment_toolButton->setIcon(QIcon(":/image/playbar/comment.svg"));
+    ui->share_toolButton->setIcon(QIcon(":/image/playbar/share.svg"));
+    ui->more_toolButton->setIcon(QIcon(":/image/playbar/more.svg"));
+    ui->pre_toolButton->setIcon(QIcon(":/image/playbar/previous-song.svg"));
+    ui->play_or_pause_toolButton->setIcon(QIcon(":/image/playbar/play.svg"));
+    ui->next_toolButton->setIcon(QIcon(":/image/playbar/next-song.svg"));
+    ui->volume_toolButton->setIcon(QIcon(":/image/playbar/volume.svg"));
+    ui->circle_toolButton->setIcon(QIcon(":/image/playbar/list-loop.svg"));
+    ui->erji_toolButton->setIcon(QIcon(":/image/playbar/together.svg"));
+    ui->ci_toolButton->setIcon(QIcon(":/image/playbar/song-words.svg"));
+    ui->list_toolButton->setIcon(QIcon(":/image/playbar/play-list.svg"));
+    
+}
+
 void KuGouApp::on_basic_toolButton_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->main_page);
 }
 
-
 void KuGouApp::on_local_download_toolButton_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->local_download_page);
 }
-
 
 void KuGouApp::on_local_add_toolButton_clicked() // 此处后面需要优化 ， 即使批量添加也没问题才行
 {
@@ -68,25 +139,45 @@ void KuGouApp::on_local_add_toolButton_clicked() // 此处后面需要优化 ，
     if(!layout)return;
     int index = this->m_locationMusicMap.size();
     QString fileName = this->m_locationMusicMap[index].fileName();
+
     auto item = new MusicItemWidget(index,fileName.remove(fileName.lastIndexOf("."),fileName.length()),this);
     connect(item,&MusicItemWidget::playRequest,this,[this](int index){
-        if(this->m_isPlaying)ui->play_or_pause_toolButton->click();
-        setPLayMusic(this->m_locationMusicMap[index]);
+        setPlayMusic(this->m_locationMusicMap[index]);
+        on_play_or_pause_toolButton_clicked();
     });
+
     layout->insertWidget(layout->count() - 1,item);
     ui->local_number__label->setText(QString::number(this->m_locationMusicMap.size()));
 }
 
-
 void KuGouApp::on_play_or_pause_toolButton_clicked()
 {
+    this->m_isPlaying = !this->m_isPlaying;
     if(this->m_isPlaying){
-
+        this->m_player->play();
+        ui->play_or_pause_toolButton->setIcon(QIcon("://image/playbar/pause.svg"));
     }
+    else {
+        this->m_player->pause();
+        ui->play_or_pause_toolButton->setIcon(QIcon("://image/playbar/play.svg"));
+    }
+
 }
 
-void KuGouApp::setPLayMusic(const QUrl &url)
+void KuGouApp::setPlayMusic(const QUrl &url)
 {
+    this->m_player->setSource(url);
+    ui->progressSlider->setValue(0);
 
+}
+
+void KuGouApp::updateSliderPosition(qint64 position)
+{
+    ui->progressSlider->setValue(position);
+}
+
+void KuGouApp::updateSliderRange(qint64 duration)
+{
+    ui->progressSlider->setRange(0,duration);
 }
 

@@ -44,17 +44,17 @@ void GLTabWidget::paintEvent(QPaintEvent *ev)
 void GLTabWidget::layoutUi()
 {
     QHBoxLayout* hLayout1 = new QHBoxLayout();
-    hLayout1->addSpacerItem(new QSpacerItem(20,40,QSizePolicy::Expanding,QSizePolicy::Preferred));
+    hLayout1->addSpacerItem(new QSpacerItem(20,40,QSizePolicy::Preferred,QSizePolicy::Preferred));
     hLayout1->addWidget(this->m_glLab);
     hLayout1->addSpacerItem(new QSpacerItem(20,40,QSizePolicy::Expanding,QSizePolicy::Preferred));
 
     QHBoxLayout* hLayout2 = new QHBoxLayout();
-    hLayout2->addSpacerItem(new QSpacerItem(20,40,QSizePolicy::Expanding,QSizePolicy::Preferred));
+    hLayout2->addSpacerItem(new QSpacerItem(20,40,QSizePolicy::Preferred,QSizePolicy::Preferred));
     hLayout2->addWidget(this->m_songNameLab);
     hLayout2->addSpacerItem(new QSpacerItem(20,40,QSizePolicy::Expanding,QSizePolicy::Preferred));
 
     QHBoxLayout* hLayout3 = new QHBoxLayout();
-    hLayout3->addSpacerItem(new QSpacerItem(20,40,QSizePolicy::Expanding,QSizePolicy::Preferred));
+    hLayout3->addSpacerItem(new QSpacerItem(20,40,QSizePolicy::Preferred,QSizePolicy::Preferred));
     hLayout3->addWidget(this->m_playToolBtn);
     hLayout3->addWidget(this->m_nextToolBtn);
     hLayout3->addWidget(this->m_likeToolBtn);
@@ -62,7 +62,9 @@ void GLTabWidget::layoutUi()
     hLayout3->addSpacerItem(new QSpacerItem(20,40,QSizePolicy::Expanding,QSizePolicy::Preferred));
 
     QVBoxLayout* vLayout = new QVBoxLayout(this);
+    vLayout->addSpacerItem(new QSpacerItem(40,20, QSizePolicy::Expanding));
     vLayout->addLayout(hLayout1);
     vLayout->addLayout(hLayout2);
     vLayout->addLayout(hLayout3);
+    vLayout->addSpacerItem(new QSpacerItem(40, 20, QSizePolicy::Expanding));
 }

@@ -30,11 +30,17 @@ private slots:
     void on_local_add_toolButton_clicked();
 
     void on_play_or_pause_toolButton_clicked();
+
 public slots:
-    void setPLayMusic(const QUrl& url);
+    void setPlayMusic(const QUrl& url);
+    void updateSliderPosition(qint64 position);
+    void updateSliderRange(qint64 duration);
+
 private:
+    void initTitleWidget();
     void initPoster();
     void initTabWidget();
+    void initPlayWidget();
 private:
     Ui::KuGouApp *ui;
     std::unique_ptr<QMediaPlayer>m_player{};

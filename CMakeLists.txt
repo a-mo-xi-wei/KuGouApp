@@ -13,7 +13,7 @@ INCLUDE_DIRECTORIES(
     ${PROJECT_SOURCE_DIR}
 )
 
-find_package(Qt6 REQUIRED COMPONENTS Widgets UiTools)
+find_package(Qt6 REQUIRED COMPONENTS Widgets UiTools Multimedia)
 
 file(GLOB SOURCE_CPP ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 file(GLOB SOURCE_H ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
@@ -25,8 +25,9 @@ set(SOURCE_FILES
         ${SOURCE_H}#CMake 会自动处理包含在源文件中的头文件 , 因此这行可以不加。
         Res.qrc
         KuGouApp.ui
+        style.css
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
-target_link_libraries(${PROJECT_NAME} Qt6::Widgets Qt6::UiTools)
+target_link_libraries(${PROJECT_NAME} Qt6::Widgets Qt6::UiTools Qt6::Multimedia)
