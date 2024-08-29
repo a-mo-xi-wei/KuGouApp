@@ -1,0 +1,194 @@
+QWidget#title_widget .QPushButton{
+    background-color:rgba(255,255,255,0);
+    color:rgba(0,0,0,50%);
+}
+QWidget#title_widget .QPushButton:checked{
+    color:rgb(0,0,0);
+    font-size:25px;
+}
+QLineEdit{
+    border-radius:15px;
+    background-color:#e7e7e7;
+}
+QToolButton#listen_toolButton {
+    border-image: url(":/image/titlebar/listen-music-black.svg");
+    border-radius:10px;
+    background-color:#e7e7e7;
+}
+QToolButton#listen_toolButton:hover {
+    border-image: url(":/image/titlebar/listen-music-blue.svg");
+    border-radius: 10px;
+    background-color: #e7e7e7;
+}
+QWidget#title_widget .QToolButton{
+    background-color:rgba(255,255,255,0);
+}
+
+QToolButton#theme_toolButton {
+    border-image: url(":/image/titlebar/theme-black.svg");
+}
+QToolButton#theme_toolButton:hover {
+    border-image: url(":/image/titlebar/theme-blue.svg");
+}
+
+QToolButton#message_toolButton {
+    border-image: url(":/image/titlebar/message-black.svg");
+}
+QToolButton#message_toolButton:hover {
+    border-image: url(":/image/titlebar/message-blue.svg");
+}
+
+QToolButton#menu_toolButton {
+    border-image: url(":/image/titlebar/menu-black.svg");
+}
+QToolButton#menu_toolButton:hover {
+    border-image: url(":/image/titlebar/menu-blue.svg");
+}
+
+QToolButton#min_toolButton {
+    border-image: url(":/image/titlebar/minimize-black.svg");
+}
+QToolButton#min_toolButton:hover {
+    border-image: url(":/image/titlebar/minimize-blue.svg");
+}
+
+QToolButton#max_toolButton {
+    border-image: url(":/image/titlebar/maximize-black.svg");
+}
+QToolButton#max_toolButton:hover {
+    border-image: url(":/image/titlebar/maximize-blue.svg");
+}
+
+QToolButton#close_toolButton {
+    border-image: url(":/image/titlebar/close-black.svg");
+}
+QToolButton#close_toolButton:hover {
+    border-image: url(":/image/titlebar/close-blue.svg");
+}
+
+QScrollArea#menu_scrollArea .QToolButton{
+    border-radius:10px;
+    border:none;
+}
+QScrollArea#menu_scrollArea .QToolButton:hover{
+    background-color:#e3e3e3;
+}
+
+QPushButton#guess_love_pushButton {
+    border-radius:10px;
+    background-color:#f98ca2;
+}
+QPushButton#guess_love_pushButton:hover {
+    border-radius: 10px;
+    background-color: #FF6699;
+}
+
+QPushButton#recommend_pushButton {
+    border-radius: 10px;
+    background-color: #55bafa;
+}
+QPushButton#recommend_pushButton:hover {
+    border-radius: 10px;
+    background-color: #3366FF;
+}
+
+QPushButton#ranking_list_pushButton {
+    border-radius: 10px;
+    background-color: #c594f1;
+}
+QPushButton#ranking_list_pushButton:hover {
+    border-radius: 10px;
+    background-color: #9966CC;
+}
+
+QPushButton#classify_pushButton {
+    border-radius: 10px;
+    background-color: #66dbd9;
+}
+QPushButton#classify_pushButton:hover {
+    border-radius: 10px;
+    background-color: #33CCCC;
+}
+
+QWidget#play_widget .QToolButton {  /*到时候要提升一下*/
+    border: none;
+}
+
+QWidget#play_widget .QPushButton {
+    border-radius:5px;
+    border:1px solid black;
+    background-color:rgba(255,255,255,0);
+}
+QWidget#play_widget .QPushButton:checked {
+    background-color: pink;
+}
+GLTabWidget#guss_love_widget {
+    border-image: url(":/image/tabIcon/cover.png");
+    border-radius:10px;
+    border:none;
+}
+
+QLabel#glLab{
+    font-size:25px;
+    color:white;
+}
+QLabel#songNameLab {
+    font-size: 25px;
+    color: white;
+}
+
+GLTabWidget#guss_love_widget .QToolButton#playToolBtn {
+    border-image: url(":/image/tabIcon/play-white.svg");
+}
+GLTabWidget#guss_love_widget .QToolButton#playToolBtn:hover {
+    border-image: url(":/image/tabIcon/play-blue.svg");
+}
+
+GLTabWidget#guss_love_widget .QToolButton#nextToolBtn {
+    border-image: url(":/image/tabIcon/next-song-white.svg");
+}
+GLTabWidget#guss_love_widget .QToolButton#nextToolBtn:hover {
+    border-image: url(":/image/tabIcon/next-song-blue.svg");
+}
+
+GLTabWidget#guss_love_widget .QToolButton#likeToolBtn {
+    border-image: url(":/image/tabIcon/like-white.svg");
+}
+GLTabWidget#guss_love_widget .QToolButton#likeToolBtn:hover {
+    border-image: url(":/image/tabIcon/like-blue.svg");
+}
+
+GLTabWidget#guss_love_widget .QToolButton#dislikeToolBtn {
+    border-image: url(":/image/tabIcon/dislike-white.svg");
+}
+GLTabWidget#guss_love_widget .QToolButton#dislikeToolBtn:hover {
+    border-image: url(":/image/tabIcon/dislike-blue.svg");
+}
+
+/*进度条*/
+QSlider {
+    background-color: rgba(170, 255, 255, 100);
+}
+
+QSlider::groove:horizontal {
+    border: 1px solid #999999;
+    height: 8px;
+    background-color: qlineargradient(spread:reflect, x1:0.500364, y1:0.0561364, x2:0.5, y2:0.517045, stop:0 rgba(168, 164, 168, 250), stop:1 rgba(232, 232, 232, 255));
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.50565, fy:0.500409, stop:0 rgba(0, 0, 0, 255), stop:0.361582 rgba(0, 146, 146, 255), stop:0.649718 rgba(255, 255, 255, 255), stop:1 rgba(0, 177, 181, 255));
+    border: 1px solid #5c5c5c;
+    width: 14px;
+    margin: -4px 0px;
+    border-radius: 8px;
+}
+
+
+QSlider::sub-page:horizontal {
+    border: 1px solid #999999;
+    border-radius: 4px;
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(231,80,229, 255), stop:1 rgba(7,208,255, 255));
+}
+
