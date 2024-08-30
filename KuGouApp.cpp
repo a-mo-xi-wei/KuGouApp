@@ -30,6 +30,8 @@ KuGouApp::KuGouApp(QWidget *parent)
     initPoster();
     initTabWidget();
     initPlayWidget();
+    initMenu();
+    initLocalDownload();
 
     this->m_player->setAudioOutput(this->m_audioOutput.get());
 
@@ -44,7 +46,6 @@ KuGouApp::KuGouApp(QWidget *parent)
         ui->cover_label->setPixmap(cover);
         ui->song_name_label->setText(title);
     });
-
 
 }
 
@@ -73,9 +74,10 @@ void KuGouApp::initTitleWidget()
     ui->search_lineEdit->addAction(QIcon(":/image/titlebar/search-black.svg"), QLineEdit::LeadingPosition);
     //除非自定义QToolButton否则达不到CSS中的效果
     //ui->listen_toolButton->setIcon(QIcon(":/image/titlebar/listen-music-black.svg"));
-    //ui->portrait_label->setPixmap(roundedPixmap(QPixmap(":/image/window/portrait.jpg"),10));
+    
     QPixmap rounded = roundedPixmap(QPixmap(":/image/window/portrait.jpg"), ui->portrait_label->size(), 20);  // 设置圆角半径
     ui->portrait_label->setPixmap(rounded);
+
     ui->gender_label->setPixmap(QPixmap(":/image/window/boy.svg"));
 }
 
@@ -117,6 +119,38 @@ void KuGouApp::initPlayWidget()
     
 }
 
+void KuGouApp::initMenu()
+{
+    ui->basic_toolButton->setIcon(QIcon(":/image/window/recommend.svg"));
+    ui->yueku_toolButton->setIcon(QIcon(":/image/window/music-library.svg"));
+    ui->gedan_toolButton->setIcon(QIcon(":/image/window/song-list.svg"));
+    ui->pindao_toolButton->setIcon(QIcon(":/image/window/my-channel.svg"));
+    ui->video_toolButton->setIcon(QIcon(":/image/window/video.svg"));
+    ui->live_toolButton->setIcon(QIcon(":/image/window/live.svg"));
+    ui->my_shoucang_toolButton->setIcon(QIcon(":/image/window/collect.svg"));
+    ui->my_pindao_toolButton->setIcon(QIcon(":/image/window/my-channel.svg"));
+    ui->local_download_toolButton->setIcon(QIcon(":/image/window/download.svg"));
+    ui->music_yunpan_toolButton->setIcon(QIcon(":/image/window/cloud.svg"));
+    ui->yigou_yunpan_toolButton->setIcon(QIcon(":/image/window/bought.svg"));
+    ui->zuijin_bofang_toolButton->setIcon(QIcon(":/image/window/history.svg"));
+    ui->moren_liebiao_toolButton->setIcon(QIcon(":/image/titlebar/menu-black.svg"));
+}
+
+void KuGouApp::initLocalDownload()
+{
+    ui->local_play_toolButton->setIcon(QIcon(":/image/tabIcon/play3-white.svg"));
+    ui->batch_operation_toolButton->setIcon(QIcon(":/image/tabIcon/batch-operation-gray.svg"));
+    ui->local_add_toolButton->setIcon(QIcon(":/image/tabIcon/add-gray.svg"));
+    ui->upload_toolButton->setIcon(QIcon(":/image/tabIcon/upload-cloud-white.svg"));
+    ui->search_toolButton->setIcon(QIcon(":/image/titlebar/search-black.svg"));
+    ui->sort_toolButton->setIcon(QIcon(":/image/tabIcon/sort-gray.svg"));
+    ui->local_list_toolButton->setIcon(QIcon(":image/titlebar/menu-black.svg"));
+    ui->local_zhuanji_toolButton->setIcon(QIcon(":/image/window/music-library.svg"));
+    ui->local_singer_toolButton->setIcon(QIcon(":/image/window/ai.svg"));
+    ui->local_file_toolButton->setIcon(QIcon(":/image/window/file.svg"));
+
+}
+
 void KuGouApp::on_basic_toolButton_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->main_page);
@@ -147,7 +181,7 @@ void KuGouApp::on_local_add_toolButton_clicked() // 此处后面需要优化 ，
     });
 
     layout->insertWidget(layout->count() - 1,item);
-    ui->local_number__label->setText(QString::number(this->m_locationMusicMap.size()));
+    ui->local_music_number_label->setText(QString::number(this->m_locationMusicMap.size()));
 }
 
 void KuGouApp::on_play_or_pause_toolButton_clicked()

@@ -41,6 +41,8 @@ private:
     void initPoster();
     void initTabWidget();
     void initPlayWidget();
+    void initMenu();
+    void initLocalDownload();
 private:
     Ui::KuGouApp *ui;
     std::unique_ptr<QMediaPlayer>m_player{};
