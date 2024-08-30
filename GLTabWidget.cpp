@@ -31,8 +31,11 @@ void GLTabWidget::initUi()
     this->m_nextToolBtn->setObjectName("nextToolBtn");
     this->m_likeToolBtn->setObjectName("likeToolBtn");
     this->m_dislikeToolBtn->setObjectName("dislikeToolBtn");
-}
 
+    this->setStyleSheet("background-color:rgba(255,255,255,0);");
+    //this->m_glLab->setStyleSheet("background-color:rgba(255,255,255,0);");
+    //this->m_songNameLab->setStyleSheet("background-color:rgba(255,255,255,0);");
+}
 void GLTabWidget::paintEvent(QPaintEvent *ev)
 {
     QStyleOption opt;

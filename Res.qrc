@@ -73,11 +73,9 @@
         <file>image/window/arrow-right-black.svg</file>
         <file>image/window/arrow-right-blue.svg</file>
         <file>image/window/bought.svg</file>
-        <file>image/window/boy.svg</file>
         <file>image/window/cloud.svg</file>
         <file>image/window/collect.svg</file>
         <file>image/window/download.svg</file>
-        <file>image/window/girl.svg</file>
         <file>image/window/history.svg</file>
         <file>image/window/live.svg</file>
         <file>image/window/love.svg</file>
@@ -94,5 +92,8 @@
         <file>image/poster/5.jpg</file>
         <file>style.css</file>
         <file>image/window/portrait.jpg</file>
+        <file>image/window/girl.svg</file>
+        <file>image/window/boy.svg</file>
+        <file>image/window/file.svg</file>
     </qresource>
 </RCC>

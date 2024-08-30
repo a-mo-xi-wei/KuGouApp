@@ -9,14 +9,14 @@ MusicItemWidget::MusicItemWidget(int index, const QString &name, QWidget *parent
     :QWidget{parent}
     ,m_index(index)
 {
-    this->m_indexLab = new QLabel(QString::number(index),this);
-    this->m_coverLab = new QLabel(this);
-    this->m_nameLab = new QLabel(name,this);
-    this->m_playToolBtn = new QToolButton(this);
+    this->m_indexLab        = new QLabel(QString::number(index),this);
+    this->m_coverLab        = new QLabel(this);
+    this->m_nameLab         = new QLabel(name,this);
+    this->m_playToolBtn     = new QToolButton(this);
     this->m_playNextToolBtn = new QToolButton(this);
     this->m_downloadToolBtn = new QToolButton(this);
-    this->m_collectToolBtn = new QToolButton(this);
-    this->m_moreToolBtn = new QToolButton(this);
+    this->m_collectToolBtn  = new QToolButton(this);
+    this->m_moreToolBtn     = new QToolButton(this);
 
     this->m_indexLab->setObjectName("indexLab");
     this->m_coverLab->setObjectName("coverLab");
@@ -34,6 +34,13 @@ MusicItemWidget::MusicItemWidget(int index, const QString &name, QWidget *parent
 
 void MusicItemWidget::initUi()
 {
+
+    this->m_playToolBtn->setIcon(QIcon(":/image/tabIcon/play3-gray.svg"));
+    this->m_playNextToolBtn->setIcon(QIcon(":/image/tabIcon/add-music-list-gray.svg"));
+    this->m_downloadToolBtn->setIcon(QIcon(":/image/tabIcon/download.svg"));
+    this->m_collectToolBtn->setIcon(QIcon(":/image/tabIcon/collect.svg"));
+    this->m_moreToolBtn->setIcon(QIcon(":/image/tabIcon/more.svg"));
+
     QHBoxLayout* hlayout = new QHBoxLayout(this);
     hlayout->addWidget(this->m_indexLab);
     hlayout->addWidget(this->m_coverLab);
