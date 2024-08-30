@@ -58,7 +58,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="title_music_pushButton">
         <property name="minimumSize">
          <size>
           <width>50</width>
@@ -85,7 +85,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="title_live_pushButton">
         <property name="minimumSize">
          <size>
           <width>50</width>
@@ -109,7 +109,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="title_listenBook_pushButton">
         <property name="minimumSize">
          <size>
           <width>50</width>
@@ -133,7 +133,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_4">
+       <widget class="QPushButton" name="title_found_pushButton">
         <property name="minimumSize">
          <size>
           <width>50</width>
@@ -953,7 +953,7 @@
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="main_page">
              <layout class="QVBoxLayout" name="verticalLayout_4">
