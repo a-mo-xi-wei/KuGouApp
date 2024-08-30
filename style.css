@@ -1,7 +1,6 @@
 QWidget {
     /*background-color: #CCFFEE;*/
-    background-color: rgb(221, 221, 238)
-    /*background: transparent;*/
+    background-color: rgb(221, 221, 238);
 }
 
 QWidget#title_widget .QPushButton{
@@ -229,4 +228,13 @@ QWidget#small_widget#local_list_toolButton {
 QWidget#small_widget#local_file_toolButton {
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
+}
+
+QWidget#title_widget {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+QWidget#play_widget {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
