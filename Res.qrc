@@ -99,5 +99,9 @@
         <file>image/tabIcon/play-add-gray.svg</file>
         <file>image/tabIcon/play-add-blue.svg</file>
         <file>image/playbar/more-blue.svg</file>
+        <file>image/window/left.svg</file>
+        <file>image/window/left-green.svg</file>
+        <file>image/window/right.svg</file>
+        <file>image/window/right-green.svg</file>
     </qresource>
 </RCC>
