@@ -7,6 +7,7 @@ class QToolButton;
 class QPaintEvent;
 class QEnterEvent;
 class QEvent;
+class QLine;
 
 class TableWidget : public QWidget
 {
@@ -24,7 +25,7 @@ private:
     QToolButton* m_play_ToolBtn{};
     QToolButton* m_adjust_ToolBtn{};
     QToolButton* m_refresh_ToolBtn{};
-    QToolButton* m_more_ToolBtn{};
+    QLabel* m_more_Lab{};
     QWidget* m_tabWidget{};
 };
 
@@ -42,7 +43,7 @@ private:
     QLabel* m_coverLab{};
     QLabel* m_nameLab{};
     QLabel* m_authorLab{};
-    QToolButton* m_play_ToolBtn{};
+    QToolButton* m_play_add_ToolBtn{};
     QToolButton* m_like_ToolBtn{};
     QToolButton* m_refresh_ToolBtn{};
     QToolButton* m_more_ToolBtn{};
