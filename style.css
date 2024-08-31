@@ -1,8 +1,13 @@
 QWidget {
     /*background-color: #CCFFEE;*/
-    background-color: rgb(221, 221, 238);
+    background-color: #ddddee;
 }
-
+QWidget#title_widget {
+    background-color: #e2f1ff;
+}
+QWidget#title_widget .QLabel{
+    background-color: #e2f1ff;
+}
 QWidget#title_widget .QPushButton{
     background-color:rgba(255,255,255,0);
     color:rgba(0,0,0,50%);
@@ -15,7 +20,9 @@ QWidget#title_widget .QPushButton:checked {
     color: #3366FF;
     font-size: 25px;
 }
-
+QWidget#title_widget .QToolButton{
+    background-color:rgba(255,255,255,0);
+}
 QLineEdit#search_lineEdit {
     border-radius: 15px;
     background-color: #e7e7e7;
@@ -33,9 +40,7 @@ QToolButton#listen_toolButton:hover {
     border-radius: 10px;
     background-color: #e7e7e7;
 }
-QWidget#title_widget .QToolButton{
-    background-color:rgba(255,255,255,0);
-}
+
 
 QToolButton#theme_toolButton {
     border-image: url(":/image/titlebar/theme-black.svg");
@@ -248,12 +253,14 @@ QWidget#small_widget#local_file_toolButton {
 }
 
 QWidget#title_widget {
+    /*
     border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-right-radius: 20px;*/
+    border-radius:20px;
 }
 QWidget#play_widget {
     border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-bottom-right-radius: 30px;
 }
 
 /*@@@@@@@设置垂直滑动条样式*/
@@ -276,4 +283,4 @@ QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical {
 QScrollBar::handle:vertical:hover {
     background: rgb(248,129,161);
 }
-    
+

@@ -37,9 +37,9 @@ void MusicItemWidget::initUi()
 
     this->m_playToolBtn->setIcon(QIcon(":/image/tabIcon/play3-gray.svg"));
     this->m_playNextToolBtn->setIcon(QIcon(":/image/tabIcon/add-music-list-gray.svg"));
-    this->m_downloadToolBtn->setIcon(QIcon(":/image/tabIcon/download.svg"));
-    this->m_collectToolBtn->setIcon(QIcon(":/image/tabIcon/collect.svg"));
-    this->m_moreToolBtn->setIcon(QIcon(":/image/tabIcon/more.svg"));
+    this->m_downloadToolBtn->setIcon(QIcon(":/image/window/download.svg"));
+    this->m_collectToolBtn->setIcon(QIcon(":/image/window/collect.svg"));
+    this->m_moreToolBtn->setIcon(QIcon(":/image/tabIcon/more2-gray.svg"));
 
     QHBoxLayout* hlayout = new QHBoxLayout(this);
     hlayout->addWidget(this->m_indexLab);

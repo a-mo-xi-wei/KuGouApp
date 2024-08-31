@@ -49,6 +49,40 @@ KuGouApp::~KuGouApp()
     delete ui;
 }
 
+void KuGouApp::on_title_music_pushButton_clicked()
+{
+    ui->index_label1->show();
+    ui->index_label2->hide();
+    ui->index_label3->hide();
+    ui->index_label4->hide();
+}
+
+void KuGouApp::on_title_live_pushButton_clicked()
+{
+    ui->index_label1->hide();
+    ui->index_label2->show();
+    ui->index_label3->hide();
+    ui->index_label4->hide();
+    
+}
+
+void KuGouApp::on_title_listenBook_pushButton_clicked()
+{
+    ui->index_label1->hide();
+    ui->index_label2->hide();
+    ui->index_label3->show();
+    ui->index_label4->hide();
+    
+}
+
+void KuGouApp::on_title_found_pushButton_clicked()
+{
+    ui->index_label1->hide();
+    ui->index_label2->hide();
+    ui->index_label3->hide();
+    ui->index_label4->show();
+}
+
 void KuGouApp::initUi()
 {
     //去掉标题栏
@@ -84,14 +118,22 @@ QPixmap roundedPixmap(const QPixmap& src, QSize size, int radius) {
 
 void KuGouApp::initTitleWidget()
 {
+    ui->index_label1->setPixmap(QPixmap(":/image/titlebar/h-line.png").scaled(30,15,Qt::KeepAspectRatio));
+    ui->index_label2->setPixmap(QPixmap(":/image/titlebar/h-line.png").scaled(30,15,Qt::KeepAspectRatio));
+    ui->index_label3->setPixmap(QPixmap(":/image/titlebar/h-line.png").scaled(30,15,Qt::KeepAspectRatio));
+    ui->index_label4->setPixmap(QPixmap(":/image/titlebar/h-line.png").scaled(30,15,Qt::KeepAspectRatio));
+    ui->index_label2->hide();
+    ui->index_label3->hide();
+    ui->index_label4->hide();
+
     ui->search_lineEdit->addAction(QIcon(":/image/titlebar/search-black.svg"), QLineEdit::LeadingPosition);
-    //除非自定义QToolButton否则达不到CSS中的效果
+    //除非自定义QToolButton否则达不到CSS中border-image的效果
     //ui->listen_toolButton->setIcon(QIcon(":/image/titlebar/listen-music-black.svg"));
     
-    QPixmap rounded = roundedPixmap(QPixmap(":/image/window/portrait.jpg"), ui->portrait_label->size(), 20);  // 设置圆角半径
-    ui->portrait_label->setPixmap(rounded);
+    QPixmap rounded = roundedPixmap(QPixmap(":/image/window/portrait.jpg"), ui->title_portrait_label->size(), 20);  // 设置圆角半径
+    ui->title_portrait_label->setPixmap(rounded);
 
-    ui->gender_label->setPixmap(QPixmap(":/image/window/boy.svg"));
+    ui->title_gender_label->setPixmap(QPixmap(":/image/window/boy.svg"));
 }
 
 void KuGouApp::initPoster()
@@ -166,8 +208,7 @@ void KuGouApp::initLocalDownload()
 
 void KuGouApp::mousePressEvent(QMouseEvent *ev)
 {
-    if (ev->button() == Qt::LeftButton) {
-
+    if (ev->button() == Qt::LeftButton /*&& ( ui->title_widget->geometry().contains(ev->pos()) ||  ui->play_widget->geometry().contains(ev->pos()))*/) {
         // 如果是鼠标左键
         // 获取当前窗口位置,以窗口左上角
         windowsLastPs = pos();
@@ -245,7 +286,7 @@ void KuGouApp::paintEvent(QPaintEvent* ev)
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
-    QBrush brush(QColor("#CCFFEE"));
+    QBrush brush(QColor("#ddddee"));
     painter.setBrush(brush);
     painter.setPen(Qt::NoPen);
     QRect rect = this->rect();
@@ -254,7 +295,7 @@ void KuGouApp::paintEvent(QPaintEvent* ev)
     painter.drawPath(path);
 }
 
-void KuGouApp::SetMouseCursor(int x, int y)
+void KuGouApp::SetMouseCursor(int x, int y)   
 {
     // 鼠标形状对象
     Qt::CursorShape cursor{};

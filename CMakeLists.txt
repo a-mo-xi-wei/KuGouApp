@@ -27,6 +27,14 @@ set(SOURCE_FILES
         KuGouApp.ui
         style.css
 )
+# 设置并行编译线程数，可以根据你的CPU核心数进行调整
+set(CMAKE_BUILD_PARALLEL_LEVEL 8)  # 或者设置为你机器的核心数
+# 对于 Release 版本启用优化
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
+set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /O2")
+# 对于所有构建类型启用并行编译
+add_compile_options(/MP)
+
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 

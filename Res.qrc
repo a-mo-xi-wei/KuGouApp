@@ -95,5 +95,9 @@
         <file>image/window/girl.svg</file>
         <file>image/window/boy.svg</file>
         <file>image/window/file.svg</file>
+        <file>image/titlebar/h-line.png</file>
+        <file>image/tabIcon/play-add-gray.svg</file>
+        <file>image/tabIcon/play-add-blue.svg</file>
+        <file>image/playbar/more-blue.svg</file>
     </qresource>
 </RCC>
