@@ -1053,14 +1053,14 @@
            <x>0</x>
            <y>0</y>
            <width>998</width>
-           <height>513</height>
+           <height>514</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="main_page">
              <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -1130,6 +1130,9 @@
                      <width>400</width>
                      <height>16777215</height>
                     </size>
+                   </property>
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
                    </property>
                    <property name="toolTip">
                     <string>性别</string>

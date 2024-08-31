@@ -144,6 +144,7 @@ void KuGouApp::initPoster()
     auto s = dir.entryList(QDir::Files | QDir::NoDotAndDotDot).size();
     for(auto i = 1 ; i <= s ; ++i)
         ui->advertise_board_widget->addPoster(QPixmap(QString("://image/poster/%1.jpg").arg(i)));
+
 }
 
 void KuGouApp::initTabWidget()
