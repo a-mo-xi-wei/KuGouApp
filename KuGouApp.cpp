@@ -85,6 +85,7 @@ void KuGouApp::on_title_found_pushButton_clicked()
 
 void KuGouApp::initUi()
 {
+    this->setWindowIcon(QIcon(":/image/window/windowIcon.svg"));
     //去掉标题栏
     setWindowFlags(Qt::FramelessWindowHint);
     move(200, 200);

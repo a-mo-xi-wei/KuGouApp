@@ -103,5 +103,8 @@
         <file>image/window/left-green.svg</file>
         <file>image/window/right.svg</file>
         <file>image/window/right-green.svg</file>
+        <file>image/window/windowIcon.svg</file>
+        <file>image/playbar/default-cover-blue.svg</file>
+        <file>image/playbar/default-cover-gray.svg</file>
     </qresource>
 </RCC>
