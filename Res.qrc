@@ -18,7 +18,6 @@
         <file>image/playbar/song-cover.png</file>
         <file>image/playbar/song-words.svg</file>
         <file>image/playbar/together.svg</file>
-        <file>image/playbar/volume.svg</file>
         <file>image/tabIcon/add-gray.svg</file>
         <file>image/tabIcon/add-music-list-blue.svg</file>
         <file>image/tabIcon/add-music-list-gray.svg</file>
@@ -99,12 +98,16 @@
         <file>image/tabIcon/play-add-gray.svg</file>
         <file>image/tabIcon/play-add-blue.svg</file>
         <file>image/playbar/more-blue.svg</file>
-        <file>image/window/left.svg</file>
-        <file>image/window/left-green.svg</file>
-        <file>image/window/right.svg</file>
-        <file>image/window/right-green.svg</file>
         <file>image/window/windowIcon.svg</file>
         <file>image/playbar/default-cover-blue.svg</file>
         <file>image/playbar/default-cover-gray.svg</file>
+        <file>image/playbar/volume-off-blue.svg</file>
+        <file>image/playbar/volume-off-gray.svg</file>
+        <file>image/playbar/volume-on-blue.svg</file>
+        <file>image/playbar/volume-on-gray.svg</file>
+        <file>image/window/left.svg</file>
+        <file>image/window/left-pink.svg</file>
+        <file>image/window/right.svg</file>
+        <file>image/window/right-pink.svg</file>
     </qresource>
 </RCC>

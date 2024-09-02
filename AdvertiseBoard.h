@@ -18,7 +18,7 @@ signals:
     void clicked();
 protected:
     void enterEvent(QEnterEvent* event) override {
-        setPixmap(QPixmap(":/image/window/left-green.svg")); // 悬停时的图片
+        setPixmap(QPixmap(":/image/window/left-pink.svg")); // 悬停时的图片
         QLabel::enterEvent(event);
     }
 
@@ -44,7 +44,7 @@ signals:
 
 protected:
     void enterEvent(QEnterEvent* event) override {
-        setPixmap(QPixmap(":/image/window/right-green.svg")); // 悬停时的图片
+        setPixmap(QPixmap(":/image/window/right-pink.svg")); // 悬停时的图片
         QLabel::enterEvent(event);
     }
 
