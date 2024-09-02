@@ -143,7 +143,7 @@ QPushButton#music_quality_pushButton {
 QPushButton#music_quality_pushButton:hover {
     margin: 0px 3px 6px 3px;
 }
-/*--------------------_widget------------------------------*/
+/*--------------------play_widget------------------------------*/
 
 QWidget#play_widget {
     border-bottom-left-radius: 20px;
@@ -160,42 +160,35 @@ QWidget#play_widget .QPushButton {
 QWidget#play_widget .QPushButton:checked {
     background-color: pink;
 }
+/*--------------------guss_love_widget------------------------------*/
+
 GLTabWidget#guss_love_widget {
     border-image: url(":/image/tabIcon/cover.png");
     border-radius:10px;
     border:none;
 }
-
-QLabel#glLab{
-    font-size:25px;
-    color:white;
-}
-QLabel#songNameLab {
+GLTabWidget#guss_love_widget .QLabel {
     font-size: 25px;
     color: white;
 }
-
 GLTabWidget#guss_love_widget .QToolButton#playToolBtn {
     border-image: url(":/image/tabIcon/play-white.svg");
 }
 GLTabWidget#guss_love_widget .QToolButton#playToolBtn:hover {
     border-image: url(":/image/tabIcon/play-blue.svg");
 }
-
 GLTabWidget#guss_love_widget .QToolButton#nextToolBtn {
     border-image: url(":/image/tabIcon/next-song-white.svg");
 }
 GLTabWidget#guss_love_widget .QToolButton#nextToolBtn:hover {
     border-image: url(":/image/tabIcon/next-song-blue.svg");
 }
-
 GLTabWidget#guss_love_widget .QToolButton#likeToolBtn {
     border-image: url(":/image/tabIcon/like-white.svg");
 }
 GLTabWidget#guss_love_widget .QToolButton#likeToolBtn:hover {
     border-image: url(":/image/tabIcon/like-blue.svg");
 }
-
 GLTabWidget#guss_love_widget .QToolButton#dislikeToolBtn {
     border-image: url(":/image/tabIcon/dislike-white.svg");
 }
@@ -203,18 +196,18 @@ GLTabWidget#guss_love_widget .QToolButton#dislikeToolBtn:hover {
     border-image: url(":/image/tabIcon/dislike-blue.svg");
 }
 
-/*进度条*/
+/*--------------------QSlider------------------------------*/
+
 QSlider {
     background-color: rgba(170, 255, 255, 100);
+   
 }
-
 QSlider::groove:horizontal {
     border: 1px solid #999999;
     height: 8px;
     background-color: qlineargradient(spread:reflect, x1:0.500364, y1:0.0561364, x2:0.5, y2:0.517045, stop:0 rgba(168, 164, 168, 250), stop:1 rgba(232, 232, 232, 255));
     border-radius: 4px;
 }
-
 QSlider::handle:horizontal {
     background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.50565, fy:0.500409, stop:0 rgba(0, 0, 0, 255), stop:0.361582 rgba(0, 146, 146, 255), stop:0.649718 rgba(255, 255, 255, 255), stop:1 rgba(0, 177, 181, 255));
     border: 1px solid #5c5c5c;
@@ -222,14 +215,13 @@ QSlider::handle:horizontal {
     margin: -4px 0px;
     border-radius: 8px;
 }
-
-
 QSlider::sub-page:horizontal {
     border: 1px solid #999999;
     border-radius: 4px;
     background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(231,80,229, 255), stop:1 rgba(7,208,255, 255));
 }
 
+/*--------------------local_download_page------------------------------*/
 
 QWidget#guide_widget .QPushButton {
     background-color:#f7f7f7;
@@ -240,13 +232,13 @@ QWidget#guide_widget .QPushButton:checked {
     background-color: #35c1ff;
 }
     
-QWidget #operation_widget > .QToolButton {
+QWidget#operation_widget > .QToolButton {
     background-color: #DDDDDD;
     border: none;
     border-radius: 15px;
     padding-left: 15px;
 }
-QWidget #operation_widget > .QToolButton:hover {
+QWidget#operation_widget > .QToolButton:hover {
     background-color: #969696;
 }
 
@@ -272,7 +264,7 @@ QWidget#small_widget#local_file_toolButton {
     border-top-right-radius: 10px;
 }
 
-/*@@@@@@@设置垂直滑动条样式*/
+/*-------------------设置垂直滑动条样式----------------------*/
 QScrollBar:vertical {
     border: 1px solid rgb(231,166,190);
     border-radius:4px;
@@ -292,4 +284,6 @@ QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical {
 QScrollBar::handle:vertical:hover {
     background: rgb(248,129,161);
 }
+
+/*-------------------------------------------------------------*/
 

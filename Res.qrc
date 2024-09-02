@@ -4,7 +4,6 @@
         <file>image/playbar/collected.svg</file>
         <file>image/playbar/comment.svg</file>
         <file>image/playbar/download.svg</file>
-        <file>image/playbar/list-loop.svg</file>
         <file>image/playbar/more.svg</file>
         <file>image/playbar/next-song.svg</file>
         <file>image/playbar/order-play.svg</file>
@@ -109,5 +108,10 @@
         <file>image/window/left-pink.svg</file>
         <file>image/window/right.svg</file>
         <file>image/window/right-pink.svg</file>
+        <file>image/titlebar/index_label.svg</file>
+        <file>image/playbar/list-loop-blue.svg</file>
+        <file>image/playbar/list-loop-gray.svg</file>
+        <file>image/playbar/single-list-loop-blue.svg</file>
+        <file>image/playbar/single-list-loop-gray.svg</file>
     </qresource>
 </RCC>
