@@ -215,6 +215,7 @@ void KuGouApp::initLocalDownload()
 
 void KuGouApp::mousePressEvent(QMouseEvent *ev)
 {
+    QWidget::mousePressEvent(ev);
     if (ev->button() == Qt::LeftButton /*&& ( ui->title_widget->geometry().contains(ev->pos()) ||  ui->play_widget->geometry().contains(ev->pos()))*/) {
         // 如果是鼠标左键
         // 获取当前窗口位置,以窗口左上角
@@ -230,6 +231,7 @@ void KuGouApp::mousePressEvent(QMouseEvent *ev)
 
 void KuGouApp::mouseReleaseEvent(QMouseEvent *ev)
 {
+    QWidget::mouseReleaseEvent(ev);
     if (ev->button() == Qt::LeftButton) {
         isPress = false;
     }
@@ -238,6 +240,7 @@ void KuGouApp::mouseReleaseEvent(QMouseEvent *ev)
 
 void KuGouApp::mouseMoveEvent(QMouseEvent *ev)
 {
+    QWidget::mouseMoveEvent(ev);
     // 设置鼠标的形状
     SetMouseCursor(ev->pos().x(), ev->pos().y());
     // 计算的鼠标移动偏移量, 就是鼠标全局坐标 - 减去点击时鼠标坐标
@@ -287,10 +290,12 @@ void KuGouApp::mouseMoveEvent(QMouseEvent *ev)
             mousePs = ev->globalPosition().toPoint();
         }
     }
+    
 }
 
 void KuGouApp::paintEvent(QPaintEvent* ev)
 {
+    QWidget::paintEvent(ev);
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
     QBrush brush(QColor("#ddddee"));
@@ -300,6 +305,7 @@ void KuGouApp::paintEvent(QPaintEvent* ev)
     QPainterPath path;
     path.addRoundedRect(rect, 20, 20);
     painter.drawPath(path);
+    
 }
 
 void KuGouApp::SetMouseCursor(int x, int y)   

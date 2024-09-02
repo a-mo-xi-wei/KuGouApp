@@ -1156,7 +1156,7 @@
                     <cursorShape>PointingHandCursor</cursorShape>
                    </property>
                    <property name="toolTip">
-                    <string>性别</string>
+                    <string/>
                    </property>
                   </widget>
                  </item>
