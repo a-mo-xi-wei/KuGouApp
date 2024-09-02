@@ -91,11 +91,16 @@ QToolButton#close_toolButton:hover {
 
 /*--------------------menu_scrollArea------------------------------*/
 QScrollArea#menu_scrollArea .QToolButton{
+    font: bold;
+    padding-left:20px;
     border-radius:10px;
     border:none;
 }
 QScrollArea#menu_scrollArea .QToolButton:hover{
-    background-color:#e3e3e3;
+    background-color:#c0c0c0;
+}
+QScrollArea#menu_scrollArea .QToolButton:checked{
+    background-color:#268cff;
 }
 /*--------------------classify_widget------------------------------*/
 
