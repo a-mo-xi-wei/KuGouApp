@@ -6,13 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
+    <width>1050</width>
     <height>700</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1200</width>
+    <width>1050</width>
     <height>700</height>
    </size>
   </property>
@@ -1073,7 +1073,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>998</width>
+           <width>858</width>
            <height>514</height>
           </rect>
          </property>
@@ -1086,7 +1086,7 @@
             <widget class="QWidget" name="main_page">
              <layout class="QVBoxLayout" name="verticalLayout_4">
               <property name="spacing">
-               <number>0</number>
+               <number>6</number>
               </property>
               <item>
                <widget class="QWidget" name="widget_6" native="true">
@@ -1166,6 +1166,12 @@
               <item>
                <widget class="QWidget" name="classify_widget" native="true">
                 <layout class="QHBoxLayout" name="horizontalLayout_3">
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
                  <item>
                   <spacer name="hs5">
                    <property name="orientation">
@@ -1184,7 +1190,7 @@
                    <property name="minimumSize">
                     <size>
                      <width>150</width>
-                     <height>40</height>
+                     <height>60</height>
                     </size>
                    </property>
                    <property name="font">
@@ -1218,7 +1224,7 @@
                    <property name="minimumSize">
                     <size>
                      <width>150</width>
-                     <height>40</height>
+                     <height>60</height>
                     </size>
                    </property>
                    <property name="font">
@@ -1252,7 +1258,7 @@
                    <property name="minimumSize">
                     <size>
                      <width>150</width>
-                     <height>40</height>
+                     <height>60</height>
                     </size>
                    </property>
                    <property name="font">
@@ -1286,7 +1292,7 @@
                    <property name="minimumSize">
                     <size>
                      <width>150</width>
-                     <height>40</height>
+                     <height>60</height>
                     </size>
                    </property>
                    <property name="font">
@@ -1316,11 +1322,11 @@
                   </spacer>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="music_quality_pushButton_">
+                  <widget class="QPushButton" name="music_quality_pushButton">
                    <property name="minimumSize">
                     <size>
                      <width>150</width>
-                     <height>40</height>
+                     <height>60</height>
                     </size>
                    </property>
                    <property name="font">
@@ -2058,7 +2064,7 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>30</width>
+            <width>23</width>
             <height>20</height>
            </size>
           </property>
@@ -2137,7 +2143,7 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>30</width>
+            <width>23</width>
             <height>20</height>
            </size>
           </property>
@@ -2153,8 +2159,8 @@
           </property>
           <property name="iconSize">
            <size>
-            <width>16</width>
-            <height>16</height>
+            <width>18</width>
+            <height>18</height>
            </size>
           </property>
          </widget>
