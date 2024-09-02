@@ -4,6 +4,7 @@ QWidget {
 }
 QWidget#title_widget {
     background-color: #e2f1ff;
+    border-radius: 20px;
 }
 QWidget#title_widget .QLabel{
     background-color: #e2f1ff;
@@ -20,9 +21,6 @@ QWidget#title_widget .QPushButton:checked {
     color: #3366FF;
     font-size: 25px;
 }
-QWidget#title_widget .QToolButton{
-    background-color:rgba(255,255,255,0);
-}
 QLineEdit#search_lineEdit {
     border-radius: 15px;
     background-color: #e7e7e7;
@@ -32,8 +30,8 @@ QLineEdit#search_lineEdit:hover {
 }
 QToolButton#listen_toolButton {
     border-image: url(":/image/titlebar/listen-music-black.svg");
-    border-radius:10px;
-    background-color:#e7e7e7;
+    border-radius: 10px;
+    background-color: #e7e7e7;
 }
 QToolButton#listen_toolButton:hover {
     border-image: url(":/image/titlebar/listen-music-blue.svg");
@@ -41,8 +39,8 @@ QToolButton#listen_toolButton:hover {
     background-color: #e7e7e7;
 }
 
-
 QToolButton#theme_toolButton {
+    background-color: rgba(255,255,255,0);
     border-image: url(":/image/titlebar/theme-black.svg");
 }
 QToolButton#theme_toolButton:hover {
@@ -50,6 +48,7 @@ QToolButton#theme_toolButton:hover {
 }
 
 QToolButton#message_toolButton {
+    background-color: rgba(255,255,255,0);
     border-image: url(":/image/titlebar/message-black.svg");
 }
 QToolButton#message_toolButton:hover {
@@ -57,6 +56,7 @@ QToolButton#message_toolButton:hover {
 }
 
 QToolButton#menu_toolButton {
+    background-color: rgba(255,255,255,0);
     border-image: url(":/image/titlebar/menu-black.svg");
 }
 QToolButton#menu_toolButton:hover {
@@ -64,6 +64,7 @@ QToolButton#menu_toolButton:hover {
 }
 
 QToolButton#min_toolButton {
+    background-color: rgba(255,255,255,0);
     border-image: url(":/image/titlebar/minimize-black.svg");
 }
 QToolButton#min_toolButton:hover {
@@ -71,6 +72,7 @@ QToolButton#min_toolButton:hover {
 }
 
 QToolButton#max_toolButton {
+    background-color: rgba(255,255,255,0);
     border-image: url(":/image/titlebar/maximize-black.svg");
 }
 QToolButton#max_toolButton:hover {
@@ -78,6 +80,7 @@ QToolButton#max_toolButton:hover {
 }
 
 QToolButton#close_toolButton {
+    background-color: rgba(255,255,255,0);
     border-image: url(":/image/titlebar/close-black.svg");
 }
 QToolButton#close_toolButton:hover {
@@ -128,10 +131,13 @@ QPushButton#classify_pushButton:hover {
     background-color: #33CCCC;
 }
 
+QWidget#play_widget {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 30px;
+}
 QWidget#play_widget .QToolButton {  /*到时候要提升一下*/
     border: none;
 }
-
 QWidget#play_widget .QPushButton {
     border-radius:5px;
     border:1px solid black;
@@ -250,17 +256,6 @@ QWidget#small_widget#local_list_toolButton {
 QWidget#small_widget#local_file_toolButton {
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
-}
-
-QWidget#title_widget {
-    /*
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;*/
-    border-radius:20px;
-}
-QWidget#play_widget {
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 30px;
 }
 
 /*@@@@@@@设置垂直滑动条样式*/

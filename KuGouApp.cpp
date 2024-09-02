@@ -167,14 +167,15 @@ void KuGouApp::initPlayWidget()
     ui->more_toolButton->setIcon(QIcon(":/image/playbar/more.svg"));
     ui->pre_toolButton->setIcon(QIcon(":/image/playbar/previous-song.svg"));
     ui->play_or_pause_toolButton->setIcon(QIcon(":/image/playbar/play.svg"));
-    ui->next_toolButton->setIcon(QIcon(":/image/playbar/next-song.svg"));
-    ui->volume_toolButton->setIcon(QIcon(":/image/playbar/volume.svg"));
+    ui->next_toolButton->setIcon(QIcon(":/image/playbar/next-song.svg"));;
     ui->circle_toolButton->setIcon(QIcon(":/image/playbar/list-loop.svg"));
     ui->erji_toolButton->setIcon(QIcon(":/image/playbar/together.svg"));
     ui->ci_toolButton->setIcon(QIcon(":/image/playbar/song-words.svg"));
     ui->list_toolButton->setIcon(QIcon(":/image/playbar/play-list.svg"));
     
-    ui->cover_label->setObjectName("coverLab");
+    ui->volume_toolButton->setStyleSheet(R"(QToolButton{border-image:url(':/image/playbar/volume-on-gray.svg');}
+                                            QToolButton:hover{border-image:url(':/image/playbar/volume-on-blue.svg');})");
+
     ui->cover_label->setStyleSheet(R"(QLabel{border-image:url(':/image/playbar/default-cover-gray.svg');}
                                     QLabel:hover{border-image:url(':/image/playbar/default-cover-blue.svg');})");
 
