@@ -8,7 +8,7 @@
 
 class QMediaPlayer;
 class QAudioOutput;
-
+class QButtonGroup;
 
 namespace {
 /* 这里我们将一个窗口划分为9个区域，分别为
@@ -29,7 +29,6 @@ const int kMouseRegionBottom = OFFSET;
 
 // 鼠标的 活动范围的 枚举
 enum MousePosition
-
 {
     // 这个是上面图片划分的区域 1,1 区 就用 11 代表 , 1,2 就用12 代表 以此类推
     kMousePositionLeftTop = 11,
@@ -110,6 +109,7 @@ private:
     Ui::KuGouApp *ui;
     std::unique_ptr<QMediaPlayer>m_player{};
     std::unique_ptr<QAudioOutput>m_audioOutput{};
+    std::unique_ptr<QButtonGroup>m_menuBtnGroup{};
     QMap<int,QUrl>m_locationMusicMap;
     bool m_isPlaying = false;
 protected:

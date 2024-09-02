@@ -16,12 +16,14 @@
 #include<QPoint>
 #include<QMouseEvent>
 #include<QPaintEvent>
+#include<QButtonGroup>
 
 KuGouApp::KuGouApp(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::KuGouApp)
     ,m_player(std::make_unique<QMediaPlayer>())
     ,m_audioOutput(std::make_unique<QAudioOutput>())
+    ,m_menuBtnGroup(std::make_unique<QButtonGroup>())
 {
     ui->setupUi(this);
     QFile file(":/style.css");
@@ -201,6 +203,21 @@ void KuGouApp::initMenu()
     ui->yigou_yunpan_toolButton->setIcon(QIcon(":/image/window/bought.svg"));
     ui->zuijin_bofang_toolButton->setIcon(QIcon(":/image/window/history.svg"));
     ui->moren_liebiao_toolButton->setIcon(QIcon(":/image/titlebar/menu-black.svg"));
+
+    m_menuBtnGroup->addButton(ui->basic_toolButton);
+    m_menuBtnGroup->addButton(ui->yueku_toolButton);
+    m_menuBtnGroup->addButton(ui->gedan_toolButton);
+    m_menuBtnGroup->addButton(ui->pindao_toolButton);
+    m_menuBtnGroup->addButton(ui->video_toolButton);
+    m_menuBtnGroup->addButton(ui->live_toolButton);
+    m_menuBtnGroup->addButton(ui->my_shoucang_toolButton);
+    m_menuBtnGroup->addButton(ui->my_pindao_toolButton);
+    m_menuBtnGroup->addButton(ui->local_download_toolButton);
+    m_menuBtnGroup->addButton(ui->music_yunpan_toolButton);
+    m_menuBtnGroup->addButton(ui->yigou_yunpan_toolButton);
+    m_menuBtnGroup->addButton(ui->zuijin_bofang_toolButton);
+    m_menuBtnGroup->addButton(ui->moren_liebiao_toolButton);
+    m_menuBtnGroup->setExclusive(true);
 }
 
 void KuGouApp::initLocalDownload()
@@ -468,17 +485,16 @@ void KuGouApp::on_circle_toolButton_clicked()
     }
 }
 
-
 void KuGouApp::on_volume_toolButton_clicked()
 {
     isNoVolume = !isNoVolume;
     if(isNoVolume){
         ui->volume_toolButton->setStyleSheet(R"(QToolButton{border-image:url(':/image/playbar/volume-off-gray.svg');}
                                             QToolButton:hover{border-image:url(':/image/playbar/volume-off-blue.svg');})");
+
     }
     else{
         ui->volume_toolButton->setStyleSheet(R"(QToolButton{border-image:url(':/image/playbar/volume-on-gray.svg');}
                                             QToolButton:hover{border-image:url(':/image/playbar/volume-on-blue.svg');})");
     }
 }
-
