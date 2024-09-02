@@ -172,9 +172,13 @@ void KuGouApp::initPlayWidget()
     ui->ci_toolButton->setIcon(QIcon(":/image/playbar/song-words.svg"));
     ui->list_toolButton->setIcon(QIcon(":/image/playbar/play-list.svg"));
     
+    //ui->volume_toolButton->setIcon(QIcon(":/image/playbar/volume-on-gray.svg"));
+    //ui->circle_toolButton->setIcon(QIcon(":/image/playbar/list-loop.svg"));
+
     ui->volume_toolButton->setStyleSheet(R"(QToolButton{border-image:url(':/image/playbar/volume-on-gray.svg');}
                                             QToolButton:hover{border-image:url(':/image/playbar/volume-on-blue.svg');})");
-    ui->circle_toolButton->setStyleSheet(R"(QToolButton{border-image:url(':/image/playbar/list-loop.svg');}
+
+    ui->circle_toolButton->setStyleSheet(R"(QToolButton{border-image:url(':/image/playbar/list-loop-gray.svg');}
                                             QToolButton:hover{border-image:url(':/image/playbar/list-loop-blue.svg');})");
 
     ui->cover_label->setStyleSheet(R"(QLabel{border-image:url(':/image/playbar/default-cover-gray.svg');}
@@ -448,5 +452,33 @@ void KuGouApp::on_max_toolButton_clicked()
 void KuGouApp::on_close_toolButton_clicked()
 {
     this->close();
+}
+
+void KuGouApp::on_circle_toolButton_clicked()
+{
+    isSingelCircle = !isSingelCircle;
+    if(isSingelCircle){
+        ui->circle_toolButton->setStyleSheet(R"(QToolButton{border-image:url(':/image/playbar/single-list-loop-gray.svg');}
+                                            QToolButton:hover{border-image:url(':/image/playbar/single-list-loop-blue.svg');})");
+
+    }
+    else{
+        ui->circle_toolButton->setStyleSheet(R"(QToolButton{border-image:url(':/image/playbar/list-loop-gray.svg');}
+                                            QToolButton:hover{border-image:url(':/image/playbar/list-loop-blue.svg');})");
+    }
+}
+
+
+void KuGouApp::on_volume_toolButton_clicked()
+{
+    isNoVolume = !isNoVolume;
+    if(isNoVolume){
+        ui->volume_toolButton->setStyleSheet(R"(QToolButton{border-image:url(':/image/playbar/volume-off-gray.svg');}
+                                            QToolButton:hover{border-image:url(':/image/playbar/volume-off-blue.svg');})");
+    }
+    else{
+        ui->volume_toolButton->setStyleSheet(R"(QToolButton{border-image:url(':/image/playbar/volume-on-gray.svg');}
+                                            QToolButton:hover{border-image:url(':/image/playbar/volume-on-blue.svg');})");
+    }
 }
 

@@ -89,6 +89,10 @@ private slots:
 
     void on_close_toolButton_clicked();
 
+    void on_circle_toolButton_clicked();
+
+    void on_volume_toolButton_clicked();
+
 public slots:
     void setPlayMusic(const QUrl& url);
     void updateSliderPosition(qint64 position);
@@ -113,6 +117,9 @@ protected:
     void mouseReleaseEvent(QMouseEvent* event)override;
     void mouseMoveEvent(QMouseEvent* event)override;
     void paintEvent(QPaintEvent* ev)override;
+private:
+    bool isNoVolume = false;
+    bool isSingelCircle = false;
 private:
     //根据鼠标的设置鼠标样式，用于拉伸
     void SetMouseCursor(int x, int y);
