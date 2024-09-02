@@ -36,7 +36,14 @@ set(CMAKE_BUILD_PARALLEL_LEVEL 8)  # 或者设置为你机器的核心数
 # 对于所有构建类型启用并行编译
 #add_compile_options(/MP)
 
-
+set(CMAKE_BUILD_TYPE Release)  # 设置构建类型为Release
+#[[
+if(MSVC)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")  # 设置MSVC编译器的并行编译选项
+elseif(CMAKE_COMPILER_IS_GNUCXX)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -j")  # 设置GCC编译器的并行编译选项
+endif()
+]]
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 target_link_libraries(${PROJECT_NAME} Qt6::Widgets Qt6::UiTools Qt6::Multimedia)
