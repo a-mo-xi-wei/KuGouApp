@@ -17,11 +17,11 @@ GLTabWidget::GLTabWidget(QWidget *parent)
 
 void GLTabWidget::initUi()
 {
-    this->m_glLab = new QLabel("猜你喜欢",this);
-    this->m_songNameLab = new QLabel("歌曲名称",this);
-    this->m_playToolBtn = new QToolButton(this);
-    this->m_nextToolBtn = new QToolButton(this);
-    this->m_likeToolBtn = new QToolButton(this);
+    this->m_glLab           = new QLabel("猜你喜欢",this);
+    this->m_songNameLab     = new QLabel("歌曲名称",this);
+    this->m_playToolBtn     = new QToolButton(this);
+    this->m_nextToolBtn     = new QToolButton(this);
+    this->m_likeToolBtn     = new QToolButton(this);
     this->m_dislikeToolBtn = new QToolButton(this);
 
     this->setObjectName("basic_window_widget");
@@ -31,6 +31,11 @@ void GLTabWidget::initUi()
     this->m_nextToolBtn->setObjectName("nextToolBtn");
     this->m_likeToolBtn->setObjectName("likeToolBtn");
     this->m_dislikeToolBtn->setObjectName("dislikeToolBtn");
+
+    this->m_playToolBtn->setCursor(Qt::CursorShape::PointingHandCursor);
+    this->m_nextToolBtn->setCursor(Qt::CursorShape::PointingHandCursor);
+    this->m_likeToolBtn->setCursor(Qt::CursorShape::PointingHandCursor);
+    this->m_dislikeToolBtn->setCursor(Qt::CursorShape::PointingHandCursor);
 
     this->setStyleSheet("background-color:rgba(255,255,255,0);");
     //this->m_glLab->setStyleSheet("background-color:rgba(255,255,255,0);");
