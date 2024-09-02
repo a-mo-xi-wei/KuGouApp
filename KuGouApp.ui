@@ -611,7 +611,7 @@
          <property name="geometry">
           <rect>
            <x>0</x>
-           <y>0</y>
+           <y>-34</y>
            <width>143</width>
            <height>570</height>
           </rect>
@@ -641,7 +641,7 @@
               <number>3</number>
              </property>
              <item>
-              <widget class="QLabel" name="label_4">
+              <widget class="QLabel" name="menu_find_music_label">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -674,8 +674,11 @@
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
+               <property name="contextMenuPolicy">
+                <enum>Qt::ContextMenuPolicy::DefaultContextMenu</enum>
+               </property>
                <property name="text">
-                <string>为你推荐</string>
+                <string>   为你推荐</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -709,7 +712,7 @@
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="text">
-                <string>乐库</string>
+                <string>   乐库</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -740,7 +743,7 @@
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="text">
-                <string>歌单</string>
+                <string>   歌单</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -771,7 +774,7 @@
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="text">
-                <string>频道</string>
+                <string>   频道</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -802,7 +805,7 @@
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="text">
-                <string>视频</string>
+                <string>   视频</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -833,7 +836,7 @@
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="text">
-                <string>直播</string>
+                <string>   直播</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -882,7 +885,7 @@
               <number>3</number>
              </property>
              <item>
-              <widget class="QLabel" name="label_5">
+              <widget class="QLabel" name="menu_myMusic_label">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -916,7 +919,7 @@
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="text">
-                <string>我的收藏</string>
+                <string>   我的收藏</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -947,7 +950,7 @@
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="text">
-                <string>我的频道</string>
+                <string>   我的频道</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -978,7 +981,7 @@
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="text">
-                <string>本地与下载</string>
+                <string>   本地与下载</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -1009,7 +1012,7 @@
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="text">
-                <string>音乐云盘</string>
+                <string>   音乐云盘</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -1040,7 +1043,7 @@
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="text">
-                <string>已购音乐</string>
+                <string>   已购音乐</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -1071,7 +1074,7 @@
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="text">
-                <string>最近播放</string>
+                <string>   最近播放</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -1102,7 +1105,7 @@
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="text">
-                <string>默认列表</string>
+                <string>   默认列表</string>
                </property>
                <property name="iconSize">
                 <size>
