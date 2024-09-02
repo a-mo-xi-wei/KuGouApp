@@ -279,6 +279,9 @@
           <height>25</height>
          </size>
         </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="toolTip">
          <string>听歌识曲</string>
         </property>
@@ -396,6 +399,9 @@
       </item>
       <item>
        <widget class="QToolButton" name="theme_toolButton">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="toolTip">
          <string>主题</string>
         </property>
@@ -406,6 +412,9 @@
       </item>
       <item>
        <widget class="QToolButton" name="message_toolButton">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="toolTip">
          <string>消息</string>
         </property>
@@ -416,6 +425,9 @@
       </item>
       <item>
        <widget class="QToolButton" name="menu_toolButton">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="toolTip">
          <string>菜单</string>
         </property>
@@ -469,6 +481,9 @@
       </item>
       <item>
        <widget class="QToolButton" name="min_toolButton">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="toolTip">
          <string>最小化</string>
         </property>
@@ -485,6 +500,9 @@
       </item>
       <item>
        <widget class="QToolButton" name="max_toolButton">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="toolTip">
          <string>最大化</string>
         </property>
@@ -501,6 +519,9 @@
       </item>
       <item>
        <widget class="QToolButton" name="close_toolButton">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="toolTip">
          <string>关闭</string>
         </property>
