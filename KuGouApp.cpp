@@ -174,6 +174,10 @@ void KuGouApp::initPlayWidget()
     ui->ci_toolButton->setIcon(QIcon(":/image/playbar/song-words.svg"));
     ui->list_toolButton->setIcon(QIcon(":/image/playbar/play-list.svg"));
     
+    ui->cover_label->setObjectName("coverLab");
+    ui->cover_label->setStyleSheet(R"(QLabel{border-image:url(':/image/playbar/default-cover-gray.svg');}
+                                    QLabel:hover{border-image:url(':/image/playbar/default-cover-blue.svg');})");
+
 }
 
 void KuGouApp::initMenu()
