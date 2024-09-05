@@ -26,7 +26,7 @@ KuGouApp::KuGouApp(QWidget *parent)
     ,m_menuBtnGroup(std::make_unique<QButtonGroup>())
 {
     ui->setupUi(this);
-    QFile file(":/style.css");
+    QFile file("://Res/style.css");
     if (file.open(QIODevice::ReadOnly)) {
         this->setStyleSheet(file.readAll());
     }
@@ -87,7 +87,7 @@ void KuGouApp::on_title_found_pushButton_clicked()
 
 void KuGouApp::initUi()
 {
-    this->setWindowIcon(QIcon(":/image/window/windowIcon.svg"));
+    this->setWindowIcon(QIcon("://Res/window/windowIcon.svg"));
     //去掉标题栏
     setWindowFlags(Qt::FramelessWindowHint);
     move(200, 200);
@@ -121,32 +121,32 @@ QPixmap roundedPixmap(const QPixmap& src, QSize size, int radius) {
 
 void KuGouApp::initTitleWidget()
 {
-    ui->index_label1->setPixmap(QPixmap(":/image/titlebar/h-line.png").scaled(30,15,Qt::KeepAspectRatio));
-    ui->index_label2->setPixmap(QPixmap(":/image/titlebar/h-line.png").scaled(30,15,Qt::KeepAspectRatio));
-    ui->index_label3->setPixmap(QPixmap(":/image/titlebar/h-line.png").scaled(30,15,Qt::KeepAspectRatio));
-    ui->index_label4->setPixmap(QPixmap(":/image/titlebar/h-line.png").scaled(30,15,Qt::KeepAspectRatio));
+    ui->index_label1->setPixmap(QPixmap("://Res/titlebar/h-line.png").scaled(30,15,Qt::KeepAspectRatio));
+    ui->index_label2->setPixmap(QPixmap("://Res/titlebar/h-line.png").scaled(30,15,Qt::KeepAspectRatio));
+    ui->index_label3->setPixmap(QPixmap("://Res/titlebar/h-line.png").scaled(30,15,Qt::KeepAspectRatio));
+    ui->index_label4->setPixmap(QPixmap("://Res/titlebar/h-line.png").scaled(30,15,Qt::KeepAspectRatio));
     ui->index_label2->hide();
     ui->index_label3->hide();
     ui->index_label4->hide();
 
-    ui->search_lineEdit->addAction(QIcon(":/image/titlebar/search-black.svg"), QLineEdit::LeadingPosition);
+    ui->search_lineEdit->addAction(QIcon("://Res/titlebar/search-black.svg"), QLineEdit::LeadingPosition);
     //除非自定义QToolButton否则达不到CSS中border-image的效果
-    //ui->listen_toolButton->setIcon(QIcon(":/image/titlebar/listen-music-black.svg"));
+    //ui->listen_toolButton->setIcon(QIcon("://Res/titlebar/listen-music-black.svg"));
     
-    QPixmap rounded = roundedPixmap(QPixmap(":/image/window/portrait.jpg"), ui->title_portrait_label->size(), 20);  // 设置圆角半径
+    QPixmap rounded = roundedPixmap(QPixmap("://Res/window/portrait.jpg"), ui->title_portrait_label->size(), 20);  // 设置圆角半径
     ui->title_portrait_label->setPixmap(rounded);
 
-    ui->title_gender_label->setPixmap(QPixmap(":/image/window/boy.svg"));
+    ui->title_gender_label->setPixmap(QPixmap("://Res/window/boy.svg"));
 }
 
 void KuGouApp::initPoster()
 {
     QDir dir(__FILE__);
-    if(dir.cdUp())dir.cd("image/poster");
+    if(dir.cdUp())dir.cd("Res/poster");
 
     auto s = dir.entryList(QDir::Files | QDir::NoDotAndDotDot).size();
     for(auto i = 1 ; i <= s ; ++i)
-        ui->advertise_board_widget->addPoster(QPixmap(QString("://image/poster/%1.jpg").arg(i)));
+        ui->advertise_board_widget->addPoster(QPixmap(QString(":///Res/poster/%1.jpg").arg(i)));
 
 }
 
@@ -162,47 +162,47 @@ void KuGouApp::initTabWidget()
 
 void KuGouApp::initPlayWidget()
 {
-    ui->love_toolButton->setIcon(QIcon(":/image/playbar/collect.svg"));
-    ui->download_toolButton->setIcon(QIcon(":/image/playbar/download.svg"));
-    ui->comment_toolButton->setIcon(QIcon(":/image/playbar/comment.svg"));
-    ui->share_toolButton->setIcon(QIcon(":/image/playbar/share.svg"));
-    ui->more_toolButton->setIcon(QIcon(":/image/playbar/more.svg"));
-    ui->pre_toolButton->setIcon(QIcon(":/image/playbar/previous-song.svg"));
-    ui->play_or_pause_toolButton->setIcon(QIcon(":/image/playbar/play.svg"));
-    ui->next_toolButton->setIcon(QIcon(":/image/playbar/next-song.svg"));
-    ui->erji_toolButton->setIcon(QIcon(":/image/playbar/together.svg"));
-    ui->ci_toolButton->setIcon(QIcon(":/image/playbar/song-words.svg"));
-    ui->list_toolButton->setIcon(QIcon(":/image/playbar/play-list.svg"));
+    ui->love_toolButton->setIcon(QIcon("://Res/playbar/collect.svg"));
+    ui->download_toolButton->setIcon(QIcon("://Res/playbar/download.svg"));
+    ui->comment_toolButton->setIcon(QIcon("://Res/playbar/comment.svg"));
+    ui->share_toolButton->setIcon(QIcon("://Res/playbar/share.svg"));
+    ui->more_toolButton->setIcon(QIcon("://Res/playbar/more.svg"));
+    ui->pre_toolButton->setIcon(QIcon("://Res/playbar/previous-song.svg"));
+    ui->play_or_pause_toolButton->setIcon(QIcon("://Res/playbar/play.svg"));
+    ui->next_toolButton->setIcon(QIcon("://Res/playbar/next-song.svg"));
+    ui->erji_toolButton->setIcon(QIcon("://Res/playbar/together.svg"));
+    ui->ci_toolButton->setIcon(QIcon("://Res/playbar/song-words.svg"));
+    ui->list_toolButton->setIcon(QIcon("://Res/playbar/play-list.svg"));
     
-    //ui->volume_toolButton->setIcon(QIcon(":/image/playbar/volume-on-gray.svg"));
-    //ui->circle_toolButton->setIcon(QIcon(":/image/playbar/list-loop.svg"));
+    //ui->volume_toolButton->setIcon(QIcon("://Res/playbar/volume-on-gray.svg"));
+    //ui->circle_toolButton->setIcon(QIcon("://Res/playbar/list-loop.svg"));
 
-    ui->volume_toolButton->setStyleSheet(R"(QToolButton{border-image:url(':/image/playbar/volume-on-gray.svg');}
-                                            QToolButton:hover{border-image:url(':/image/playbar/volume-on-blue.svg');})");
+    ui->volume_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/volume-on-gray.svg');}
+                                            QToolButton:hover{border-image:url('://Res/playbar/volume-on-blue.svg');})");
 
-    ui->circle_toolButton->setStyleSheet(R"(QToolButton{border-image:url(':/image/playbar/list-loop-gray.svg');}
-                                            QToolButton:hover{border-image:url(':/image/playbar/list-loop-blue.svg');})");
+    ui->circle_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/list-loop-gray.svg');}
+                                            QToolButton:hover{border-image:url('://Res/playbar/list-loop-blue.svg');})");
 
-    ui->cover_label->setStyleSheet(R"(QLabel{border-image:url(':/image/playbar/default-cover-gray.svg');}
-                                    QLabel:hover{border-image:url(':/image/playbar/default-cover-blue.svg');})");
+    ui->cover_label->setStyleSheet(R"(QLabel{border-image:url('://Res/playbar/default-cover-gray.svg');}
+                                    QLabel:hover{border-image:url('://Res/playbar/default-cover-blue.svg');})");
 
 }
 
 void KuGouApp::initMenu()
 {
-    ui->basic_toolButton->setIcon(QIcon(":/image/window/recommend.svg"));
-    ui->yueku_toolButton->setIcon(QIcon(":/image/window/music-library.svg"));
-    ui->gedan_toolButton->setIcon(QIcon(":/image/window/song-list.svg"));
-    ui->pindao_toolButton->setIcon(QIcon(":/image/window/my-channel.svg"));
-    ui->video_toolButton->setIcon(QIcon(":/image/window/video.svg"));
-    ui->live_toolButton->setIcon(QIcon(":/image/window/live.svg"));
-    ui->my_shoucang_toolButton->setIcon(QIcon(":/image/window/collect.svg"));
-    ui->my_pindao_toolButton->setIcon(QIcon(":/image/window/my-channel.svg"));
-    ui->local_download_toolButton->setIcon(QIcon(":/image/window/download.svg"));
-    ui->music_yunpan_toolButton->setIcon(QIcon(":/image/window/cloud.svg"));
-    ui->yigou_yunpan_toolButton->setIcon(QIcon(":/image/window/bought.svg"));
-    ui->zuijin_bofang_toolButton->setIcon(QIcon(":/image/window/history.svg"));
-    ui->moren_liebiao_toolButton->setIcon(QIcon(":/image/titlebar/menu-black.svg"));
+    ui->basic_toolButton->setIcon(QIcon("://Res/window/recommend.svg"));
+    ui->yueku_toolButton->setIcon(QIcon("://Res/window/music-library.svg"));
+    ui->gedan_toolButton->setIcon(QIcon("://Res/window/song-list.svg"));
+    ui->pindao_toolButton->setIcon(QIcon("://Res/window/my-channel.svg"));
+    ui->video_toolButton->setIcon(QIcon("://Res/window/video.svg"));
+    ui->live_toolButton->setIcon(QIcon("://Res/window/live.svg"));
+    ui->my_shoucang_toolButton->setIcon(QIcon("://Res/window/collect.svg"));
+    ui->my_pindao_toolButton->setIcon(QIcon("://Res/window/my-channel.svg"));
+    ui->local_download_toolButton->setIcon(QIcon("://Res/window/download.svg"));
+    ui->music_yunpan_toolButton->setIcon(QIcon("://Res/window/cloud.svg"));
+    ui->yigou_yunpan_toolButton->setIcon(QIcon("://Res/window/bought.svg"));
+    ui->zuijin_bofang_toolButton->setIcon(QIcon("://Res/window/history.svg"));
+    ui->moren_liebiao_toolButton->setIcon(QIcon("://Res/titlebar/menu-black.svg"));
 
     m_menuBtnGroup->addButton(ui->basic_toolButton);
     m_menuBtnGroup->addButton(ui->yueku_toolButton);
@@ -222,23 +222,23 @@ void KuGouApp::initMenu()
 
 void KuGouApp::initLocalDownload()
 {
-    ui->local_play_toolButton->setIcon(QIcon(":/image/tabIcon/play3-white.svg"));
-    ui->batch_operation_toolButton->setIcon(QIcon(":/image/tabIcon/batch-operation-gray.svg"));
-    ui->local_add_toolButton->setIcon(QIcon(":/image/tabIcon/add-gray.svg"));
-    ui->upload_toolButton->setIcon(QIcon(":/image/tabIcon/upload-cloud-white.svg"));
-    ui->search_toolButton->setIcon(QIcon(":/image/titlebar/search-black.svg"));
-    ui->sort_toolButton->setIcon(QIcon(":/image/tabIcon/sort-gray.svg"));
-    ui->local_list_toolButton->setIcon(QIcon(":image/titlebar/menu-black.svg"));
-    ui->local_zhuanji_toolButton->setIcon(QIcon(":/image/window/music-library.svg"));
-    ui->local_singer_toolButton->setIcon(QIcon(":/image/window/ai.svg"));
-    ui->local_file_toolButton->setIcon(QIcon(":/image/window/file.svg"));
+    ui->local_play_toolButton->setIcon(QIcon("://Res/tabIcon/play3-white.svg"));
+    ui->batch_operation_toolButton->setIcon(QIcon("://Res/tabIcon/batch-operation-gray.svg"));
+    ui->local_add_toolButton->setIcon(QIcon("://Res/tabIcon/add-gray.svg"));
+    ui->upload_toolButton->setIcon(QIcon("://Res/tabIcon/upload-cloud-white.svg"));
+    ui->search_toolButton->setIcon(QIcon("://Res/titlebar/search-black.svg"));
+    ui->sort_toolButton->setIcon(QIcon("://Res/tabIcon/sort-gray.svg"));
+    ui->local_list_toolButton->setIcon(QIcon("://Res/titlebar/menu-black.svg"));
+    ui->local_zhuanji_toolButton->setIcon(QIcon("://Res/window/music-library.svg"));
+    ui->local_singer_toolButton->setIcon(QIcon("://Res/window/ai.svg"));
+    ui->local_file_toolButton->setIcon(QIcon("://Res/window/file.svg"));
 
 }
 
 void KuGouApp::mousePressEvent(QMouseEvent *ev)
 {
     QWidget::mousePressEvent(ev);
-    if (ev->button() == Qt::LeftButton /*&& ( ui->title_widget->geometry().contains(ev->pos()) ||  ui->play_widget->geometry().contains(ev->pos()))*/) {
+    if (ev->button() == Qt::LeftButton) {
         // 如果是鼠标左键
         // 获取当前窗口位置,以窗口左上角
         windowsLastPs = pos();
@@ -427,11 +427,11 @@ void KuGouApp::on_play_or_pause_toolButton_clicked()
     this->m_isPlaying = !this->m_isPlaying;
     if(this->m_isPlaying){
         this->m_player->play();
-        ui->play_or_pause_toolButton->setIcon(QIcon("://image/playbar/pause.svg"));
+        ui->play_or_pause_toolButton->setIcon(QIcon(":///Res/playbar/pause.svg"));
     }
     else {
         this->m_player->pause();
-        ui->play_or_pause_toolButton->setIcon(QIcon("://image/playbar/play.svg"));
+        ui->play_or_pause_toolButton->setIcon(QIcon(":///Res/playbar/play.svg"));
     }
 
 }
@@ -475,13 +475,13 @@ void KuGouApp::on_circle_toolButton_clicked()
 {
     isSingelCircle = !isSingelCircle;
     if(isSingelCircle){
-        ui->circle_toolButton->setStyleSheet(R"(QToolButton{border-image:url(':/image/playbar/single-list-loop-gray.svg');}
-                                            QToolButton:hover{border-image:url(':/image/playbar/single-list-loop-blue.svg');})");
+        ui->circle_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/single-list-loop-gray.svg');}
+                                            QToolButton:hover{border-image:url('://Res/playbar/single-list-loop-blue.svg');})");
 
     }
     else{
-        ui->circle_toolButton->setStyleSheet(R"(QToolButton{border-image:url(':/image/playbar/list-loop-gray.svg');}
-                                            QToolButton:hover{border-image:url(':/image/playbar/list-loop-blue.svg');})");
+        ui->circle_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/list-loop-gray.svg');}
+                                            QToolButton:hover{border-image:url('://Res/playbar/list-loop-blue.svg');})");
     }
 }
 
@@ -489,12 +489,12 @@ void KuGouApp::on_volume_toolButton_clicked()
 {
     isNoVolume = !isNoVolume;
     if(isNoVolume){
-        ui->volume_toolButton->setStyleSheet(R"(QToolButton{border-image:url(':/image/playbar/volume-off-gray.svg');}
-                                            QToolButton:hover{border-image:url(':/image/playbar/volume-off-blue.svg');})");
+        ui->volume_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/volume-off-gray.svg');}
+                                            QToolButton:hover{border-image:url('://Res/playbar/volume-off-blue.svg');})");
 
     }
     else{
-        ui->volume_toolButton->setStyleSheet(R"(QToolButton{border-image:url(':/image/playbar/volume-on-gray.svg');}
-                                            QToolButton:hover{border-image:url(':/image/playbar/volume-on-blue.svg');})");
+        ui->volume_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/volume-on-gray.svg');}
+                                            QToolButton:hover{border-image:url('://Res/playbar/volume-on-blue.svg');})");
     }
 }

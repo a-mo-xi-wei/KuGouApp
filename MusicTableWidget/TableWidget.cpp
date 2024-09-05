@@ -59,17 +59,17 @@ void TableWidget::initUi()
     this->m_more_Lab->setObjectName("more_ToolBtn");
     this->m_tabWidget->setObjectName("tabWidget");
 
-    //this->m_play_ToolBtn->setIcon(QIcon("://image/tabIcon/play2-gray.svg"));
-    this->m_adjust_ToolBtn->setIcon(QIcon("://image/tabIcon/adjust-column-gray.svg"));
-    this->m_refresh_ToolBtn->setIcon(QIcon("://image/tabIcon/refresh-gray.svg"));
+    //this->m_play_ToolBtn->setIcon(QIcon(":///Res/tabIcon/play2-gray.svg"));
+    this->m_adjust_ToolBtn->setIcon(QIcon(":///Res/tabIcon/adjust-column-gray.svg"));
+    this->m_refresh_ToolBtn->setIcon(QIcon(":///Res/tabIcon/refresh-gray.svg"));
     this->m_more_Lab->setStyleSheet("color:gray;font-size:12px;padding-bottom: 3px;");
 
     this->m_play_ToolBtn->setIconSize(QSize(20, 20));
 
     this->setStyleSheet(R"(QLabel#titleLab{font-size:20px;}
                            QToolButton{background-color:rgba(255,255,255,0);}
-                           QToolButton#play_ToolBtn{border-image: url('://image/tabIcon/play2-gray.svg');}
-                           QToolButton#play_ToolBtn:hover{border-image: url('://image/tabIcon/play2-blue.svg');}
+                           QToolButton#play_ToolBtn{border-image: url(':///Res/tabIcon/play2-gray.svg');}
+                           QToolButton#play_ToolBtn:hover{border-image: url(':///Res/tabIcon/play2-blue.svg');}
                          
 
 )");
@@ -84,7 +84,7 @@ void TableWidget::initUi()
     QGridLayout* glayout = new QGridLayout(this->m_tabWidget);
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
-            auto item = new ItemListWidget(QPixmap("://image/tabIcon/music-cover.jpg"),"歌曲名字","作者",this->m_tabWidget);
+            auto item = new ItemListWidget(QPixmap(":///Res/tabIcon/music-cover.jpg"),"歌曲名字","作者",this->m_tabWidget);
             glayout->addWidget(item,i,j);
         }
     }
@@ -165,12 +165,12 @@ void ItemListWidget::initUi()
     this->m_more_ToolBtn->setIcon(QIcon(""));
 
     
-    this->m_play_add_ToolBtn->setStyleSheet(R"(QToolButton#play_add_ToolBtn{border-image: url('://image/tabIcon/play-add-gray.svg');}
-                                               QToolButton#play_add_ToolBtn:hover{border-image: url('://image/tabIcon/play-add-blue.svg');})");
-    this->m_like_ToolBtn->setStyleSheet(R"(QToolButton#like_ToolBtn{border-image: url('://image/playbar/collect.svg')}
-                                           QToolButton#like_ToolBtn:hover{border-image: url('://image/tabIcon/collect-blue.svg');})");
-    this->m_more_ToolBtn->setStyleSheet(R"(QToolButton#more_ToolBtn{border-image: url('://image/playbar/more.svg');}
-                                           QToolButton#more_ToolBtn:hover{border-image: url('://image/playbar/more-blue.svg');})");
+    this->m_play_add_ToolBtn->setStyleSheet(R"(QToolButton#play_add_ToolBtn{border-image: url(':///Res/tabIcon/play-add-gray.svg');}
+                                               QToolButton#play_add_ToolBtn:hover{border-image: url(':///Res/tabIcon/play-add-blue.svg');})");
+    this->m_like_ToolBtn->setStyleSheet(R"(QToolButton#like_ToolBtn{border-image: url(':///Res/playbar/collect.svg')}
+                                           QToolButton#like_ToolBtn:hover{border-image: url(':///Res/tabIcon/collect-blue.svg');})");
+    this->m_more_ToolBtn->setStyleSheet(R"(QToolButton#more_ToolBtn{border-image: url(':///Res/playbar/more.svg');}
+                                           QToolButton#more_ToolBtn:hover{border-image: url(':///Res/playbar/more-blue.svg');})");
 
     QVBoxLayout* vlayout = new QVBoxLayout;
     vlayout->addWidget(this->m_nameLab);

@@ -31,62 +31,62 @@ QLineEdit#search_lineEdit:hover {
     background-color: #C0C0C0;
 }
 QToolButton#listen_toolButton {
-    border-image: url(":/image/titlebar/listen-music-black.svg");
+    border-image: url("://Res/titlebar/listen-music-black.svg");
     border-radius: 10px;
     background-color: #e7e7e7;
 }
 QToolButton#listen_toolButton:hover {
-    border-image: url(":/image/titlebar/listen-music-blue.svg");
+    border-image: url("://Res/titlebar/listen-music-blue.svg");
     border-radius: 10px;
     background-color: #e7e7e7;
 }
 
 QToolButton#theme_toolButton {
     background-color: rgba(255,255,255,0);
-    border-image: url(":/image/titlebar/theme-black.svg");
+    border-image: url("://Res/titlebar/theme-black.svg");
 }
 QToolButton#theme_toolButton:hover {
-    border-image: url(":/image/titlebar/theme-blue.svg");
+    border-image: url(":://Res/titlebar/theme-blue.svg");
 }
 
 QToolButton#message_toolButton {
     background-color: rgba(255,255,255,0);
-    border-image: url(":/image/titlebar/message-black.svg");
+    border-image: url("://Res/titlebar/message-black.svg");
 }
 QToolButton#message_toolButton:hover {
-    border-image: url(":/image/titlebar/message-blue.svg");
+    border-image: url("://Res/titlebar/message-blue.svg");
 }
 
 QToolButton#menu_toolButton {
     background-color: rgba(255,255,255,0);
-    border-image: url(":/image/titlebar/menu-black.svg");
+    border-image: url("://Res/titlebar/menu-black.svg");
 }
 QToolButton#menu_toolButton:hover {
-    border-image: url(":/image/titlebar/menu-blue.svg");
+    border-image: url("://Res/titlebar/menu-blue.svg");
 }
 
 QToolButton#min_toolButton {
     background-color: rgba(255,255,255,0);
-    border-image: url(":/image/titlebar/minimize-black.svg");
+    border-image: url("://Res/titlebar/minimize-black.svg");
 }
 QToolButton#min_toolButton:hover {
-    border-image: url(":/image/titlebar/minimize-blue.svg");
+    border-image: url("://Res/titlebar/minimize-blue.svg");
 }
 
 QToolButton#max_toolButton {
     background-color: rgba(255,255,255,0);
-    border-image: url(":/image/titlebar/maximize-black.svg");
+    border-image: url("://Res/titlebar/maximize-black.svg");
 }
 QToolButton#max_toolButton:hover {
-    border-image: url(":/image/titlebar/maximize-blue.svg");
+    border-image: url("://Res/titlebar/maximize-blue.svg");
 }
 
 QToolButton#close_toolButton {
     background-color: rgba(255,255,255,0);
-    border-image: url(":/image/titlebar/close-black.svg");
+    border-image: url("://Res/titlebar/close-black.svg");
 }
 QToolButton#close_toolButton:hover {
-    border-image: url(":/image/titlebar/close-blue.svg");
+    border-image: url("://Res/titlebar/close-blue.svg");
 }
 
 /*--------------------menu_scrollArea------------------------------*/
@@ -168,7 +168,7 @@ QWidget#play_widget .QPushButton:checked {
 /*--------------------guss_love_widget------------------------------*/
 
 GLTabWidget#guss_love_widget {
-    border-image: url(":/image/tabIcon/cover.png");
+    border-image: url("://Res/tabIcon/cover.png");
     border-radius:10px;
     border:none;
 }
@@ -177,28 +177,28 @@ GLTabWidget#guss_love_widget .QLabel {
     color: white;
 }
 GLTabWidget#guss_love_widget .QToolButton#playToolBtn {
-    border-image: url(":/image/tabIcon/play-white.svg");
+    border-image: url("://Res/tabIcon/play-white.svg");
 }
 GLTabWidget#guss_love_widget .QToolButton#playToolBtn:hover {
-    border-image: url(":/image/tabIcon/play-blue.svg");
+    border-image: url("://Res/tabIcon/play-blue.svg");
 }
 GLTabWidget#guss_love_widget .QToolButton#nextToolBtn {
-    border-image: url(":/image/tabIcon/next-song-white.svg");
+    border-image: url("://Res/tabIcon/next-song-white.svg");
 }
 GLTabWidget#guss_love_widget .QToolButton#nextToolBtn:hover {
-    border-image: url(":/image/tabIcon/next-song-blue.svg");
+    border-image: url("://Res/tabIcon/next-song-blue.svg");
 }
 GLTabWidget#guss_love_widget .QToolButton#likeToolBtn {
-    border-image: url(":/image/tabIcon/like-white.svg");
+    border-image: url("://Res/tabIcon/like-white.svg");
 }
 GLTabWidget#guss_love_widget .QToolButton#likeToolBtn:hover {
-    border-image: url(":/image/tabIcon/like-blue.svg");
+    border-image: url("://Res/tabIcon/like-blue.svg");
 }
 GLTabWidget#guss_love_widget .QToolButton#dislikeToolBtn {
-    border-image: url(":/image/tabIcon/dislike-white.svg");
+    border-image: url("://Res/tabIcon/dislike-white.svg");
 }
 GLTabWidget#guss_love_widget .QToolButton#dislikeToolBtn:hover {
-    border-image: url(":/image/tabIcon/dislike-blue.svg");
+    border-image: url("://Res/tabIcon/dislike-blue.svg");
 }
 
 /*--------------------QSlider------------------------------*/

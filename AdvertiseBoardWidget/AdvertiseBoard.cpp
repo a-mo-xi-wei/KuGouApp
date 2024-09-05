@@ -22,8 +22,8 @@ AdvertiseBoard::AdvertiseBoard(QWidget *parent)
     this->m_leftLab->setObjectName("leftLab");
     this->m_rightLab->setObjectName("rightLab");
 
-    this->m_leftLab->setPixmap(QPixmap(":/image/window/left.svg"));
-    this->m_rightLab->setPixmap(QPixmap(":/image/window/right.svg"));
+    this->m_leftLab->setPixmap(QPixmap("://Res/window/left.svg"));
+    this->m_rightLab->setPixmap(QPixmap("://Res/window/right.svg"));
 
     this->m_leftLab->hide();
     this->m_rightLab->hide();

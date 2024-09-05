@@ -611,7 +611,7 @@
          <property name="geometry">
           <rect>
            <x>0</x>
-           <y>-34</y>
+           <y>0</y>
            <width>143</width>
            <height>570</height>
           </rect>
@@ -1158,7 +1158,7 @@
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="main_page">
              <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -2393,15 +2393,15 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>GLTabWidget</class>
-   <extends>QWidget</extends>
-   <header>GLTabWidget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>AdvertiseBoard</class>
    <extends>QWidget</extends>
    <header>AdvertiseBoard.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>GLTabWidget</class>
+   <extends>QWidget</extends>
+   <header>GLTabWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
