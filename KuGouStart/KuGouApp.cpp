@@ -128,6 +128,13 @@ void KuGouApp::initTitleWidget()
     ui->index_label2->hide();
     ui->index_label3->hide();
     ui->index_label4->hide();
+    ui->idx1_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
+    ui->idx2_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
+    ui->idx3_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
+    ui->idx4_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
+    ui->idx2_lab->hide();
+    ui->idx3_lab->hide();
+    ui->idx4_lab->hide();
 
     ui->search_lineEdit->addAction(QIcon("://Res/titlebar/search-black.svg"), QLineEdit::LeadingPosition);
     //除非自定义QToolButton否则达不到CSS中border-image的效果
@@ -223,7 +230,6 @@ void KuGouApp::initMenu()
 void KuGouApp::initLocalDownload()
 {
     ui->local_play_toolButton->setIcon(QIcon("://Res/tabIcon/play3-white.svg"));
-    ui->batch_operation_toolButton->setIcon(QIcon("://Res/tabIcon/batch-operation-gray.svg"));
     ui->local_add_toolButton->setIcon(QIcon("://Res/tabIcon/add-gray.svg"));
     ui->upload_toolButton->setIcon(QIcon("://Res/tabIcon/upload-cloud-white.svg"));
     ui->search_toolButton->setIcon(QIcon("://Res/titlebar/search-black.svg"));
