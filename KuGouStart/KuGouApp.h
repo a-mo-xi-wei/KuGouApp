@@ -92,6 +92,14 @@ private slots:
 
     void on_volume_toolButton_clicked();
 
+    void on_local_music_pushButton_clicked();
+
+    void on_downloaded_music_pushButton_clicked();
+
+    void on_downloaded_video_pushButton_clicked();
+
+    void on_downloading_pushButton_clicked();
+
 public slots:
     void setPlayMusic(const QUrl& url);
     void updateSliderPosition(qint64 position);

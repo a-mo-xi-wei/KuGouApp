@@ -1465,55 +1465,94 @@
               </item>
               <item>
                <widget class="QWidget" name="guide_widget" native="true">
-                <layout class="QHBoxLayout" name="horizontalLayout_7">
+                <layout class="QHBoxLayout" name="horizontalLayout_12">
                  <item>
                   <layout class="QVBoxLayout" name="verticalLayout_11">
                    <property name="spacing">
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="QPushButton" name="local_music_pushButton">
+                    <layout class="QHBoxLayout" name="horizontalLayout_7">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QPushButton" name="local_music_pushButton">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>75</width>
+                         <height>18</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>黑体</family>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>本地歌曲</string>
+                       </property>
+                       <property name="checkable">
+                        <bool>true</bool>
+                       </property>
+                       <property name="checked">
+                        <bool>true</bool>
+                       </property>
+                       <property name="autoExclusive">
+                        <bool>true</bool>
+                       </property>
+                       <property name="flat">
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="local_music_number_label">
+                       <property name="font">
+                        <font>
+                         <pointsize>-1</pointsize>
+                         <bold>true</bold>
+                        </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color:#26a1ff;font-size:16px;font-weight:bold;</string>
+                       </property>
+                       <property name="text">
+                        <string>0</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="idx1_lab">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                        <horstretch>0</horstretch>
                        <verstretch>0</verstretch>
                       </sizepolicy>
                      </property>
-                     <property name="minimumSize">
+                     <property name="maximumSize">
                       <size>
-                       <width>90</width>
-                       <height>40</height>
+                       <width>16777215</width>
+                       <height>12</height>
                       </size>
                      </property>
-                     <property name="font">
-                      <font>
-                       <family>黑体</family>
-                      </font>
+                     <property name="styleSheet">
+                      <string notr="true">padding-top:0px;
+margin-top:0px;</string>
                      </property>
-                     <property name="text">
-                      <string>本地歌曲</string>
-                     </property>
-                     <property name="checkable">
-                      <bool>true</bool>
-                     </property>
-                     <property name="checked">
-                      <bool>true</bool>
-                     </property>
-                     <property name="autoExclusive">
-                      <bool>true</bool>
-                     </property>
-                     <property name="flat">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="idx1_lab">
                      <property name="text">
                       <string/>
                      </property>
                      <property name="scaledContents">
-                      <bool>true</bool>
+                      <bool>false</bool>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -1521,18 +1560,6 @@
                     </widget>
                    </item>
                   </layout>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="local_music_number_label">
-                   <property name="font">
-                    <font>
-                     <pointsize>15</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>0</string>
-                   </property>
-                  </widget>
                  </item>
                  <item>
                   <spacer name="hs13">
@@ -1556,132 +1583,78 @@
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="QPushButton" name="downloaded_music_pushButton">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
+                    <layout class="QHBoxLayout" name="horizontalLayout_8">
+                     <property name="spacing">
+                      <number>0</number>
                      </property>
-                     <property name="minimumSize">
-                      <size>
-                       <width>90</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <family>黑体</family>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>下载歌曲</string>
-                     </property>
-                     <property name="checkable">
-                      <bool>true</bool>
-                     </property>
-                     <property name="checked">
-                      <bool>false</bool>
-                     </property>
-                     <property name="autoExclusive">
-                      <bool>true</bool>
-                     </property>
-                     <property name="flat">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
+                     <item>
+                      <widget class="QPushButton" name="downloaded_music_pushButton">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>75</width>
+                         <height>18</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>黑体</family>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>下载歌曲</string>
+                       </property>
+                       <property name="checkable">
+                        <bool>true</bool>
+                       </property>
+                       <property name="checked">
+                        <bool>false</bool>
+                       </property>
+                       <property name="autoExclusive">
+                        <bool>true</bool>
+                       </property>
+                       <property name="flat">
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="downloaded_music_number_label">
+                       <property name="text">
+                        <string>0</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
                    </item>
                    <item>
                     <widget class="QLabel" name="idx2_lab">
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="scaledContents">
-                      <bool>true</bool>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignmentFlag::AlignCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="downloaded_music_number_label">
-                   <property name="font">
-                    <font>
-                     <pointsize>15</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>0</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="hs14">
-                   <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
-                   </property>
-                   <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Fixed</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item>
-                  <layout class="QVBoxLayout" name="verticalLayout_13">
-                   <property name="spacing">
-                    <number>0</number>
-                   </property>
-                   <item>
-                    <widget class="QPushButton" name="downloaded_video_pushButton">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                        <horstretch>0</horstretch>
                        <verstretch>0</verstretch>
                       </sizepolicy>
                      </property>
-                     <property name="minimumSize">
+                     <property name="maximumSize">
                       <size>
-                       <width>90</width>
-                       <height>40</height>
+                       <width>16777215</width>
+                       <height>15</height>
                       </size>
                      </property>
-                     <property name="font">
-                      <font>
-                       <family>黑体</family>
-                      </font>
+                     <property name="styleSheet">
+                      <string notr="true">padding-top:0px;
+margin-top:0px;</string>
                      </property>
-                     <property name="text">
-                      <string>下载视频</string>
-                     </property>
-                     <property name="checkable">
-                      <bool>true</bool>
-                     </property>
-                     <property name="checked">
-                      <bool>false</bool>
-                     </property>
-                     <property name="autoExclusive">
-                      <bool>true</bool>
-                     </property>
-                     <property name="flat">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="idx3_lab">
                      <property name="text">
                       <string/>
                      </property>
                      <property name="scaledContents">
-                      <bool>true</bool>
+                      <bool>false</bool>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -1691,19 +1664,7 @@
                   </layout>
                  </item>
                  <item>
-                  <widget class="QLabel" name="downloaded_video_number_label">
-                   <property name="font">
-                    <font>
-                     <pointsize>15</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>0</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="hs15">
+                  <spacer name="hs14">
                    <property name="orientation">
                     <enum>Qt::Orientation::Horizontal</enum>
                    </property>
@@ -1724,48 +1685,78 @@
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="QPushButton" name="downloading_pushButton">
+                    <layout class="QHBoxLayout" name="horizontalLayout_10">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QPushButton" name="downloaded_video_pushButton">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>75</width>
+                         <height>18</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>黑体</family>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>下载视频</string>
+                       </property>
+                       <property name="checkable">
+                        <bool>true</bool>
+                       </property>
+                       <property name="checked">
+                        <bool>false</bool>
+                       </property>
+                       <property name="autoExclusive">
+                        <bool>true</bool>
+                       </property>
+                       <property name="flat">
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="downloaded_video_number_label">
+                       <property name="text">
+                        <string>0</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="idx3_lab">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                        <horstretch>0</horstretch>
                        <verstretch>0</verstretch>
                       </sizepolicy>
                      </property>
-                     <property name="minimumSize">
+                     <property name="maximumSize">
                       <size>
-                       <width>90</width>
-                       <height>40</height>
+                       <width>16777215</width>
+                       <height>15</height>
                       </size>
                      </property>
-                     <property name="font">
-                      <font>
-                       <family>黑体</family>
-                      </font>
+                     <property name="styleSheet">
+                      <string notr="true">padding-top:0px;
+margin-top:0px;</string>
                      </property>
-                     <property name="text">
-                      <string>正在下载</string>
-                     </property>
-                     <property name="checkable">
-                      <bool>true</bool>
-                     </property>
-                     <property name="checked">
-                      <bool>false</bool>
-                     </property>
-                     <property name="autoExclusive">
-                      <bool>true</bool>
-                     </property>
-                     <property name="flat">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="idx4_lab">
                      <property name="text">
                       <string/>
                      </property>
                      <property name="scaledContents">
-                      <bool>true</bool>
+                      <bool>false</bool>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -1775,16 +1766,106 @@
                   </layout>
                  </item>
                  <item>
-                  <widget class="QLabel" name="downloading_number_label">
-                   <property name="font">
-                    <font>
-                     <pointsize>15</pointsize>
-                    </font>
+                  <spacer name="hs15">
+                   <property name="orientation">
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
-                   <property name="text">
-                    <string>0</string>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Policy::Fixed</enum>
                    </property>
-                  </widget>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_13">
+                   <property name="spacing">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_11">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QPushButton" name="downloading_pushButton">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>75</width>
+                         <height>18</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>黑体</family>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>正在下载</string>
+                       </property>
+                       <property name="checkable">
+                        <bool>true</bool>
+                       </property>
+                       <property name="checked">
+                        <bool>false</bool>
+                       </property>
+                       <property name="autoExclusive">
+                        <bool>true</bool>
+                       </property>
+                       <property name="flat">
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="downloading_number_label">
+                       <property name="text">
+                        <string>0</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="idx4_lab">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>15</height>
+                      </size>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">padding-top:0px;
+margin-top:0px;</string>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="scaledContents">
+                      <bool>false</bool>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
                  <item>
                   <spacer name="hs12">

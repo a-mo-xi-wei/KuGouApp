@@ -236,6 +236,8 @@ QWidget#guide_widget .QPushButton {
     color:black;
     font-size:14px;
     border: none;
+    padding-bottom:0px;
+    margin-bottom:0px;
 }
 QWidget#guide_widget .QPushButton:checked {
     color:#26a1ff;

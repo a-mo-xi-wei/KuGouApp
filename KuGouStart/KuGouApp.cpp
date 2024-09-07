@@ -504,3 +504,52 @@ void KuGouApp::on_volume_toolButton_clicked()
                                             QToolButton:hover{border-image:url('://Res/playbar/volume-on-blue.svg');})");
     }
 }
+
+void KuGouApp::on_local_music_pushButton_clicked()
+{
+    ui->idx1_lab->show();
+    ui->idx2_lab->hide();
+    ui->idx3_lab->hide();
+    ui->idx4_lab->hide();
+    ui->local_music_number_label->setStyleSheet("color:#26a1ff;font-size:16px;font-weight:bold;");
+    ui->downloaded_music_number_label->setStyleSheet("");
+    ui->downloaded_video_number_label->setStyleSheet("");
+    ui->downloading_number_label->setStyleSheet("");
+}
+
+void KuGouApp::on_downloaded_music_pushButton_clicked()
+{
+    ui->idx1_lab->hide();
+    ui->idx2_lab->show();
+    ui->idx3_lab->hide();
+    ui->idx4_lab->hide();
+    ui->downloaded_music_number_label->setStyleSheet("color:#26a1ff;font-size:16px;font-weight:bold;");
+    ui->local_music_number_label->setStyleSheet("");
+    ui->downloaded_video_number_label->setStyleSheet("");
+    ui->downloading_number_label->setStyleSheet("");
+}
+
+void KuGouApp::on_downloaded_video_pushButton_clicked()
+{
+    ui->idx1_lab->hide();
+    ui->idx2_lab->hide();
+    ui->idx3_lab->show();
+    ui->idx4_lab->hide();
+    ui->downloaded_video_number_label->setStyleSheet("color:#26a1ff;font-size:16px;font-weight:bold;");
+    ui->downloaded_music_number_label->setStyleSheet("");
+    ui->local_music_number_label->setStyleSheet("");
+    ui->downloading_number_label->setStyleSheet("");
+}
+
+void KuGouApp::on_downloading_pushButton_clicked()
+{
+    ui->idx1_lab->hide();
+    ui->idx2_lab->hide();
+    ui->idx3_lab->hide();
+    ui->idx4_lab->show();
+    ui->downloading_number_label->setStyleSheet("color:#26a1ff;font-size:16px;font-weight:bold;");
+    ui->downloaded_music_number_label->setStyleSheet("");
+    ui->downloaded_video_number_label->setStyleSheet("");
+    ui->local_music_number_label->setStyleSheet("");
+}
+
