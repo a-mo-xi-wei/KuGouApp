@@ -113,5 +113,6 @@
         <file>Res/window/video.svg</file>
         <file>Res/window/windowIcon.svg</file>
         <file>Res/style.css</file>
+        <file>Res/window/index_lab.svg</file>
     </qresource>
 </RCC>

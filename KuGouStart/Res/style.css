@@ -227,37 +227,42 @@ QSlider::sub-page:horizontal {
 }
 
 /*--------------------local_download_page------------------------------*/
-
+QLabel#local_download_label {
+    border:none;
+    font-size:25px;
+    font-weight:bold;
+}
 QWidget#guide_widget .QPushButton {
-    background-color:#f7f7f7;
+    color:black;
+    font-size:14px;
     border: none;
-    border-radius:15px;
 }
 QWidget#guide_widget .QPushButton:checked {
-    background-color: #35c1ff;
+    color:#26a1ff;
+    font-size:17px;
+    font-weight:bold;
 }
-    
 QWidget#operation_widget > .QToolButton {
-    background-color: #DDDDDD;
+    background-color: #f3f6fa;
     border: none;
     border-radius: 15px;
     padding-left: 15px;
 }
 QWidget#operation_widget > .QToolButton:hover {
-    background-color: #969696;
+    background-color: #e9eef5;
 }
-
+QWidget#operation_widget QToolButton#local_play_toolButton{
+     background-color:#269dff;
+}
+QWidget#operation_widget QToolButton#local_play_toolButton:hover{
+    background-color:#2085d9;
+}
 QWidget#small_widget{
     border:2px dashed black;
     border-radius:15px;
 }
 QWidget#small_widget > .QToolButton {
-    background-color: #DDDDDD;
-    border: none;
-}
- 
-QWidget#small_widget > .QToolButton {
-    background-color: #DDDDDD;
+    background-color: #f3f6fa;
     border: none;
 }
 QWidget#small_widget#local_list_toolButton {
