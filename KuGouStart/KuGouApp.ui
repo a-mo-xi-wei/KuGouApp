@@ -611,7 +611,7 @@
          <property name="geometry">
           <rect>
            <x>0</x>
-           <y>0</y>
+           <y>-15</y>
            <width>143</width>
            <height>570</height>
           </rect>
@@ -1643,7 +1643,7 @@ margin-top:0px;</string>
                      <property name="maximumSize">
                       <size>
                        <width>16777215</width>
-                       <height>15</height>
+                       <height>12</height>
                       </size>
                      </property>
                      <property name="styleSheet">
@@ -1745,7 +1745,7 @@ margin-top:0px;</string>
                      <property name="maximumSize">
                       <size>
                        <width>16777215</width>
-                       <height>15</height>
+                       <height>12</height>
                       </size>
                      </property>
                      <property name="styleSheet">
@@ -1847,7 +1847,7 @@ margin-top:0px;</string>
                      <property name="maximumSize">
                       <size>
                        <width>16777215</width>
-                       <height>15</height>
+                       <height>12</height>
                       </size>
                      </property>
                      <property name="styleSheet">

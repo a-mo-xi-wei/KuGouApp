@@ -1,0 +1,321 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4,
+						5
+					],
+					"jsonFile" : "directory-.-Release-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "AdvertiseBoardWidget",
+					"jsonFile" : "directory-AdvertiseBoardWidget-Release-992ecd8bccbc62199595.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "AdvertiseBoardWidget",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				},
+				{
+					"build" : "GuessLoveWidget",
+					"jsonFile" : "directory-GuessLoveWidget-Release-56c189573c286d2a28ad.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 2,
+					"source" : "GuessLoveWidget",
+					"targetIndexes" : 
+					[
+						3,
+						4,
+						5
+					]
+				},
+				{
+					"build" : "MusicItemWidget",
+					"jsonFile" : "directory-MusicItemWidget-Release-18a458cbb3d608f0e3cb.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 3,
+					"source" : "MusicItemWidget",
+					"targetIndexes" : 
+					[
+						9,
+						10,
+						11
+					]
+				},
+				{
+					"build" : "MusicTableWidget",
+					"jsonFile" : "directory-MusicTableWidget-Release-7148ce623c5ff8f59e27.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 4,
+					"source" : "MusicTableWidget",
+					"targetIndexes" : 
+					[
+						12,
+						13,
+						14
+					]
+				},
+				{
+					"build" : "KuGouStart",
+					"jsonFile" : "directory-KuGouStart-Release-709c70b8f237cbbaae16.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 5,
+					"source" : "KuGouStart",
+					"targetIndexes" : 
+					[
+						6,
+						7,
+						8
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4,
+						5
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "KuGouApp"
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1
+					],
+					"name" : "AdvertiseBoardWidget",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "GuessLoveWidget",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						3,
+						4,
+						5
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						3
+					],
+					"name" : "MusicItemWidget",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						9,
+						10,
+						11
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						4
+					],
+					"name" : "MusicTableWidget",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						12,
+						13,
+						14
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						5
+					],
+					"name" : "KuGouAppStart",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						6,
+						7,
+						8
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "AdvertiseBoardWidget::@b48ec355b922b22eb369",
+					"jsonFile" : "target-AdvertiseBoardWidget-Release-3e425955bc8da6f45639.json",
+					"name" : "AdvertiseBoardWidget",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "AdvertiseBoardWidget_autogen::@b48ec355b922b22eb369",
+					"jsonFile" : "target-AdvertiseBoardWidget_autogen-Release-2da02cd5991941cf02a1.json",
+					"name" : "AdvertiseBoardWidget_autogen",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "AdvertiseBoardWidget_autogen_timestamp_deps::@b48ec355b922b22eb369",
+					"jsonFile" : "target-AdvertiseBoardWidget_autogen_timestamp_deps-Release-4cf9bc2b480471a8cf11.json",
+					"name" : "AdvertiseBoardWidget_autogen_timestamp_deps",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "GuessLoveWidget::@3c85869d162032726aaa",
+					"jsonFile" : "target-GuessLoveWidget-Release-6107af2999fe3a6d9296.json",
+					"name" : "GuessLoveWidget",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "GuessLoveWidget_autogen::@3c85869d162032726aaa",
+					"jsonFile" : "target-GuessLoveWidget_autogen-Release-c1e4ad917d9cabf888f6.json",
+					"name" : "GuessLoveWidget_autogen",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "GuessLoveWidget_autogen_timestamp_deps::@3c85869d162032726aaa",
+					"jsonFile" : "target-GuessLoveWidget_autogen_timestamp_deps-Release-0b34bf031df43624c595.json",
+					"name" : "GuessLoveWidget_autogen_timestamp_deps",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "KuGouAppStart::@02d0f525dee2d1179f00",
+					"jsonFile" : "target-KuGouAppStart-Release-8f8ee0a951f223dbd691.json",
+					"name" : "KuGouAppStart",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "KuGouAppStart_autogen::@02d0f525dee2d1179f00",
+					"jsonFile" : "target-KuGouAppStart_autogen-Release-c4063894f81f6a19df13.json",
+					"name" : "KuGouAppStart_autogen",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "KuGouAppStart_autogen_timestamp_deps::@02d0f525dee2d1179f00",
+					"jsonFile" : "target-KuGouAppStart_autogen_timestamp_deps-Release-98cd339f4709844340db.json",
+					"name" : "KuGouAppStart_autogen_timestamp_deps",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "MusicItemWidget::@cc3d0e5044df774fd2e2",
+					"jsonFile" : "target-MusicItemWidget-Release-5846b5d913ad15aaf6cc.json",
+					"name" : "MusicItemWidget",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "MusicItemWidget_autogen::@cc3d0e5044df774fd2e2",
+					"jsonFile" : "target-MusicItemWidget_autogen-Release-27f7ca291f8026b3011f.json",
+					"name" : "MusicItemWidget_autogen",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "MusicItemWidget_autogen_timestamp_deps::@cc3d0e5044df774fd2e2",
+					"jsonFile" : "target-MusicItemWidget_autogen_timestamp_deps-Release-668efe922d0dab2d9d55.json",
+					"name" : "MusicItemWidget_autogen_timestamp_deps",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "MusicTableWidget::@465f04b6d88bf5b2e754",
+					"jsonFile" : "target-MusicTableWidget-Release-8effa2a9a8a963233c42.json",
+					"name" : "MusicTableWidget",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "MusicTableWidget_autogen::@465f04b6d88bf5b2e754",
+					"jsonFile" : "target-MusicTableWidget_autogen-Release-2ddbea651c642ef3d9e4.json",
+					"name" : "MusicTableWidget_autogen",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "MusicTableWidget_autogen_timestamp_deps::@465f04b6d88bf5b2e754",
+					"jsonFile" : "target-MusicTableWidget_autogen_timestamp_deps-Release-c01d11afeb403c10d827.json",
+					"name" : "MusicTableWidget_autogen_timestamp_deps",
+					"projectIndex" : 4
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "F:/code_review/Qt-WorkSpace/fight/KuGouApp/build/Desktop_Qt_6_6_2_MinGW_64_bit-Release",
+		"source" : "F:/code_review/Qt-WorkSpace/fight/KuGouApp"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

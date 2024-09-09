@@ -1,0 +1,27 @@
+{
+	"backtrace" : 0,
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : 
+		[
+			"MusicItemWidget/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			}
+		]
+	},
+	"id" : "MusicItemWidget_autogen_timestamp_deps::@cc3d0e5044df774fd2e2",
+	"isGeneratorProvided" : true,
+	"name" : "MusicItemWidget_autogen_timestamp_deps",
+	"paths" : 
+	{
+		"build" : "MusicItemWidget",
+		"source" : "MusicItemWidget"
+	},
+	"sources" : [],
+	"type" : "UTILITY"
+}

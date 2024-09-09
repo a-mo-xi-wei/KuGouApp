@@ -1,0 +1,46 @@
+{
+	"backtrace" : 0,
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : 
+		[
+			"KuGouStart/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 0,
+			"id" : "MusicItemWidget::@cc3d0e5044df774fd2e2"
+		},
+		{
+			"backtrace" : 0,
+			"id" : "AdvertiseBoardWidget::@b48ec355b922b22eb369"
+		},
+		{
+			"backtrace" : 0,
+			"id" : "GuessLoveWidget::@3c85869d162032726aaa"
+		},
+		{
+			"backtrace" : 0,
+			"id" : "MusicTableWidget::@465f04b6d88bf5b2e754"
+		}
+	],
+	"id" : "KuGouAppStart_autogen_timestamp_deps::@02d0f525dee2d1179f00",
+	"isGeneratorProvided" : true,
+	"name" : "KuGouAppStart_autogen_timestamp_deps",
+	"paths" : 
+	{
+		"build" : "KuGouStart",
+		"source" : "KuGouStart"
+	},
+	"sources" : [],
+	"type" : "UTILITY"
+}

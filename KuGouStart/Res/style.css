@@ -236,13 +236,17 @@ QWidget#guide_widget .QPushButton {
     color:black;
     font-size:14px;
     border: none;
-    padding-bottom:0px;
-    margin-bottom:0px;
+    padding: 0px;
+    margin: 0px;
 }
 QWidget#guide_widget .QPushButton:checked {
     color:#26a1ff;
     font-size:17px;
     font-weight:bold;
+}
+QWidget#guide_widget .QLabel {
+    padding-top:0px;
+    margin: 0px;
 }
 QWidget#operation_widget > .QToolButton {
     background-color: #f3f6fa;
