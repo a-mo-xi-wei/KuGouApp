@@ -260,12 +260,16 @@ QWidget#operation_widget QToolButton#local_play_toolButton:hover{
     background-color:#2085d9;
 }
 QWidget#small_widget{
-    border:2px dashed black;
+    border:none;
+    border: 1px solid #C0C0C0;
     border-radius:15px;
 }
+QWidget#small_widget > QFrame{
+    border:none;
+    background-color:#C0C0C0;
+}
 QWidget#small_widget > .QToolButton {
-    background-color: #f3f6fa;
-    border: none;
+    background-color: transparent;
 }
 QWidget#small_widget#local_list_toolButton {
     border-bottom-left-radius:10px;
