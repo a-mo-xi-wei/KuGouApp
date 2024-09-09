@@ -231,7 +231,7 @@ void KuGouApp::initLocalDownload()
 {
     ui->local_play_toolButton->setIcon(QIcon("://Res/tabIcon/play3-white.svg"));
     ui->local_add_toolButton->setIcon(QIcon("://Res/tabIcon/add-gray.svg"));
-    ui->upload_toolButton->setIcon(QIcon("://Res/tabIcon/upload-cloud-white.svg"));
+    ui->upload_toolButton->setIcon(QIcon("://Res/tabIcon/upload-cloud-gray.svg"));
     ui->search_toolButton->setIcon(QIcon("://Res/titlebar/search-black.svg"));
     ui->sort_toolButton->setIcon(QIcon("://Res/tabIcon/sort-gray.svg"));
     ui->local_list_toolButton->setIcon(QIcon("://Res/titlebar/menu-black.svg"));

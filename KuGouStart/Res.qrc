@@ -65,7 +65,6 @@
         <file>Res/tabIcon/refresh-blue.svg</file>
         <file>Res/tabIcon/refresh-gray.svg</file>
         <file>Res/tabIcon/sort-gray.svg</file>
-        <file>Res/tabIcon/upload-cloud-white.svg</file>
         <file>Res/titlebar/close-black.svg</file>
         <file>Res/titlebar/close-blue.svg</file>
         <file>Res/titlebar/h-line.png</file>
@@ -114,5 +113,6 @@
         <file>Res/window/windowIcon.svg</file>
         <file>Res/style.css</file>
         <file>Res/window/index_lab.svg</file>
+        <file>Res/tabIcon/upload-cloud-gray.svg</file>
     </qresource>
 </RCC>
