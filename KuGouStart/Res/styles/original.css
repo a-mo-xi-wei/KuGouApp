@@ -31,14 +31,12 @@ QLineEdit#search_lineEdit:hover {
     background-color: #C0C0C0;
 }
 QToolButton#listen_toolButton {
+    background-color:rgba(255,255,255,0);
     border-image: url("://Res/titlebar/listen-music-black.svg");
     border-radius: 10px;
-    background-color: #e7e7e7;
 }
 QToolButton#listen_toolButton:hover {
     border-image: url("://Res/titlebar/listen-music-blue.svg");
-    border-radius: 10px;
-    background-color: #e7e7e7;
 }
 
 QToolButton#theme_toolButton {
@@ -67,26 +65,42 @@ QToolButton#menu_toolButton:hover {
 
 QToolButton#min_toolButton {
     background-color: rgba(255,255,255,0);
-    border-image: url("://Res/titlebar/minimize-black.svg");
+    qproperty-icon: url("://Res/titlebar/minimize-black.svg");
+    border-radius: 3px;
+    height: 25px;
+    width: 25px;
+    icon-size: 12px 12px;
 }
 QToolButton#min_toolButton:hover {
-    border-image: url("://Res/titlebar/minimize-blue.svg");
+    background-color: #DDDDDD;
+    qproperty-icon: url("://Res/titlebar/minimize-blue.svg");
 }
 
 QToolButton#max_toolButton {
     background-color: rgba(255,255,255,0);
-    border-image: url("://Res/titlebar/maximize-black.svg");
+    qproperty-icon: url("://Res/titlebar/maximize-black.svg");
+    border-radius: 3px;
+    height: 25px;
+    width: 25px;
+    icon-size: 12px 12px;
 }
 QToolButton#max_toolButton:hover {
-    border-image: url("://Res/titlebar/maximize-blue.svg");
+    background-color: #DDDDDD;
+    qproperty-icon: url("://Res/titlebar/maximize-blue.svg");
 }
 
 QToolButton#close_toolButton {
     background-color: rgba(255,255,255,0);
-    border-image: url("://Res/titlebar/close-black.svg");
+    qproperty-icon: url("://Res/titlebar/close-black.svg");
+    border-radius: 3px;
+    height: 25px;
+    width: 25px;
+    icon-size: 12px 12px;
 }
 QToolButton#close_toolButton:hover {
-    border-image: url("://Res/titlebar/close-blue.svg");
+    background-color: #FF0066;
+    qproperty-icon: url("://Res/titlebar/close-blue.svg");
+    icon-size: 12px 12px;
 }
 
 /*--------------------menu_scrollArea------------------------------*/
