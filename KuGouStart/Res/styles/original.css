@@ -1,7 +1,7 @@
 /*--------------------total_widget------------------------------*/
 QWidget {
     /*background-color: #CCFFEE;*/
-    background-color: #ddddee;
+    background-color: #eef2ff;
 }
 /*--------------------title_widget------------------------------*/
 QWidget#title_widget {
@@ -46,7 +46,7 @@ QToolButton#theme_toolButton {
     border-image: url("://Res/titlebar/theme-black.svg");
 }
 QToolButton#theme_toolButton:hover {
-    border-image: url(":://Res/titlebar/theme-blue.svg");
+    border-image: url("://Res/titlebar/theme-blue.svg");
 }
 
 QToolButton#message_toolButton {
