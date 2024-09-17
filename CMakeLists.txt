@@ -16,5 +16,3 @@ add_subdirectory(MusicTableWidget)
 
 #开始模块
 add_subdirectory(KuGouStart)
-
-set(CMAKE_BUILD_PARALLEL_LEVEL 8)  # 或者设置为你机器的核心数
