@@ -4,5 +4,5 @@
 基于QtWidget的高仿酷狗音乐App
 
 #### 图例
-![输入图片说明](example-image.png)
+![输入图片说明](image.png)
 
