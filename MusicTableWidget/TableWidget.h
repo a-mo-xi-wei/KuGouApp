@@ -1,5 +1,5 @@
-#ifndef TABLEWIDGET_H
-#define TABLEWIDGET_H
+#ifndef TABLEWIDGET_H_
+#define TABLEWIDGET_H_
 
 #include <QWidget>
 class QLabel;
@@ -32,7 +32,7 @@ private:
 class ItemListWidget : public QWidget{
     Q_OBJECT
 public:
-    ItemListWidget(const QPixmap& coverPix,const QString& name,const QString& author,QWidget* parent = nullptr);
+    ItemListWidget(QPixmap coverPix,const QString& name,const QString& author,QWidget* parent = nullptr);
 protected:
     void paintEvent(QPaintEvent* ev)override;
     void enterEvent(QEnterEvent* ev)override;
@@ -47,8 +47,9 @@ private:
     QToolButton* m_like_ToolBtn{};
     QToolButton* m_refresh_ToolBtn{};
     QToolButton* m_more_ToolBtn{};
+    bool m_isHoverCoverLab = false;
 };
 
 
 
-#endif // TABLEWIDGET_H
+#endif // TABLEWIDGET_H_

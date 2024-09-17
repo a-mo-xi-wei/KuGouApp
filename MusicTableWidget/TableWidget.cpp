@@ -3,14 +3,12 @@
 #include<QToolButton>
 #include<QPaintEvent>
 #include<QEnterEvent>
-#include<QEvent>
-#include<QVBoxLayout>
-#include<QHBoxLayout>
+#include<QLayout>
 #include<QSpacerItem>
 #include<QStyleOption>
 #include<QPainter>
 #include<QGridLayout>
-#include<QLine>
+#include<QPainterPath>
 
 TableWidget::TableWidget(const QString &title, QWidget *parent)
     :QWidget(parent)
@@ -19,7 +17,7 @@ TableWidget::TableWidget(const QString &title, QWidget *parent)
     this->m_play_ToolBtn    = new QToolButton(this);
     this->m_adjust_ToolBtn  = new QToolButton(this);
     this->m_refresh_ToolBtn = new QToolButton(this);
-    this->m_more_Lab    = new QLabel("更多 >",this);
+    this->m_more_Lab        = new QLabel("更多 >",this);
     this->m_tabWidget       = new QWidget;
 
     initUi();
@@ -84,7 +82,8 @@ void TableWidget::initUi()
     QGridLayout* glayout = new QGridLayout(this->m_tabWidget);
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
-            auto item = new ItemListWidget(QPixmap(":///Res/tabIcon/music-cover.jpg"),"歌曲名字","作者",this->m_tabWidget);
+            auto item = new ItemListWidget(QPixmap(":///Res/tabIcon/music-cover.jpg"),
+                "歌曲名字","作者",this->m_tabWidget);
             glayout->addWidget(item,i,j);
         }
     }
@@ -94,21 +93,34 @@ void TableWidget::initUi()
     vlayout->addWidget(this->m_tabWidget);
 }
 
+QPixmap roundedPixmap(QPixmap& src, QSize size, int radius) {
+    QPixmap scaled = src.scaled(size, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+    QPixmap dest(size);
+    dest.fill(Qt::transparent);
 
+    QPainter painter(&dest);
+    painter.setRenderHint(QPainter::Antialiasing);
+    QPainterPath path;
+    path.addRoundedRect(0, 0, size.width(), size.height(), radius, radius);
+    painter.setClipPath(path);
+    painter.drawPixmap(0, 0, scaled);
+    return dest;
+}
 
-ItemListWidget::ItemListWidget(const QPixmap &coverPix, const QString &name, const QString &author, QWidget *parent)
+ItemListWidget::ItemListWidget(QPixmap coverPix, const QString &name, const QString &author, QWidget *parent)
     :QWidget(parent)
 {
+    this->setFixedHeight(60);
     this->m_coverLab         = new QLabel(this);
     this->m_nameLab          = new QLabel(name,this);
     this->m_authorLab        = new QLabel(author,this);
     this->m_play_add_ToolBtn = new QToolButton(this);
     this->m_like_ToolBtn     = new QToolButton(this);
     this->m_more_ToolBtn     = new QToolButton(this);
-
-    this->m_coverLab->setFixedSize(60, 60);
-    this->m_coverLab->setPixmap(coverPix);
+    this->m_coverLab->setFixedSize(this->height(),this->height());
+    this->m_coverLab->setPixmap(roundedPixmap(coverPix,this->m_coverLab->size(),8));
     this->m_coverLab->setScaledContents(true);
+    this->m_coverLab->setStyleSheet(R"(margin:0px;padding:0px;)");
 
     initUi();
 
@@ -119,14 +131,30 @@ ItemListWidget::ItemListWidget(const QPixmap &coverPix, const QString &name, con
 
 void ItemListWidget::paintEvent(QPaintEvent *ev)
 {
+    // 先调用父类的 paintEvent 以执行默认绘制行为
+    QWidget::paintEvent(ev);
     QStyleOption opt;
     opt.initFrom(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget,&opt,&p,this);
+
+    // 如果鼠标悬停，绘制半透明蒙层
+    if (this->m_isHoverCoverLab) {
+        p.setRenderHint(QPainter::Antialiasing);
+        p.setBrush(QColor(0, 0, 0, 100));  // 半透明的黑色蒙层
+        p.setPen(Qt::NoPen);
+        // 获取封面图在整个控件中的相对位置
+        p.drawRect(this->m_coverLab->geometry());  // 在封面区域绘制蒙层
+
+    }
+
 }
 
 void ItemListWidget::enterEvent(QEnterEvent *ev)
 {
+    // 先调用父类的 paintEvent 以执行默认绘制行为
+    QWidget::enterEvent(ev);
+    this->m_isHoverCoverLab = true;
     this->m_play_add_ToolBtn->show();
     this->m_like_ToolBtn->show();
     this->m_more_ToolBtn->show();
@@ -138,6 +166,8 @@ void ItemListWidget::enterEvent(QEnterEvent *ev)
 
 void ItemListWidget::leaveEvent(QEvent *ev)
 {
+    QWidget::leaveEvent(ev);
+    this->m_isHoverCoverLab = false;
     this->m_play_add_ToolBtn->hide();
     this->m_like_ToolBtn->hide();
     this->m_more_ToolBtn->hide();
@@ -163,7 +193,6 @@ void ItemListWidget::initUi()
 
     this->m_like_ToolBtn->setIcon(QIcon(""));
     this->m_more_ToolBtn->setIcon(QIcon(""));
-
     
     this->m_play_add_ToolBtn->setStyleSheet(R"(QToolButton#play_add_ToolBtn{border-image: url(':///Res/tabIcon/play-add-gray.svg');}
                                                QToolButton#play_add_ToolBtn:hover{border-image: url(':///Res/tabIcon/play-add-blue.svg');})");
@@ -177,8 +206,11 @@ void ItemListWidget::initUi()
     vlayout->addWidget(this->m_authorLab);
 
     QHBoxLayout* hlayout = new QHBoxLayout(this);
+    hlayout->setContentsMargins(0,0,10,0);
     hlayout->addWidget(this->m_coverLab);
+
     hlayout->addLayout(vlayout);
+
     hlayout->addSpacerItem(new QSpacerItem(40,20,QSizePolicy::Expanding));
     hlayout->addWidget(this->m_play_add_ToolBtn);
     hlayout->addWidget(this->m_like_ToolBtn);
