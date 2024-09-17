@@ -26,7 +26,7 @@ KuGouApp::KuGouApp(QWidget *parent)
     ,m_menuBtnGroup(std::make_unique<QButtonGroup>())
 {
     ui->setupUi(this);
-    QFile file("://Res/style.css");
+    QFile file("://Res/styles/original.css");
     if (file.open(QIODevice::ReadOnly)) {
         this->setStyleSheet(file.readAll());
     }
@@ -326,7 +326,7 @@ void KuGouApp::paintEvent(QPaintEvent* ev)
     QWidget::paintEvent(ev);
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
-    QBrush brush(QColor("#ddddee"));
+    QBrush brush(QColor("#eef2ff"));
     painter.setBrush(brush);
     painter.setPen(Qt::NoPen);
     QRect rect = this->rect();

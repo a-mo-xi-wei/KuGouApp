@@ -611,7 +611,7 @@
          <property name="geometry">
           <rect>
            <x>0</x>
-           <y>-15</y>
+           <y>0</y>
            <width>143</width>
            <height>570</height>
           </rect>
@@ -1151,7 +1151,7 @@
            <x>0</x>
            <y>0</y>
            <width>861</width>
-           <height>536</height>
+           <height>529</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -2226,7 +2226,7 @@ margin-top:0px;</string>
       <item>
        <widget class="QSlider" name="progressSlider">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -2234,13 +2234,13 @@ margin-top:0px;</string>
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>10</height>
+          <height>17</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>10</height>
+          <height>17</height>
          </size>
         </property>
         <property name="orientation">
