@@ -17,13 +17,15 @@
 #include<QMouseEvent>
 #include<QPaintEvent>
 #include<QButtonGroup>
+#include<QSizeGrip>
 
 KuGouApp::KuGouApp(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::KuGouApp)
-    ,m_player(std::make_unique<QMediaPlayer>())
-    ,m_audioOutput(std::make_unique<QAudioOutput>())
-    ,m_menuBtnGroup(std::make_unique<QButtonGroup>())
+    ,m_player(std::make_unique<QMediaPlayer>(this))
+    ,m_audioOutput(std::make_unique<QAudioOutput>(this))
+    ,m_menuBtnGroup(std::make_unique<QButtonGroup>(ui->center_menu_widget))
+    ,m_sizeGrip(std::make_unique<QSizeGrip>(ui->play_widget))
 {
     ui->setupUi(this);
     QFile file("://Res/styles/original.css");
@@ -137,13 +139,16 @@ void KuGouApp::initTitleWidget()
     ui->idx4_lab->hide();
 
     ui->search_lineEdit->addAction(QIcon("://Res/titlebar/search-black.svg"), QLineEdit::LeadingPosition);
-    //除非自定义QToolButton否则达不到CSS中border-image的效果
+
+    //除非自定义QToolButton否则达不到 CSS 中 border-image 的效果
     //ui->listen_toolButton->setIcon(QIcon("://Res/titlebar/listen-music-black.svg"));
     
     QPixmap rounded = roundedPixmap(QPixmap("://Res/window/portrait.jpg"), ui->title_portrait_label->size(), 20);  // 设置圆角半径
     ui->title_portrait_label->setPixmap(rounded);
 
     ui->title_gender_label->setPixmap(QPixmap("://Res/window/boy.svg"));
+
+    connect(ui->title_widget,&TitleWidget::doubleClicked, this, []{qDebug()<<"双击标题";});
 }
 
 void KuGouApp::initPoster()
@@ -180,7 +185,10 @@ void KuGouApp::initPlayWidget()
     ui->erji_toolButton->setIcon(QIcon("://Res/playbar/together.svg"));
     ui->ci_toolButton->setIcon(QIcon("://Res/playbar/song-words.svg"));
     ui->list_toolButton->setIcon(QIcon("://Res/playbar/play-list.svg"));
-    
+    //this->m_sizeGrip.get()->setFixedSize(20, 20);  // 不需要调用 .get()，如果 m_sizeGrip 是智能指针
+    //this->m_sizeGrip.get()->show();
+    //ui->play_hlayout->addWidget(this->m_sizeGrip.get(), 0, Qt::AlignBottom | Qt::AlignRight);
+
     //ui->volume_toolButton->setIcon(QIcon("://Res/playbar/volume-on-gray.svg"));
     //ui->circle_toolButton->setIcon(QIcon("://Res/playbar/list-loop.svg"));
 
@@ -331,7 +339,7 @@ void KuGouApp::paintEvent(QPaintEvent* ev)
     painter.setPen(Qt::NoPen);
     QRect rect = this->rect();
     QPainterPath path;
-    path.addRoundedRect(rect, 20, 20);
+    path.addRoundedRect(rect, 10, 10);
     painter.drawPath(path);
     
 }
@@ -433,11 +441,11 @@ void KuGouApp::on_play_or_pause_toolButton_clicked()
     this->m_isPlaying = !this->m_isPlaying;
     if(this->m_isPlaying){
         this->m_player->play();
-        ui->play_or_pause_toolButton->setIcon(QIcon(":///Res/playbar/pause.svg"));
+        ui->play_or_pause_toolButton->setIcon(QIcon("://Res/playbar/pause.svg"));
     }
     else {
         this->m_player->pause();
-        ui->play_or_pause_toolButton->setIcon(QIcon(":///Res/playbar/play.svg"));
+        ui->play_or_pause_toolButton->setIcon(QIcon("://Res/playbar/play.svg"));
     }
 
 }
