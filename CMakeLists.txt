@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.10)
 
 project(KuGouApp VERSION 1.0 LANGUAGES CXX)
 
+#自定义标题栏模块
+add_subdirectory(TitleWidget)
+
 #广告模块
 add_subdirectory(AdvertiseBoardWidget)
 
@@ -13,6 +16,9 @@ add_subdirectory(MusicItemWidget)
 
 #音乐表单模块
 add_subdirectory(MusicTableWidget)
+
+#遮罩模块
+add_subdirectory(SMaskWidget)
 
 #开始模块
 add_subdirectory(KuGouStart)
