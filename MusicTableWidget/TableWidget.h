@@ -8,6 +8,7 @@ class QPaintEvent;
 class QEnterEvent;
 class QEvent;
 class QLine;
+class SMaskWidget;
 
 class TableWidget : public QWidget
 {
@@ -40,6 +41,7 @@ protected:
 private:
     void initUi();
 private:
+    SMaskWidget* m_mask;
     QLabel* m_coverLab{};
     QLabel* m_nameLab{};
     QLabel* m_authorLab{};

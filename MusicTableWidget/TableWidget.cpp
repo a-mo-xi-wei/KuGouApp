@@ -1,4 +1,5 @@
 #include "TableWidget.h"
+#include"SMaskWidget.h"
 #include<QLabel>
 #include<QToolButton>
 #include<QPaintEvent>
@@ -82,8 +83,8 @@ void TableWidget::initUi()
     QGridLayout* glayout = new QGridLayout(this->m_tabWidget);
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
-            auto item = new ItemListWidget(QPixmap(":///Res/tabIcon/music-cover.jpg"),
-                "歌曲名字","作者",this->m_tabWidget);
+            auto item = new ItemListWidget(QPixmap(":///Res/tabIcon/music-cover.jpg"),"歌曲名字","作者",this->m_tabWidget);
+            //item->setStyleSheet("border-radius:8px;");
             glayout->addWidget(item,i,j);
         }
     }
@@ -109,6 +110,7 @@ QPixmap roundedPixmap(QPixmap& src, QSize size, int radius) {
 
 ItemListWidget::ItemListWidget(QPixmap coverPix, const QString &name, const QString &author, QWidget *parent)
     :QWidget(parent)
+    ,m_mask(new SMaskWidget(this))
 {
     this->setFixedHeight(60);
     this->m_coverLab         = new QLabel(this);
@@ -120,10 +122,11 @@ ItemListWidget::ItemListWidget(QPixmap coverPix, const QString &name, const QStr
     this->m_coverLab->setFixedSize(this->height(),this->height());
     this->m_coverLab->setPixmap(roundedPixmap(coverPix,this->m_coverLab->size(),8));
     this->m_coverLab->setScaledContents(true);
-    this->m_coverLab->setStyleSheet(R"(margin:0px;padding:0px;)");
-
+    this->m_coverLab->setStyleSheet(R"(margin:0px;padding:0px;background-color: rgba(255, 0, 0, 0);)");
     initUi();
-
+    this->m_mask->move(this->m_coverLab->pos());
+    this->m_mask->setFixedSize(this->m_coverLab->size());
+    this->m_mask->hide();
     this->m_play_add_ToolBtn->hide();
     this->m_like_ToolBtn->hide();
     this->m_more_ToolBtn->hide();
@@ -138,14 +141,13 @@ void ItemListWidget::paintEvent(QPaintEvent *ev)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget,&opt,&p,this);
 
+    p.setRenderHint(QPainter::Antialiasing);
     // 如果鼠标悬停，绘制半透明蒙层
     if (this->m_isHoverCoverLab) {
-        p.setRenderHint(QPainter::Antialiasing);
-        p.setBrush(QColor(0, 0, 0, 100));  // 半透明的黑色蒙层
-        p.setPen(Qt::NoPen);
-        // 获取封面图在整个控件中的相对位置
-        p.drawRect(this->m_coverLab->geometry());  // 在封面区域绘制蒙层
-
+        this->m_mask->show();
+        this->m_mask->raise();
+    }else{
+        this->m_mask->hide();
     }
 
 }
@@ -158,8 +160,8 @@ void ItemListWidget::enterEvent(QEnterEvent *ev)
     this->m_play_add_ToolBtn->show();
     this->m_like_ToolBtn->show();
     this->m_more_ToolBtn->show();
-    this->setStyleSheet(R"(QWidget{border-radius:10px;background-color:#C0C0C0;}
-                           QLabel{background-color:#C0C0C0;}
+    this->setStyleSheet(R"(QWidget{border-radius:8px;background-color:#DDDDDD;}
+                           QLabel{background-color:#DDDDDD;}
                            QLabel:hover{color:#2291e6;})");
     update();
 }
