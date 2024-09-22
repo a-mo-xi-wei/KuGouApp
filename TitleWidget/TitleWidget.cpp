@@ -4,9 +4,9 @@
 
 #include "TitleWidget.h"
 #include<QPainter>
+
 TitleWidget::TitleWidget(QWidget *parent)
     : QWidget(parent) {
-
 }
 
 void TitleWidget::mouseDoubleClickEvent(QMouseEvent *event) {
@@ -16,14 +16,12 @@ void TitleWidget::mouseDoubleClickEvent(QMouseEvent *event) {
     }
 }
 
-void TitleWidget::paintEvent(QPaintEvent *ev)
-{
+void TitleWidget::paintEvent(QPaintEvent *ev) {
     QPainter p(this);
 
     p.setPen(Qt::NoPen);
 
     p.setBrush(QColor("#e2f1ff"));
 
-    p.drawRoundedRect(rect(),10,10);
-
+    p.drawRoundedRect(rect(), 8, 8);
 }

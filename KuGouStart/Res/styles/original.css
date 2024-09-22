@@ -1,6 +1,5 @@
 /*--------------------total_widget------------------------------*/
 QWidget {
-    /*background-color: #CCFFEE;*/
     background-color: #eef2ff;
 }
 /*--------------------title_widget------------------------------*/
@@ -162,8 +161,8 @@ QPushButton#music_quality_pushButton:hover {
 /*--------------------play_widget------------------------------*/
 
 QWidget#play_widget {
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 QWidget#play_widget .QToolButton {  /*到时候要提升一下*/
     border: none;
