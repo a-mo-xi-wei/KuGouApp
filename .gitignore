@@ -1,0 +1,4 @@
+#忽略CLion打开时产生的.idea文件夹
+/.idea
+#忽略CLion编译cmake的时候产生的cmake-build-debug文件
+/cmake-build-debug
