@@ -33,7 +33,7 @@
     <number>0</number>
    </property>
    <property name="bottomMargin">
-    <number>3</number>
+    <number>0</number>
    </property>
    <item>
     <widget class="TitleWidget" name="title_widget" native="true">
@@ -50,7 +50,7 @@
       <item>
        <spacer name="hs">
         <property name="orientation">
-         <enum>Qt::Orientation::Horizontal</enum>
+         <enum>Qt::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -107,7 +107,7 @@
            <bool>true</bool>
           </property>
           <property name="alignment">
-           <set>Qt::AlignmentFlag::AlignCenter</set>
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -151,7 +151,7 @@
            <bool>true</bool>
           </property>
           <property name="alignment">
-           <set>Qt::AlignmentFlag::AlignCenter</set>
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -195,7 +195,7 @@
            <bool>true</bool>
           </property>
           <property name="alignment">
-           <set>Qt::AlignmentFlag::AlignCenter</set>
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -239,7 +239,7 @@
            <bool>true</bool>
           </property>
           <property name="alignment">
-           <set>Qt::AlignmentFlag::AlignCenter</set>
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -248,7 +248,7 @@
       <item>
        <spacer name="hs2">
         <property name="orientation">
-         <enum>Qt::Orientation::Horizontal</enum>
+         <enum>Qt::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -293,7 +293,7 @@
       <item>
        <spacer name="hs3">
         <property name="orientation">
-         <enum>Qt::Orientation::Horizontal</enum>
+         <enum>Qt::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -330,7 +330,7 @@
          <bool>true</bool>
         </property>
         <property name="alignment">
-         <set>Qt::AlignmentFlag::AlignCenter</set>
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -380,14 +380,14 @@
          <bool>true</bool>
         </property>
         <property name="alignment">
-         <set>Qt::AlignmentFlag::AlignCenter</set>
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
       <item>
        <spacer name="hs4">
         <property name="orientation">
-         <enum>Qt::Orientation::Horizontal</enum>
+         <enum>Qt::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -472,10 +472,10 @@
          </palette>
         </property>
         <property name="frameShadow">
-         <enum>QFrame::Shadow::Plain</enum>
+         <enum>QFrame::Plain</enum>
         </property>
         <property name="orientation">
-         <enum>Qt::Orientation::Vertical</enum>
+         <enum>Qt::Vertical</enum>
         </property>
        </widget>
       </item>
@@ -578,6 +578,9 @@
       <property name="leftMargin">
        <number>0</number>
       </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
       <item>
        <widget class="QScrollArea" name="menu_scrollArea">
         <property name="sizePolicy">
@@ -593,19 +596,19 @@
          </size>
         </property>
         <property name="frameShape">
-         <enum>QFrame::Shape::NoFrame</enum>
+         <enum>QFrame::NoFrame</enum>
         </property>
         <property name="verticalScrollBarPolicy">
-         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOn</enum>
+         <enum>Qt::ScrollBarAlwaysOn</enum>
         </property>
         <property name="horizontalScrollBarPolicy">
-         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+         <enum>Qt::ScrollBarAlwaysOff</enum>
         </property>
         <property name="widgetResizable">
          <bool>true</bool>
         </property>
         <property name="alignment">
-         <set>Qt::AlignmentFlag::AlignCenter</set>
+         <set>Qt::AlignCenter</set>
         </property>
         <widget class="QWidget" name="scrollAreaWidgetContents">
          <property name="geometry">
@@ -613,7 +616,7 @@
            <x>0</x>
            <y>0</y>
            <width>143</width>
-           <height>576</height>
+           <height>591</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -659,7 +662,7 @@
                 <string>    发现音乐</string>
                </property>
                <property name="alignment">
-                <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                </property>
               </widget>
              </item>
@@ -675,7 +678,7 @@
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="contextMenuPolicy">
-                <enum>Qt::ContextMenuPolicy::DefaultContextMenu</enum>
+                <enum>Qt::DefaultContextMenu</enum>
                </property>
                <property name="text">
                 <string>   为你推荐</string>
@@ -696,7 +699,7 @@
                 <bool>false</bool>
                </property>
                <property name="toolButtonStyle">
-                <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
                </property>
               </widget>
              </item>
@@ -727,7 +730,7 @@
                 <bool>false</bool>
                </property>
                <property name="toolButtonStyle">
-                <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
                </property>
               </widget>
              </item>
@@ -758,7 +761,7 @@
                 <bool>false</bool>
                </property>
                <property name="toolButtonStyle">
-                <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
                </property>
               </widget>
              </item>
@@ -789,7 +792,7 @@
                 <bool>false</bool>
                </property>
                <property name="toolButtonStyle">
-                <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
                </property>
               </widget>
              </item>
@@ -820,7 +823,7 @@
                 <bool>false</bool>
                </property>
                <property name="toolButtonStyle">
-                <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
                </property>
               </widget>
              </item>
@@ -851,7 +854,7 @@
                 <bool>false</bool>
                </property>
                <property name="toolButtonStyle">
-                <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
                </property>
               </widget>
              </item>
@@ -903,7 +906,7 @@
                 <string>    我的音乐</string>
                </property>
                <property name="alignment">
-                <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                </property>
               </widget>
              </item>
@@ -934,7 +937,7 @@
                 <bool>false</bool>
                </property>
                <property name="toolButtonStyle">
-                <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
                </property>
               </widget>
              </item>
@@ -965,7 +968,7 @@
                 <bool>false</bool>
                </property>
                <property name="toolButtonStyle">
-                <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
                </property>
               </widget>
              </item>
@@ -996,7 +999,7 @@
                 <bool>false</bool>
                </property>
                <property name="toolButtonStyle">
-                <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
                </property>
               </widget>
              </item>
@@ -1027,7 +1030,7 @@
                 <bool>false</bool>
                </property>
                <property name="toolButtonStyle">
-                <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
                </property>
               </widget>
              </item>
@@ -1058,7 +1061,7 @@
                 <bool>false</bool>
                </property>
                <property name="toolButtonStyle">
-                <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
                </property>
               </widget>
              </item>
@@ -1089,7 +1092,7 @@
                 <bool>false</bool>
                </property>
                <property name="toolButtonStyle">
-                <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
                </property>
               </widget>
              </item>
@@ -1120,7 +1123,7 @@
                 <bool>false</bool>
                </property>
                <property name="toolButtonStyle">
-                <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
                </property>
               </widget>
              </item>
@@ -1134,13 +1137,13 @@
       <item>
        <widget class="QScrollArea" name="context_scrollArea">
         <property name="frameShape">
-         <enum>QFrame::Shape::NoFrame</enum>
+         <enum>QFrame::NoFrame</enum>
         </property>
         <property name="verticalScrollBarPolicy">
-         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOn</enum>
+         <enum>Qt::ScrollBarAlwaysOn</enum>
         </property>
         <property name="horizontalScrollBarPolicy">
-         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+         <enum>Qt::ScrollBarAlwaysOff</enum>
         </property>
         <property name="widgetResizable">
          <bool>true</bool>
@@ -1150,8 +1153,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>861</width>
-           <height>529</height>
+           <width>865</width>
+           <height>519</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -1196,10 +1199,10 @@
                  <item>
                   <spacer name="horizontalSpacer">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Preferred</enum>
+                    <enum>QSizePolicy::Preferred</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1252,7 +1255,7 @@
                  <item>
                   <spacer name="hs5">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1286,7 +1289,7 @@
                  <item>
                   <spacer name="hs9">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1320,7 +1323,7 @@
                  <item>
                   <spacer name="hs10">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1354,7 +1357,7 @@
                  <item>
                   <spacer name="hs11">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1388,7 +1391,7 @@
                  <item>
                   <spacer name="hs6">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1434,7 +1437,7 @@
                     </size>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Orientation::Vertical</enum>
+                    <enum>Qt::Vertical</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1555,7 +1558,7 @@ margin-top:0px;</string>
                       <bool>false</bool>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignmentFlag::AlignCenter</set>
+                      <set>Qt::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -1564,10 +1567,10 @@ margin-top:0px;</string>
                  <item>
                   <spacer name="hs13">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Fixed</enum>
+                    <enum>QSizePolicy::Fixed</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1657,7 +1660,7 @@ margin-top:0px;</string>
                       <bool>false</bool>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignmentFlag::AlignCenter</set>
+                      <set>Qt::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -1666,10 +1669,10 @@ margin-top:0px;</string>
                  <item>
                   <spacer name="hs14">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Fixed</enum>
+                    <enum>QSizePolicy::Fixed</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1759,7 +1762,7 @@ margin-top:0px;</string>
                       <bool>false</bool>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignmentFlag::AlignCenter</set>
+                      <set>Qt::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -1768,10 +1771,10 @@ margin-top:0px;</string>
                  <item>
                   <spacer name="hs15">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Fixed</enum>
+                    <enum>QSizePolicy::Fixed</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1861,7 +1864,7 @@ margin-top:0px;</string>
                       <bool>false</bool>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignmentFlag::AlignCenter</set>
+                      <set>Qt::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -1870,7 +1873,7 @@ margin-top:0px;</string>
                  <item>
                   <spacer name="hs12">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1901,7 +1904,7 @@ margin-top:0px;</string>
                     <string>全部播放</string>
                    </property>
                    <property name="toolButtonStyle">
-                    <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+                    <enum>Qt::ToolButtonTextBesideIcon</enum>
                    </property>
                   </widget>
                  </item>
@@ -1920,7 +1923,7 @@ margin-top:0px;</string>
                     <string>添加</string>
                    </property>
                    <property name="toolButtonStyle">
-                    <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+                    <enum>Qt::ToolButtonTextBesideIcon</enum>
                    </property>
                   </widget>
                  </item>
@@ -1939,14 +1942,14 @@ margin-top:0px;</string>
                     <string>备份到云盘</string>
                    </property>
                    <property name="toolButtonStyle">
-                    <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+                    <enum>Qt::ToolButtonTextBesideIcon</enum>
                    </property>
                   </widget>
                  </item>
                  <item>
                   <spacer name="horizontalSpacer_16">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1971,7 +1974,7 @@ margin-top:0px;</string>
                     <string>搜索</string>
                    </property>
                    <property name="toolButtonStyle">
-                    <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+                    <enum>Qt::ToolButtonTextBesideIcon</enum>
                    </property>
                   </widget>
                  </item>
@@ -1990,7 +1993,7 @@ margin-top:0px;</string>
                     <string>排序</string>
                    </property>
                    <property name="toolButtonStyle">
-                    <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+                    <enum>Qt::ToolButtonTextBesideIcon</enum>
                    </property>
                   </widget>
                  </item>
@@ -2057,7 +2060,7 @@ margin-top:0px;</string>
                        <number>1</number>
                       </property>
                       <property name="orientation">
-                       <enum>Qt::Orientation::Vertical</enum>
+                       <enum>Qt::Vertical</enum>
                       </property>
                      </widget>
                     </item>
@@ -2103,7 +2106,7 @@ margin-top:0px;</string>
                        </font>
                       </property>
                       <property name="orientation">
-                       <enum>Qt::Orientation::Vertical</enum>
+                       <enum>Qt::Vertical</enum>
                       </property>
                      </widget>
                     </item>
@@ -2149,7 +2152,7 @@ margin-top:0px;</string>
                        </font>
                       </property>
                       <property name="orientation">
-                       <enum>Qt::Orientation::Vertical</enum>
+                       <enum>Qt::Vertical</enum>
                       </property>
                      </widget>
                     </item>
@@ -2187,7 +2190,7 @@ margin-top:0px;</string>
                  <item>
                   <spacer name="vs">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Vertical</enum>
+                    <enum>Qt::Vertical</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -2223,6 +2226,15 @@ margin-top:0px;</string>
       <property name="spacing">
        <number>6</number>
       </property>
+      <property name="leftMargin">
+       <number>5</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
       <item>
        <widget class="QSlider" name="progressSlider">
         <property name="sizePolicy">
@@ -2244,7 +2256,7 @@ margin-top:0px;</string>
          </size>
         </property>
         <property name="orientation">
-         <enum>Qt::Orientation::Horizontal</enum>
+         <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>
@@ -2266,14 +2278,14 @@ margin-top:0px;</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>50</width>
-            <height>50</height>
+            <width>48</width>
+            <height>48</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>50</width>
-            <height>50</height>
+            <width>48</width>
+            <height>48</height>
            </size>
           </property>
           <property name="text">
@@ -2283,7 +2295,7 @@ margin-top:0px;</string>
            <bool>true</bool>
           </property>
           <property name="alignment">
-           <set>Qt::AlignmentFlag::AlignCenter</set>
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -2360,7 +2372,7 @@ margin-top:0px;</string>
         <item>
          <spacer name="horizontalSpacer_7">
           <property name="orientation">
-           <enum>Qt::Orientation::Horizontal</enum>
+           <enum>Qt::Horizontal</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -2392,10 +2404,10 @@ margin-top:0px;</string>
         <item>
          <spacer name="horizontalSpacer_3">
           <property name="orientation">
-           <enum>Qt::Orientation::Horizontal</enum>
+           <enum>Qt::Horizontal</enum>
           </property>
           <property name="sizeType">
-           <enum>QSizePolicy::Policy::Fixed</enum>
+           <enum>QSizePolicy::Fixed</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -2471,10 +2483,10 @@ margin-top:0px;</string>
         <item>
          <spacer name="horizontalSpacer_2">
           <property name="orientation">
-           <enum>Qt::Orientation::Horizontal</enum>
+           <enum>Qt::Horizontal</enum>
           </property>
           <property name="sizeType">
-           <enum>QSizePolicy::Policy::Fixed</enum>
+           <enum>QSizePolicy::Fixed</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -2506,7 +2518,7 @@ margin-top:0px;</string>
         <item>
          <spacer name="horizontalSpacer_8">
           <property name="orientation">
-           <enum>Qt::Orientation::Horizontal</enum>
+           <enum>Qt::Horizontal</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>

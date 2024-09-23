@@ -26,7 +26,7 @@ KuGouApp::KuGouApp(QWidget *parent)
       , m_player(std::make_unique<QMediaPlayer>(this))
       , m_audioOutput(std::make_unique<QAudioOutput>(this))
       , m_menuBtnGroup(std::make_unique<QButtonGroup>(ui->center_menu_widget))
-      , m_sizeGrip(std::make_unique<QSizeGrip>(this)) {
+      , m_sizeGrip(std::make_unique<QSizeGrip>(this)){
     ui->setupUi(this);
     QFile file("://Res/styles/original.css");
     if (file.open(QIODevice::ReadOnly)) {
@@ -92,13 +92,13 @@ void KuGouApp::initUi() {
     ui->center_widget->setMouseTracking(true);
     ui->play_widget->setMouseTracking(true);
     this->setAttribute(Qt::WA_TranslucentBackground);
-    //this->m_sizeGrip->setFixedSize(10,10);
     initTitleWidget();
     initPoster();
     initTabWidget();
     initPlayWidget();
     initMenu();
     initLocalDownload();
+    initBottomWidget();
 }
 
 QPixmap roundedPixmap(const QPixmap &src, QSize size, int radius) {
@@ -235,6 +235,11 @@ void KuGouApp::initLocalDownload() {
     ui->local_file_toolButton->setIcon(QIcon("://Res/window/file.svg"));
 }
 
+void KuGouApp::initBottomWidget() {
+    this->m_sizeGrip->setFixedSize(11,11);
+    this->m_sizeGrip->setStyleSheet("border-image:url('://Res/playbar/bottom-mark.svg');}");
+}
+
 void KuGouApp::mousePressEvent(QMouseEvent *ev) {
     QWidget::mousePressEvent(ev);
     if (ev->button() == Qt::LeftButton) {
@@ -321,8 +326,9 @@ void KuGouApp::paintEvent(QPaintEvent *ev) {
 
 void KuGouApp::resizeEvent(QResizeEvent *event) {
     QWidget::resizeEvent(event);
-    this->m_sizeGrip->move(width() - this->m_sizeGrip->width(),
-        height() - this->m_sizeGrip->height());
+    this->m_sizeGrip->move(this->width() - this->m_sizeGrip->width() - 3,this->height() - this->m_sizeGrip->height() - 3);
+    this->m_sizeGrip->raise();
+    this->m_sizeGrip->setVisible(true);
 }
 
 void KuGouApp::SetMouseCursor(int x, int y) {
