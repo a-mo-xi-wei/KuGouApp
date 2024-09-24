@@ -160,5 +160,6 @@ private:
     QPoint windowsLastPs;
     QPoint mousePs;
     int mouse_press_region = kMousePositionMid;
+    QString m_maxBtnStyle;
 };
 #endif // KUGOUAPP_H

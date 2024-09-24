@@ -443,10 +443,38 @@ void KuGouApp::on_min_toolButton_clicked() {
 }
 
 void KuGouApp::on_max_toolButton_clicked() {
-    static bool is_max = false;
-    if (is_max)this->showNormal();
-    else this->showMaximized();
-    is_max = !is_max;
+    if (this->isMaximized()) {
+        this->showNormal();
+        this->m_maxBtnStyle = R"(QToolButton#max_toolButton {
+                                background-color: rgba(255,255,255,0);
+                                qproperty-icon: url("://Res/titlebar/maximize-black.svg");
+                                border-radius: 6px;
+                                height: 30px;
+                                width: 30px;
+                                icon-size: 12px 12px;
+                            }
+                            QToolButton#max_toolButton:hover {
+                                background-color: #DDDDDD;
+                                qproperty-icon: url("://Res/titlebar/maximize-blue.svg");
+                            })";
+    }
+    else {
+        this->showMaximized();
+        this->m_maxBtnStyle = R"(QToolButton#max_toolButton {
+                                background-color: rgba(255,255,255,0);
+                                qproperty-icon: url("://Res/titlebar/resume-black.svg");
+                                border-radius: 6px;
+                                height: 30px;
+                                width: 30px;
+                                icon-size: 12px 12px;
+                            }
+                            QToolButton#max_toolButton:hover {
+                                background-color: #DDDDDD;
+                                qproperty-icon: url("://Res/titlebar/resume-blue.svg");
+                            })";
+
+    }
+    ui->max_toolButton->setStyleSheet(this->m_maxBtnStyle);
 }
 
 void KuGouApp::on_close_toolButton_clicked() {
