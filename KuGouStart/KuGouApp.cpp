@@ -175,9 +175,6 @@ void KuGouApp::initPlayWidget() {
     ui->erji_toolButton->setIcon(QIcon("://Res/playbar/together.svg"));
     ui->ci_toolButton->setIcon(QIcon("://Res/playbar/song-words.svg"));
     ui->list_toolButton->setIcon(QIcon("://Res/playbar/play-list.svg"));
-    //this->m_sizeGrip.get()->setFixedSize(20, 20);  // 不需要调用 .get()，如果 m_sizeGrip 是智能指针
-    //this->m_sizeGrip.get()->show();
-    //ui->play_hlayout->addWidget(this->m_sizeGrip.get(), 0, Qt::AlignBottom | Qt::AlignRight);
 
     //ui->volume_toolButton->setIcon(QIcon("://Res/playbar/volume-on-gray.svg"));
     //ui->circle_toolButton->setIcon(QIcon("://Res/playbar/list-loop.svg"));
@@ -237,7 +234,7 @@ void KuGouApp::initLocalDownload() {
 
 void KuGouApp::initBottomWidget() {
     this->m_sizeGrip->setFixedSize(11,11);
-    this->m_sizeGrip->setStyleSheet("border-image:url('://Res/playbar/bottom-mark.svg');}");
+    this->m_sizeGrip->setStyleSheet("border-image:url('://Res/playbar/bottom-mark.svg');");
 }
 
 void KuGouApp::mousePressEvent(QMouseEvent *ev) {
