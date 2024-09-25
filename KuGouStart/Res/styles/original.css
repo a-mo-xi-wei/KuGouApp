@@ -63,12 +63,12 @@ QToolButton#min_toolButton {
     background-color: rgba(255,255,255,0);
     qproperty-icon: url("://Res/titlebar/minimize-black.svg");
     border-radius: 6px;
+    border:none;
     height: 30px;
     width: 30px;
     icon-size: 12px 12px;
 }
 QToolButton#min_toolButton:hover {
-    background-color: #DDDDDD;
     qproperty-icon: url("://Res/titlebar/minimize-blue.svg");
 }
 
@@ -76,12 +76,12 @@ QToolButton#max_toolButton {
     background-color: rgba(255,255,255,0);
     qproperty-icon: url("://Res/titlebar/maximize-black.svg");
     border-radius: 6px;
+    border:none;
     height: 30px;
     width: 30px;
     icon-size: 12px 12px;
 }
 QToolButton#max_toolButton:hover {
-    background-color: #DDDDDD;
     qproperty-icon: url("://Res/titlebar/maximize-blue.svg");
 }
 
@@ -89,12 +89,12 @@ QToolButton#close_toolButton {
     background-color: rgba(255,255,255,0);
     qproperty-icon: url("://Res/titlebar/close-black.svg");
     border-radius: 6px;
+    border:none;
     height: 30px;
     width: 30px;
     icon-size: 12px 12px;
 }
 QToolButton#close_toolButton:hover {
-    background-color: #FF0066;
     qproperty-icon: url("://Res/titlebar/close-blue.svg");
     icon-size: 12px 12px;
 }

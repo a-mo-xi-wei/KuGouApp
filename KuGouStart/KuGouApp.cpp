@@ -2,6 +2,7 @@
 #include "ui_KuGouApp.h"
 #include"TableWidget.h"
 #include"MusicItemWidget.h"
+#include"RippleButton.h"
 
 #include<QMediaMetaData>
 #include<QMediaPlayer>
@@ -19,6 +20,7 @@
 #include<QButtonGroup>
 #include<QSizeGrip>
 #include<QLayout>
+#include<QGraphicsDropShadowEffect>
 
 KuGouApp::KuGouApp(QWidget *parent)
     : QWidget(parent)
@@ -26,7 +28,8 @@ KuGouApp::KuGouApp(QWidget *parent)
       , m_player(std::make_unique<QMediaPlayer>(this))
       , m_audioOutput(std::make_unique<QAudioOutput>(this))
       , m_menuBtnGroup(std::make_unique<QButtonGroup>(ui->center_menu_widget))
-      , m_sizeGrip(std::make_unique<QSizeGrip>(this)){
+      , m_sizeGrip(std::make_unique<QSizeGrip>(this))
+      , m_effect(std::make_unique<QGraphicsDropShadowEffect>(this)){
     ui->setupUi(this);
     QFile file("://Res/styles/original.css");
     if (file.open(QIODevice::ReadOnly)) {
@@ -142,6 +145,27 @@ void KuGouApp::initTitleWidget() {
     ui->title_portrait_label->setPixmap(rounded);
 
     ui->title_gender_label->setPixmap(QPixmap("://Res/window/boy.svg"));
+    //设置按钮的阴影效果
+    m_effect->setOffset(0, 0);                        //阴影的偏移量（右，下）
+    m_effect->setColor(QColor(0, 0, 0));              //阴影的颜色
+    m_effect->setBlurRadius(6);                      //控制阴影的模糊程度（光源距离）
+
+    //设置设置按钮的Frame圆角，填充颜色
+    ui->min_toolButton->setRadius(6);
+    ui->max_toolButton->setRadius(6);
+    ui->close_toolButton->setRadius(6);
+
+    ui->min_toolButton->setFillColor(QColor("#969696"));
+    ui->max_toolButton->setFillColor(QColor("#969696"));
+    ui->close_toolButton->setFillColor(QColor("#FF0066"));
+    //设置阴影
+    ui->min_toolButton->setGraphicsEffect(m_effect.get());
+    ui->max_toolButton->setGraphicsEffect(m_effect.get());
+    ui->close_toolButton->setGraphicsEffect(m_effect.get());
+
+    //ui->min_toolButton->setIcon(QIcon("://Res/titlebar/minimize-black.svg"));
+    //ui->max_toolButton->setIcon(QIcon("://Res/titlebar/maximize-black.svg"));
+    //ui->close_toolButton->setIcon(QIcon("://Res/titlebar/close-black.svg"));
 
     connect(ui->title_widget, &TitleWidget::doubleClicked, this, [] { qDebug() << "双击标题"; });
 }

@@ -480,7 +480,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QToolButton" name="min_toolButton">
+       <widget class="RippleButton" name="min_toolButton">
         <property name="cursor">
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
@@ -499,7 +499,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QToolButton" name="max_toolButton">
+       <widget class="RippleButton" name="max_toolButton">
         <property name="cursor">
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
@@ -518,7 +518,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QToolButton" name="close_toolButton">
+       <widget class="RippleButton" name="close_toolButton">
         <property name="cursor">
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
@@ -2670,6 +2670,11 @@ margin-top:0px;</string>
    <extends>QWidget</extends>
    <header>TitleWidget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>RippleButton</class>
+   <extends>QToolButton</extends>
+   <header>RippleButton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -20,5 +20,8 @@ add_subdirectory(MusicTableWidget)
 #遮罩模块
 add_subdirectory(SMaskWidget)
 
+#涟漪模块
+add_subdirectory(RippleButton)
+
 #开始模块
 add_subdirectory(KuGouStart)

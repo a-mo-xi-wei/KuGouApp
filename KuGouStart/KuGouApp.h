@@ -10,6 +10,7 @@ class QMediaPlayer;
 class QAudioOutput;
 class QButtonGroup;
 class QSizeGrip;
+class QGraphicsDropShadowEffect;
 
 namespace {
     /* 这里我们将一个窗口划分为9个区域，分别为
@@ -130,6 +131,7 @@ private:
     std::unique_ptr<QAudioOutput> m_audioOutput{};
     std::unique_ptr<QButtonGroup> m_menuBtnGroup{};
     std::unique_ptr<QSizeGrip> m_sizeGrip{};
+    std::unique_ptr<QGraphicsDropShadowEffect> m_effect{};
     QMap<int, QUrl> m_locationMusicMap;
     bool m_isPlaying = false;
 

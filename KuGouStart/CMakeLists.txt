@@ -21,9 +21,11 @@ set(SOURCE_FILE
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/../GuessLoveWidget
     ${PROJECT_SOURCE_DIR}/../AdvertiseBoardWidget
     ${PROJECT_SOURCE_DIR}/../TitleWidget
-    ${PROJECT_SOURCE_DIR}/../SMaskWidget)
+    ${PROJECT_SOURCE_DIR}/../SMaskWidget
+    ${PROJECT_SOURCE_DIR}/../RippleButton)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILE} "Res.qrc" "KuGouApp.ui")
 
 target_link_libraries(${PROJECT_NAME} Qt6::Widgets Qt6::UiTools Qt6::Multimedia
-    MusicTableWidget MusicItemWidget AdvertiseBoardWidget GuessLoveWidget TitleWidget SMaskWidget)
+                        MusicTableWidget MusicItemWidget AdvertiseBoardWidget
+                        GuessLoveWidget TitleWidget SMaskWidget RippleButton)
