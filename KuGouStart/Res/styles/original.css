@@ -59,45 +59,17 @@ QToolButton#menu_toolButton:hover {
     border-image: url("://Res/titlebar/menu-blue.svg");
 }
 
-QToolButton#min_toolButton {
-    background-color: rgba(255,255,255,0);
-    qproperty-icon: url("://Res/titlebar/minimize-black.svg");
-    border-radius: 6px;
-    border:none;
-    height: 30px;
-    width: 30px;
-    icon-size: 12px 12px;
-}
-QToolButton#min_toolButton:hover {
-    qproperty-icon: url("://Res/titlebar/minimize-blue.svg");
-}
-
-QToolButton#max_toolButton {
-    background-color: rgba(255,255,255,0);
-    qproperty-icon: url("://Res/titlebar/maximize-black.svg");
-    border-radius: 6px;
-    border:none;
-    height: 30px;
-    width: 30px;
-    icon-size: 12px 12px;
-}
-QToolButton#max_toolButton:hover {
-    qproperty-icon: url("://Res/titlebar/maximize-blue.svg");
-}
-
+QToolButton#min_toolButton,
+QToolButton#max_toolButton,
 QToolButton#close_toolButton {
     background-color: rgba(255,255,255,0);
-    qproperty-icon: url("://Res/titlebar/close-black.svg");
     border-radius: 6px;
-    border:none;
+    border: none;
     height: 30px;
     width: 30px;
     icon-size: 12px 12px;
 }
-QToolButton#close_toolButton:hover {
-    qproperty-icon: url("://Res/titlebar/close-blue.svg");
-    icon-size: 12px 12px;
-}
+
 
 /*--------------------menu_scrollArea------------------------------*/
 QScrollArea#menu_scrollArea .QToolButton{

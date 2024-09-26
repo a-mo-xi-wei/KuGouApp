@@ -28,8 +28,7 @@ KuGouApp::KuGouApp(QWidget *parent)
       , m_player(std::make_unique<QMediaPlayer>(this))
       , m_audioOutput(std::make_unique<QAudioOutput>(this))
       , m_menuBtnGroup(std::make_unique<QButtonGroup>(ui->center_menu_widget))
-      , m_sizeGrip(std::make_unique<QSizeGrip>(this))
-      , m_effect(std::make_unique<QGraphicsDropShadowEffect>(this)){
+      , m_sizeGrip(std::make_unique<QSizeGrip>(this)) {
     ui->setupUi(this);
     QFile file("://Res/styles/original.css");
     if (file.open(QIODevice::ReadOnly)) {
@@ -145,10 +144,6 @@ void KuGouApp::initTitleWidget() {
     ui->title_portrait_label->setPixmap(rounded);
 
     ui->title_gender_label->setPixmap(QPixmap("://Res/window/boy.svg"));
-    //设置按钮的阴影效果
-    m_effect->setOffset(0, 0);                        //阴影的偏移量（右，下）
-    m_effect->setColor(QColor(0, 0, 0));              //阴影的颜色
-    m_effect->setBlurRadius(6);                      //控制阴影的模糊程度（光源距离）
 
     //设置设置按钮的Frame圆角，填充颜色
     ui->min_toolButton->setRadius(6);
@@ -158,16 +153,12 @@ void KuGouApp::initTitleWidget() {
     ui->min_toolButton->setFillColor(QColor("#969696"));
     ui->max_toolButton->setFillColor(QColor("#969696"));
     ui->close_toolButton->setFillColor(QColor("#FF0066"));
-    //设置阴影
-    ui->min_toolButton->setGraphicsEffect(m_effect.get());
-    ui->max_toolButton->setGraphicsEffect(m_effect.get());
-    ui->close_toolButton->setGraphicsEffect(m_effect.get());
 
-    //ui->min_toolButton->setIcon(QIcon("://Res/titlebar/minimize-black.svg"));
-    //ui->max_toolButton->setIcon(QIcon("://Res/titlebar/maximize-black.svg"));
-    //ui->close_toolButton->setIcon(QIcon("://Res/titlebar/close-black.svg"));
+    ui->min_toolButton->setMyIcon(QIcon("://Res/titlebar/minimize-black.svg"));
+    ui->max_toolButton->setMyIcon(QIcon("://Res/titlebar/maximize-black.svg"));
+    ui->close_toolButton->setMyIcon(QIcon("://Res/titlebar/close-black.svg"));
 
-    connect(ui->title_widget, &TitleWidget::doubleClicked, this, [this] {ui->max_toolButton->click();});
+    connect(ui->title_widget, &TitleWidget::doubleClicked, this, [this] { ui->max_toolButton->click(); });
 }
 
 void KuGouApp::initPoster() {
@@ -257,7 +248,7 @@ void KuGouApp::initLocalDownload() {
 }
 
 void KuGouApp::initBottomWidget() {
-    this->m_sizeGrip->setFixedSize(11,11);
+    this->m_sizeGrip->setFixedSize(11, 11);
     this->m_sizeGrip->setStyleSheet("border-image:url('://Res/playbar/bottom-mark.svg');");
 }
 
@@ -347,7 +338,8 @@ void KuGouApp::paintEvent(QPaintEvent *ev) {
 
 void KuGouApp::resizeEvent(QResizeEvent *event) {
     QWidget::resizeEvent(event);
-    this->m_sizeGrip->move(this->width() - this->m_sizeGrip->width() - 3,this->height() - this->m_sizeGrip->height() - 3);
+    this->m_sizeGrip->move(this->width() - this->m_sizeGrip->width() - 3,
+                           this->height() - this->m_sizeGrip->height() - 3);
     this->m_sizeGrip->raise();
     this->m_sizeGrip->setVisible(true);
 }
@@ -481,8 +473,7 @@ void KuGouApp::on_max_toolButton_clicked() {
                                 background-color: #DDDDDD;
                                 qproperty-icon: url("://Res/titlebar/maximize-blue.svg");
                             })";
-    }
-    else {
+    } else {
         this->showMaximized();
         this->m_maxBtnStyle = R"(QToolButton#max_toolButton {
                                 background-color: rgba(255,255,255,0);
@@ -496,7 +487,6 @@ void KuGouApp::on_max_toolButton_clicked() {
                                 background-color: #DDDDDD;
                                 qproperty-icon: url("://Res/titlebar/resume-blue.svg");
                             })";
-
     }
     ui->max_toolButton->setStyleSheet(this->m_maxBtnStyle);
 }

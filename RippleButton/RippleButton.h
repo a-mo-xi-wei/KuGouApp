@@ -2,9 +2,12 @@
 #define RIPPLEBUTTON_H
 
 #include <QWidget>
-#include <QToolButton>
-#include <QPointF>
-#include <QTimer>
+
+#include<QToolButton>
+#include<QGraphicsDropShadowEffect>
+class QPOintF;
+class QTimer;
+class QIcon;
 
 class RippleButton : public QToolButton
 {
@@ -17,6 +20,8 @@ public:
 
     void setRadius(int radius_); // 设置圆角半径
 
+    void setMyIcon(const QIcon &ico); //设置按钮图标
+
 protected:
     void enterEvent(QEnterEvent *event) override; // 重写鼠标进入事件
 
@@ -26,6 +31,7 @@ protected:
 
     void resizeEvent(QResizeEvent *event) override; // 重写改变大小事件
 private:
+    std::unique_ptr<QGraphicsDropShadowEffect> m_effect{};
     int timeInterval = 10; // 定时器时间间隔，单位：ms
     QTimer *timer = Q_NULLPTR; // 定时器对象
     QPointF mouse_point; // 记录鼠标进入和离开时的坐标
@@ -34,6 +40,7 @@ private:
     int radius_var = 1; // 半径每次改变的值（增大或减小）
     QColor fill_color; // 填充颜色
     int frame_radius = 0; // 绘制路径的圆角半径
+    QIcon m_ico; //按钮图标
 };
 
 #endif // RIPPLEBUTTON_H

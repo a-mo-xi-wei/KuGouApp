@@ -3,19 +3,24 @@
 #include <QPainter>
 #include <QPaintEvent>
 #include <QBrush>
-#include <QPen>
 #include <QPainterPath>
 #include <QtMath>
-#include <QToolButton>
 #include <QGraphicsDropShadowEffect>
+#include <QPointF>
+#include <QTimer>
 RippleButton::RippleButton(QWidget* parent)
     : QToolButton(parent),
     timer(new QTimer(this)),
-    fill_color("#DDDDDD")
+    fill_color("#DDDDDD"),
+    m_effect(std::make_unique<QGraphicsDropShadowEffect>(this))
 {
     timer->setInterval(timeInterval); // 设置定时器时间间隔
     max_radius = qSqrt(width() * width() + height() * height()); // 计算最大半径
-    setStyleSheet("*{border:none;}"); // 去除默认边框
+    //设置按钮的阴影效果
+    m_effect->setOffset(0, 0); //阴影的偏移量（右，下）
+    m_effect->setColor(QColor(0, 0, 0)); //阴影的颜色
+    m_effect->setBlurRadius(6); //控制阴影的模糊程度（光源距离）
+    this->setGraphicsEffect(this->m_effect.get());
 }
 
 void RippleButton::setSpeed(const int &timeinitval) {
@@ -30,6 +35,11 @@ void RippleButton::setFillColor(const QColor& fillcolor)
 void RippleButton::setRadius(int radius_)
 {
     frame_radius = radius_;
+}
+
+void RippleButton::setMyIcon(const QIcon &ico) {
+    this->m_ico = ico;
+    this->setIcon(QIcon(this->m_ico));
 }
 
 void RippleButton::enterEvent(QEnterEvent* event)
@@ -78,6 +88,8 @@ void RippleButton::paintEvent(QPaintEvent* event)
         path.addRoundedRect(rect(), frame_radius, frame_radius);
         painter.setClipPath(path);
         painter.drawEllipse(mouse_point, radius, radius); // 画圆
+        int iconSize = 12;
+        this->m_ico.paint(&painter,(this->width() - iconSize) / 2, (this->height() - iconSize) / 2, iconSize, iconSize);
     }
 }
 

@@ -131,7 +131,6 @@ private:
     std::unique_ptr<QAudioOutput> m_audioOutput{};
     std::unique_ptr<QButtonGroup> m_menuBtnGroup{};
     std::unique_ptr<QSizeGrip> m_sizeGrip{};
-    std::unique_ptr<QGraphicsDropShadowEffect> m_effect{};
     QMap<int, QUrl> m_locationMusicMap;
     bool m_isPlaying = false;
 
