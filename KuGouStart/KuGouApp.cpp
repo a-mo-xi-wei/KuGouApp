@@ -167,7 +167,7 @@ void KuGouApp::initTitleWidget() {
     //ui->max_toolButton->setIcon(QIcon("://Res/titlebar/maximize-black.svg"));
     //ui->close_toolButton->setIcon(QIcon("://Res/titlebar/close-black.svg"));
 
-    connect(ui->title_widget, &TitleWidget::doubleClicked, this, [] { qDebug() << "双击标题"; });
+    connect(ui->title_widget, &TitleWidget::doubleClicked, this, [this] {ui->max_toolButton->click();});
 }
 
 void KuGouApp::initPoster() {
