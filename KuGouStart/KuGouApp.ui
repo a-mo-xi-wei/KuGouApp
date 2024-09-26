@@ -47,14 +47,62 @@
       <property name="spacing">
        <number>5</number>
       </property>
+      <property name="leftMargin">
+       <number>15</number>
+      </property>
+      <item>
+       <widget class="QToolButton" name="title_return_toolButton">
+        <property name="minimumSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>12</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QToolButton" name="title_refresh_toolButton">
+        <property name="minimumSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
       <item>
        <spacer name="hs">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>40</width>
+          <width>50</width>
           <height>20</height>
          </size>
         </property>
@@ -336,6 +384,12 @@
       </item>
       <item>
        <widget class="QLabel" name="title_name_label">
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="font">
          <font>
           <pointsize>12</pointsize>
@@ -347,6 +401,9 @@
         </property>
         <property name="text">
          <string>威桑</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -399,6 +456,12 @@
       </item>
       <item>
        <widget class="QToolButton" name="theme_toolButton">
+        <property name="minimumSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
         <property name="cursor">
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
@@ -412,6 +475,12 @@
       </item>
       <item>
        <widget class="QToolButton" name="message_toolButton">
+        <property name="minimumSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
         <property name="cursor">
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
@@ -425,6 +494,12 @@
       </item>
       <item>
        <widget class="QToolButton" name="menu_toolButton">
+        <property name="minimumSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
         <property name="cursor">
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
@@ -1153,7 +1228,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>865</width>
+           <width>898</width>
            <height>519</height>
           </rect>
          </property>
@@ -1177,7 +1252,7 @@
                  <item>
                   <widget class="GLTabWidget" name="guss_love_widget" native="true">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                      <horstretch>0</horstretch>
                      <verstretch>0</verstretch>
                     </sizepolicy>
@@ -1206,7 +1281,7 @@
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
-                     <width>40</width>
+                     <width>30</width>
                      <height>20</height>
                     </size>
                    </property>
@@ -1215,7 +1290,7 @@
                  <item>
                   <widget class="AdvertiseBoard" name="advertise_board_widget" native="true">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                      <horstretch>0</horstretch>
                      <verstretch>0</verstretch>
                     </sizepolicy>
@@ -1257,16 +1332,25 @@
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
                    </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Fixed</enum>
+                   </property>
                    <property name="sizeHint" stdset="0">
                     <size>
-                     <width>40</width>
-                     <height>20</height>
+                     <width>8</width>
+                     <height>10</height>
                     </size>
                    </property>
                   </spacer>
                  </item>
                  <item>
                   <widget class="QPushButton" name="recommend_pushButton">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="minimumSize">
                     <size>
                      <width>150</width>
@@ -1291,16 +1375,25 @@
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
                    </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Fixed</enum>
+                   </property>
                    <property name="sizeHint" stdset="0">
                     <size>
-                     <width>40</width>
-                     <height>20</height>
+                     <width>8</width>
+                     <height>10</height>
                     </size>
                    </property>
                   </spacer>
                  </item>
                  <item>
                   <widget class="QPushButton" name="ranking_list_pushButton">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="minimumSize">
                     <size>
                      <width>150</width>
@@ -1325,16 +1418,25 @@
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
                    </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Fixed</enum>
+                   </property>
                    <property name="sizeHint" stdset="0">
                     <size>
-                     <width>40</width>
-                     <height>20</height>
+                     <width>8</width>
+                     <height>10</height>
                     </size>
                    </property>
                   </spacer>
                  </item>
                  <item>
                   <widget class="QPushButton" name="classify_pushButton">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="minimumSize">
                     <size>
                      <width>150</width>
@@ -1359,16 +1461,25 @@
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
                    </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Fixed</enum>
+                   </property>
                    <property name="sizeHint" stdset="0">
                     <size>
-                     <width>40</width>
-                     <height>20</height>
+                     <width>8</width>
+                     <height>10</height>
                     </size>
                    </property>
                   </spacer>
                  </item>
                  <item>
                   <widget class="QPushButton" name="scene_music_pushButton">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="minimumSize">
                     <size>
                      <width>150</width>
@@ -1393,16 +1504,25 @@
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
                    </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Fixed</enum>
+                   </property>
                    <property name="sizeHint" stdset="0">
                     <size>
-                     <width>40</width>
-                     <height>20</height>
+                     <width>8</width>
+                     <height>10</height>
                     </size>
                    </property>
                   </spacer>
                  </item>
                  <item>
                   <widget class="QPushButton" name="music_quality_pushButton">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="minimumSize">
                     <size>
                      <width>150</width>
@@ -1540,6 +1660,12 @@
                        <horstretch>0</horstretch>
                        <verstretch>0</verstretch>
                       </sizepolicy>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>25</width>
+                       <height>0</height>
+                      </size>
                      </property>
                      <property name="maximumSize">
                       <size>
@@ -2499,7 +2625,7 @@ margin-top:0px;</string>
         <item>
          <widget class="QToolButton" name="volume_toolButton">
           <property name="toolTip">
-           <string>静音</string>
+           <string>调节音量</string>
           </property>
           <property name="text">
            <string/>

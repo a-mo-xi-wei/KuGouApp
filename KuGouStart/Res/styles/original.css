@@ -3,6 +3,20 @@ QWidget {
     background-color: #eef2ff;
 }
 /*--------------------title_widget------------------------------*/
+QToolButton#title_return_toolButton{
+    background-color: rgba(255,255,255,0);
+    border-image: url("://Res/titlebar/return-black.svg");
+}
+QToolButton#title_return_toolButton:hover {
+    border-image: url("://Res/titlebar/return-blue.svg");
+}
+QToolButton#title_refresh_toolButton{
+    background-color: rgba(255,255,255,0);
+    border-image: url("://Res/titlebar/refresh-black.svg");
+}
+QToolButton#title_refresh_toolButton:hover {
+    border-image: url("://Res/titlebar/refresh-blue.svg");
+}
 
 QWidget#title_widget .QLabel{
     background-color: #e2f1ff;

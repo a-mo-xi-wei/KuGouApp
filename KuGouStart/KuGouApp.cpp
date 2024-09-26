@@ -56,6 +56,15 @@ KuGouApp::~KuGouApp() {
     delete ui;
 }
 
+void KuGouApp::on_title_return_toolButton_clicked() {
+    qDebug()<<"返回，估计要使用堆栈";
+}
+
+void KuGouApp::on_title_refresh_toolButton_clicked() {
+    qDebug()<<"刷新界面";
+    ui->center_widget->repaint();
+}
+
 void KuGouApp::on_title_music_pushButton_clicked() {
     ui->index_label1->show();
     ui->index_label2->hide();
@@ -126,13 +135,7 @@ void KuGouApp::initTitleWidget() {
     ui->index_label2->hide();
     ui->index_label3->hide();
     ui->index_label4->hide();
-    ui->idx1_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
-    ui->idx2_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
-    ui->idx3_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
-    ui->idx4_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
-    ui->idx2_lab->hide();
-    ui->idx3_lab->hide();
-    ui->idx4_lab->hide();
+
 
     ui->search_lineEdit->addAction(QIcon("://Res/titlebar/search-black.svg"), QLineEdit::LeadingPosition);
 
@@ -236,6 +239,15 @@ void KuGouApp::initMenu() {
 }
 
 void KuGouApp::initLocalDownload() {
+    //下标图片
+    ui->idx1_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
+    ui->idx2_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
+    ui->idx3_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
+    ui->idx4_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
+    ui->idx2_lab->hide();
+    ui->idx3_lab->hide();
+    ui->idx4_lab->hide();
+
     ui->local_play_toolButton->setIcon(QIcon("://Res/tabIcon/play3-white.svg"));
     ui->local_add_toolButton->setIcon(QIcon("://Res/tabIcon/add-gray.svg"));
     ui->upload_toolButton->setIcon(QIcon("://Res/tabIcon/upload-cloud-gray.svg"));

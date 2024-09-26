@@ -67,6 +67,10 @@ public:
     ~KuGouApp();
 
 private slots:
+    void on_title_return_toolButton_clicked();
+
+    void on_title_refresh_toolButton_clicked();
+
     void on_title_music_pushButton_clicked();
 
     void on_title_live_pushButton_clicked();
