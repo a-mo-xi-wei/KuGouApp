@@ -16,11 +16,10 @@
 #include<QFile>
 #include<QPoint>
 #include<QMouseEvent>
-#include<QPaintEvent>
 #include<QButtonGroup>
 #include<QSizeGrip>
 #include<QLayout>
-#include<QGraphicsDropShadowEffect>
+#include <QPropertyAnimation>
 
 KuGouApp::KuGouApp(QWidget *parent)
     : QWidget(parent)
@@ -28,7 +27,8 @@ KuGouApp::KuGouApp(QWidget *parent)
       , m_player(std::make_unique<QMediaPlayer>(this))
       , m_audioOutput(std::make_unique<QAudioOutput>(this))
       , m_menuBtnGroup(std::make_unique<QButtonGroup>(ui->center_menu_widget))
-      , m_sizeGrip(std::make_unique<QSizeGrip>(this)) {
+      , m_sizeGrip(std::make_unique<QSizeGrip>(this))
+      , m_animation(std::make_unique<QPropertyAnimation>(this,"geometry")) {
     ui->setupUi(this);
     QFile file("://Res/styles/original.css");
     if (file.open(QIODevice::ReadOnly)) {
@@ -455,12 +455,28 @@ void KuGouApp::updateSliderRange(qint64 duration) {
 }
 
 void KuGouApp::on_min_toolButton_clicked() {
+    //QRect startGeometry = this->geometry(); // 获取当前窗口的几何形状(正常状态)
+    //QRect endGeometry = startGeometry;
+    ////endGeometry.setWidth(0); // 设置目标宽度为0
+    //endGeometry.setHeight(100); // 设置目标高度为0
+    //this->m_animation->setDuration(1000); // 动画时长
+    //this->m_animation->setStartValue(startGeometry);
+    //this->m_animation->setEndValue(endGeometry);
+    //this->m_animation->setEasingCurve(QEasingCurve::InOutQuad); // 设置动画曲线
+    //this->m_animation->start(QAbstractAnimation::DeleteWhenStopped); // 启动动画
+    //// 最小化窗口
+    //connect(this->m_animation.get(), &QPropertyAnimation::finished, this, [&]() {this->showMinimized();});
     this->showMinimized();
 }
 
 void KuGouApp::on_max_toolButton_clicked() {
-    if (this->isMaximized()) {
-        this->showNormal();
+    QRect startGeometry; // 获取当前窗口的几何形状(正常状态)
+    QRect endGeometry;
+    if (m_isMaxScreen) {
+        this->m_isMaxScreen = false;
+        endGeometry = startGeometry; // 获取普通尺寸时的几何形状
+        startGeometry = this->screen()->availableGeometry();
+        //this->setGeometry(startGeometry); // 恢复前，我们先把它设置回最大化尺寸
         this->m_maxBtnStyle = R"(QToolButton#max_toolButton {
                                 background-color: rgba(255,255,255,0);
                                 qproperty-icon: url("://Res/titlebar/maximize-black.svg");
@@ -468,13 +484,14 @@ void KuGouApp::on_max_toolButton_clicked() {
                                 height: 30px;
                                 width: 30px;
                                 icon-size: 12px 12px;
-                            }
-                            QToolButton#max_toolButton:hover {
-                                background-color: #DDDDDD;
-                                qproperty-icon: url("://Res/titlebar/maximize-blue.svg");
                             })";
+        ui->max_toolButton->setMyIcon(QIcon("://Res/titlebar/maximize-black.svg"));
+        this->m_animation->setDuration(700); // 设置动画持续时间
     } else {
-        this->showMaximized();
+        this->m_isMaxScreen = true;
+        // 如果当前不是最大化状态，则目标是最大化
+        startGeometry = this->geometry();
+        endGeometry = this->screen()->availableGeometry(); // 获取屏幕的最大化尺寸
         this->m_maxBtnStyle = R"(QToolButton#max_toolButton {
                                 background-color: rgba(255,255,255,0);
                                 qproperty-icon: url("://Res/titlebar/resume-black.svg");
@@ -482,12 +499,19 @@ void KuGouApp::on_max_toolButton_clicked() {
                                 height: 30px;
                                 width: 30px;
                                 icon-size: 12px 12px;
-                            }
-                            QToolButton#max_toolButton:hover {
-                                background-color: #DDDDDD;
-                                qproperty-icon: url("://Res/titlebar/resume-blue.svg");
                             })";
+        ui->max_toolButton->setMyIcon(QIcon("://Res/titlebar/resume-black.svg"));
+        this->m_animation->setDuration(400); // 设置动画持续时间
     }
+
+   this->m_animation->setStartValue(startGeometry); // 动画开始时的窗口几何
+   this->m_animation->setEndValue(endGeometry); // 动画结束时的窗口几何
+   this->m_animation->setEasingCurve(QEasingCurve::InOutQuad); // 设置动画的缓动曲线
+
+    // 开始动画
+    this->m_animation->start(QAbstractAnimation::KeepWhenStopped);
+
+    // 更新按钮样式
     ui->max_toolButton->setStyleSheet(this->m_maxBtnStyle);
 }
 
@@ -496,8 +520,8 @@ void KuGouApp::on_close_toolButton_clicked() {
 }
 
 void KuGouApp::on_circle_toolButton_clicked() {
-    isSingelCircle = !isSingelCircle;
-    if (isSingelCircle) {
+    m_isSingleCircle = !m_isSingleCircle;
+    if (m_isSingleCircle) {
         ui->circle_toolButton->setStyleSheet(
             R"(QToolButton{border-image:url('://Res/playbar/single-list-loop-gray.svg');}
                                             QToolButton:hover{border-image:url('://Res/playbar/single-list-loop-blue.svg');})");
@@ -508,8 +532,8 @@ void KuGouApp::on_circle_toolButton_clicked() {
 }
 
 void KuGouApp::on_volume_toolButton_clicked() {
-    isNoVolume = !isNoVolume;
-    if (isNoVolume) {
+    m_isNoVolume = !m_isNoVolume;
+    if (m_isNoVolume) {
         ui->volume_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/volume-off-gray.svg');}
                                             QToolButton:hover{border-image:url('://Res/playbar/volume-off-blue.svg');})");
     } else {

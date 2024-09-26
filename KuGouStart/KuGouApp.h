@@ -10,7 +10,7 @@ class QMediaPlayer;
 class QAudioOutput;
 class QButtonGroup;
 class QSizeGrip;
-class QGraphicsDropShadowEffect;
+class QPropertyAnimation;
 
 namespace {
     /* 这里我们将一个窗口划分为9个区域，分别为
@@ -131,6 +131,7 @@ private:
     std::unique_ptr<QAudioOutput> m_audioOutput{};
     std::unique_ptr<QButtonGroup> m_menuBtnGroup{};
     std::unique_ptr<QSizeGrip> m_sizeGrip{};
+    std::unique_ptr<QPropertyAnimation> m_animation{};
     QMap<int, QUrl> m_locationMusicMap;
     bool m_isPlaying = false;
 
@@ -146,8 +147,9 @@ protected:
     void resizeEvent(QResizeEvent *event) override;
 
 private:
-    bool isNoVolume = false;
-    bool isSingelCircle = false;
+    bool m_isNoVolume = false;
+    bool m_isSingleCircle = false;
+    bool m_isMaxScreen = false;
 
 private:
     //根据鼠标的设置鼠标样式，用于拉伸
