@@ -314,6 +314,11 @@
           <height>40</height>
          </size>
         </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="placeholderText">
          <string>搜索音乐</string>
         </property>
