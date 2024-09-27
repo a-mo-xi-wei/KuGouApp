@@ -16,6 +16,9 @@
     <height>700</height>
    </size>
   </property>
+  <property name="mouseTracking">
+   <bool>false</bool>
+  </property>
   <property name="windowTitle">
    <string>KuGouApp</string>
   </property>
@@ -42,6 +45,9 @@
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <property name="spacing">
@@ -653,6 +659,9 @@
        </inactive>
        <disabled/>
       </palette>
+     </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <property name="leftMargin">
@@ -1314,6 +1323,9 @@
                    </property>
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="mouseTracking">
+                    <bool>false</bool>
                    </property>
                    <property name="toolTip">
                     <string/>
@@ -2352,6 +2364,9 @@ margin-top:0px;</string>
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_6">
       <property name="spacing">

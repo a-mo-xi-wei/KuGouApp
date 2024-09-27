@@ -103,6 +103,8 @@ void KuGouApp::initUi() {
     ui->center_widget->setMouseTracking(true);
     ui->play_widget->setMouseTracking(true);
     this->setAttribute(Qt::WA_TranslucentBackground);
+    this->setAttribute(Qt::WA_Hover,true);
+
     initTitleWidget();
     initPoster();
     initTabWidget();
@@ -288,6 +290,7 @@ void KuGouApp::mouseReleaseEvent(QMouseEvent *ev) {
 
 void KuGouApp::mouseMoveEvent(QMouseEvent *ev) {
     QWidget::mouseMoveEvent(ev);
+    qDebug()<<"鼠标位置 ： "<<ev->pos();
     // 设置鼠标的形状
     SetMouseCursor(ev->pos().x(), ev->pos().y());
     // 计算的鼠标移动偏移量, 就是鼠标全局坐标 - 减去点击时鼠标坐标
@@ -299,7 +302,6 @@ void KuGouApp::mouseMoveEvent(QMouseEvent *ev) {
                 ui->play_widget->geometry().contains(ev->pos())) {
                 move(windowsLastPs + point_offset);
             }
-
         } else {
             // 其他部分 是拉伸窗口
             // 获取客户区
@@ -360,9 +362,19 @@ void KuGouApp::resizeEvent(QResizeEvent *event) {
     this->m_sizeGrip->setVisible(true);
 }
 
+bool KuGouApp::event(QEvent *event) {
+    if(QEvent::HoverMove == event->type())//鼠标移动
+    {
+        QMouseEvent *ev = static_cast<QMouseEvent*>(event);
+        this->mouseMoveEvent(ev);
+    }
+
+    return QWidget::event(event);
+}
+
 void KuGouApp::SetMouseCursor(int x, int y) {
     // 鼠标形状对象
-    Qt::CursorShape cursor{};
+    Qt::CursorShape cursor{Qt::ArrowCursor};
     int region = GetMouseRegion(x, y);
     switch (region) {
         case kMousePositionLeftTop:
