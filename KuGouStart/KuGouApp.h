@@ -17,7 +17,7 @@ namespace {
      左上角（1, 1）、中上（1，2）、右上角（1, 3）
      左中  （2, 1）、 中间（2, 2）、右中  （2, 3）
      左下角（3, 1）、中下（3，2）、 右下角（3, 3）*/
-    const int OFFSET = 6;
+    const int OFFSET = 3;
 
     const int kMouseRegionLeft = OFFSET;
 

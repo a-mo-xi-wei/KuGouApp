@@ -294,8 +294,12 @@ void KuGouApp::mouseMoveEvent(QMouseEvent *ev) {
     QPoint point_offset = ev->globalPosition().toPoint() - mousePs;
     if ((ev->buttons() == Qt::LeftButton) && isPress) {
         if (mouse_press_region == kMousePositionMid) {
-            // 如果鼠标是在窗口的中间位置,就是移动窗口
-            move(windowsLastPs + point_offset);
+            //if(!ui->center_widget->rect().contains(ev->pos())) {
+            if(ui->title_widget->geometry().contains(ev->pos()) ||
+                ui->play_widget->geometry().contains(ev->pos())) {
+                move(windowsLastPs + point_offset);
+            }
+
         } else {
             // 其他部分 是拉伸窗口
             // 获取客户区
@@ -377,10 +381,8 @@ void KuGouApp::SetMouseCursor(int x, int y) {
         case kMousePositionBottom:
             cursor = Qt::SizeVerCursor;
             break;
-        case kMousePositionMid:
-            cursor = Qt::ArrowCursor;
-            break;
         default:
+            cursor = Qt::ArrowCursor;
             break;
     }
     setCursor(cursor);
@@ -398,7 +400,7 @@ int KuGouApp::GetMouseRegion(int x, int y) {
         region_x = 2;
     }
     if (y < kMouseRegionTop) {
-        // 同理 鼠标Y坐标 小于上层边界5  说明鼠标在第一区域
+        // 同理 鼠标Y坐标 小于上层边界  说明鼠标在第一区域
         region_y = 1;
     } else if (y > (this->height() - kMouseRegionBottom)) {
         // 鼠标Y坐标的 大于 最下面的坐标,鼠标就在 第三区
