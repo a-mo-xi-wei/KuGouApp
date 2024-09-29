@@ -26,7 +26,7 @@ KuGouApp::KuGouApp(QWidget *parent)
       , ui(new Ui::KuGouApp)
       , m_player(std::make_unique<QMediaPlayer>(this))
       , m_audioOutput(std::make_unique<QAudioOutput>(this))
-      , m_menuBtnGroup(std::make_unique<QButtonGroup>(ui->center_menu_widget))
+      , m_menuBtnGroup(std::make_unique<QButtonGroup>(this))
       , m_sizeGrip(std::make_unique<QSizeGrip>(this))
       , m_animation(std::make_unique<QPropertyAnimation>(this,"geometry")) {
     ui->setupUi(this);
@@ -210,6 +210,7 @@ void KuGouApp::initPlayWidget() {
 }
 
 void KuGouApp::initMenu() {
+    this->m_menuBtnGroup->setParent(ui->center_menu_widget);
     ui->basic_toolButton->setIcon(QIcon("://Res/window/recommend.svg"));
     ui->yueku_toolButton->setIcon(QIcon("://Res/window/music-library.svg"));
     ui->gedan_toolButton->setIcon(QIcon("://Res/window/song-list.svg"));
@@ -290,7 +291,7 @@ void KuGouApp::mouseReleaseEvent(QMouseEvent *ev) {
 
 void KuGouApp::mouseMoveEvent(QMouseEvent *ev) {
     QWidget::mouseMoveEvent(ev);
-    qDebug()<<"鼠标位置 ： "<<ev->pos();
+    //qDebug()<<"鼠标位置 ： "<<ev->pos();
     // 设置鼠标的形状
     SetMouseCursor(ev->pos().x(), ev->pos().y());
     // 计算的鼠标移动偏移量, 就是鼠标全局坐标 - 减去点击时鼠标坐标
