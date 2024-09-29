@@ -138,7 +138,7 @@ private:
     std::unique_ptr<QPropertyAnimation> m_animation{};
     QMap<int, QUrl> m_locationMusicMap;
     bool m_isPlaying = false;
-
+    QPoint m_pressPos;
 protected:
     void mousePressEvent(QMouseEvent *ev) override;
 

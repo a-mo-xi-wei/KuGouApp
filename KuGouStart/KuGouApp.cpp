@@ -270,12 +270,14 @@ void KuGouApp::initBottomWidget() {
 void KuGouApp::mousePressEvent(QMouseEvent *ev) {
     QWidget::mousePressEvent(ev);
     if (ev->button() == Qt::LeftButton) {
+        //qDebug()<<"按下 :"<<ev->pos();
         // 如果是鼠标左键
         // 获取当前窗口位置,以窗口左上角
         windowsLastPs = pos();
         // 获取鼠标在屏幕的位置  就是全局的坐标 以屏幕左上角为坐标系
         mousePs = ev->globalPosition().toPoint();
         isPress = true;
+        this->m_pressPos = ev->pos();
         // 获取鼠标在那个区域
         mouse_press_region = GetMouseRegion(ev->pos().x(), ev->pos().y());
     }
@@ -299,8 +301,8 @@ void KuGouApp::mouseMoveEvent(QMouseEvent *ev) {
     if ((ev->buttons() == Qt::LeftButton) && isPress) {
         if (mouse_press_region == kMousePositionMid) {
             //if(!ui->center_widget->rect().contains(ev->pos())) {
-            if(ui->title_widget->geometry().contains(ev->pos()) ||
-                ui->play_widget->geometry().contains(ev->pos())) {
+            if(ui->title_widget->geometry().contains(this->m_pressPos) ||
+                ui->play_widget->geometry().contains(this->m_pressPos)) {
                 move(windowsLastPs + point_offset);
             }
         } else {
