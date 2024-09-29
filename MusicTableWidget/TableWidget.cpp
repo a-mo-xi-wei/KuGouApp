@@ -4,17 +4,19 @@
 #include<QToolButton>
 #include<QPaintEvent>
 #include<QEnterEvent>
-#include<QLayout>
+#include<QBoxLayout>
 #include<QSpacerItem>
 #include<QStyleOption>
 #include<QPainter>
 #include<QGridLayout>
 #include<QPainterPath>
 
-TableWidget::TableWidget(const QString &title, QWidget *parent)
+TableWidget::TableWidget(const QString &title, KIND kind ,QWidget *parent)
     :QWidget(parent)
+    ,m_titleLab(new QLabel(title,this))
+    ,m_kindList(kind)
+    ,m_tabHLayout(std::make_unique<QHBoxLayout>())
 {
-    this->m_titleLab        = new QLabel(title,this);
     this->m_play_ToolBtn    = new QToolButton(this);
     this->m_adjust_ToolBtn  = new QToolButton(this);
     this->m_refresh_ToolBtn = new QToolButton(this);
@@ -55,31 +57,44 @@ void TableWidget::initUi()
     this->m_play_ToolBtn->setObjectName("play_ToolBtn");
     this->m_adjust_ToolBtn->setObjectName("adjust_ToolBtn");
     this->m_refresh_ToolBtn->setObjectName("refresh_ToolBtn");
-    this->m_more_Lab->setObjectName("more_ToolBtn");
+    this->m_more_Lab->setObjectName("moreLab");
     this->m_tabWidget->setObjectName("tabWidget");
 
-    //this->m_play_ToolBtn->setIcon(QIcon(":///Res/tabIcon/play2-gray.svg"));
     this->m_adjust_ToolBtn->setIcon(QIcon(":///Res/tabIcon/adjust-column-gray.svg"));
     this->m_refresh_ToolBtn->setIcon(QIcon(":///Res/tabIcon/refresh-gray.svg"));
-    this->m_more_Lab->setStyleSheet("color:gray;font-size:12px;padding-bottom: 3px;");
 
     this->m_play_ToolBtn->setIconSize(QSize(20, 20));
 
     this->setStyleSheet(R"(QLabel#titleLab{font-size:20px;}
+                           QLabel#moreLab{color:gray;font-size:12px;padding-bottom: 3px;}
                            QToolButton{background-color:rgba(255,255,255,0);}
                            QToolButton#play_ToolBtn{border-image: url(':///Res/tabIcon/play2-gray.svg');}
                            QToolButton#play_ToolBtn:hover{border-image: url(':///Res/tabIcon/play2-blue.svg');}
-                         
+                        )");
 
-)");
-    QHBoxLayout* hlayout = new QHBoxLayout;
-    hlayout->addWidget(this->m_titleLab);
-    hlayout->addWidget(this->m_play_ToolBtn);
-    hlayout->addSpacerItem(new QSpacerItem(40,20,QSizePolicy::Expanding));
-    hlayout->addWidget(this->m_adjust_ToolBtn);
-    hlayout->addWidget(this->m_refresh_ToolBtn);
-    hlayout->addWidget(this->m_more_Lab);
+    m_tabHLayout->addWidget(this->m_titleLab);
+    m_tabHLayout->addWidget(this->m_play_ToolBtn);
+    m_tabHLayout->addSpacerItem(new QSpacerItem(40,20,QSizePolicy::Expanding));
+    m_tabHLayout->addWidget(this->m_adjust_ToolBtn);
+    m_tabHLayout->addWidget(this->m_refresh_ToolBtn);
+    m_tabHLayout->addWidget(this->m_more_Lab);
 
+    if(this->m_kindList == KIND::ItemList)initItemListWidget();
+    else if(this->m_kindList == KIND::BlockList)initBlockListWidget();
+}
+
+void TableWidget::initBlockListWidget()
+{
+    QGridLayout* glayout = new QGridLayout(this->m_tabWidget);
+    for (int i = 0; i < 2; ++i) {
+        for (int j = 0; j < 5; ++j) {
+            auto block = new ItemBlockWidget(QPixmap(":///Res/tabIcon/music-cover.jpg"),this);
+        }
+    }
+}
+
+void TableWidget::initItemListWidget()
+{
     QGridLayout* glayout = new QGridLayout(this->m_tabWidget);
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
@@ -90,7 +105,7 @@ void TableWidget::initUi()
     }
 
     QVBoxLayout* vlayout = new QVBoxLayout(this);
-    vlayout->addLayout(hlayout);
+    vlayout->addLayout(m_tabHLayout.get());
     vlayout->addWidget(this->m_tabWidget);
 }
 
@@ -112,13 +127,15 @@ ItemListWidget::ItemListWidget(QPixmap coverPix, const QString &name, const QStr
     :QWidget(parent)
     ,m_mask(new SMaskWidget(this))
 {
-    this->setFixedHeight(60);
+    this->setMinimumHeight(60);
+    //this->setFixedHeight(60);
     this->m_coverLab         = new QLabel(this);
     this->m_nameLab          = new QLabel(name,this);
     this->m_authorLab        = new QLabel(author,this);
     this->m_play_add_ToolBtn = new QToolButton(this);
     this->m_like_ToolBtn     = new QToolButton(this);
     this->m_more_ToolBtn     = new QToolButton(this);
+    //this->m_coverLab->setMinimumSize(this->height(),this->height());
     this->m_coverLab->setFixedSize(this->height(),this->height());
     this->m_coverLab->setPixmap(roundedPixmap(coverPix,this->m_coverLab->size(),8));
     this->m_coverLab->setScaledContents(true);
@@ -177,6 +194,12 @@ void ItemListWidget::leaveEvent(QEvent *ev)
     update();
 }
 
+void ItemListWidget::resizeEvent(QResizeEvent *event)
+{
+    QWidget::resizeEvent(event);
+    qDebug()<<"改变大小";
+}
+
 void ItemListWidget::initUi()
 {
     this->m_coverLab->setCursor(Qt::PointingHandCursor);
@@ -193,8 +216,6 @@ void ItemListWidget::initUi()
     this->m_like_ToolBtn->setObjectName("like_ToolBtn");
     this->m_more_ToolBtn->setObjectName("more_ToolBtn");
 
-    this->m_like_ToolBtn->setIcon(QIcon(""));
-    this->m_more_ToolBtn->setIcon(QIcon(""));
     
     this->m_play_add_ToolBtn->setStyleSheet(R"(QToolButton#play_add_ToolBtn{border-image: url(':///Res/tabIcon/play-add-gray.svg');}
                                                QToolButton#play_add_ToolBtn:hover{border-image: url(':///Res/tabIcon/play-add-blue.svg');})");
@@ -218,5 +239,35 @@ void ItemListWidget::initUi()
     hlayout->addWidget(this->m_like_ToolBtn);
     hlayout->addWidget(this->m_more_ToolBtn);
 
+
+}
+
+ItemBlockWidget::ItemBlockWidget(QPixmap coverPix, QWidget *parent)
+    :QWidget(parent)
+    ,m_mask(new SMaskWidget(this))
+{
+
+}
+
+void ItemBlockWidget::paintEvent(QPaintEvent *ev)
+{
+
+}
+
+void ItemBlockWidget::enterEvent(QEnterEvent *ev)
+{
+
+}
+
+void ItemBlockWidget::leaveEvent(QEvent *ev)
+{
+
+}
+
+void ItemBlockWidget::initUi()
+{
+    this->setCursor(Qt::PointingHandCursor);
+
+    this->m_describeLab->setObjectName("describeLab");
 
 }
