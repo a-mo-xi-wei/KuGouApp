@@ -12,9 +12,9 @@ static int posterIndex = 0;
 
 AdvertiseBoard::AdvertiseBoard(QWidget *parent)
     : QWidget{parent}
-    ,m_timer(new QTimer(this))
     ,m_leftLab(new MyLLabel(this))
     ,m_rightLab(new MyRLabel(this))
+    ,m_timer(new QTimer(this))
 {
     connect(this->m_timer,&QTimer::timeout,this,[this]{posterIndex = (++posterIndex) % this->m_posters.size();update();});
     this->m_timer->start(3000);
@@ -87,7 +87,7 @@ void AdvertiseBoard::paintEvent(QPaintEvent *ev)
     //绘制广告播放进度
     auto s = this->m_posters.size();
     auto drawStartPos = QPoint((this->width() - (s-1) * (G_Radius * 2 + G_Space)) / 2,this->height() - 10);
-    for(size_t i = 0 ; i < this->m_posters.size() ; ++i){
+    for(auto i = 0 ; i < this->m_posters.size() ; ++i){
         if(i == posterIndex)
             painter.setBrush(Qt::red);
         else
