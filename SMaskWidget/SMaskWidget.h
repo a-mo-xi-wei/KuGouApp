@@ -35,6 +35,7 @@ private:
     QPointF m_bp;
     QPointF m_cp;
     bool m_isEnter = false;
+    bool m_executed = true;
 };
 
 #endif // SMASKWIDGET_H

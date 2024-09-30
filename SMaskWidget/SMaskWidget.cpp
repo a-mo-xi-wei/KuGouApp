@@ -10,8 +10,7 @@ SMaskWidget::SMaskWidget(QWidget *parent)
 }
 
 void SMaskWidget::calOnce() {
-    static bool executed = true; // 静态变量
-    if(executed){
+    if(this->m_executed){
         m_w = static_cast<const float>(rect().width());
         m_h = static_cast<const float>(rect().height());
         m_radius = static_cast<float>(rect().width())/5;
@@ -20,7 +19,7 @@ void SMaskWidget::calOnce() {
         m_ap = static_cast<const QPointF>(QPointF(m_centerX - m_w / 26, m_centerY - m_h / 18));
         m_bp = static_cast<const QPointF>(QPointF(m_centerX - m_w / 26, m_centerY + m_h / 18));
         m_cp = static_cast<const QPointF>(QPointF(m_centerX + m_w / 15, m_centerY));
-        executed = false;
+        this->m_executed = false;
     }
 }
 
