@@ -14,7 +14,7 @@ public:
 
 protected:
     void paintEvent(QPaintEvent* ev)override;
-
+    void resizeEvent(QResizeEvent *event) override;
 private:
     void initUi();
     void layoutUi();

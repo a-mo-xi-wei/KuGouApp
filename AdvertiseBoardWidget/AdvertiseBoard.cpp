@@ -16,6 +16,7 @@ AdvertiseBoard::AdvertiseBoard(QWidget *parent)
     ,m_rightLab(new MyRLabel(this))
     ,m_timer(new QTimer(this))
 {
+
     connect(this->m_timer,&QTimer::timeout,this,[this]{posterIndex = (++posterIndex) % this->m_posters.size();update();});
     this->m_timer->start(3000);
 
@@ -93,13 +94,15 @@ void AdvertiseBoard::paintEvent(QPaintEvent *ev)
         painter.drawEllipse(drawStartPos,G_Radius,G_Radius);
         drawStartPos.setX(drawStartPos.x() + G_Space + 2 * G_Radius);
     }
-    QWidget::paintEvent(ev);
 }
 
+#define AspectRatio 2
 void AdvertiseBoard::resizeEvent(QResizeEvent* ev)
 {
     QWidget::resizeEvent(ev);
     updateLabPosition();
+    this->setFixedHeight(ev->size().width() / AspectRatio);
+    update();
 }
 
 void AdvertiseBoard::enterEvent(QEnterEvent* ev)

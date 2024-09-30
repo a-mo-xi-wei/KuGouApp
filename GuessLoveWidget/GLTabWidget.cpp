@@ -38,15 +38,24 @@ void GLTabWidget::initUi()
     this->m_dislikeToolBtn->setCursor(Qt::CursorShape::PointingHandCursor);
 
     this->setStyleSheet("background-color:rgba(255,255,255,0);");
-    //this->m_glLab->setStyleSheet("background-color:rgba(255,255,255,0);");
-    //this->m_songNameLab->setStyleSheet("background-color:rgba(255,255,255,0);");
+
 }
+
 void GLTabWidget::paintEvent(QPaintEvent *ev)
 {
     QStyleOption opt;
     opt.initFrom(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget,&opt,&p,this);
+
+}
+
+#define AspectRatio 2
+void GLTabWidget::resizeEvent(QResizeEvent *event)
+{
+    QWidget::resizeEvent(event);
+    this->setFixedHeight(event->size().width() / AspectRatio);
+    update();
 }
 
 void GLTabWidget::layoutUi()
