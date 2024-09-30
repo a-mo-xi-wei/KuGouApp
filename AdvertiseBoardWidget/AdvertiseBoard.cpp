@@ -68,12 +68,10 @@ void AdvertiseBoard::updateLabPosition()
 
 void AdvertiseBoard::paintEvent(QPaintEvent *ev)
 {
+    QWidget::paintEvent(ev);
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing,true);
-    if(this->m_posters.isEmpty()){
-        QWidget::paintEvent(ev);
-        return;
-    }
+    if(this->m_posters.isEmpty())return;
 
     QPixmap img = this->m_posters[posterIndex]->scaled(this->size(),Qt::KeepAspectRatio);
     //将图片变成圆角
