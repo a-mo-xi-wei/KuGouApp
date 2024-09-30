@@ -106,7 +106,7 @@ void KuGouApp::initUi() {
     this->setAttribute(Qt::WA_Hover,true);
 
     initTitleWidget();
-    initPoster();
+    initAdvertiseBoard();
     initTabWidget();
     initPlayWidget();
     initMenu();
@@ -166,7 +166,8 @@ void KuGouApp::initTitleWidget() {
     connect(ui->title_widget, &TitleWidget::doubleClicked, this, [this] { ui->max_toolButton->click(); });
 }
 
-void KuGouApp::initPoster() {
+void KuGouApp::initAdvertiseBoard()
+{
     QDir dir(__FILE__);
     if (dir.cdUp())dir.cd("Res/poster");
 
@@ -178,6 +179,7 @@ void KuGouApp::initPoster() {
 void KuGouApp::initTabWidget() {
     QVBoxLayout *layout = dynamic_cast<QVBoxLayout *>(ui->table_widget->layout());
     if (!layout)return;
+    //layout->insertWidget(layout->count() - 1, new TableWidget("今日专属推荐", TableWidget::KIND::BlockList,this));
     layout->insertWidget(layout->count() - 1, new TableWidget("潮流音乐站", TableWidget::KIND::ItemList,this));
     layout->insertWidget(layout->count() - 1, new TableWidget("热门好歌精选",TableWidget::KIND::ItemList, this));
     layout->insertWidget(layout->count() - 1, new TableWidget("私人专属好歌",TableWidget::KIND::ItemList, this));

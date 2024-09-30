@@ -66,6 +66,17 @@
         <file>Res/tabIcon/refresh-blue.svg</file>
         <file>Res/tabIcon/refresh-gray.svg</file>
         <file>Res/tabIcon/sort-gray.svg</file>
+        <file>Res/tabIcon/popular-white.svg</file>
+        <file>Res/tabIcon/music-block-cover1.jpg</file>
+        <file>Res/tabIcon/music-block-cover2.jpg</file>
+        <file>Res/tabIcon/music-block-cover3.jpg</file>
+        <file>Res/tabIcon/music-block-cover4.jpg</file>
+        <file>Res/tabIcon/music-block-cover5.jpg</file>
+        <file>Res/tabIcon/music-block-cover6.jpg</file>
+        <file>Res/tabIcon/music-block-cover7.jpg</file>
+        <file>Res/tabIcon/music-block-cover8.jpg</file>
+        <file>Res/tabIcon/music-block-cover9.jpg</file>
+        <file>Res/tabIcon/music-block-cover10.jpg</file>
         <file>Res/titlebar/close-black.svg</file>
         <file>Res/titlebar/close-blue.svg</file>
         <file>Res/titlebar/h-line.png</file>

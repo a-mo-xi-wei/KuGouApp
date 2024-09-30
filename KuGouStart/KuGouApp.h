@@ -117,7 +117,7 @@ private:
 
     void initTitleWidget();
 
-    void initPoster();
+    void initAdvertiseBoard();
 
     void initTabWidget();
 

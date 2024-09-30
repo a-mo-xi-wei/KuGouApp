@@ -1,5 +1,5 @@
 #include "TableWidget.h"
-#include"SMaskWidget.h"
+
 #include<QLabel>
 #include<QToolButton>
 #include<QPaintEvent>
@@ -21,12 +21,11 @@ TableWidget::TableWidget(const QString &title, KIND kind ,QWidget *parent)
     this->m_adjust_ToolBtn  = new QToolButton(this);
     this->m_refresh_ToolBtn = new QToolButton(this);
     this->m_more_Lab        = new QLabel("更多 >",this);
-    this->m_tabWidget       = new QWidget;
 
     initUi();
 
     this->m_adjust_ToolBtn->hide();
-    connect(this->m_adjust_ToolBtn, &QToolButton::clicked, this, [this] {this->m_tabWidget->setHidden(!this->m_tabWidget->isHidden()); });
+    connect(this->m_adjust_ToolBtn, &QToolButton::clicked, this, [this] {this->setHidden(!this->isHidden()); });
 }
 
 void TableWidget::paintEvent(QPaintEvent *ev)
@@ -58,7 +57,6 @@ void TableWidget::initUi()
     this->m_adjust_ToolBtn->setObjectName("adjust_ToolBtn");
     this->m_refresh_ToolBtn->setObjectName("refresh_ToolBtn");
     this->m_more_Lab->setObjectName("moreLab");
-    this->m_tabWidget->setObjectName("tabWidget");
 
     this->m_adjust_ToolBtn->setIcon(QIcon(":///Res/tabIcon/adjust-column-gray.svg"));
     this->m_refresh_ToolBtn->setIcon(QIcon(":///Res/tabIcon/refresh-gray.svg"));
@@ -85,29 +83,34 @@ void TableWidget::initUi()
 
 void TableWidget::initBlockListWidget()
 {
-    QGridLayout* glayout = new QGridLayout(this->m_tabWidget);
-    for (int i = 0; i < 2; ++i) {
-        for (int j = 0; j < 5; ++j) {
-            auto block = new ItemBlockWidget(QPixmap(":///Res/tabIcon/music-cover.jpg"),this);
+    QGridLayout* glayout = new QGridLayout;
+    glayout->setSpacing(15);
+    for (int i = 1; i <= 2; ++i) {
+        for (int j = 1; j <= 5; ++j) {
+            QString pixPath = QString(":///Res/tabIcon/music-block-cover%1.jpg").arg(i*j);
+            auto block = new ItemBlockWidget(QPixmap(pixPath),this);
+            glayout->addWidget(block,i-1,j-1);
         }
     }
+    QVBoxLayout* vlayout = new QVBoxLayout(this);
+    vlayout->addLayout(m_tabHLayout.get());
+    vlayout->addLayout(glayout);
 }
 
 void TableWidget::initItemListWidget()
 {
-    QGridLayout* glayout = new QGridLayout(this->m_tabWidget);
-    glayout->setSpacing(20);
+    QGridLayout* glayout = new QGridLayout;
+    glayout->setSpacing(15);
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
-            auto item = new ItemListWidget(QPixmap(":///Res/tabIcon/music-cover.jpg"),"歌曲名字","作者",this->m_tabWidget);
-            //item->setStyleSheet("border-radius:8px;");
+            auto item = new ItemListWidget(QPixmap(":///Res/tabIcon/music-cover.jpg"),"歌曲名字","作者",this);
             glayout->addWidget(item,i,j);
         }
     }
 
     QVBoxLayout* vlayout = new QVBoxLayout(this);
     vlayout->addLayout(m_tabHLayout.get());
-    vlayout->addWidget(this->m_tabWidget);
+    vlayout->addLayout(glayout);
 }
 
 QPixmap roundedPixmap(QPixmap& src, QSize size, int radius) {
@@ -126,16 +129,15 @@ QPixmap roundedPixmap(QPixmap& src, QSize size, int radius) {
 
 ItemListWidget::ItemListWidget(QPixmap coverPix, const QString &name, const QString &author, QWidget *parent)
     :QWidget(parent)
-    ,m_mask(new SMaskWidget(this))
+    ,m_mask(std::make_unique<SMaskWidget>(this))
+    ,m_coverLab(new QLabel(this))
+    ,m_nameLab(new QLabel(name,this))
+    ,m_authorLab(new QLabel(author,this))
+    ,m_play_add_ToolBtn(new QToolButton(this))
+    ,m_like_ToolBtn(new QToolButton(this))
+    ,m_more_ToolBtn(new QToolButton(this))
 {
-    this->setFixedHeight(60);
-    this->m_coverLab         = new QLabel(this);
-    this->m_nameLab          = new QLabel(name,this);
-    this->m_authorLab        = new QLabel(author,this);
-    this->m_play_add_ToolBtn = new QToolButton(this);
-    this->m_like_ToolBtn     = new QToolButton(this);
-    this->m_more_ToolBtn     = new QToolButton(this);
-    //this->m_coverLab->setMinimumSize(this->height(),this->height());
+    this->setFixedHeight(65);
     this->m_coverLab->setFixedSize(this->height(),this->height());
     this->m_coverLab->setPixmap(roundedPixmap(coverPix,this->m_coverLab->size(),8));
     this->m_coverLab->setScaledContents(true);
@@ -158,7 +160,7 @@ void ItemListWidget::paintEvent(QPaintEvent *ev)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget,&opt,&p,this);
 
-    p.setRenderHint(QPainter::Antialiasing);
+    p.setRenderHint(QPainter::Antialiasing,true);
     // 如果鼠标悬停，绘制半透明蒙层
     if (this->m_isHoverCoverLab) {
         this->m_mask->show();
@@ -190,14 +192,13 @@ void ItemListWidget::leaveEvent(QEvent *ev)
     this->m_play_add_ToolBtn->hide();
     this->m_like_ToolBtn->hide();
     this->m_more_ToolBtn->hide();
-    this->setStyleSheet(R"(QWidget{border-radius:10px;})");
+    this->setStyleSheet(R"(QWidget{border-radius:8px;})");
     update();
 }
 
 void ItemListWidget::resizeEvent(QResizeEvent *event)
 {
     QWidget::resizeEvent(event);
-    //qDebug()<<"改变大小";
     this->setFixedHeight(event->size().width() / this->m_aspectRatio);
     this->m_coverLab->setFixedSize(this->height(),this->height());
     this->m_mask->setFixedSize(this->m_coverLab->size());
@@ -246,33 +247,104 @@ void ItemListWidget::initUi()
 
 
 }
-
+#define FontHeight 25
 ItemBlockWidget::ItemBlockWidget(QPixmap coverPix, QWidget *parent)
     :QWidget(parent)
-    ,m_mask(new SMaskWidget(this))
+    ,m_mask(std::make_unique<SMaskWidget>(this))
+    ,m_coverLab(new QLabel(this))
+    ,m_describeLab(new QLabel(this))
+    ,m_tipLab(new QLabel(this))
+    ,m_popularBtn(new QToolButton(this))
 {
-
+    this->setFixedHeight(150 + FontHeight);
+    this->m_coverLab->setFixedSize(this->height()-FontHeight,this->height()-FontHeight);
+    this->m_coverLab->setPixmap(roundedPixmap(coverPix,this->m_coverLab->size(),8));
+    this->m_coverLab->setScaledContents(true);
+    this->m_coverLab->setStyleSheet(R"(margin:0px;padding:0px;background-color: rgba(255, 0, 0, 0);)");
+    initUi();
+    this->m_mask->move(this->m_coverLab->pos());
+    this->m_mask->setFixedSize(this->m_coverLab->size());
+    this->m_mask->hide();
 }
 
 void ItemBlockWidget::paintEvent(QPaintEvent *ev)
 {
+    // 先调用父类的 paintEvent 以执行默认绘制行为
+    QWidget::paintEvent(ev);
+    QStyleOption opt;
+    opt.initFrom(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget,&opt,&p,this);
+
+    p.setRenderHint(QPainter::Antialiasing,true);
+    // 如果鼠标悬停，绘制半透明蒙层
+    if (this->m_isHoverCoverLab) {
+        this->m_mask->show();
+        this->m_mask->raise();
+        this->m_popularBtn->setStyleSheet("color:white;border-radius:10px;background-color: rgba(60,60,60, 127);");
+    }else{
+        this->m_mask->hide();
+    }
 
 }
 
 void ItemBlockWidget::enterEvent(QEnterEvent *ev)
 {
-
+    // 先调用父类的 paintEvent 以执行默认绘制行为
+    QWidget::enterEvent(ev);
+    this->m_isHoverCoverLab = true;
+    update();
 }
 
 void ItemBlockWidget::leaveEvent(QEvent *ev)
 {
+    // 先调用父类的 paintEvent 以执行默认绘制行为
+    QWidget::leaveEvent(ev);
+    this->m_isHoverCoverLab = false;
+    this->setStyleSheet(R"(QWidget{border-radius:8px;})");
+    update();
+}
 
+void ItemBlockWidget::resizeEvent(QResizeEvent *event)
+{
+    QWidget::resizeEvent(event);
+    qDebug()<<"改变大小 : "<<event->size();
+    this->setFixedHeight(event->size().width()+FontHeight);
+    this->m_coverLab->setFixedSize(this->height()-FontHeight, this->height()-FontHeight);
+    this->m_mask->setFixedSize(this->m_coverLab->size());
+    //this->m_popularBtn->move(this->width()-this->m_popularBtn->height()-10,this->height()-this->m_popularBtn->height()-10);
+    update();
 }
 
 void ItemBlockWidget::initUi()
 {
     this->setCursor(Qt::PointingHandCursor);
-
+    this->m_coverLab->setObjectName("coverLab");
     this->m_describeLab->setObjectName("describeLab");
+    this->m_tipLab->setObjectName("tipLab");
+    this->m_popularBtn->setObjectName("popularLab");
 
+    this->m_tipLab->setFixedSize(50,20);
+    this->m_tipLab->setText("网络");
+    this->m_tipLab->setAlignment(Qt::AlignCenter);
+    this->m_tipLab->setStyleSheet("border-radius:10px;background-color:black;color:white;");
+    this->m_tipLab->move(10,10);
+
+    this->m_popularBtn->setFixedSize(70,20);
+    this->m_popularBtn->setIcon(QIcon("://Res/tabIcon/popular-white.svg"));
+    this->m_popularBtn->setText(" 123.1万");
+    this->m_popularBtn->setContentsMargins(5,0,5,0);
+    this->m_popularBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    this->m_popularBtn->setStyleSheet("color:white;border-radius:10px;background-color: rgba(128, 128, 128, 127);");
+    this->m_popularBtn->move(this->width()-this->m_popularBtn->height()-10,this->height()-this->m_popularBtn->height()-FontHeight-10);
+
+    this->m_describeLab->setText("游戏主播常用音乐");
+    this->m_describeLab->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    this->m_describeLab->setFixedSize(this->width(),FontHeight);
+
+
+    QVBoxLayout* vlayout = new QVBoxLayout(this);
+    vlayout->setContentsMargins(0,0,0,0);
+    vlayout->addWidget(this->m_coverLab);
+    vlayout->addWidget(this->m_describeLab);
 }

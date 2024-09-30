@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include<QHBoxLayout>
+#include<memory>
+#include"SMaskWidget.h"
 
 class QLabel;
 class QToolButton;
@@ -10,7 +12,6 @@ class QPaintEvent;
 class QEnterEvent;
 class QEvent;
 class QLine;
-class SMaskWidget;
 
 
 class TableWidget : public QWidget
@@ -40,7 +41,6 @@ private:
     QToolButton* m_adjust_ToolBtn{};
     QToolButton* m_refresh_ToolBtn{};
     QLabel* m_more_Lab{};
-    QWidget* m_tabWidget{};
 
 };
 
@@ -52,14 +52,15 @@ protected:
     void paintEvent(QPaintEvent* ev)override;
     void enterEvent(QEnterEvent* ev)override;
     void leaveEvent(QEvent* ev)override;
+    void resizeEvent(QResizeEvent *event) override;
 private:
     void initUi();
 private:
-    SMaskWidget* m_mask;
+    std::unique_ptr<SMaskWidget>m_mask;
     QLabel* m_coverLab{};
     QLabel* m_describeLab{};
     QLabel* m_tipLab{};
-    QLabel* m_popularLab{};
+    QToolButton* m_popularBtn{};
     bool m_isHoverCoverLab = false;
 };
 
@@ -76,13 +77,12 @@ protected:
 private:
     void initUi();
 private:
-    SMaskWidget* m_mask;
+    std::unique_ptr<SMaskWidget>m_mask;
     QLabel* m_coverLab{};
     QLabel* m_nameLab{};
     QLabel* m_authorLab{};
     QToolButton* m_play_add_ToolBtn{};
     QToolButton* m_like_ToolBtn{};
-    QToolButton* m_refresh_ToolBtn{};
     QToolButton* m_more_ToolBtn{};
     bool m_isHoverCoverLab = false;
     int m_aspectRatio = 6;
