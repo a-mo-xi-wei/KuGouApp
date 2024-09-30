@@ -85,6 +85,7 @@ private:
     QToolButton* m_refresh_ToolBtn{};
     QToolButton* m_more_ToolBtn{};
     bool m_isHoverCoverLab = false;
+    int m_aspectRatio = 6;
 };
 
 

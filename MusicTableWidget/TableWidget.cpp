@@ -96,6 +96,7 @@ void TableWidget::initBlockListWidget()
 void TableWidget::initItemListWidget()
 {
     QGridLayout* glayout = new QGridLayout(this->m_tabWidget);
+    glayout->setSpacing(20);
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
             auto item = new ItemListWidget(QPixmap(":///Res/tabIcon/music-cover.jpg"),"歌曲名字","作者",this->m_tabWidget);
@@ -127,8 +128,7 @@ ItemListWidget::ItemListWidget(QPixmap coverPix, const QString &name, const QStr
     :QWidget(parent)
     ,m_mask(new SMaskWidget(this))
 {
-    this->setMinimumHeight(60);
-    //this->setFixedHeight(60);
+    this->setFixedHeight(60);
     this->m_coverLab         = new QLabel(this);
     this->m_nameLab          = new QLabel(name,this);
     this->m_authorLab        = new QLabel(author,this);
@@ -197,7 +197,12 @@ void ItemListWidget::leaveEvent(QEvent *ev)
 void ItemListWidget::resizeEvent(QResizeEvent *event)
 {
     QWidget::resizeEvent(event);
-    qDebug()<<"改变大小";
+    //qDebug()<<"改变大小";
+    this->setFixedHeight(event->size().width() / this->m_aspectRatio);
+    this->m_coverLab->setFixedSize(this->height(),this->height());
+    this->m_mask->setFixedSize(this->m_coverLab->size());
+    update();
+
 }
 
 void ItemListWidget::initUi()
