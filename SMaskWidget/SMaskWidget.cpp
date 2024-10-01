@@ -10,17 +10,14 @@ SMaskWidget::SMaskWidget(QWidget *parent)
 }
 
 void SMaskWidget::calOnce() {
-    if(this->m_executed){
-        m_w = static_cast<const float>(rect().width());
-        m_h = static_cast<const float>(rect().height());
-        m_radius = static_cast<float>(rect().width())/5;
-        m_centerX = static_cast<const float>(rect().width())/2;
-        m_centerY = static_cast<const float>(rect().height())/2;
-        m_ap = static_cast<const QPointF>(QPointF(m_centerX - m_w / 26, m_centerY - m_h / 18));
-        m_bp = static_cast<const QPointF>(QPointF(m_centerX - m_w / 26, m_centerY + m_h / 18));
-        m_cp = static_cast<const QPointF>(QPointF(m_centerX + m_w / 15, m_centerY));
-        this->m_executed = false;
-    }
+    m_w = static_cast<const float>(rect().width());
+    m_h = static_cast<const float>(rect().height());
+    m_radius = static_cast<float>(rect().width())/5;
+    m_centerX = static_cast<const float>(rect().width())/2;
+    m_centerY = static_cast<const float>(rect().height())/2;
+    m_ap = static_cast<const QPointF>(QPointF(m_centerX - m_w / 26, m_centerY - m_h / 18));
+    m_bp = static_cast<const QPointF>(QPointF(m_centerX - m_w / 26, m_centerY + m_h / 18));
+    m_cp = static_cast<const QPointF>(QPointF(m_centerX + m_w / 15, m_centerY));
 }
 
 bool SMaskWidget::isMouseInCircle(const float &mouseX, const float &mouseY) {
@@ -32,7 +29,6 @@ bool SMaskWidget::isMouseInCircle(const float &mouseX, const float &mouseY) {
 
 void SMaskWidget::paintEvent(QPaintEvent *event) {
     QWidget::paintEvent(event);
-    calOnce();
     constexpr QColor color(0, 0, 0, 160);
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
@@ -94,5 +90,12 @@ void SMaskWidget::leaveEvent(QEvent *event) {
 
 void SMaskWidget::enterEvent(QEnterEvent *event) {
     QWidget::enterEvent(event);
+    update();
+}
+
+void SMaskWidget::resizeEvent(QResizeEvent *event)
+{
+    QWidget::resizeEvent(event);
+    calOnce();
     update();
 }

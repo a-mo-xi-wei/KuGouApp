@@ -33,6 +33,10 @@ private:
     void initBlockListWidget();
     //2.小图标TabListWidget
     void initItemListWidget();
+
+signals:
+    void hide();
+
 private:
     std::unique_ptr<QHBoxLayout>m_tabHLayout;
     QLabel* m_titleLab{};
@@ -55,6 +59,9 @@ protected:
     void resizeEvent(QResizeEvent *event) override;
 private:
     void initUi();
+public slots:
+    void onHide();
+
 private:
     QWidget* m_bacWidget{};
     std::unique_ptr<SMaskWidget>m_mask;
@@ -76,6 +83,8 @@ protected:
     void resizeEvent(QResizeEvent *event) override;
 private:
     void initUi();
+public slots:
+    void onHide();
 private:
     std::unique_ptr<SMaskWidget>m_mask;
     QLabel* m_coverLab{};

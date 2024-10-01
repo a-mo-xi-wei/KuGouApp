@@ -24,6 +24,8 @@ protected:
 
     void enterEvent(QEnterEvent *event) override;
 
+    void resizeEvent(QResizeEvent* event) override;
+
 private:
     float m_w;
     float m_h;
@@ -35,7 +37,6 @@ private:
     QPointF m_bp;
     QPointF m_cp;
     bool m_isEnter = false;
-    bool m_executed = true;
 };
 
 #endif // SMASKWIDGET_H

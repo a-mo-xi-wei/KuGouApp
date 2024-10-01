@@ -25,7 +25,7 @@ TableWidget::TableWidget(const QString &title, KIND kind ,QWidget *parent)
     initUi();
 
     this->m_adjust_ToolBtn->hide();
-    connect(this->m_adjust_ToolBtn, &QToolButton::clicked, this, [this] {this->setHidden(!this->isHidden()); });
+    connect(this->m_adjust_ToolBtn, &QToolButton::clicked, this, [this] {emit hide();});
 }
 
 void TableWidget::paintEvent(QPaintEvent *ev)
@@ -49,8 +49,12 @@ void TableWidget::leaveEvent(QEvent *ev)
 void TableWidget::initUi()
 {
     this->m_play_ToolBtn->setToolTip("开始播放");
-    this->m_adjust_ToolBtn->setToolTip("折叠");
+    this->m_adjust_ToolBtn->setToolTip("隐藏栏目");
     this->m_refresh_ToolBtn->setToolTip("刷新");
+
+    this->m_play_ToolBtn->setCursor(Qt::PointingHandCursor);
+    this->m_adjust_ToolBtn->setCursor(Qt::PointingHandCursor);
+    this->m_refresh_ToolBtn->setCursor(Qt::PointingHandCursor);
 
     this->m_titleLab->setObjectName("titleLab");
     this->m_play_ToolBtn->setObjectName("play_ToolBtn");
@@ -58,14 +62,16 @@ void TableWidget::initUi()
     this->m_refresh_ToolBtn->setObjectName("refresh_ToolBtn");
     this->m_more_Lab->setObjectName("moreLab");
 
-    this->m_adjust_ToolBtn->setIcon(QIcon(":///Res/tabIcon/adjust-column-gray.svg"));
-    this->m_refresh_ToolBtn->setIcon(QIcon(":///Res/tabIcon/refresh-gray.svg"));
-
     this->m_play_ToolBtn->setIconSize(QSize(20, 20));
 
     this->setStyleSheet(R"(QLabel#titleLab{font-size:20px;}
                            QLabel#moreLab{color:gray;font-size:12px;padding-bottom: 3px;}
+                           QLabel#moreLab:hover{color:#26a1ff;}
                            QToolButton{background-color:rgba(255,255,255,0);}
+                           QToolButton#adjust_ToolBtn{border-image: url(':///Res/tabIcon/adjust-column-gray.svg');}
+                           QToolButton#adjust_ToolBtn:hover{border-image: url(':///Res/tabIcon/adjust-column-blue.svg');}
+                           QToolButton#refresh_ToolBtn{border-image: url(':///Res/tabIcon/refresh-gray.svg');}
+                           QToolButton#refresh_ToolBtn:hover{border-image: url(':///Res/tabIcon/refresh-blue.svg');}
                            QToolButton#play_ToolBtn{border-image: url(':///Res/tabIcon/play2-gray.svg');}
                            QToolButton#play_ToolBtn:hover{border-image: url(':///Res/tabIcon/play2-blue.svg');}
                         )");
@@ -77,8 +83,14 @@ void TableWidget::initUi()
     m_tabHLayout->addWidget(this->m_refresh_ToolBtn);
     m_tabHLayout->addWidget(this->m_more_Lab);
 
-    if(this->m_kindList == KIND::ItemList)initItemListWidget();
-    else if(this->m_kindList == KIND::BlockList)initBlockListWidget();
+    if(this->m_kindList == KIND::ItemList){
+        initItemListWidget();
+    }
+    else if(this->m_kindList == KIND::BlockList){
+        this->m_play_ToolBtn->hide();
+        this->m_more_Lab->setText("歌单广场 >");
+        initBlockListWidget();
+    }
 }
 void TableWidget::initBlockListWidget()
 {
@@ -149,6 +161,7 @@ ItemListWidget::ItemListWidget(QPixmap coverPix, const QString &name, const QStr
     this->m_play_add_ToolBtn->hide();
     this->m_like_ToolBtn->hide();
     this->m_more_ToolBtn->hide();
+    connect(qobject_cast<TableWidget*>(parent),&TableWidget::hide,this,&ItemListWidget::onHide);
 }
 
 void ItemListWidget::paintEvent(QPaintEvent *ev)
@@ -248,6 +261,12 @@ void ItemListWidget::initUi()
 
 }
 
+void ItemListWidget::onHide()
+{
+    this->setHidden(!this->isHidden());
+    update();
+}
+
 #define FontHeight 25
 ItemBlockWidget::ItemBlockWidget(const QString& path, QWidget *parent)
     :QWidget(parent)
@@ -260,12 +279,12 @@ ItemBlockWidget::ItemBlockWidget(const QString& path, QWidget *parent)
     QString style = QString("border-radius:8px;border-image:url(%1);").arg(path);
     this->m_bacWidget->setStyleSheet(style);
     this->setFixedHeight(150 + FontHeight);
-    this->setContentsMargins(0,0,0,0);
     initUi();
     this->m_mask->setParent(this->m_bacWidget);
     this->m_mask->move(this->m_bacWidget->pos());
     this->m_mask->setFixedSize(this->m_bacWidget->size());
     this->m_mask->hide();
+    connect(qobject_cast<TableWidget*>(parent),&TableWidget::hide,this,&ItemBlockWidget::onHide);
 }
 
 void ItemBlockWidget::paintEvent(QPaintEvent *ev)
@@ -311,10 +330,11 @@ void ItemBlockWidget::resizeEvent(QResizeEvent *event)
     //qDebug()<<"改变大小 : "<<event->size();
     this->setFixedHeight(event->size().width()+FontHeight);
     this->m_bacWidget->setFixedSize(event->size().width()/1.1,event->size().width()/1.1);
+    //this->m_bacWidget->setFixedSize(event->size().width(),event->size().width());
     //qDebug()<<"this->m_bacWidget->width() : "<<this->m_bacWidget->width()<<"\nthis->width() : "<<this->width();
     this->m_mask->setFixedSize(this->m_bacWidget->size());
-    this->m_popularBtn->move(this->m_bacWidget->width()-this->m_popularBtn->width()-10,
-                             this->m_bacWidget->height()-this->m_popularBtn->height()-10);
+    this->m_popularBtn->move(this->m_bacWidget->width()-this->m_popularBtn->width()-5,
+                             this->m_bacWidget->height()-this->m_popularBtn->height()-5);
     update();
 }
 
@@ -349,4 +369,12 @@ void ItemBlockWidget::initUi()
     vlayout->setContentsMargins(0,0,0,0);
     vlayout->addWidget(this->m_bacWidget);
     vlayout->addWidget(this->m_describeLab);
+
+
+}
+
+void ItemBlockWidget::onHide()
+{
+    this->setHidden(!this->isHidden());
+    update();
 }
