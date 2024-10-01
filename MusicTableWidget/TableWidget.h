@@ -43,6 +43,7 @@ private:
     KIND m_kindList;
     QToolButton* m_play_ToolBtn{};
     QToolButton* m_adjust_ToolBtn{};
+    QLabel* line1{};
     QToolButton* m_refresh_ToolBtn{};
     QLabel* m_more_Lab{};
 

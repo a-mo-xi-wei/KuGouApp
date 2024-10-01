@@ -523,45 +523,30 @@
        </widget>
       </item>
       <item>
-       <widget class="Line" name="line">
-        <property name="maximumSize">
+       <widget class="QLabel" name="title_line">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
          <size>
-          <width>16777215</width>
-          <height>25</height>
+          <width>10</width>
+          <height>15</height>
          </size>
         </property>
-        <property name="palette">
-         <palette>
-          <active>
-           <colorrole role="WindowText">
-            <brush brushstyle="SolidPattern">
-             <color alpha="255">
-              <red>100</red>
-              <green>100</green>
-              <blue>100</blue>
-             </color>
-            </brush>
-           </colorrole>
-          </active>
-          <inactive>
-           <colorrole role="WindowText">
-            <brush brushstyle="SolidPattern">
-             <color alpha="255">
-              <red>100</red>
-              <green>100</green>
-              <blue>100</blue>
-             </color>
-            </brush>
-           </colorrole>
-          </inactive>
-          <disabled/>
-         </palette>
+        <property name="maximumSize">
+         <size>
+          <width>10</width>
+          <height>15</height>
+         </size>
         </property>
-        <property name="frameShadow">
-         <enum>QFrame::Shadow::Plain</enum>
+        <property name="text">
+         <string/>
         </property>
-        <property name="orientation">
-         <enum>Qt::Orientation::Vertical</enum>
+        <property name="scaledContents">
+         <bool>true</bool>
         </property>
        </widget>
       </item>

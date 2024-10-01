@@ -39,11 +39,13 @@ void TableWidget::paintEvent(QPaintEvent *ev)
 void TableWidget::enterEvent(QEnterEvent *ev)
 {
     this->m_adjust_ToolBtn->show();
+    this->line1->show();
 }
 
 void TableWidget::leaveEvent(QEvent *ev)
 {
     this->m_adjust_ToolBtn->hide();
+    this->line1->hide();
 }
 
 void TableWidget::initUi()
@@ -76,11 +78,23 @@ void TableWidget::initUi()
                            QToolButton#play_ToolBtn:hover{border-image: url(':///Res/tabIcon/play2-blue.svg');}
                         )");
 
+    m_tabHLayout->setSpacing(0);
     m_tabHLayout->addWidget(this->m_titleLab);
     m_tabHLayout->addWidget(this->m_play_ToolBtn);
     m_tabHLayout->addSpacerItem(new QSpacerItem(40,20,QSizePolicy::Expanding));
     m_tabHLayout->addWidget(this->m_adjust_ToolBtn);
+    this->line1 = new QLabel(this);
+    line1->hide();
+    line1->setScaledContents(true);
+    line1->setFixedSize(20,15);
+    line1->setPixmap(QPixmap(":/Res/tabIcon/line-gray.svg"));
+    m_tabHLayout->addWidget(line1);
     m_tabHLayout->addWidget(this->m_refresh_ToolBtn);
+    QLabel* line2 = new QLabel(this);
+    line2->setScaledContents(true);
+    line2->setFixedSize(20,15);
+    line2->setPixmap(QPixmap(":/Res/tabIcon/line-gray.svg"));
+    m_tabHLayout->addWidget(line2);
     m_tabHLayout->addWidget(this->m_more_Lab);
 
     if(this->m_kindList == KIND::ItemList){
@@ -92,6 +106,7 @@ void TableWidget::initUi()
         initBlockListWidget();
     }
 }
+
 void TableWidget::initBlockListWidget()
 {
     QGridLayout* glayout = new QGridLayout;
