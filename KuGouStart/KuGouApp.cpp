@@ -179,7 +179,7 @@ void KuGouApp::initAdvertiseBoard()
 void KuGouApp::initTabWidget() {
     QVBoxLayout *layout = dynamic_cast<QVBoxLayout *>(ui->table_widget->layout());
     if (!layout)return;
-    //layout->insertWidget(layout->count() - 1, new TableWidget("今日专属推荐", TableWidget::KIND::BlockList,this));
+    layout->insertWidget(layout->count() - 1, new TableWidget("今日专属推荐", TableWidget::KIND::BlockList,this));
     layout->insertWidget(layout->count() - 1, new TableWidget("潮流音乐站", TableWidget::KIND::ItemList,this));
     layout->insertWidget(layout->count() - 1, new TableWidget("热门好歌精选",TableWidget::KIND::ItemList, this));
     layout->insertWidget(layout->count() - 1, new TableWidget("私人专属好歌",TableWidget::KIND::ItemList, this));

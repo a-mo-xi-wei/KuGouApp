@@ -47,7 +47,7 @@ private:
 class ItemBlockWidget : public QWidget{
     Q_OBJECT
 public:
-    ItemBlockWidget(QPixmap coverPix,QWidget* parent = nullptr);
+    ItemBlockWidget(const QString& path,QWidget* parent = nullptr);
 protected:
     void paintEvent(QPaintEvent* ev)override;
     void enterEvent(QEnterEvent* ev)override;
@@ -56,8 +56,8 @@ protected:
 private:
     void initUi();
 private:
+    QWidget* m_bacWidget{};
     std::unique_ptr<SMaskWidget>m_mask;
-    QLabel* m_coverLab{};
     QLabel* m_describeLab{};
     QLabel* m_tipLab{};
     QToolButton* m_popularBtn{};
