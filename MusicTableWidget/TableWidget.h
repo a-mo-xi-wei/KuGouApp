@@ -53,6 +53,8 @@ class ItemBlockWidget : public QWidget{
     Q_OBJECT
 public:
     ItemBlockWidget(const QString& path,QWidget* parent = nullptr);
+    void setTipLabText(const QString& text);
+    void setPopularBtnText(const QString& text);
 protected:
     void paintEvent(QPaintEvent* ev)override;
     void enterEvent(QEnterEvent* ev)override;

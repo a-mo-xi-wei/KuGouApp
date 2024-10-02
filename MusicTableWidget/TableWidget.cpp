@@ -10,7 +10,8 @@
 #include<QPainter>
 #include<QGridLayout>
 #include<QPainterPath>
-
+#include<QRandomGenerator>
+#include<vector>
 TableWidget::TableWidget(const QString &title, KIND kind ,QWidget *parent)
     :QWidget(parent)
     ,m_titleLab(new QLabel(title,this))
@@ -283,6 +284,7 @@ void ItemListWidget::onHide()
 }
 
 #define FontHeight 25
+std::vector<QString>tipArr = {"日语","国语","流行","兴奋","英语","古风","韩语","寂寞","运动","说唱","校园","经典"};
 ItemBlockWidget::ItemBlockWidget(const QString& path, QWidget *parent)
     :QWidget(parent)
     ,m_bacWidget(new QWidget(this))
@@ -300,6 +302,16 @@ ItemBlockWidget::ItemBlockWidget(const QString& path, QWidget *parent)
     this->m_mask->setFixedSize(this->m_bacWidget->size());
     this->m_mask->hide();
     connect(qobject_cast<TableWidget*>(parent),&TableWidget::hide,this,&ItemBlockWidget::onHide);
+}
+
+void ItemBlockWidget::setTipLabText(const QString &text)
+{
+    this->m_tipLab->setText(text);
+}
+
+void ItemBlockWidget::setPopularBtnText(const QString &text)
+{
+    this->m_popularBtn->setText(" " + text + "万");
 }
 
 void ItemBlockWidget::paintEvent(QPaintEvent *ev)
@@ -361,14 +373,14 @@ void ItemBlockWidget::initUi()
     this->m_popularBtn->setObjectName("popularLab");
 
     this->m_tipLab->setFixedSize(50,20);
-    this->m_tipLab->setText("网络");
+    this->setTipLabText(tipArr[QRandomGenerator::global()->bounded(0,static_cast<int>(tipArr.size()))]);
     this->m_tipLab->setAlignment(Qt::AlignCenter);
     this->m_tipLab->setStyleSheet("border-radius:10px;background-color:black;color:white;");
     this->m_tipLab->move(10,10);
 
     this->m_popularBtn->setFixedSize(70,20);
     this->m_popularBtn->setIcon(QIcon("://Res/tabIcon/popular-white.svg"));
-    this->m_popularBtn->setText(" 123.1万");
+    this->setPopularBtnText(QString::number(QRandomGenerator::global()->generateDouble()*1000,'f',1));
     this->m_popularBtn->setContentsMargins(5,0,5,0);
     this->m_popularBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     this->m_popularBtn->setStyleSheet("color:white;border-radius:10px;background-color: rgba(128, 128, 128, 127);");
