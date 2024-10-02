@@ -8,7 +8,6 @@
 #include<QSpacerItem>
 #include<QStyleOption>
 #include<QPainter>
-#include<QGridLayout>
 #include<QPainterPath>
 #include<QRandomGenerator>
 #include<vector>
@@ -17,6 +16,7 @@ TableWidget::TableWidget(const QString &title, KIND kind ,QWidget *parent)
     ,m_titleLab(new QLabel(title,this))
     ,m_kindList(kind)
     ,m_tabHLayout(std::make_unique<QHBoxLayout>())
+    ,m_gridLayout(std::make_unique<QGridLayout>())
 {
     this->m_play_ToolBtn    = new QToolButton(this);
     this->m_adjust_ToolBtn  = new QToolButton(this);
@@ -26,7 +26,8 @@ TableWidget::TableWidget(const QString &title, KIND kind ,QWidget *parent)
     initUi();
 
     this->m_adjust_ToolBtn->hide();
-    connect(this->m_adjust_ToolBtn, &QToolButton::clicked, this, [this] {emit hide();});
+    connect(this->m_adjust_ToolBtn, &QToolButton::clicked, this, [this] {emit hideTitle();});
+    connect(this,&TableWidget::gridChange,this,[this](int len){onGridChange(len);});
 }
 
 void TableWidget::paintEvent(QPaintEvent *ev)
@@ -47,6 +48,13 @@ void TableWidget::leaveEvent(QEvent *ev)
 {
     this->m_adjust_ToolBtn->hide();
     this->line1->hide();
+}
+
+void TableWidget::resizeEvent(QResizeEvent *event)
+{
+    QWidget::resizeEvent(event);
+    qDebug()<<"this->width : "<<this->width();
+    emit gridChange(this->width());
 }
 
 void TableWidget::initUi()
@@ -110,35 +118,64 @@ void TableWidget::initUi()
 
 void TableWidget::initBlockListWidget()
 {
-    QGridLayout* glayout = new QGridLayout;
-    glayout->setSpacing(15);
-    for (int i = 1; i <= 2; ++i) {
-        for (int j = 1; j <= 5; ++j) {
-            QString pixPath = QString(":/Res/tabIcon/music-block-cover%1.jpg").arg(i*j);
-            auto block = new ItemBlockWidget(pixPath,this);
-            glayout->addWidget(block,i-1,j-1);
+    this->m_gridLayout->setVerticalSpacing(10);
+    this->m_gridLayout->setHorizontalSpacing(5);
+    for (int i = 0; i < 2; ++i) {
+       for (int j = 0; j < 7; ++j) {
+           QString pixPath = QString(":/Res/tabIcon/music-block-cover%1.jpg").arg(i*7+j + 1);
+           auto block = new ItemBlockWidget(pixPath,this);
+           block->hide();
+           this->m_gridLayout->addWidget(block,i,j);
+       }
+    }
+    for (int i = 0; i < 2; ++i) {
+        for (int j = 0; j < 5; ++j) {
+            this->m_gridLayout->itemAtPosition(i,j)->widget()->show();
         }
     }
+    //for (int i = 0; i < 2; ++i) {
+    //    QString pixPath = QString(":/Res/tabIcon/music-block-cover%1.jpg").arg(i*7 + 5);
+    //    this->m_gridLayout->addWidget(new ItemBlockWidget(pixPath,this),i,6);
+    //}
     QVBoxLayout* vlayout = new QVBoxLayout(this);
     vlayout->addLayout(m_tabHLayout.get());
-    vlayout->addLayout(glayout);
+    vlayout->addLayout(this->m_gridLayout.get());
 }
 
 void TableWidget::initItemListWidget()
 {
-    QGridLayout* glayout = new QGridLayout;
-    glayout->setSpacing(15);
+    this->m_gridLayout->setSpacing(10);
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
             QString pixPath = QString(":///Res/tabIcon/music-cover.jpg");
             auto item = new ItemListWidget(QPixmap(pixPath),"歌曲名字","作者",this);
-            glayout->addWidget(item,i,j);
+            this->m_gridLayout->addWidget(item,i,j);
         }
     }
 
     QVBoxLayout* vlayout = new QVBoxLayout(this);
     vlayout->addLayout(m_tabHLayout.get());
-    vlayout->addLayout(glayout);
+    vlayout->addLayout(this->m_gridLayout.get());
+}
+
+void TableWidget::onGridChange(int len)
+{
+    //qDebug()<<"收到 len = "<<len<<"现在有 "<<this->m_gridLayout->columnCount()<<" 列";
+    if(this->m_gridLayout->columnCount() == 7){
+    //bool flag = this->m_gridLayout->itemAtPosition(0,4)->widget()->isHidden();
+    //if(flag){
+        if(len < 1000)return;
+        else if(len < 1250){
+            for (int i = 0; i < 2; ++i) {
+                this->m_gridLayout->itemAtPosition(i,6)->widget()->show();
+                qDebug()<<"show一个";
+            }
+        }
+    }else if(this->m_gridLayout->columnCount() == 6){
+
+    }else if(this->m_gridLayout->columnCount() == 7){
+
+    }
 }
 
 QPixmap roundedPixmap(QPixmap& src, QSize size, int radius) {
@@ -177,7 +214,7 @@ ItemListWidget::ItemListWidget(QPixmap coverPix, const QString &name, const QStr
     this->m_play_add_ToolBtn->hide();
     this->m_like_ToolBtn->hide();
     this->m_more_ToolBtn->hide();
-    connect(qobject_cast<TableWidget*>(parent),&TableWidget::hide,this,&ItemListWidget::onHide);
+    connect(qobject_cast<TableWidget*>(parent),&TableWidget::hideTitle,this,&ItemListWidget::onHide);
 }
 
 void ItemListWidget::paintEvent(QPaintEvent *ev)
@@ -301,7 +338,7 @@ ItemBlockWidget::ItemBlockWidget(const QString& path, QWidget *parent)
     this->m_mask->move(this->m_bacWidget->pos());
     this->m_mask->setFixedSize(this->m_bacWidget->size());
     this->m_mask->hide();
-    connect(qobject_cast<TableWidget*>(parent),&TableWidget::hide,this,&ItemBlockWidget::onHide);
+    connect(qobject_cast<TableWidget*>(parent),&TableWidget::hideTitle,this,&ItemBlockWidget::onHide);
 }
 
 void ItemBlockWidget::setTipLabText(const QString &text)
@@ -355,10 +392,11 @@ void ItemBlockWidget::resizeEvent(QResizeEvent *event)
 {
     QWidget::resizeEvent(event);
     //qDebug()<<"改变大小 : "<<event->size();
+
     this->setFixedHeight(event->size().width()+FontHeight);
-    this->m_bacWidget->setFixedSize(event->size().width()/1.1,event->size().width()/1.1);
+    this->m_bacWidget->setFixedSize(event->size().width()/1.05,event->size().width()/1.05);
     //this->m_bacWidget->setFixedSize(event->size().width(),event->size().width());
-    //qDebug()<<"this->m_bacWidget->width() : "<<this->m_bacWidget->width()<<"\nthis->width() : "<<this->width();
+    //qDebug()<<"this->m_bacWidget->size() : "<<this->m_bacWidget->size();
     this->m_mask->setFixedSize(this->m_bacWidget->size());
     this->m_popularBtn->move(this->m_bacWidget->width()-this->m_popularBtn->width()-5,
                              this->m_bacWidget->height()-this->m_popularBtn->height()-5);

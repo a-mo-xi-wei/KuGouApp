@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include<QHBoxLayout>
+#include<QGridLayout>
 #include<memory>
 #include"SMaskWidget.h"
 
@@ -12,6 +13,7 @@ class QPaintEvent;
 class QEnterEvent;
 class QEvent;
 class QLine;
+class ItemBlockWidget;
 
 
 class TableWidget : public QWidget
@@ -27,6 +29,7 @@ protected:
     void paintEvent(QPaintEvent* ev)override;
     void enterEvent(QEnterEvent* ev)override;
     void leaveEvent(QEvent* ev)override;
+    void resizeEvent(QResizeEvent* event)override;
 private:
     void initUi();
     //1.大图标TabWidget
@@ -35,10 +38,15 @@ private:
     void initItemListWidget();
 
 signals:
-    void hide();
+    void hideTitle();
 
+    void gridChange(int len);
+
+public slots:
+    void onGridChange(int len);
 private:
     std::unique_ptr<QHBoxLayout>m_tabHLayout;
+    std::unique_ptr<QGridLayout>m_gridLayout;
     QLabel* m_titleLab{};
     KIND m_kindList;
     QToolButton* m_play_ToolBtn{};
