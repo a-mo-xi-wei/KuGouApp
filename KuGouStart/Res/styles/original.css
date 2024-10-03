@@ -164,7 +164,7 @@ QWidget#play_widget .QPushButton:checked {
 /*--------------------guess_love_widget------------------------------*/
 
 GLTabWidget#guess_love_widget {
-    border-image: url("://Res/tabIcon/cover.png");
+    border-image: url("://Res/tabIcon/cover.jpg");
     border-radius:10px;
     border:none;
 }
