@@ -47,6 +47,7 @@ public slots:
 private:
     std::unique_ptr<QHBoxLayout>m_tabHLayout;
     std::unique_ptr<QGridLayout>m_gridLayout;
+    std::unique_ptr<QWidget>m_gridContainer;
     QLabel* m_titleLab{};
     KIND m_kindList;
     QToolButton* m_play_ToolBtn{};
@@ -54,7 +55,7 @@ private:
     QLabel* line1{};
     QToolButton* m_refresh_ToolBtn{};
     QLabel* m_more_Lab{};
-
+    int m_showCol = 5;
 };
 
 class ItemBlockWidget : public QWidget{
@@ -70,8 +71,6 @@ protected:
     void resizeEvent(QResizeEvent *event) override;
 private:
     void initUi();
-public slots:
-    void onHide();
 
 private:
     QWidget* m_bacWidget{};
