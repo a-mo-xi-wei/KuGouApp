@@ -419,6 +419,7 @@ void ItemBlockWidget::resizeEvent(QResizeEvent *event) {
     //this->m_bacWidget->setFixedSize(event->size().width(),event->size().width());
     //qDebug()<<"this->m_bacWidget->size() : "<<this->m_bacWidget->size();
     this->m_mask->setFixedSize(this->m_bacWidget->size());
+    this->m_describeLab->setFixedSize(this->m_bacWidget->width(),FontHeight);
     this->m_popularBtn->move(this->m_bacWidget->width() - this->m_popularBtn->width() - 5,
                              this->m_bacWidget->height() - this->m_popularBtn->height() - 5);
     update();
@@ -447,8 +448,6 @@ void ItemBlockWidget::initUi() {
 
     this->m_describeLab->setText("游戏主播常用音乐");
     this->m_describeLab->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-    this->m_describeLab->setFixedSize(this->width(),FontHeight);
-
 
     QVBoxLayout *vlayout = new QVBoxLayout(this);
     vlayout->setContentsMargins(0, 0, 0, 0);
