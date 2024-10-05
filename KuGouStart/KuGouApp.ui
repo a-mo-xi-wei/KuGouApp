@@ -2386,7 +2386,7 @@ margin-top:0px;</string>
        <number>0</number>
       </property>
       <item>
-       <widget class="QSlider" name="progressSlider">
+       <widget class="SliderWidget" name="progressSlider">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -2404,6 +2404,21 @@ margin-top:0px;</string>
           <width>16777215</width>
           <height>17</height>
          </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::StrongFocus</enum>
+        </property>
+        <property name="minimum">
+         <number>0</number>
+        </property>
+        <property name="maximum">
+         <number>9999</number>
+        </property>
+        <property name="pageStep">
+         <number>100</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -2542,8 +2557,8 @@ margin-top:0px;</string>
           </property>
           <property name="iconSize">
            <size>
-            <width>18</width>
-            <height>18</height>
+            <width>20</width>
+            <height>20</height>
            </size>
           </property>
           <property name="checkable">
@@ -2647,7 +2662,7 @@ margin-top:0px;</string>
          </spacer>
         </item>
         <item>
-         <widget class="QToolButton" name="volume_toolButton">
+         <widget class="VolumeToolBtn" name="volume_toolButton">
           <property name="toolTip">
            <string>调节音量</string>
           </property>
@@ -2825,6 +2840,16 @@ margin-top:0px;</string>
    <class>RippleButton</class>
    <extends>QToolButton</extends>
    <header>RippleButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>VolumeToolBtn</class>
+   <extends>QToolButton</extends>
+   <header>VolumeToolBtn.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SliderWidget</class>
+   <extends>QSlider</extends>
+   <header>SliderWidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -66,6 +66,8 @@ public:
 
     ~KuGouApp();
 
+    QPoint getVolumeBtnPos() const;
+
 private slots:
     void on_title_return_toolButton_clicked();
 
@@ -94,8 +96,6 @@ private slots:
     void on_close_toolButton_clicked();
 
     void on_circle_toolButton_clicked();
-
-    void on_volume_toolButton_clicked();
 
     void on_local_music_pushButton_clicked();
 
@@ -153,7 +153,6 @@ protected:
     bool event(QEvent *event) override;
 
 private:
-    bool m_isNoVolume = false;
     bool m_isSingleCircle = false;
     bool m_isMaxScreen = false;
 

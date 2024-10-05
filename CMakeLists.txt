@@ -23,5 +23,11 @@ add_subdirectory(SMaskWidget)
 #涟漪模块
 add_subdirectory(RippleButton)
 
+#音量调剂模块
+add_subdirectory(VolumeToolBtn)
+
+#滑动条模块
+add_subdirectory(SliderWidget)
+
 #开始模块
 add_subdirectory(KuGouStart)

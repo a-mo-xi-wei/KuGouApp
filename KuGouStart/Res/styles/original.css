@@ -150,7 +150,7 @@ QWidget#play_widget {
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
 }
-QWidget#play_widget .QToolButton {  /*到时候要提升一下*/
+QWidget#play_widget .QToolButton {
     border: none;
 }
 QWidget#play_widget .QPushButton {
@@ -201,7 +201,6 @@ GLTabWidget#guess_love_widget .QToolButton#dislikeToolBtn:hover {
 
 QSlider {
     background-color: rgba(170, 255, 255, 100);
-   
 }
 QSlider::groove:horizontal {
     border: 1px solid #999999;

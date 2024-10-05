@@ -56,6 +56,10 @@ KuGouApp::~KuGouApp() {
     delete ui;
 }
 
+QPoint KuGouApp::getVolumeBtnPos() const {
+    return ui->volume_toolButton->pos();
+}
+
 void KuGouApp::on_title_return_toolButton_clicked() {
     qDebug()<<"返回，估计要使用堆栈";
 }
@@ -198,11 +202,8 @@ void KuGouApp::initPlayWidget() {
     ui->ci_toolButton->setIcon(QIcon("://Res/playbar/song-words.svg"));
     ui->list_toolButton->setIcon(QIcon("://Res/playbar/play-list.svg"));
 
-    //ui->volume_toolButton->setIcon(QIcon("://Res/playbar/volume-on-gray.svg"));
-    //ui->circle_toolButton->setIcon(QIcon("://Res/playbar/list-loop.svg"));
-
-    ui->volume_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/volume-on-gray.svg');}
-                                            QToolButton:hover{border-image:url('://Res/playbar/volume-on-blue.svg');})");
+    //ui->volume_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/volume-on-gray.svg');}
+    //                                        QToolButton:hover{border-image:url('://Res/playbar/volume-on-blue.svg');})");
 
     ui->circle_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/list-loop-gray.svg');}
                                             QToolButton:hover{border-image:url('://Res/playbar/list-loop-blue.svg');})");
@@ -559,17 +560,6 @@ void KuGouApp::on_circle_toolButton_clicked() {
     } else {
         ui->circle_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/list-loop-gray.svg');}
                                             QToolButton:hover{border-image:url('://Res/playbar/list-loop-blue.svg');})");
-    }
-}
-
-void KuGouApp::on_volume_toolButton_clicked() {
-    m_isNoVolume = !m_isNoVolume;
-    if (m_isNoVolume) {
-        ui->volume_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/volume-off-gray.svg');}
-                                            QToolButton:hover{border-image:url('://Res/playbar/volume-off-blue.svg');})");
-    } else {
-        ui->volume_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/volume-on-gray.svg');}
-                                            QToolButton:hover{border-image:url('://Res/playbar/volume-on-blue.svg');})");
     }
 }
 
