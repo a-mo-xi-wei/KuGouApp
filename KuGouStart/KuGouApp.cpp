@@ -101,7 +101,7 @@ void KuGouApp::initUi() {
     this->setWindowIcon(QIcon("://Res/window/windowIcon.svg"));
     //去掉标题栏
     setWindowFlags(Qt::FramelessWindowHint);
-    move(200, 200);
+    move(QGuiApplication::primaryScreen()->geometry().width()/2-this->width()/2, 100);
     this->setMouseTracking(true);
     ui->title_widget->setMouseTracking(true);
     ui->center_widget->setMouseTracking(true);
