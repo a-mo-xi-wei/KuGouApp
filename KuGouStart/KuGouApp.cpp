@@ -39,8 +39,9 @@ KuGouApp::KuGouApp(QWidget *parent)
     }
     initUi();
     this->m_player->setAudioOutput(this->m_audioOutput.get());
-    connect(ui->volume_toolButton,&VolumeToolBtn::volumeChange,this,[this](int value) {
-        float volume = value*1.0 / 100.0; // 将值转换为0.0到1.0之间
+    this->m_audioOutput->setVolume(20);
+    connect(ui->volume_toolButton,&VolumeToolBtn::volumeChange,this,[this](const int value) {
+        const float volume = static_cast<float>(value) / 100; // 将值转换为0.0到1.0之间
         this->m_audioOutput->setVolume(volume); // 设置音量
     });
     connect(this->m_player.get(), &QMediaPlayer::positionChanged, this, &KuGouApp::updateSliderPosition);
@@ -51,6 +52,9 @@ KuGouApp::KuGouApp(QWidget *parent)
         const auto cover = data.value(QMediaMetaData::ThumbnailImage).value<QPixmap>();
         ui->cover_label->setPixmap(cover);
         ui->song_name_label->setText(title);
+    });
+    connect(ui->progressSlider,&QSlider::sliderMoved, [this](int value) {
+        this->m_player->setPosition(value * this->m_player->duration() / 100);
     });
 }
 
@@ -481,11 +485,14 @@ void KuGouApp::setPlayMusic(const QUrl &url) {
 }
 
 void KuGouApp::updateSliderPosition(int position) {
-    ui->progressSlider->setValue(position);
+    if(ui->progressSlider->m_isPressing){qDebug()<<"正在按下";return;}
+    ui->progressSlider->setSliderPosition(position);
+    ui->position_label->setText(QTime::fromMSecsSinceStartOfDay(position).toString("mm:ss"));
 }
 
 void KuGouApp::updateSliderRange(int duration) {
-    ui->progressSlider->setRange(0, duration);
+    ui->progressSlider->setMaximum(duration);
+    ui->duration_label->setText(QTime::fromMSecsSinceStartOfDay(duration).toString("mm:ss"));
 }
 
 void KuGouApp::on_min_toolButton_clicked() {
@@ -556,10 +563,12 @@ void KuGouApp::on_close_toolButton_clicked() {
 void KuGouApp::on_circle_toolButton_clicked() {
     m_isSingleCircle = !m_isSingleCircle;
     if (m_isSingleCircle) {
+        this->m_player->setLoops(QMediaPlayer::Loops::Infinite);
         ui->circle_toolButton->setStyleSheet(
             R"(QToolButton{border-image:url('://Res/playbar/single-list-loop-gray.svg');}
                                             QToolButton:hover{border-image:url('://Res/playbar/single-list-loop-blue.svg');})");
     } else {
+        this->m_player->setLoops(QMediaPlayer::Loops::Once);
         ui->circle_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/list-loop-gray.svg');}
                                             QToolButton:hover{border-image:url('://Res/playbar/list-loop-blue.svg');})");
     }

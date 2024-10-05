@@ -65,11 +65,13 @@ public slots:
     void onNoVolume(bool flag);
 signals:
     void noVolume(bool flag);
+public:
+    bool m_isPressing;
 private:
     int m_minValue;
     int m_maxValue;
     int m_currentValue;
-    bool m_isPressing;
+
     MyWidget *m_parent;
 };
 

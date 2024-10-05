@@ -111,7 +111,6 @@ public slots:
     void updateSliderPosition(int position);
 
     void updateSliderRange(int duration);
-
 private:
     void initUi();
 
