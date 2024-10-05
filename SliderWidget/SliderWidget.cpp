@@ -8,6 +8,10 @@ SliderWidget::SliderWidget(QWidget *parent,Qt::Orientation orientation)
     this->setCursor(Qt::PointingHandCursor);
 }
 
+const int SliderWidget::getValue() const {
+    return this->value()?this->m_currentValue:0;
+}
+
 void SliderWidget::mousePressEvent(QMouseEvent *event) {
     // 获取鼠标点击相对于滑动条的位置
     int pos = orientation() == Qt::Vertical ? event->position().y() : event->position().x();
@@ -20,6 +24,8 @@ void SliderWidget::mousePressEvent(QMouseEvent *event) {
     this->m_currentValue = this->m_minValue + percentage * (this->m_maxValue - this->m_minValue);
     // 设置滑动条的新值
     this->setValue(this->m_currentValue);
+    emit noVolume(this->m_currentValue == 0);
+    //qDebug()<<"m_currentValue : "<<this->m_currentValue;
     // 正在按下
     this->m_isPressing = true;
     // 让父类处理其余的鼠标事件
@@ -38,7 +44,10 @@ void SliderWidget::mouseMoveEvent(QMouseEvent *event) {
         // 根据百分比计算出滑动条的新值
         this->m_currentValue = this->m_minValue + percentage * (this->m_maxValue - this->m_minValue);
         // 设置滑动条的新值
+        this->m_currentValue = this->m_currentValue >= 0 ? this->m_currentValue : 0;
         this->setValue(this->m_currentValue);
+        emit noVolume(this->m_currentValue == 0);
+        //qDebug()<<"m_currentValue : "<<this->m_currentValue;
     }
     QSlider::mouseMoveEvent(event);
 }
@@ -65,6 +74,10 @@ void SliderWidget::onNoVolume(bool flag) {
         this->setValue(0);
     }
     else {
+        if(this->m_currentValue == 0) {
+            this->m_currentValue = 1;
+        }
         this->setValue(this->m_currentValue);
+        //qDebug()<<"m_currentValue : "<<this->m_currentValue;
     }
 }

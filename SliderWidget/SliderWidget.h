@@ -51,7 +51,7 @@ class SliderWidget : public QSlider {
 
 public:
     explicit SliderWidget(QWidget *parent = nullptr, Qt::Orientation orientation = Qt::Horizontal);
-
+    const int getValue() const ;
 protected:
     void mousePressEvent(QMouseEvent *event) override;
 
@@ -63,7 +63,8 @@ protected:
 
 public slots:
     void onNoVolume(bool flag);
-
+signals:
+    void noVolume(bool flag);
 private:
     int m_minValue;
     int m_maxValue;

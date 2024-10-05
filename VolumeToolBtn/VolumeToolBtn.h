@@ -23,9 +23,10 @@ protected:
     void enterEvent(QEnterEvent *event) override;
     void leaveEvent(QEvent *event) override;
     void showEvent(QShowEvent *event) override;
+public slots:
+    void onNoVolume(bool flag);
 private:
     bool m_isNoVolume = false;
-    int m_curVolume = 20;
     std::unique_ptr<MyWidget>m_volumeWidget;
     std::unique_ptr<QLabel>m_volumeLab;
     std::unique_ptr<SliderWidget>m_volumeSlider;
