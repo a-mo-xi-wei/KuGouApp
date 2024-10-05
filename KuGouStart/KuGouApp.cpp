@@ -39,14 +39,16 @@ KuGouApp::KuGouApp(QWidget *parent)
     }
     initUi();
     this->m_player->setAudioOutput(this->m_audioOutput.get());
+    connect(ui->volume_toolButton,&VolumeToolBtn::volumeChange,this,[this](int value) {
+        float volume = value*1.0 / 100.0; // 将值转换为0.0到1.0之间
+        this->m_audioOutput->setVolume(volume); // 设置音量
+    });
     connect(this->m_player.get(), &QMediaPlayer::positionChanged, this, &KuGouApp::updateSliderPosition);
     connect(this->m_player.get(), &QMediaPlayer::durationChanged, this, &KuGouApp::updateSliderRange);
     connect(this->m_player.get(), &QMediaPlayer::metaDataChanged, this, [this] {
-        QMediaMetaData data = this->m_player->metaData();
-
-        QString title = data.value(QMediaMetaData::Title).toString();
-        QPixmap cover = data.value(QMediaMetaData::ThumbnailImage).value<QPixmap>();
-
+        const QMediaMetaData data = this->m_player->metaData();
+        const auto title = data.value(QMediaMetaData::Title).toString();
+        const auto cover = data.value(QMediaMetaData::ThumbnailImage).value<QPixmap>();
         ui->cover_label->setPixmap(cover);
         ui->song_name_label->setText(title);
     });
@@ -478,11 +480,11 @@ void KuGouApp::setPlayMusic(const QUrl &url) {
     ui->progressSlider->setValue(0);
 }
 
-void KuGouApp::updateSliderPosition(qint64 position) {
+void KuGouApp::updateSliderPosition(int position) {
     ui->progressSlider->setValue(position);
 }
 
-void KuGouApp::updateSliderRange(qint64 duration) {
+void KuGouApp::updateSliderRange(int duration) {
     ui->progressSlider->setRange(0, duration);
 }
 

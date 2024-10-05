@@ -32,6 +32,7 @@ VolumeToolBtn::VolumeToolBtn(QWidget *parent)
     });
     connect(this->m_volumeSlider.get(), &QSlider::valueChanged, [this] {
         this->m_volumeLab->setText(QString::number(this->m_volumeSlider->getValue()) + "%");
+        emit volumeChange(this->m_volumeSlider->getValue());
     });
     connect(this->m_volumeSlider.get(), &SliderWidget::noVolume,this,[this](bool flag){onNoVolume(flag);});
 }

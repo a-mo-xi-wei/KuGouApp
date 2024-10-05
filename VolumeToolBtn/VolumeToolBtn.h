@@ -25,6 +25,8 @@ protected:
     void showEvent(QShowEvent *event) override;
 public slots:
     void onNoVolume(bool flag);
+signals:
+    void volumeChange(int value);
 private:
     bool m_isNoVolume = false;
     std::unique_ptr<MyWidget>m_volumeWidget;
