@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.10)
 
 project(KuGouApp VERSION 1.0 LANGUAGES CXX)
 
+add_subdirectory(MainWindow)
+
 #自定义标题栏模块
 add_subdirectory(TitleWidget)
 
