@@ -3,6 +3,7 @@
 #include"TableWidget.h"
 #include"MusicItemWidget.h"
 #include"RippleButton.h"
+#include"SliderWidget.h"
 
 #include<QMediaMetaData>
 #include<QMediaPlayer>
@@ -44,8 +45,15 @@ KuGouApp::KuGouApp(MainWindow *parent)
         const float volume = static_cast<float>(value) / 100; // 将值转换为0.0到1.0之间
         this->m_audioOutput->setVolume(volume); // 设置音量
     });
-    connect(this->m_player.get(), &QMediaPlayer::positionChanged,this, &KuGouApp::updatePositionLab);
+    connect(this->m_player.get(), &QMediaPlayer::positionChanged,this, [this](int position) {
+        if(ui->progressSlider->isSliderDown())return;
+        ui->position_label->setText(QTime::fromMSecsSinceStartOfDay(position).toString("mm:ss"));
+    });
     connect(this->m_player.get(), &QMediaPlayer::durationChanged, this, &KuGouApp::updateSliderRange);
+    connect(ui->progressSlider,&QSlider::sliderReleased, this,&KuGouApp::updateSliderPosition);
+    connect(ui->progressSlider,&QSlider::sliderMoved,this,&KuGouApp::updatePositionLab);
+    //connect(ui->progressSlider,&QSlider::sliderPressed,this,&KuGouApp::updateSliderPosition);
+    ui->progressSlider->installEventFilter(this);
     connect(this->m_player.get(), &QMediaPlayer::metaDataChanged, this, [this] {
         const QMediaMetaData data = this->m_player->metaData();
         const auto title = data.value(QMediaMetaData::Title).toString();
@@ -53,7 +61,6 @@ KuGouApp::KuGouApp(MainWindow *parent)
         ui->cover_label->setPixmap(cover);
         ui->song_name_label->setText(title);
     });
-    connect(ui->progressSlider,&QSlider::sliderReleased, this,&KuGouApp::updateSliderPosition);
 }
 
 KuGouApp::~KuGouApp() {
@@ -267,6 +274,25 @@ void KuGouApp::initLocalDownload() {
     ui->local_zhuanji_toolButton->setIcon(QIcon("://Res/window/music-library.svg"));
     ui->local_singer_toolButton->setIcon(QIcon("://Res/window/ai.svg"));
     ui->local_file_toolButton->setIcon(QIcon("://Res/window/file.svg"));
+
+    //先直接往里面嵌入两首歌
+
+    auto item = new MusicItemWidget(1, "紫荆花盛开", this);
+    connect(item, &MusicItemWidget::playRequest, this, [this](int index) {
+        setPlayMusic(QUrl("qrc:/Res/audio/紫荆花盛开.mp3"));
+        on_play_or_pause_toolButton_clicked();
+    });
+    this->m_locationMusicMap[1] = "qrc:/Res/audio/紫荆花盛开.mp3";
+    ui->local_song_list_layout->insertWidget(ui->local_song_list_layout->count() - 1, item);
+    item = new MusicItemWidget(2, "青花瓷", this);
+    connect(item, &MusicItemWidget::playRequest, this, [this](int index) {
+        setPlayMusic(QUrl("qrc:/Res/audio/青花瓷.mp3"));
+        on_play_or_pause_toolButton_clicked();
+    });
+    this->m_locationMusicMap[2] = "qrc:/Res/audio/青花瓷.mp3";
+    ui->local_song_list_layout->insertWidget(ui->local_song_list_layout->count() - 1, item);
+    ui->local_music_number_label->setText("2");
+
 }
 
 void KuGouApp::initBottomWidget() {
@@ -362,6 +388,23 @@ bool KuGouApp::event(QEvent *event) {
     return QWidget::event(event);
 }
 
+bool KuGouApp::eventFilter(QObject *watched, QEvent *event) {
+    if(watched == ui->progressSlider) {
+        if (event->type()==QEvent::MouseButtonPress)           //判断类型
+        {
+            auto mouseEvent = dynamic_cast<QMouseEvent *>(event);
+            if (mouseEvent->button() == Qt::LeftButton) //判断左键
+            {
+                int value = QStyle::sliderValueFromPosition(ui->progressSlider->minimum(),
+                    ui->progressSlider->maximum(), mouseEvent->pos().x(),
+                    ui->progressSlider->width());
+                ui->progressSlider->setValue(value);
+            }
+        }
+    }
+    return MainWindow::eventFilter(watched, event);
+}
+
 void KuGouApp::on_basic_toolButton_clicked() {
     ui->stackedWidget->setCurrentWidget(ui->main_page);
 }
@@ -374,12 +417,8 @@ void KuGouApp::on_local_add_toolButton_clicked() // 此处后面需要优化 ，
 {
     QString musicPath = QStandardPaths::standardLocations(QStandardPaths::MusicLocation).first();
     QString path = QFileDialog::getOpenFileName(this, "添加音乐", musicPath, "Music (*.mp3 *.aac *.wav)");
-    if (path.isEmpty()) {
-        return;
-    }
+    if (path.isEmpty())return;
     this->m_locationMusicMap[this->m_locationMusicMap.size() + 1] = QUrl::fromLocalFile(path);
-    QVBoxLayout *layout = dynamic_cast<QVBoxLayout *>(ui->local_song_list_widget->layout());
-    if (!layout)return;
     int index = this->m_locationMusicMap.size();
     QString fileName = this->m_locationMusicMap[index].fileName();
 
@@ -389,7 +428,7 @@ void KuGouApp::on_local_add_toolButton_clicked() // 此处后面需要优化 ，
         on_play_or_pause_toolButton_clicked();
     });
 
-    layout->insertWidget(layout->count() - 1, item);
+    ui->local_song_list_layout->insertWidget(ui->local_song_list_layout->count() - 1, item);
     ui->local_music_number_label->setText(QString::number(this->m_locationMusicMap.size()));
 }
 
@@ -409,19 +448,19 @@ void KuGouApp::setPlayMusic(const QUrl &url) {
     ui->progressSlider->setValue(0);
 }
 
-void KuGouApp::updatePositionLab(int position) {
-    if(ui->progressSlider->isSliderDown())return;
+void KuGouApp::updatePositionLab() {
+    //qDebug()<<"触发拖动";
+    int position = ui->progressSlider->value() * this->m_player->duration() / ui->progressSlider->maximum();
     ui->position_label->setText(QTime::fromMSecsSinceStartOfDay(position).toString("mm:ss"));
 }
 
 void KuGouApp::updateSliderRange(int duration) {
-    ui->progressSlider->setMaximum(duration);
+    //ui->progressSlider->setMaximum(duration);//一旦加上这一行就无法拖动进度条
     ui->duration_label->setText(QTime::fromMSecsSinceStartOfDay(duration).toString("mm:ss"));
 }
 
 void KuGouApp::updateSliderPosition() {
     //播放列表为空时，设置无法拖动，留待之后解决
-
     this->m_player->setPosition(this->m_player->duration()*ui->progressSlider->value()/100);
     this->m_player->play();
 }

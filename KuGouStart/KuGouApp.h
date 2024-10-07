@@ -70,7 +70,7 @@ private slots:
 public slots:
     void setPlayMusic(const QUrl &url);
 
-    void updatePositionLab(int position);
+    void updatePositionLab();
 
     void updateSliderRange(int duration);
 
@@ -115,6 +115,8 @@ protected:
     void resizeEvent(QResizeEvent *event) override;
 
     bool event(QEvent *event) override;
+
+    bool eventFilter(QObject *watched, QEvent *event) override;
 
 private:
     bool m_isSingleCircle = false;

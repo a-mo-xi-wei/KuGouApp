@@ -1241,7 +1241,7 @@
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="main_page">
              <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -2335,17 +2335,24 @@ margin-top:0px;</string>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_10">
                  <item>
-                  <spacer name="vs">
-                   <property name="orientation">
-                    <enum>Qt::Vertical</enum>
+                  <layout class="QVBoxLayout" name="local_song_list_layout">
+                   <property name="spacing">
+                    <number>3</number>
                    </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>20</width>
-                     <height>283</height>
-                    </size>
-                   </property>
-                  </spacer>
+                   <item>
+                    <spacer name="vs">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>283</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                  </layout>
                  </item>
                 </layout>
                </widget>
@@ -2439,7 +2446,7 @@ margin-top:0px;</string>
            <number>100</number>
           </property>
           <property name="pageStep">
-           <number>10</number>
+           <number>5</number>
           </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
