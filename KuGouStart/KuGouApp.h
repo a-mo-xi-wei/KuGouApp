@@ -1,11 +1,10 @@
 #ifndef KUGOUAPP_H
 #define KUGOUAPP_H
 
-#include <QWidget>
 #include<memory>
 #include<QMap>
 #include<QUrl>
-#include<MainWindow.h>
+#include"MainWindow.h"
 
 class QMediaPlayer;
 class QAudioOutput;
@@ -104,6 +103,8 @@ private:
     bool m_isPlaying = false;
     QPoint m_pressPos;
     QString m_maxBtnStyle;
+    QRect startGeometry; // 获取当前窗口的几何形状(正常状态)
+    QRect endGeometry;
 protected:
     void mousePressEvent(QMouseEvent *ev) override;
 

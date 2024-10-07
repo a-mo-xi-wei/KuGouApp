@@ -442,8 +442,6 @@ void KuGouApp::on_min_toolButton_clicked() {
 }
 
 void KuGouApp::on_max_toolButton_clicked() {
-    QRect startGeometry; // 获取当前窗口的几何形状(正常状态)
-    QRect endGeometry;
     if (m_isMaxScreen) {
         this->m_isMaxScreen = false;
         endGeometry = startGeometry; // 获取普通尺寸时的几何形状
@@ -458,7 +456,7 @@ void KuGouApp::on_max_toolButton_clicked() {
                                 icon-size: 12px 12px;
                             })";
         ui->max_toolButton->setMyIcon(QIcon("://Res/titlebar/maximize-black.svg"));
-        this->m_animation->setDuration(700); // 设置动画持续时间
+        this->m_animation->setDuration(500); // 设置动画持续时间
     } else {
         this->m_isMaxScreen = true;
         // 如果当前不是最大化状态，则目标是最大化
