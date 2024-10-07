@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include "WaterDrop.h"
 #include<QMouseEvent>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -13,6 +14,9 @@ MainWindow::~MainWindow() {
 
 void MainWindow::mousePressEvent(QMouseEvent *ev) {
     QWidget::mousePressEvent(ev);
+    auto w = new WaterDrop;
+    w->move(this->mapToGlobal(ev->pos()));
+    w->show();
     if (ev->button() == Qt::LeftButton) {
         //qDebug()<<"按下 :"<<ev->pos();
         // 如果是鼠标左键
