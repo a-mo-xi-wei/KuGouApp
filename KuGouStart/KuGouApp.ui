@@ -2407,7 +2407,7 @@ margin-top:0px;</string>
          </widget>
         </item>
         <item>
-         <widget class="SliderWidget" name="progressSlider">
+         <widget class="QSlider" name="progressSlider">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -2887,11 +2887,6 @@ margin-top:0px;</string>
    <class>VolumeToolBtn</class>
    <extends>QToolButton</extends>
    <header>VolumeToolBtn.h</header>
-  </customwidget>
-  <customwidget>
-   <class>SliderWidget</class>
-   <extends>QSlider</extends>
-   <header>SliderWidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -108,9 +108,11 @@ private slots:
 public slots:
     void setPlayMusic(const QUrl &url);
 
-    void updateSliderPosition(int position);
+    void updatePositionLab(int position);
 
     void updateSliderRange(int duration);
+
+    void updateSliderPosition();
 private:
     void initUi();
 
