@@ -13,7 +13,7 @@ public:
     explicit MusicItemWidget(int index, const QString& name, QWidget *parent = nullptr);
 
 signals:
-    void playRequest(int indx);
+    void playRequest(int index);
 
 private:
     void initUi();
