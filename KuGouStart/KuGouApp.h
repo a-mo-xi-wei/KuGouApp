@@ -70,11 +70,10 @@ private slots:
 public slots:
     void setPlayMusic(const QUrl &url);
 
-    void updatePositionLab();
+    void updateProcess();
 
-    void updateSliderRange(int duration);
+    void updateSliderRange(qint64 duration);
 
-    void updateSliderPosition();
 private:
     void initUi();
 
@@ -121,6 +120,7 @@ protected:
 private:
     bool m_isSingleCircle = false;
     bool m_isMaxScreen = false;
+    QMetaObject::Connection mediaStatusConnection;
 
 };
 #endif // KUGOUAPP_H

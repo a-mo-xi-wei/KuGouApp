@@ -2445,6 +2445,9 @@ margin-top:0px;</string>
           <property name="maximum">
            <number>100</number>
           </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
           <property name="pageStep">
            <number>5</number>
           </property>

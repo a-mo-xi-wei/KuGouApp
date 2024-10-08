@@ -17,6 +17,8 @@ file(GLOB SOURCE_H ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 set(SOURCE_FILE
     ${SOURCE_CPP}
     ${SOURCE_H}
+    "Res.qrc"
+    "KuGouApp.ui"
 )
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/../GuessLoveWidget
     ${PROJECT_SOURCE_DIR}/../AdvertiseBoardWidget
@@ -27,7 +29,7 @@ INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/../GuessLoveWidget
     ${PROJECT_SOURCE_DIR}/../SliderWidget
     ${PROJECT_SOURCE_DIR}/../MainWindow)
 
-add_executable(${PROJECT_NAME} ${SOURCE_FILE} "Res.qrc" "KuGouApp.ui")
+add_executable(${PROJECT_NAME} ${SOURCE_FILE})
 
 target_link_libraries(${PROJECT_NAME} Qt6::Widgets Qt6::UiTools Qt6::Multimedia
                         MusicTableWidget MusicItemWidget AdvertiseBoardWidget

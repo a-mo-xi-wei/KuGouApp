@@ -40,27 +40,33 @@ KuGouApp::KuGouApp(MainWindow *parent)
     }
     initUi();
     this->m_player->setAudioOutput(this->m_audioOutput.get());
-    this->m_audioOutput->setVolume(20);
+    this->m_audioOutput->setVolume(0.2);
     connect(ui->volume_toolButton,&VolumeToolBtn::volumeChange,this,[this](const int value) {
         const float volume = static_cast<float>(value) / 100; // 将值转换为0.0到1.0之间
         this->m_audioOutput->setVolume(volume); // 设置音量
     });
+
     connect(this->m_player.get(), &QMediaPlayer::positionChanged,this, [this](int position) {
         if(ui->progressSlider->isSliderDown())return;
+        qDebug()<<"position "<<position;
+        ui->progressSlider->setValue(position);
         ui->position_label->setText(QTime::fromMSecsSinceStartOfDay(position).toString("mm:ss"));
     });
     connect(this->m_player.get(), &QMediaPlayer::durationChanged, this, &KuGouApp::updateSliderRange);
-    connect(ui->progressSlider,&QSlider::sliderReleased, this,&KuGouApp::updateSliderPosition);
-    connect(ui->progressSlider,&QSlider::sliderMoved,this,&KuGouApp::updatePositionLab);
-    //connect(ui->progressSlider,&QSlider::sliderPressed,this,&KuGouApp::updateSliderPosition);
-    ui->progressSlider->installEventFilter(this);
     connect(this->m_player.get(), &QMediaPlayer::metaDataChanged, this, [this] {
+        qDebug()<<"metaDataChanged";
         const QMediaMetaData data = this->m_player->metaData();
         const auto title = data.value(QMediaMetaData::Title).toString();
         const auto cover = data.value(QMediaMetaData::ThumbnailImage).value<QPixmap>();
         ui->cover_label->setPixmap(cover);
         ui->song_name_label->setText(title);
     });
+
+
+    connect(ui->progressSlider,&QSlider::sliderReleased, this,&KuGouApp::updateProcess);
+    connect(ui->progressSlider,&QSlider::sliderMoved,this,&KuGouApp::updateProcess);
+
+    ui->progressSlider->installEventFilter(this);
 }
 
 KuGouApp::~KuGouApp() {
@@ -395,10 +401,12 @@ bool KuGouApp::eventFilter(QObject *watched, QEvent *event) {
             auto mouseEvent = dynamic_cast<QMouseEvent *>(event);
             if (mouseEvent->button() == Qt::LeftButton) //判断左键
             {
-                int value = QStyle::sliderValueFromPosition(ui->progressSlider->minimum(),
+                qDebug() << "触发点击";
+                qint64 value = QStyle::sliderValueFromPosition(ui->progressSlider->minimum(),
                     ui->progressSlider->maximum(), mouseEvent->pos().x(),
                     ui->progressSlider->width());
-                ui->progressSlider->setValue(value);
+                this->m_player->setPosition(value);
+                if(!this->m_isPlaying)ui->play_or_pause_toolButton->clicked();
             }
         }
     }
@@ -448,21 +456,18 @@ void KuGouApp::setPlayMusic(const QUrl &url) {
     ui->progressSlider->setValue(0);
 }
 
-void KuGouApp::updatePositionLab() {
-    //qDebug()<<"触发拖动";
-    int position = ui->progressSlider->value() * this->m_player->duration() / ui->progressSlider->maximum();
-    ui->position_label->setText(QTime::fromMSecsSinceStartOfDay(position).toString("mm:ss"));
-}
-
-void KuGouApp::updateSliderRange(int duration) {
-    //ui->progressSlider->setMaximum(duration);//一旦加上这一行就无法拖动进度条
-    ui->duration_label->setText(QTime::fromMSecsSinceStartOfDay(duration).toString("mm:ss"));
-}
-
-void KuGouApp::updateSliderPosition() {
-    //播放列表为空时，设置无法拖动，留待之后解决
-    this->m_player->setPosition(this->m_player->duration()*ui->progressSlider->value()/100);
+void KuGouApp::updateProcess() {
+    qDebug()<<"sliderMoved / sliderReleased : "<<ui->progressSlider->value();
+    qint64 position = ui->progressSlider->value() * this->m_player->duration() / ui->progressSlider->maximum();
+    this->m_player->setPosition(position);
     this->m_player->play();
+    if(!this->m_isPlaying)ui->play_or_pause_toolButton->clicked();
+}
+
+void KuGouApp::updateSliderRange(qint64 duration) {
+    ui->progressSlider->setMaximum(duration);
+    qDebug()<<"改变总时长";
+    ui->duration_label->setText(QTime::fromMSecsSinceStartOfDay(duration).toString("mm:ss"));
 }
 
 void KuGouApp::on_min_toolButton_clicked() {
@@ -531,11 +536,26 @@ void KuGouApp::on_close_toolButton_clicked() {
 void KuGouApp::on_circle_toolButton_clicked() {
     m_isSingleCircle = !m_isSingleCircle;
     if (m_isSingleCircle) {
+        qDebug()<<"单曲循环";
         this->m_player->setLoops(QMediaPlayer::Loops::Infinite);
         ui->circle_toolButton->setStyleSheet(
             R"(QToolButton{border-image:url('://Res/playbar/single-list-loop-gray.svg');}
                                             QToolButton:hover{border-image:url('://Res/playbar/single-list-loop-blue.svg');})");
+        mediaStatusConnection = connect(this->m_player.get(),&QMediaPlayer::mediaStatusChanged,this, [=](QMediaPlayer::MediaStatus status) {
+            if (status == QMediaPlayer::EndOfMedia) {
+                qDebug()<<"状态改变";
+                // 当播放结束时，重新开始播放
+                qDebug()<<"循环播放 ："<<this->m_isSingleCircle;
+                this->m_player->setPosition(0);  // 设置到文件的开头
+                this->m_player->play();
+            }
+        });
     } else {
+        qDebug()<<"播放一次";
+        if (mediaStatusConnection) {
+            disconnect(mediaStatusConnection);
+            mediaStatusConnection = QMetaObject::Connection(); // 重置连接
+        }
         this->m_player->setLoops(QMediaPlayer::Loops::Once);
         ui->circle_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/list-loop-gray.svg');}
                                             QToolButton:hover{border-image:url('://Res/playbar/list-loop-blue.svg');})");
