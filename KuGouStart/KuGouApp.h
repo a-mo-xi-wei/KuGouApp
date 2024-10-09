@@ -5,6 +5,7 @@
 #include<QMap>
 #include<QUrl>
 #include"MainWindow.h"
+#include"RecommendForYou.h"
 
 class QMediaPlayer;
 class QAudioOutput;
@@ -24,9 +25,9 @@ class KuGouApp : public MainWindow {
     Q_OBJECT
 
 public:
-    KuGouApp(MainWindow *parent = nullptr);
+    explicit KuGouApp(MainWindow *parent = nullptr);
 
-    ~KuGouApp();
+    ~KuGouApp() override;
 
     QPoint getVolumeBtnPos() const;
 
@@ -43,7 +44,7 @@ private slots:
 
     void on_title_found_pushButton_clicked();
 
-    void on_basic_toolButton_clicked();
+    void on_recommend_toolButton_clicked();
 
     void on_local_download_toolButton_clicked();
 
@@ -77,11 +78,9 @@ public slots:
 private:
     void initUi();
 
+    void initCommendForYouWidget();
+
     void initTitleWidget();
-
-    void initAdvertiseBoard();
-
-    void initTabWidget();
 
     void initPlayWidget();
 
@@ -98,6 +97,7 @@ private:
     std::unique_ptr<QButtonGroup> m_menuBtnGroup{};
     std::unique_ptr<QSizeGrip> m_sizeGrip{};
     std::unique_ptr<QPropertyAnimation> m_animation{};
+    std::unique_ptr<RecommendForYou> m_recommendForYou{};
     QMap<int, QUrl> m_locationMusicMap;
     bool m_isPlaying = false;
     QPoint m_pressPos;

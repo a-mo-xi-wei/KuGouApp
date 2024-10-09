@@ -1,6 +1,5 @@
 #include "KuGouApp.h"
 #include "ui_KuGouApp.h"
-#include"TableWidget.h"
 #include"MusicItemWidget.h"
 #include"RippleButton.h"
 #include"SliderWidget.h"
@@ -29,7 +28,8 @@ KuGouApp::KuGouApp(MainWindow *parent)
       , m_audioOutput(std::make_unique<QAudioOutput>(this))
       , m_menuBtnGroup(std::make_unique<QButtonGroup>(this))
       , m_sizeGrip(std::make_unique<QSizeGrip>(this))
-      , m_animation(std::make_unique<QPropertyAnimation>(this,"geometry")) {
+      , m_animation(std::make_unique<QPropertyAnimation>(this,"geometry"))
+      , m_recommendForYou(std::make_unique<RecommendForYou>(this)) {
     ui->setupUi(this);
     QFile file("://Res/styles/original.css");
     if (file.open(QIODevice::ReadOnly)) {
@@ -40,7 +40,7 @@ KuGouApp::KuGouApp(MainWindow *parent)
     }
     initUi();
     this->m_player->setAudioOutput(this->m_audioOutput.get());
-    this->m_audioOutput->setVolume(0.2);
+    this->m_audioOutput->setVolume(0.15);
     connect(ui->volume_toolButton,&VolumeToolBtn::volumeChange,this,[this](const int value) {
         const float volume = static_cast<float>(value) / 100; // 将值转换为0.0到1.0之间
         this->m_audioOutput->setVolume(volume); // 设置音量
@@ -127,12 +127,15 @@ void KuGouApp::initUi() {
     this->setAttribute(Qt::WA_Hover,true);
 
     initTitleWidget();
-    initAdvertiseBoard();
-    initTabWidget();
+    initCommendForYouWidget();
     initPlayWidget();
     initMenu();
     initLocalDownload();
     initBottomWidget();
+}
+
+void KuGouApp::initCommendForYouWidget() {
+    ui->stackedWidget->addWidget(this->m_recommendForYou.get());
 }
 
 QPixmap roundedPixmap(const QPixmap &src, QSize size, int radius) {
@@ -187,25 +190,6 @@ void KuGouApp::initTitleWidget() {
     connect(ui->title_widget, &TitleWidget::doubleClicked, this, [this] { ui->max_toolButton->click(); });
 }
 
-void KuGouApp::initAdvertiseBoard()
-{
-    QDir dir(__FILE__);
-    if (dir.cdUp())dir.cd("Res/poster");
-
-    auto s = dir.entryList(QDir::Files | QDir::NoDotAndDotDot).size();
-    for (auto i = 1; i <= s; ++i)
-        ui->advertise_board_widget->addPoster(QPixmap(QString(":///Res/poster/%1.jpg").arg(i)));
-}
-
-void KuGouApp::initTabWidget() {
-    QVBoxLayout *layout = dynamic_cast<QVBoxLayout *>(ui->table_widget->layout());
-    if (!layout)return;
-    layout->insertWidget(layout->count() - 1, new TableWidget("今日专属推荐", TableWidget::KIND::BlockList,this));
-    layout->insertWidget(layout->count() - 1, new TableWidget("潮流音乐站", TableWidget::KIND::ItemList,this));
-    layout->insertWidget(layout->count() - 1, new TableWidget("热门好歌精选",TableWidget::KIND::ItemList, this));
-    layout->insertWidget(layout->count() - 1, new TableWidget("私人专属好歌",TableWidget::KIND::ItemList, this));
-}
-
 void KuGouApp::initPlayWidget() {
     ui->love_toolButton->setIcon(QIcon("://Res/playbar/collect.svg"));
     ui->download_toolButton->setIcon(QIcon("://Res/playbar/download.svg"));
@@ -231,7 +215,7 @@ void KuGouApp::initPlayWidget() {
 
 void KuGouApp::initMenu() {
     this->m_menuBtnGroup->setParent(ui->center_menu_widget);
-    ui->basic_toolButton->setIcon(QIcon("://Res/window/recommend.svg"));
+    ui->recommend_toolButton->setIcon(QIcon("://Res/window/recommend.svg"));
     ui->yueku_toolButton->setIcon(QIcon("://Res/window/music-library.svg"));
     ui->gedan_toolButton->setIcon(QIcon("://Res/window/song-list.svg"));
     ui->pindao_toolButton->setIcon(QIcon("://Res/window/my-channel.svg"));
@@ -245,7 +229,7 @@ void KuGouApp::initMenu() {
     ui->zuijin_bofang_toolButton->setIcon(QIcon("://Res/window/history.svg"));
     ui->moren_liebiao_toolButton->setIcon(QIcon("://Res/titlebar/menu-black.svg"));
 
-    m_menuBtnGroup->addButton(ui->basic_toolButton);
+    m_menuBtnGroup->addButton(ui->recommend_toolButton);
     m_menuBtnGroup->addButton(ui->yueku_toolButton);
     m_menuBtnGroup->addButton(ui->gedan_toolButton);
     m_menuBtnGroup->addButton(ui->pindao_toolButton);
@@ -413,8 +397,8 @@ bool KuGouApp::eventFilter(QObject *watched, QEvent *event) {
     return MainWindow::eventFilter(watched, event);
 }
 
-void KuGouApp::on_basic_toolButton_clicked() {
-    ui->stackedWidget->setCurrentWidget(ui->main_page);
+void KuGouApp::on_recommend_toolButton_clicked() {
+    ui->stackedWidget->setCurrentWidget(this->m_recommendForYou.get());
 }
 
 void KuGouApp::on_local_download_toolButton_clicked() {
@@ -541,21 +525,21 @@ void KuGouApp::on_circle_toolButton_clicked() {
         ui->circle_toolButton->setStyleSheet(
             R"(QToolButton{border-image:url('://Res/playbar/single-list-loop-gray.svg');}
                                             QToolButton:hover{border-image:url('://Res/playbar/single-list-loop-blue.svg');})");
-        mediaStatusConnection = connect(this->m_player.get(),&QMediaPlayer::mediaStatusChanged,this, [=](QMediaPlayer::MediaStatus status) {
-            if (status == QMediaPlayer::EndOfMedia) {
-                qDebug()<<"状态改变";
-                // 当播放结束时，重新开始播放
-                qDebug()<<"循环播放 ："<<this->m_isSingleCircle;
-                this->m_player->setPosition(0);  // 设置到文件的开头
-                this->m_player->play();
-            }
-        });
+        //mediaStatusConnection = connect(this->m_player.get(),&QMediaPlayer::mediaStatusChanged,this, [=](QMediaPlayer::MediaStatus status) {
+        //    if (status == QMediaPlayer::EndOfMedia) {
+        //        qDebug()<<"播放结束";
+        //        // 当播放结束时，重新开始播放
+        //        qDebug()<<"循环播放 ："<<this->m_isSingleCircle;
+        //        this->m_player->setPosition(0);  // 设置到文件的开头
+        //        this->m_player->play();
+        //    }
+        //});
     } else {
         qDebug()<<"播放一次";
-        if (mediaStatusConnection) {
-            disconnect(mediaStatusConnection);
-            mediaStatusConnection = QMetaObject::Connection(); // 重置连接
-        }
+        //if (mediaStatusConnection) {
+        //    disconnect(mediaStatusConnection);
+        //    mediaStatusConnection = QMetaObject::Connection(); // 重置连接
+        //}
         this->m_player->setLoops(QMediaPlayer::Loops::Once);
         ui->circle_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/list-loop-gray.svg');}
                                             QToolButton:hover{border-image:url('://Res/playbar/list-loop-blue.svg');})");

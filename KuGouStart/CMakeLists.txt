@@ -20,18 +20,18 @@ set(SOURCE_FILE
     "Res.qrc"
     "KuGouApp.ui"
 )
-INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/../GuessLoveWidget
-    ${PROJECT_SOURCE_DIR}/../AdvertiseBoardWidget
+INCLUDE_DIRECTORIES(
     ${PROJECT_SOURCE_DIR}/../TitleWidget
-    ${PROJECT_SOURCE_DIR}/../SMaskWidget
     ${PROJECT_SOURCE_DIR}/../RippleButton
     ${PROJECT_SOURCE_DIR}/../VolumeToolBtn
     ${PROJECT_SOURCE_DIR}/../SliderWidget
     ${PROJECT_SOURCE_DIR}/../MainWindow)
 
+#包含为你推荐模块
+add_subdirectory(RecommendForYou)
+
 add_executable(${PROJECT_NAME} ${SOURCE_FILE})
 
 target_link_libraries(${PROJECT_NAME} Qt6::Widgets Qt6::UiTools Qt6::Multimedia
-                        MusicTableWidget MusicItemWidget AdvertiseBoardWidget
-                        GuessLoveWidget TitleWidget SMaskWidget RippleButton
-                        VolumeToolBtn SliderWidget MainWindow)
+                        RecommendForYou MusicItemWidget TitleWidget
+                        RippleButton VolumeToolBtn SliderWidget MainWindow)
