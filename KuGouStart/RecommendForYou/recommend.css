@@ -1,0 +1,46 @@
+/*--------------------classify_widget------------------------------*/
+
+QWidget#classify_widget .QPushButton {
+    color:white;
+    border-radius: 10px;
+}
+
+QPushButton#recommend_pushButton {
+    margin:3px;
+    background-color: #44a2ff;
+}
+QPushButton#recommend_pushButton:hover {
+    margin: 0px 3px 6px 3px;
+}
+
+QPushButton#ranking_list_pushButton {
+    margin: 3px;
+    background-color: #fe72ae;
+}
+QPushButton#ranking_list_pushButton:hover {
+    margin: 0px 3px 6px 3px;
+}
+
+QPushButton#classify_pushButton {
+    margin: 3px;
+    background-color: #fc994a;
+}
+QPushButton#classify_pushButton:hover {
+    margin: 0px 3px 6px 3px;
+}
+
+QPushButton#scene_music_pushButton {
+    margin: 3px;
+    background-color: #c740e1;
+}
+QPushButton#scene_music_pushButton:hover {
+    margin: 0px 3px 6px 3px;
+}
+
+QPushButton#music_quality_pushButton {
+    margin: 3px;
+    background-color: #0a0a0a;
+}
+QPushButton#music_quality_pushButton:hover {
+    margin: 0px 3px 6px 3px;
+}
