@@ -2,7 +2,6 @@
 #define KUGOUAPP_H
 
 #include<memory>
-#include<QMap>
 #include<QUrl>
 #include"MainWindow.h"
 #include"RecommendForYou.h"
@@ -29,8 +28,6 @@ public:
     explicit KuGouApp(MainWindow *parent = nullptr);
 
     ~KuGouApp() override;
-
-    QPoint getVolumeBtnPos() const;
 
 private slots:
     void on_title_return_toolButton_clicked();
@@ -82,7 +79,7 @@ private:
 
     void initMenu();
 
-    void initBottomWidget();
+    void initCornerWidget();
 
 private:
     Ui::KuGouApp *ui;
@@ -115,7 +112,7 @@ protected:
 private:
     bool m_isSingleCircle = false;
     bool m_isMaxScreen = false;
-    QMetaObject::Connection mediaStatusConnection;
+    //QMetaObject::Connection mediaStatusConnection;
 
 };
 #endif // KUGOUAPP_H

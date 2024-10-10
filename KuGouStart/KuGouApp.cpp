@@ -72,10 +72,6 @@ KuGouApp::~KuGouApp() {
     delete ui;
 }
 
-QPoint KuGouApp::getVolumeBtnPos() const {
-    return ui->volume_toolButton->pos();
-}
-
 void KuGouApp::on_title_return_toolButton_clicked() {
     qDebug()<<"返回，估计要使用堆栈";
 }
@@ -131,7 +127,7 @@ void KuGouApp::initUi() {
     initPlayWidget();
     initMenu();
     initLocalDownload();
-    initBottomWidget();
+    initCornerWidget();
 }
 
 void KuGouApp::initCommendForYouWidget() {
@@ -249,7 +245,7 @@ void KuGouApp::initMenu() {
     m_menuBtnGroup->setExclusive(true);
 }
 
-void KuGouApp::initBottomWidget() {
+void KuGouApp::initCornerWidget() {
     this->m_sizeGrip->setFixedSize(11, 11);
     this->m_sizeGrip->setStyleSheet("border-image:url('://Res/playbar/bottom-mark.svg');");
 }
