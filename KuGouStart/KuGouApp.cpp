@@ -56,8 +56,10 @@ KuGouApp::KuGouApp(MainWindow *parent)
         const QMediaMetaData data = this->m_player->metaData();
         const auto title = data.value(QMediaMetaData::Title).toString();
         const auto cover = data.value(QMediaMetaData::ThumbnailImage).value<QPixmap>();
+        const auto author = data.value(QMediaMetaData::Author).toString();
         ui->cover_label->setPixmap(cover);
         ui->song_name_label->setText(title);
+        ui->singer_label->setText(author);
     });
 
     connect(ui->progressSlider,&QSlider::sliderReleased, this,&KuGouApp::updateProcess);

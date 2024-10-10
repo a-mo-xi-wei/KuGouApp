@@ -56,15 +56,18 @@ void LocalDownload::init() {
     this->m_searchAction->setIconVisibleInMenu(false);  // 仅显示图标
     ui->local_search_lineEdit->addAction(this->m_searchAction,QLineEdit::TrailingPosition);
     ui->local_search_lineEdit->setWidth(150);
+
     //先直接往里面嵌入两首歌
-    auto item = new MusicItemWidget(1, "紫荆花盛开", this);
+    //auto item = new MusicItemWidget(1, "紫荆花盛开", this);
+    auto item = new MusicItemWidget(m_informationMap, this);
     connect(item, &MusicItemWidget::playRequest, this, [this](int index) {
         //qDebug()<<"发送播放歌曲信号 ";
         emit playMusic(QUrl("qrc:/Res/audio/紫荆花盛开.mp3"));
     });
     this->m_locationMusicVector.emplace_back("紫荆花盛开");
     ui->local_song_list_layout->insertWidget(ui->local_song_list_layout->count() - 1, item);
-    item = new MusicItemWidget(2, "青花瓷", this);
+    //item = new MusicItemWidget(2, "青花瓷", this);
+    item = new MusicItemWidget(m_informationMap, this);
     connect(item, &MusicItemWidget::playRequest, this, [this](int index) {
         emit playMusic(QUrl("qrc:/Res/audio/青花瓷.mp3"));
     });
@@ -86,8 +89,9 @@ void LocalDownload::on_local_add_toolButton_clicked() {
         return;
     }
 
-    auto item = new MusicItemWidget(this->m_locationMusicVector.size(),
-        fileName.remove(fileName.lastIndexOf("."), fileName.length()), this);
+    //auto item = new MusicItemWidget(this->m_locationMusicVector.size(),
+    //    fileName.remove(fileName.lastIndexOf("."), fileName.length()), this);
+    auto item = new MusicItemWidget(m_informationMap, this);
     connect(item, &MusicItemWidget::playRequest, this, [this](int index) {
         emit playMusic(this->m_locationMusicVector[index]);
     });

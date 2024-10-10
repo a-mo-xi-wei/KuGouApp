@@ -6,7 +6,7 @@
 #define LOCALDOWNLOAD_H
 
 #include <QWidget>
-
+#include<QMap>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class LocalDownload; }
@@ -36,6 +36,7 @@ signals:
 private:
     Ui::LocalDownload *ui;
     QVector<QString> m_locationMusicVector;
+    QMap<QString, QString> m_informationMap;
     QAction* m_searchAction;
 };
 
