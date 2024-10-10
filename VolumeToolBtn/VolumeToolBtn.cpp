@@ -41,7 +41,7 @@ VolumeToolBtn::~VolumeToolBtn() {
 }
 
 void VolumeToolBtn::initVolumeWidget() {
-    this->m_volumeParent = qobject_cast<QWidget *>(this->parent()->parent());
+    this->m_volumeParent = this->window();
     if(this->m_volumeParent)this->m_volumeWidget->setParent(m_volumeParent);
     else qDebug()<<"m_volumeParent is nullptr";
     this->m_volumeWidget->hide();
@@ -95,10 +95,18 @@ void VolumeToolBtn::checkMousePosition() {
     }
 }
 
+void VolumeToolBtn::getVolumeWidgetPosition() {
+    this->m_volumePosition = this->m_volumeParent->mapFromGlobal(this->mapToGlobal(QPoint(0, 0)));
+    this->m_volumePosition -= QPoint(20, this->m_volumeWidget->height() + 10);
+    //qDebug() << "VolumeWidgetPosition : "<<this->m_volumePosition;
+}
+
 void VolumeToolBtn::enterEvent(QEnterEvent *event) {
     QToolButton::enterEvent(event);
     if (m_isNoVolume)this->setIcon(QIcon(":/Res/playbar/volume-off-blue.svg"));
     else this->setIcon(QIcon(":/Res/playbar/volume-on-blue.svg"));
+    getVolumeWidgetPosition();
+    this->m_volumeWidget->move(this->m_volumePosition);
     this->m_volumeWidget->show();
     // 鼠标进入时取消定时器
     if (m_leaveTimer->isActive()) {
@@ -122,8 +130,8 @@ void VolumeToolBtn::leaveEvent(QEvent *event) {
 
 void VolumeToolBtn::showEvent(QShowEvent *event) {
     QToolButton::showEvent(event);
-    this->m_volumePosition = this->m_volumeParent->mapFromGlobal(this->mapToGlobal(QPoint(0, 0)));
-    this->m_volumePosition -= QPoint(20, this->m_volumeWidget->height() + 10);
+     getVolumeWidgetPosition();
+    //qDebug()<<this->m_volumePosition;
     this->m_volumeWidget->move(this->m_volumePosition);
 }
 

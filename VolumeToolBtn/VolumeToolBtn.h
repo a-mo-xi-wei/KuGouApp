@@ -19,6 +19,7 @@ public:
     void initVolumeWidget();
     void initUi();
     void checkMousePosition();
+    void getVolumeWidgetPosition();
 protected:
     void enterEvent(QEnterEvent *event) override;
     void leaveEvent(QEvent *event) override;
