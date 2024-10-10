@@ -25,6 +25,7 @@ INCLUDE_DIRECTORIES(
     ${PROJECT_SOURCE_DIR}/../RippleButton
     ${PROJECT_SOURCE_DIR}/../VolumeToolBtn
     ${PROJECT_SOURCE_DIR}/../SliderWidget
+    ${PROJECT_SOURCE_DIR}/../MySearchLineEdit
     ${PROJECT_SOURCE_DIR}/../MainWindow)
 
 #包含为你推荐模块
@@ -35,5 +36,5 @@ add_subdirectory(LocalDownload)
 add_executable(${PROJECT_NAME} ${SOURCE_FILE})
 
 target_link_libraries(${PROJECT_NAME} Qt6::Widgets Qt6::UiTools Qt6::Multimedia
-                        RecommendForYou LocalDownload TitleWidget
+                        RecommendForYou LocalDownload TitleWidget MySearchLineEdit
                         RippleButton VolumeToolBtn SliderWidget MainWindow)

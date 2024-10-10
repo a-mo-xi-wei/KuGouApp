@@ -14,8 +14,11 @@
 // 创建一个宏来截取 __FILE__ 宏中的目录部分
 #define GET_CURRENT_DIR (std::string(__FILE__).substr(0, std::string(__FILE__).find_last_of("/\\")))
 
-LocalDownload::LocalDownload(QWidget *parent) :
-    QWidget(parent), ui(new Ui::LocalDownload) {
+LocalDownload::LocalDownload(QWidget *parent)
+    :QWidget(parent)
+    ,ui(new Ui::LocalDownload)
+    ,m_searchAction(new QAction(this))
+{
     ui->setupUi(this);
 
     QFile file((GET_CURRENT_DIR + "/local.css").data());
@@ -46,11 +49,14 @@ void LocalDownload::init() {
     ui->local_play_toolButton->setIcon(QIcon("://Res/tabIcon/play3-white.svg"));
     ui->local_add_toolButton->setIcon(QIcon("://Res/tabIcon/add-gray.svg"));
     ui->upload_toolButton->setIcon(QIcon("://Res/tabIcon/upload-cloud-gray.svg"));
-    ui->search_toolButton->setIcon(QIcon("://Res/titlebar/search-black.svg"));
     ui->sort_toolButton->setIcon(QIcon("://Res/tabIcon/sort-gray.svg"));
 
+    //使用 addAction 添加右侧图标
+    this->m_searchAction->setIcon(QIcon("://Res/titlebar/search-black.svg"));
+    this->m_searchAction->setIconVisibleInMenu(false);  // 仅显示图标
+    ui->local_search_lineEdit->addAction(this->m_searchAction,QLineEdit::TrailingPosition);
+    ui->local_search_lineEdit->setWidth(150);
     //先直接往里面嵌入两首歌
-
     auto item = new MusicItemWidget(1, "紫荆花盛开", this);
     connect(item, &MusicItemWidget::playRequest, this, [this](int index) {
         //qDebug()<<"发送播放歌曲信号 ";

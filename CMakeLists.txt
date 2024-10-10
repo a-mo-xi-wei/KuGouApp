@@ -31,5 +31,8 @@ add_subdirectory(VolumeToolBtn)
 #滑动条模块
 add_subdirectory(SliderWidget)
 
+#搜索框模块
+add_subdirectory(MySearchLineEdit)
+
 #开始模块
 add_subdirectory(KuGouStart)

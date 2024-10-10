@@ -35,10 +35,10 @@ QWidget#title_widget .QPushButton:checked {
 }
 QLineEdit#search_lineEdit {
     border-radius: 15px;
-    background-color: #e7e7e7;
+    background-color: #d1d5f6;
 }
 QLineEdit#search_lineEdit:hover {
-    background-color: #C0C0C0;
+    background-color: #CCCCFF;
 }
 QToolButton#listen_toolButton {
     background-color:rgba(255,255,255,0);

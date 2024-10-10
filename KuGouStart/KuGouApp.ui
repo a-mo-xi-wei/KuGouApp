@@ -49,13 +49,7 @@
      <property name="mouseTracking">
       <bool>false</bool>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <property name="spacing">
-       <number>5</number>
-      </property>
-      <property name="leftMargin">
-       <number>15</number>
-      </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QToolButton" name="title_return_toolButton">
         <property name="minimumSize">
@@ -108,194 +102,201 @@
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>50</width>
+          <width>40</width>
           <height>20</height>
          </size>
         </property>
        </spacer>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="music_verticalLayout">
+       <layout class="QHBoxLayout" name="horizontalLayout">
         <property name="spacing">
-         <number>0</number>
+         <number>2</number>
         </property>
         <item>
-         <widget class="QPushButton" name="title_music_pushButton">
-          <property name="minimumSize">
-           <size>
-            <width>50</width>
-            <height>30</height>
-           </size>
+         <layout class="QVBoxLayout" name="music_verticalLayout">
+          <property name="spacing">
+           <number>0</number>
           </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>音乐</string>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-          <property name="autoExclusive">
-           <bool>true</bool>
-          </property>
-         </widget>
+          <item>
+           <widget class="QPushButton" name="title_music_pushButton">
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>音乐</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="index_label1">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="QLabel" name="index_label1">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <layout class="QVBoxLayout" name="live_verticalLayout">
+          <property name="spacing">
+           <number>0</number>
           </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="scaledContents">
-           <bool>true</bool>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="live_verticalLayout">
-        <property name="spacing">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QPushButton" name="title_live_pushButton">
-          <property name="minimumSize">
-           <size>
-            <width>50</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>直播</string>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-          <property name="autoExclusive">
-           <bool>true</bool>
-          </property>
-         </widget>
+          <item>
+           <widget class="QPushButton" name="title_live_pushButton">
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>直播</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="index_label2">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="QLabel" name="index_label2">
-          <property name="text">
-           <string/>
+         <layout class="QVBoxLayout" name="listenBook_verticalLayout">
+          <property name="spacing">
+           <number>0</number>
           </property>
-          <property name="scaledContents">
-           <bool>true</bool>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="listenBook_verticalLayout">
-        <property name="spacing">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QPushButton" name="title_listenBook_pushButton">
-          <property name="minimumSize">
-           <size>
-            <width>50</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>听书</string>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-          <property name="autoExclusive">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="index_label3">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="scaledContents">
-           <bool>true</bool>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="found_verticalLayout">
-        <property name="spacing">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QPushButton" name="title_found_pushButton">
-          <property name="minimumSize">
-           <size>
-            <width>50</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>探索</string>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-          <property name="autoExclusive">
-           <bool>true</bool>
-          </property>
-         </widget>
+          <item>
+           <widget class="QPushButton" name="title_listenBook_pushButton">
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>听书</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="index_label3">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="QLabel" name="index_label4">
-          <property name="text">
-           <string/>
+         <layout class="QVBoxLayout" name="found_verticalLayout">
+          <property name="spacing">
+           <number>0</number>
           </property>
-          <property name="scaledContents">
-           <bool>true</bool>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
+          <item>
+           <widget class="QPushButton" name="title_found_pushButton">
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>探索</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="index_label4">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
@@ -303,6 +304,9 @@
        <spacer name="hs2">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -313,10 +317,22 @@
        </spacer>
       </item>
       <item>
-       <widget class="QLineEdit" name="search_lineEdit">
+       <widget class="MySearchLineEdit" name="search_lineEdit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="minimumSize">
          <size>
-          <width>250</width>
+          <width>100</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
           <height>40</height>
          </size>
         </property>
@@ -326,7 +342,7 @@
          </font>
         </property>
         <property name="placeholderText">
-         <string>搜索音乐</string>
+         <string> 搜索音乐</string>
         </property>
        </widget>
       </item>
@@ -652,6 +668,9 @@
       <property name="leftMargin">
        <number>0</number>
       </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
       <property name="rightMargin">
        <number>2</number>
       </property>
@@ -690,10 +709,13 @@
            <x>0</x>
            <y>0</y>
            <width>143</width>
-           <height>591</height>
+           <height>592</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
+          <property name="topMargin">
+           <number>10</number>
+          </property>
           <item>
            <widget class="QWidget" name="center_menu_widget" native="true">
             <property name="sizePolicy">
@@ -1228,7 +1250,7 @@
            <x>0</x>
            <y>0</y>
            <width>860</width>
-           <height>544</height>
+           <height>551</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -1769,6 +1791,11 @@
    <class>VolumeToolBtn</class>
    <extends>QToolButton</extends>
    <header>VolumeToolBtn.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MySearchLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>MySearchLineEdit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

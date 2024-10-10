@@ -36,6 +36,7 @@ signals:
 private:
     Ui::LocalDownload *ui;
     QVector<QString> m_locationMusicVector;
+    QAction* m_searchAction;
 };
 
 

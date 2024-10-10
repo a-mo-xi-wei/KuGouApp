@@ -467,6 +467,9 @@ margin-top:0px;</string>
           <height>35</height>
          </size>
         </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="toolTip">
          <string>播放歌曲</string>
         </property>
@@ -486,6 +489,9 @@ margin-top:0px;</string>
           <height>35</height>
          </size>
         </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="toolTip">
          <string>添加歌曲</string>
         </property>
@@ -504,6 +510,9 @@ margin-top:0px;</string>
           <width>115</width>
           <height>35</height>
          </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="toolTip">
          <string>上传到云</string>
@@ -530,21 +539,27 @@ margin-top:0px;</string>
        </spacer>
       </item>
       <item>
-       <widget class="QToolButton" name="search_toolButton">
+       <widget class="MySearchLineEdit" name="local_search_lineEdit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="minimumSize">
          <size>
-          <width>80</width>
-          <height>35</height>
+          <width>30</width>
+          <height>30</height>
          </size>
         </property>
-        <property name="toolTip">
-         <string>按歌名搜索</string>
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
         </property>
-        <property name="text">
-         <string>搜索</string>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextBesideIcon</enum>
+        <property name="placeholderText">
+         <string> </string>
         </property>
        </widget>
       </item>
@@ -555,6 +570,9 @@ margin-top:0px;</string>
           <width>80</width>
           <height>35</height>
          </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="toolTip">
          <string>默认正序（歌名）</string>
@@ -587,6 +605,9 @@ margin-top:0px;</string>
          </property>
          <item>
           <widget class="QToolButton" name="local_share_toolButton">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="toolTip">
             <string>分享</string>
            </property>
@@ -636,6 +657,9 @@ margin-top:0px;</string>
          </item>
          <item>
           <widget class="QToolButton" name="local_zhuanji_toolButton">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="toolTip">
             <string>专辑</string>
            </property>
@@ -682,6 +706,9 @@ margin-top:0px;</string>
          </item>
          <item>
           <widget class="QToolButton" name="local_singer_toolButton">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="toolTip">
             <string>歌手</string>
            </property>
@@ -728,6 +755,9 @@ margin-top:0px;</string>
          </item>
          <item>
           <widget class="QToolButton" name="local_batch_toolButton">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="toolTip">
             <string>批量操作</string>
            </property>
@@ -782,6 +812,13 @@ margin-top:0px;</string>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MySearchLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>MySearchLineEdit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

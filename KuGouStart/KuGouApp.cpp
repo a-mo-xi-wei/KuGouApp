@@ -1,9 +1,6 @@
 #include "KuGouApp.h"
 #include "ui_KuGouApp.h"
 
-#include"RippleButton.h"
-#include"SliderWidget.h"
-
 #include<QMediaMetaData>
 #include<QMediaPlayer>
 #include<QAudioOutput>
