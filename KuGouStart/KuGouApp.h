@@ -6,6 +6,7 @@
 #include<QUrl>
 #include"MainWindow.h"
 #include"RecommendForYou.h"
+#include"LocalDownload.h"
 
 class QMediaPlayer;
 class QAudioOutput;
@@ -48,8 +49,6 @@ private slots:
 
     void on_local_download_toolButton_clicked();
 
-    void on_local_add_toolButton_clicked();
-
     void on_play_or_pause_toolButton_clicked();
 
     void on_min_toolButton_clicked();
@@ -60,13 +59,6 @@ private slots:
 
     void on_circle_toolButton_clicked();
 
-    void on_local_music_pushButton_clicked();
-
-    void on_downloaded_music_pushButton_clicked();
-
-    void on_downloaded_video_pushButton_clicked();
-
-    void on_downloading_pushButton_clicked();
 
 public slots:
     void setPlayMusic(const QUrl &url);
@@ -75,18 +67,20 @@ public slots:
 
     void updateSliderRange(qint64 duration);
 
+    void onPlayMusic(const QUrl &url);
+
 private:
     void initUi();
 
     void initCommendForYouWidget();
+
+    void initLocalDownload();
 
     void initTitleWidget();
 
     void initPlayWidget();
 
     void initMenu();
-
-    void initLocalDownload();
 
     void initBottomWidget();
 
@@ -98,7 +92,8 @@ private:
     std::unique_ptr<QSizeGrip> m_sizeGrip{};
     std::unique_ptr<QPropertyAnimation> m_animation{};
     std::unique_ptr<RecommendForYou> m_recommendForYou{};
-    QMap<int, QUrl> m_locationMusicMap;
+    std::unique_ptr<LocalDownload> m_localDownload{};
+
     bool m_isPlaying = false;
     QPoint m_pressPos;
     QString m_maxBtnStyle;

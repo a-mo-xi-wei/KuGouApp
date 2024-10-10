@@ -176,64 +176,6 @@ QSlider::sub-page:horizontal {
     background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(231,80,229, 255), stop:1 rgba(7,208,255, 255));
 }
 
-/*--------------------local_download_page------------------------------*/
-QLabel#local_download_label {
-    border:none;
-    font-size:25px;
-    font-weight:bold;
-}
-QWidget#guide_widget .QPushButton {
-    color:black;
-    font-size:14px;
-    border: none;
-    padding: 0px;
-    margin: 0px;
-}
-QWidget#guide_widget .QPushButton:checked {
-    color:#26a1ff;
-    font-size:17px;
-    font-weight:bold;
-}
-QWidget#guide_widget .QLabel {
-    padding-top:0px;
-    margin: 0px;
-}
-QWidget#operation_widget > .QToolButton {
-    background-color: #f3f6fa;
-    border: none;
-    border-radius: 15px;
-    padding-left: 15px;
-}
-QWidget#operation_widget > .QToolButton:hover {
-    background-color: #e9eef5;
-}
-QWidget#operation_widget QToolButton#local_play_toolButton{
-     background-color:#269dff;
-}
-QWidget#operation_widget QToolButton#local_play_toolButton:hover{
-    background-color:#2085d9;
-}
-QWidget#small_widget{
-    border:none;
-    border: 1px solid #C0C0C0;
-    border-radius:15px;
-}
-QWidget#small_widget > QFrame{
-    border:none;
-    background-color:#C0C0C0;
-}
-QWidget#small_widget > .QToolButton {
-    background-color: transparent;
-}
-QWidget#small_widget#local_list_toolButton {
-    border-bottom-left-radius:10px;
-    border-top-left-radius:10px;
-}
-QWidget#small_widget#local_file_toolButton {
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
 /*-------------------设置垂直滑动条样式----------------------*/
 QScrollBar:vertical {
     border: 1px solid rgb(231,166,190);

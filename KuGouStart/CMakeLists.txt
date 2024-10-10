@@ -29,9 +29,11 @@ INCLUDE_DIRECTORIES(
 
 #包含为你推荐模块
 add_subdirectory(RecommendForYou)
+#包含本地与下载模块
+add_subdirectory(LocalDownload)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILE})
 
 target_link_libraries(${PROJECT_NAME} Qt6::Widgets Qt6::UiTools Qt6::Multimedia
-                        RecommendForYou MusicItemWidget TitleWidget
+                        RecommendForYou LocalDownload TitleWidget
                         RippleButton VolumeToolBtn SliderWidget MainWindow)

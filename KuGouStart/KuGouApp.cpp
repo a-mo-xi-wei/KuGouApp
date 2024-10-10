@@ -1,6 +1,6 @@
 #include "KuGouApp.h"
 #include "ui_KuGouApp.h"
-#include"MusicItemWidget.h"
+
 #include"RippleButton.h"
 #include"SliderWidget.h"
 
@@ -8,7 +8,7 @@
 #include<QMediaPlayer>
 #include<QAudioOutput>
 #include<QFileDialog>
-#include<QStandardPaths>
+
 #include<QPainterPath>
 #include<QPainter>
 #include<QPixmap>
@@ -29,7 +29,8 @@ KuGouApp::KuGouApp(MainWindow *parent)
       , m_menuBtnGroup(std::make_unique<QButtonGroup>(this))
       , m_sizeGrip(std::make_unique<QSizeGrip>(this))
       , m_animation(std::make_unique<QPropertyAnimation>(this,"geometry"))
-      , m_recommendForYou(std::make_unique<RecommendForYou>(this)) {
+      , m_recommendForYou(std::make_unique<RecommendForYou>(this))
+      , m_localDownload(std::make_unique<LocalDownload>(this)) {
     ui->setupUi(this);
     QFile file("://Res/styles/original.css");
     if (file.open(QIODevice::ReadOnly)) {
@@ -48,7 +49,7 @@ KuGouApp::KuGouApp(MainWindow *parent)
 
     connect(this->m_player.get(), &QMediaPlayer::positionChanged,this, [this](int position) {
         if(ui->progressSlider->isSliderDown())return;
-        qDebug()<<"position "<<position;
+        //qDebug()<<"position "<<position;
         ui->progressSlider->setValue(position);
         ui->position_label->setText(QTime::fromMSecsSinceStartOfDay(position).toString("mm:ss"));
     });
@@ -62,9 +63,10 @@ KuGouApp::KuGouApp(MainWindow *parent)
         ui->song_name_label->setText(title);
     });
 
-
     connect(ui->progressSlider,&QSlider::sliderReleased, this,&KuGouApp::updateProcess);
     connect(ui->progressSlider,&QSlider::sliderMoved,this,&KuGouApp::updateProcess);
+
+    connect(this->m_localDownload.get(),&LocalDownload::playMusic,this,&KuGouApp::onPlayMusic);
 
     ui->progressSlider->installEventFilter(this);
 }
@@ -128,6 +130,7 @@ void KuGouApp::initUi() {
 
     initTitleWidget();
     initCommendForYouWidget();
+    initLocalDownload();
     initPlayWidget();
     initMenu();
     initLocalDownload();
@@ -136,6 +139,10 @@ void KuGouApp::initUi() {
 
 void KuGouApp::initCommendForYouWidget() {
     ui->stackedWidget->addWidget(this->m_recommendForYou.get());
+}
+
+void KuGouApp::initLocalDownload() {
+    ui->stackedWidget->addWidget(this->m_localDownload.get());
 }
 
 QPixmap roundedPixmap(const QPixmap &src, QSize size, int radius) {
@@ -243,46 +250,6 @@ void KuGouApp::initMenu() {
     m_menuBtnGroup->addButton(ui->zuijin_bofang_toolButton);
     m_menuBtnGroup->addButton(ui->moren_liebiao_toolButton);
     m_menuBtnGroup->setExclusive(true);
-}
-
-void KuGouApp::initLocalDownload() {
-    //下标图片
-    ui->idx1_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
-    ui->idx2_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
-    ui->idx3_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
-    ui->idx4_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
-    ui->idx2_lab->hide();
-    ui->idx3_lab->hide();
-    ui->idx4_lab->hide();
-
-    ui->local_play_toolButton->setIcon(QIcon("://Res/tabIcon/play3-white.svg"));
-    ui->local_add_toolButton->setIcon(QIcon("://Res/tabIcon/add-gray.svg"));
-    ui->upload_toolButton->setIcon(QIcon("://Res/tabIcon/upload-cloud-gray.svg"));
-    ui->search_toolButton->setIcon(QIcon("://Res/titlebar/search-black.svg"));
-    ui->sort_toolButton->setIcon(QIcon("://Res/tabIcon/sort-gray.svg"));
-    ui->local_list_toolButton->setIcon(QIcon("://Res/titlebar/menu-black.svg"));
-    ui->local_zhuanji_toolButton->setIcon(QIcon("://Res/window/music-library.svg"));
-    ui->local_singer_toolButton->setIcon(QIcon("://Res/window/ai.svg"));
-    ui->local_file_toolButton->setIcon(QIcon("://Res/window/file.svg"));
-
-    //先直接往里面嵌入两首歌
-
-    auto item = new MusicItemWidget(1, "紫荆花盛开", this);
-    connect(item, &MusicItemWidget::playRequest, this, [this](int index) {
-        setPlayMusic(QUrl("qrc:/Res/audio/紫荆花盛开.mp3"));
-        on_play_or_pause_toolButton_clicked();
-    });
-    this->m_locationMusicMap[1] = "qrc:/Res/audio/紫荆花盛开.mp3";
-    ui->local_song_list_layout->insertWidget(ui->local_song_list_layout->count() - 1, item);
-    item = new MusicItemWidget(2, "青花瓷", this);
-    connect(item, &MusicItemWidget::playRequest, this, [this](int index) {
-        setPlayMusic(QUrl("qrc:/Res/audio/青花瓷.mp3"));
-        on_play_or_pause_toolButton_clicked();
-    });
-    this->m_locationMusicMap[2] = "qrc:/Res/audio/青花瓷.mp3";
-    ui->local_song_list_layout->insertWidget(ui->local_song_list_layout->count() - 1, item);
-    ui->local_music_number_label->setText("2");
-
 }
 
 void KuGouApp::initBottomWidget() {
@@ -402,26 +369,7 @@ void KuGouApp::on_recommend_toolButton_clicked() {
 }
 
 void KuGouApp::on_local_download_toolButton_clicked() {
-    ui->stackedWidget->setCurrentWidget(ui->local_download_page);
-}
-
-void KuGouApp::on_local_add_toolButton_clicked() // 此处后面需要优化 ， 即使批量添加也没问题才行
-{
-    QString musicPath = QStandardPaths::standardLocations(QStandardPaths::MusicLocation).first();
-    QString path = QFileDialog::getOpenFileName(this, "添加音乐", musicPath, "Music (*.mp3 *.aac *.wav)");
-    if (path.isEmpty())return;
-    this->m_locationMusicMap[this->m_locationMusicMap.size() + 1] = QUrl::fromLocalFile(path);
-    int index = this->m_locationMusicMap.size();
-    QString fileName = this->m_locationMusicMap[index].fileName();
-
-    auto item = new MusicItemWidget(index, fileName.remove(fileName.lastIndexOf("."), fileName.length()), this);
-    connect(item, &MusicItemWidget::playRequest, this, [this](int index) {
-        setPlayMusic(this->m_locationMusicMap[index]);
-        on_play_or_pause_toolButton_clicked();
-    });
-
-    ui->local_song_list_layout->insertWidget(ui->local_song_list_layout->count() - 1, item);
-    ui->local_music_number_label->setText(QString::number(this->m_locationMusicMap.size()));
+    ui->stackedWidget->setCurrentWidget(this->m_localDownload.get());
 }
 
 void KuGouApp::on_play_or_pause_toolButton_clicked() {
@@ -436,6 +384,7 @@ void KuGouApp::on_play_or_pause_toolButton_clicked() {
 }
 
 void KuGouApp::setPlayMusic(const QUrl &url) {
+    //qDebug()<<"播放 "<<url;
     this->m_player->setSource(url);
     ui->progressSlider->setValue(0);
 }
@@ -452,6 +401,11 @@ void KuGouApp::updateSliderRange(qint64 duration) {
     ui->progressSlider->setMaximum(duration);
     qDebug()<<"改变总时长";
     ui->duration_label->setText(QTime::fromMSecsSinceStartOfDay(duration).toString("mm:ss"));
+}
+
+void KuGouApp::onPlayMusic(const QUrl &url) {
+    setPlayMusic(url);
+    on_play_or_pause_toolButton_clicked();
 }
 
 void KuGouApp::on_min_toolButton_clicked() {
@@ -546,46 +500,4 @@ void KuGouApp::on_circle_toolButton_clicked() {
     }
 }
 
-void KuGouApp::on_local_music_pushButton_clicked() {
-    ui->idx1_lab->show();
-    ui->idx2_lab->hide();
-    ui->idx3_lab->hide();
-    ui->idx4_lab->hide();
-    ui->local_music_number_label->setStyleSheet("color:#26a1ff;font-size:16px;font-weight:bold;");
-    ui->downloaded_music_number_label->setStyleSheet("");
-    ui->downloaded_video_number_label->setStyleSheet("");
-    ui->downloading_number_label->setStyleSheet("");
-}
 
-void KuGouApp::on_downloaded_music_pushButton_clicked() {
-    ui->idx1_lab->hide();
-    ui->idx2_lab->show();
-    ui->idx3_lab->hide();
-    ui->idx4_lab->hide();
-    ui->downloaded_music_number_label->setStyleSheet("color:#26a1ff;font-size:16px;font-weight:bold;");
-    ui->local_music_number_label->setStyleSheet("");
-    ui->downloaded_video_number_label->setStyleSheet("");
-    ui->downloading_number_label->setStyleSheet("");
-}
-
-void KuGouApp::on_downloaded_video_pushButton_clicked() {
-    ui->idx1_lab->hide();
-    ui->idx2_lab->hide();
-    ui->idx3_lab->show();
-    ui->idx4_lab->hide();
-    ui->downloaded_video_number_label->setStyleSheet("color:#26a1ff;font-size:16px;font-weight:bold;");
-    ui->downloaded_music_number_label->setStyleSheet("");
-    ui->local_music_number_label->setStyleSheet("");
-    ui->downloading_number_label->setStyleSheet("");
-}
-
-void KuGouApp::on_downloading_pushButton_clicked() {
-    ui->idx1_lab->hide();
-    ui->idx2_lab->hide();
-    ui->idx3_lab->hide();
-    ui->idx4_lab->show();
-    ui->downloading_number_label->setStyleSheet("color:#26a1ff;font-size:16px;font-weight:bold;");
-    ui->downloaded_music_number_label->setStyleSheet("");
-    ui->downloaded_video_number_label->setStyleSheet("");
-    ui->local_music_number_label->setStyleSheet("");
-}

@@ -1,0 +1,76 @@
+/*--------------------local_download_page------------------------------*/
+QLabel#local_download_label {
+    border:none;
+    font-size:25px;
+    font-weight:bold;
+}
+QWidget#guide_widget .QPushButton {
+    color:black;
+    font-size:14px;
+    border: none;
+    padding: 0px;
+    margin: 0px;
+}
+QWidget#guide_widget .QPushButton:checked {
+    color:#26a1ff;
+    font-size:17px;
+    font-weight:bold;
+}
+QWidget#guide_widget .QLabel {
+    padding-top:0px;
+    margin: 0px;
+}
+QWidget#operation_widget > .QToolButton {
+    background-color: #f3f6fa;
+    border: none;
+    border-radius: 15px;
+    padding-left: 15px;
+}
+QWidget#operation_widget > .QToolButton:hover {
+    background-color: #e9eef5;
+}
+QWidget#operation_widget QToolButton#local_play_toolButton{
+    background-color:#269dff;
+}
+QWidget#operation_widget QToolButton#local_play_toolButton:hover{
+    background-color:#2085d9;
+}
+QWidget#small_widget{
+    border:none;
+    border: 1px solid #C0C0C0;
+    border-radius:15px;
+}
+QWidget#small_widget > QFrame{
+    border:none;
+    background-color:#C0C0C0;
+}
+QWidget#small_widget > .QToolButton {
+    background-color: transparent;
+}
+QToolButton#local_share_toolButton {
+    border-image:url("://Res/titlebar/share-gray.svg");
+}
+QToolButton#local_share_toolButton:hover {
+    border-image:url("://Res/titlebar/share-blue.svg");
+}
+
+QToolButton#local_batch_toolButton {
+    border-image:url("://Res/titlebar/batch-gray.svg");
+}
+QToolButton#local_batch_toolButton:hover {
+    border-image:url("://Res/titlebar/batch-blue.svg");
+}
+
+QToolButton#local_zhuanji_toolButton {
+    border-image:url("://Res/titlebar/zhuanji-gray.svg");
+}
+QToolButton#local_zhuanji_toolButton:hover {
+    border-image:url("://Res/titlebar/zhuanji-blue.svg");
+}
+
+QToolButton#local_singer_toolButton {
+    border-image:url("://Res/titlebar/singer-gray.svg");
+}
+QToolButton#local_singer_toolButton:hover {
+    border-image:url("://Res/titlebar/singer-blue.svg");
+}
