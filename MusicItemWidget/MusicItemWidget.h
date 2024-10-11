@@ -9,11 +9,19 @@ class QLabel;
 class QToolButton;
 class QSpacerItem;
 
+typedef struct SongInformation {
+    int index;
+    QPixmap cover;
+    QString songName;
+    QString signer;
+    QString duration;
+}SongInfor;
+
 class MusicItemWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MusicItemWidget(const QMap<QString,QString>&infoMap, QWidget *parent = nullptr);
+    explicit MusicItemWidget(const SongInfor&info, QWidget *parent = nullptr);
 
 protected:
     void enterEvent(QEnterEvent *event) override;
@@ -26,27 +34,26 @@ private:
     void initUi();
 
 private:
-    QLabel* m_indexLab;
-    QLabel* m_coverLab;
-    QLabel* m_nameLab;
-    QLabel* m_singerLab;
-    QLabel* m_durationLab;
-
-    QSpacerItem* m_spacerItem1;
-    QSpacerItem* m_spacerItem2;
-    QToolButton* m_playToolBtn;
-    QToolButton* m_playNextToolBtn;
-    QToolButton* m_downloadToolBtn;
-    QToolButton* m_collectToolBtn;
-    QToolButton* m_moreToolBtn;
+    QLabel* m_indexLab{};
+    QLabel* m_coverLab{};
+    QLabel* m_nameLab{};
+    QLabel* m_singerLab{};
+    QLabel* m_durationLab{};
+    QSpacerItem* m_spacerItem1{};
+    QSpacerItem* m_spacerItem2{};
+    QToolButton* m_playToolBtn{};
+    QToolButton* m_playNextToolBtn{};
+    QToolButton* m_downloadToolBtn{};
+    QToolButton* m_collectToolBtn{};
+    QToolButton* m_moreToolBtn{};
 
     int m_index;
-    QString m_coverPath;
+    QPixmap m_cover;
     QString m_name;
     QString m_singer;
     QString m_duration;
 
-    QMap<QString, QString> m_informationMap;
+    SongInfor m_information;
 };
 
 #endif // MUSICITEMWIDGET_H

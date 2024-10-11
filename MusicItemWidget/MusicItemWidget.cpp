@@ -5,23 +5,27 @@
 #include<QVBoxLayout>
 #include<QSpacerItem>
 
-MusicItemWidget::MusicItemWidget(const QMap<QString,QString>& inforMap, QWidget *parent)
+MusicItemWidget::MusicItemWidget(const SongInfor& infor, QWidget *parent)
     :QWidget(parent)
-    ,m_informationMap(inforMap)
+    ,m_information(infor)
 {
-    this->m_index           = inforMap.value("index").toInt();
-    this->m_name            = inforMap.value("name");
-    this->m_duration        = inforMap.value("duration");
-    this->m_coverPath       = inforMap.value("cover");
-    this->m_singer          = inforMap.value("singer");
-
+    this->m_index           = m_information.index;
+    this->m_name            = m_information.songName;
+    this->m_duration        = m_information.duration;
+    this->m_cover           = m_information.cover;
+    this->m_singer          = m_information.signer;
+    qDebug()<<"m_index: "<<m_index<<" name: "<<m_name<<" duration: "<<m_duration<<
+        " cover: "<<m_cover<<"m_singer: "<<m_singer;
     this->m_indexLab        = new QLabel(QString("%1").arg(this->m_index, 2, 10, QChar('0')), this);
     this->m_coverLab        = new QLabel(this);
+    this->m_coverLab->setAlignment(Qt::AlignCenter);
+    this->m_coverLab->setFixedSize(45,45);
+    this->m_coverLab->setPixmap(this->m_cover.scaled(this->m_coverLab->size()));
     this->m_nameLab         = new QLabel(this->m_name,this);
-    this->m_singerLab         = new QLabel(this->m_singer,this);
+    this->m_singerLab       = new QLabel(this->m_singer,this);
     this->m_spacerItem1     = new QSpacerItem(40,20,QSizePolicy::Expanding);
     this->m_spacerItem2     = new QSpacerItem(40,20,QSizePolicy::Expanding);
-    this->m_durationLab     = new QLabel(this);
+    this->m_durationLab     = new QLabel(this->m_duration,this);
     this->m_playToolBtn     = new QToolButton(this);
     this->m_playNextToolBtn = new QToolButton(this);
     this->m_downloadToolBtn = new QToolButton(this);
