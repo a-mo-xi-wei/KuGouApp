@@ -8,6 +8,10 @@
 #include <QWidget>
 #include<QMap>
 
+#include "MusicItemWidget.h"
+class QMediaPlayer;
+class QAudioOutput;
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class LocalDownload; }
 QT_END_NAMESPACE
@@ -21,7 +25,6 @@ public:
     void init();
 
 private slots:
-
     void on_local_add_toolButton_clicked();
 
     void on_local_music_pushButton_clicked();
@@ -31,13 +34,17 @@ private slots:
     void on_downloaded_video_pushButton_clicked();
 
     void on_downloading_pushButton_clicked();
+
 signals:
     void playMusic(const QUrl &url);
 private:
     Ui::LocalDownload *ui;
+    std::unique_ptr<QMediaPlayer> m_player{};
+    std::unique_ptr<QAudioOutput> m_audioOutput{};
     QVector<QString> m_locationMusicVector;
-    QMap<QString, QString> m_informationMap;
-    QAction* m_searchAction;
+    SongInfor m_information;
+    QAction* m_searchAction;//专门为了设置图片
+    QString m_mediaPath;
 };
 
 
