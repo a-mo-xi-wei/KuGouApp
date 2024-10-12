@@ -6,7 +6,7 @@
 
 #include "LocalDownload.h"
 #include "ui_LocalDownload.h"
-#include"MusicItemWidget.h"
+
 
 #include<QStandardPaths>
 #include<QFileDialog>
@@ -26,7 +26,6 @@ LocalDownload::LocalDownload(QWidget *parent)
     :QWidget(parent)
     ,ui(new Ui::LocalDownload)
     , m_player(std::make_unique<QMediaPlayer>(this))
-    //, m_audioOutput(std::make_unique<QAudioOutput>(this))
     ,m_searchAction(new QAction(this))
 {
     ui->setupUi(this);
@@ -43,7 +42,7 @@ LocalDownload::LocalDownload(QWidget *parent)
         if (status == QMediaPlayer::LoadedMedia) {
             // 停止播放
             this->m_player->stop();
-            qDebug()<<"元数据加载完成";
+            //qDebug()<<"元数据加载完成";
             const QMediaMetaData data = this->m_player->metaData();
             //for(auto val : data.keys()) {
             //    qDebug()<<val<<": "<<data.value(val).toString();
@@ -51,26 +50,30 @@ LocalDownload::LocalDownload(QWidget *parent)
 
             //获取标题
             auto title = data.value(QMediaMetaData::Title).toString();
-            if(!re.match(title).hasMatch())title = "网络歌曲";
+            if(!re.match(title).hasMatch()) {
+                title = QUrl::fromLocalFile(this->m_mediaPath).fileName();
+                title = title.mid(0,title.lastIndexOf('.'));
+            }
+            //判重
+            auto it = std::find(this->m_locationMusicVector.begin(),
+            this->m_locationMusicVector.end(),title);
+            if(it == this->m_locationMusicVector.end())this->m_locationMusicVector.emplace_back(title);
+            else {
+                //qDebug()<<title<<"已存在，请勿重复插入";
+                return;
+            }
             //获取歌手
             auto singer = data.value(QMediaMetaData::ContributingArtist).toString();
-            if(!re.match(title).hasMatch())singer = "网络歌手";
+            if(!re.match(singer).hasMatch())singer = "网络歌手";
             //获取封面
             auto cover = data.value(QMediaMetaData::ThumbnailImage).value<QPixmap>();
             if(cover.isNull()) {
                 //qDebug()<<"封面为空";
                 cover = QPixmap(QString("://Res/tablisticon/pix%1.png").arg(QRandomGenerator::global()->bounded(1,11)));
             }
-
+            //获取时长
             const auto duration = data.value(QMediaMetaData::Duration).value<qint64>();
-            //判重
-            auto it = std::find(this->m_locationMusicVector.begin(),
-            this->m_locationMusicVector.end(),title);
-            if(it == this->m_locationMusicVector.end())this->m_locationMusicVector.emplace_back(title);
-            else {
-                qDebug()<<title<<"已存在，请勿重复插入";
-                return;
-            }
+
             //信息赋值
             this->m_information.duration = QTime::fromMSecsSinceStartOfDay(duration).toString("mm:ss");
             this->m_information.songName = title;
@@ -80,8 +83,9 @@ LocalDownload::LocalDownload(QWidget *parent)
             //加载相关信息
             auto item = new MusicItemWidget(m_information, this);
             QString fixedMediaPath = this->m_mediaPath; // 捕获当前的 m_mediaPath
-            connect(item, &MusicItemWidget::playRequest, this, [fixedMediaPath, this] {
-                emit playMusic(QUrl(fixedMediaPath));
+            SongInfor info = this->m_information;// 捕获当前的 m_information
+            connect(item, &MusicItemWidget::playRequest, this, [fixedMediaPath,info, this] {
+                emit playMusic(QUrl(fixedMediaPath),info);
             });
             //qDebug()<<"添加 "<<m_information.songName<<" :"<<m_information.signer<<" 成功";
             ui->local_song_list_layout->insertWidget(ui->local_song_list_layout->count() - 1, item);
@@ -118,7 +122,7 @@ void LocalDownload::init() {
     ui->local_search_lineEdit->addAction(this->m_searchAction,QLineEdit::TrailingPosition);
     ui->local_search_lineEdit->setWidth(150);
 
-    //先直接往里面嵌入两首歌
+    //先直接往里面嵌入一首歌
     this->m_songQueue.enqueue("qrc:/Res/audio/紫荆花盛开.mp3");
     //this->m_songQueue.enqueue("qrc:/Res/audio/青花瓷.mp3");
 
@@ -128,6 +132,7 @@ void LocalDownload::init() {
 void LocalDownload::loadNextSong() {
     if (!m_songQueue.isEmpty()) {
         this->m_mediaPath = m_songQueue.dequeue();  // 取出队列中的下一首歌路径
+        //qDebug()<<this->m_mediaPath<<"=================";
         this->m_player->setSource(QUrl(this->m_mediaPath));
         this->m_player->play();  // 触发状态改变信号，获取元数据信息
     }
@@ -138,6 +143,7 @@ void LocalDownload::on_local_add_toolButton_clicked() {
     QStringList paths = QFileDialog::getOpenFileNames(this, "添加音乐", musicPath, "Music (*.mp3 *.aac *.wav)");
     if (paths.isEmpty())return;
     //QString fileName = QUrl::fromLocalFile(path).fileName();
+    //qDebug() << "插入："<<paths.size()<<"条数据";
     for(auto& path : paths)this->m_songQueue.enqueue(path);
     this->loadNextSong();
 }

@@ -4,8 +4,6 @@
 #include<QMediaMetaData>
 #include<QMediaPlayer>
 #include<QAudioOutput>
-#include<QFileDialog>
-
 #include<QPainterPath>
 #include<QPainter>
 #include<QPixmap>
@@ -385,7 +383,7 @@ void KuGouApp::setPlayMusic(const QUrl &url) {
 }
 
 void KuGouApp::updateProcess() {
-    qDebug()<<"sliderMoved / sliderReleased : "<<ui->progressSlider->value();
+    //qDebug()<<"sliderMoved / sliderReleased : "<<ui->progressSlider->value();
     qint64 position = ui->progressSlider->value() * this->m_player->duration() / ui->progressSlider->maximum();
     this->m_player->setPosition(position);
     this->m_player->play();
@@ -394,7 +392,7 @@ void KuGouApp::updateProcess() {
 
 void KuGouApp::updateSliderRange(qint64 duration) {
     ui->progressSlider->setMaximum(duration);
-    qDebug()<<"改变总时长";
+    //qDebug()<<"改变总时长";
     ui->duration_label->setText(QTime::fromMSecsSinceStartOfDay(duration).toString("mm:ss"));
 }
 

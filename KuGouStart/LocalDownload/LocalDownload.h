@@ -5,11 +5,11 @@
 #ifndef LOCALDOWNLOAD_H
 #define LOCALDOWNLOAD_H
 
-#include<QQueue>
+#include"MusicItemWidget.h"
 
-#include "MusicItemWidget.h"
+#include<QQueue>
+#include<QWidget>
 class QMediaPlayer;
-class QAudioOutput;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class LocalDownload; }
@@ -35,11 +35,10 @@ private slots:
     void on_downloading_pushButton_clicked();
 
 signals:
-    void playMusic(const QUrl &url);
+    void playMusic(const QUrl &url,const SongInfor& info);
 private:
     Ui::LocalDownload *ui;
     std::unique_ptr<QMediaPlayer> m_player{};
-    std::unique_ptr<QAudioOutput> m_audioOutput{};
     QVector<QString> m_locationMusicVector;
     SongInfor m_information;
     QAction* m_searchAction;//专门为了设置图片
