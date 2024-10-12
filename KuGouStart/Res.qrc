@@ -146,15 +146,15 @@
         <file>Res/styles/original.css</file>
         <file>Res/audio/紫荆花盛开.mp3</file>
         <file>Res/audio/青花瓷.mp3</file>
-        <file>Res/tablisticon/icon1</file>
-        <file>Res/tablisticon/icon2</file>
-        <file>Res/tablisticon/icon3</file>
-        <file>Res/tablisticon/icon4</file>
-        <file>Res/tablisticon/icon5</file>
-        <file>Res/tablisticon/icon6</file>
-        <file>Res/tablisticon/icon7</file>
-        <file>Res/tablisticon/icon8</file>
-        <file>Res/tablisticon/icon9</file>
-        <file>Res/tablisticon/icon10</file>
+        <file>Res/tablisticon/pix1.png</file>
+        <file>Res/tablisticon/pix2.png</file>
+        <file>Res/tablisticon/pix3.png</file>
+        <file>Res/tablisticon/pix4.png</file>
+        <file>Res/tablisticon/pix5.png</file>
+        <file>Res/tablisticon/pix6.png</file>
+        <file>Res/tablisticon/pix7.png</file>
+        <file>Res/tablisticon/pix8.png</file>
+        <file>Res/tablisticon/pix9.png</file>
+        <file>Res/tablisticon/pix10.png</file>
     </qresource>
 </RCC>

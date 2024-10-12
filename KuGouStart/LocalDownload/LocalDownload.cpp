@@ -14,9 +14,13 @@
 #include<QMediaPlayer>
 #include<QAudioOutput>
 #include<QStringList>
+#include<QRandomGenerator>
+#include<QRegularExpression>
 
 // 创建一个宏来截取 __FILE__ 宏中的目录部分
 #define GET_CURRENT_DIR (std::string(__FILE__).substr(0, std::string(__FILE__).find_last_of("/\\")))
+//匹配是否有乱码
+static QRegularExpression re("^[A-Za-z0-9\\p{Han}\\\\/\\-_\\*]+$");
 
 LocalDownload::LocalDownload(QWidget *parent)
     :QWidget(parent)
@@ -44,14 +48,20 @@ LocalDownload::LocalDownload(QWidget *parent)
             //for(auto val : data.keys()) {
             //    qDebug()<<val<<": "<<data.value(val).toString();
             //}
-            const auto titleData = data.value(QMediaMetaData::Title);
-            const auto title = titleData.isValid() ? QString::fromUtf8(titleData.toByteArray()) : "网络歌曲";
 
-            const auto singerData = data.value(QMediaMetaData::ContributingArtist);
-            const auto singer = singerData.isValid() ? QString::fromUtf8(singerData.toByteArray()) : "网络歌手";
+            //获取标题
+            auto title = data.value(QMediaMetaData::Title).toString();
+            if(!re.match(title).hasMatch())title = "网络歌曲";
+            //获取歌手
+            auto singer = data.value(QMediaMetaData::ContributingArtist).toString();
+            if(!re.match(title).hasMatch())singer = "网络歌手";
+            //获取封面
+            auto cover = data.value(QMediaMetaData::ThumbnailImage).value<QPixmap>();
+            if(cover.isNull()) {
+                //qDebug()<<"封面为空";
+                cover = QPixmap(QString("://Res/tablisticon/pix%1.png").arg(QRandomGenerator::global()->bounded(1,11)));
+            }
 
-            const auto cover = data.value(QMediaMetaData::ThumbnailImage).value<QPixmap>();
-            cover = cover.isNull()?QPixmap(QString("://Res/tablisticon/icon%1.svg").arg()):cover;
             const auto duration = data.value(QMediaMetaData::Duration).value<qint64>();
             //判重
             auto it = std::find(this->m_locationMusicVector.begin(),
@@ -69,10 +79,11 @@ LocalDownload::LocalDownload(QWidget *parent)
             this->m_information.index = this->m_locationMusicVector.size();
             //加载相关信息
             auto item = new MusicItemWidget(m_information, this);
-            connect(item, &MusicItemWidget::playRequest, this, [=](int index) {
-                emit playMusic(QUrl(this->m_mediaPath));
+            QString fixedMediaPath = this->m_mediaPath; // 捕获当前的 m_mediaPath
+            connect(item, &MusicItemWidget::playRequest, this, [fixedMediaPath, this] {
+                emit playMusic(QUrl(fixedMediaPath));
             });
-            qDebug()<<"添加 "<<m_information.songName<<" 成功";
+            //qDebug()<<"添加 "<<m_information.songName<<" :"<<m_information.signer<<" 成功";
             ui->local_song_list_layout->insertWidget(ui->local_song_list_layout->count() - 1, item);
             ui->local_music_number_label->setText(QString::number(this->m_locationMusicVector.size()));
             //加载下一首歌
