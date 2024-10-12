@@ -2,8 +2,9 @@
 #define MUSICITEMWIDGET_H
 
 
-#include <QWidget>
-#include<QMap>
+#include <QFrame>
+class QPointF;
+class QTimer;
 
 class QLabel;
 class QToolButton;
@@ -17,18 +18,24 @@ typedef struct SongInformation {
     QString duration;
 }SongInfor;
 
-class MusicItemWidget : public QWidget
+class MusicItemWidget : public QFrame
 {
     Q_OBJECT
 public:
     explicit MusicItemWidget(const SongInfor&info, QWidget *parent = nullptr);
 
+    void setInitval(const int& timeinitval); // 设置定时器时间间隔，控制填充速度
+
+    void setFillColor(const QColor &fillcolor); // 设置填充颜色
+
+    void setRadius(int radius_); // 设置圆角半径
 protected:
     void enterEvent(QEnterEvent *event) override;
     void leaveEvent(QEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
+    void resizeEvent(QResizeEvent *event) override;
 signals:
-    void playRequest(int index);
+    void playRequest();
 
 private:
     void initUi();
@@ -54,6 +61,15 @@ private:
     QString m_duration;
 
     SongInfor m_information;
+private:
+    int timeInterval = 10; // 定时器时间间隔，单位：ms
+    QTimer *timer = Q_NULLPTR; // 定时器对象
+    QPointF mouse_point; // 记录鼠标进入和离开时的坐标
+    int max_radius; // 最大半径
+    int radius = 0; // 绘制半径
+    int radius_var = 2; // 半径每次改变的值（增大或减小）
+    QColor fill_color; // 填充颜色
+    int frame_radius = 0; // 绘制路径的圆角半径
 };
 
 #endif // MUSICITEMWIDGET_H

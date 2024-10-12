@@ -1,0 +1,10 @@
+*{
+    border:none;
+    background-color: transparent;
+}
+QWidget#window{
+    border-radius: 10px;
+}
+QLabel#coverLab{
+    border-radius: 8px;
+}
