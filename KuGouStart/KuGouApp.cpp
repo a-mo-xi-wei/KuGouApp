@@ -13,8 +13,8 @@
 #include<QMouseEvent>
 #include<QButtonGroup>
 #include<QSizeGrip>
-#include<QLayout>
 #include <QPropertyAnimation>
+static QRegularExpression re("^[A-Za-z0-9\\p{Han}\\\\/\\-_\\*]+$");
 
 KuGouApp::KuGouApp(MainWindow *parent)
     : MainWindow(parent)
@@ -50,14 +50,19 @@ KuGouApp::KuGouApp(MainWindow *parent)
     });
     connect(this->m_player.get(), &QMediaPlayer::durationChanged, this, &KuGouApp::updateSliderRange);
     connect(this->m_player.get(), &QMediaPlayer::metaDataChanged, this, [this] {
-        qDebug()<<"metaDataChanged";
-        const QMediaMetaData data = this->m_player->metaData();
-        const auto title = data.value(QMediaMetaData::Title).toString();
-        const auto cover = data.value(QMediaMetaData::ThumbnailImage).value<QPixmap>();
-        const auto singer = data.value(QMediaMetaData::ContributingArtist).toString();
-        ui->cover_label->setPixmap(cover);
-        ui->song_name_label->setText(title);
-        ui->singer_label->setText(singer);
+        //qDebug()<<"metaDataChanged";
+        ui->cover_label->setPixmap(this->m_songInfor.cover);
+        ui->song_name_label->setText(this->m_songInfor.songName);
+        ui->singer_label->setText(this->m_songInfor.signer);
+    });
+    connect(this->m_player.get(), &QMediaPlayer::playbackStateChanged, this, [this](QMediaPlayer::PlaybackState state) {
+       if(state == QMediaPlayer::PlayingState)this->m_isPlaying = true;
+       else this->m_isPlaying = false;
+        if (this->m_isPlaying) {
+         ui->play_or_pause_toolButton->setIcon(QIcon("://Res/playbar/pause.svg"));
+         } else {
+             ui->play_or_pause_toolButton->setIcon(QIcon("://Res/playbar/play.svg"));
+         }
     });
 
     connect(ui->progressSlider,&QSlider::sliderReleased, this,&KuGouApp::updateProcess);
@@ -340,12 +345,13 @@ bool KuGouApp::event(QEvent *event) {
 
 bool KuGouApp::eventFilter(QObject *watched, QEvent *event) {
     if(watched == ui->progressSlider) {
-        if (event->type()==QEvent::MouseButtonPress)           //判断类型
+        if (event->type()==QEvent::MouseButtonPress)//判断类型
         {
             auto mouseEvent = dynamic_cast<QMouseEvent *>(event);
             if (mouseEvent->button() == Qt::LeftButton) //判断左键
             {
-                qDebug() << "触发点击";
+                if(this->m_player->source().isEmpty()) return false;
+                //qDebug() << "触发点击";
                 qint64 value = QStyle::sliderValueFromPosition(ui->progressSlider->minimum(),
                     ui->progressSlider->maximum(), mouseEvent->pos().x(),
                     ui->progressSlider->width());
@@ -366,6 +372,8 @@ void KuGouApp::on_local_download_toolButton_clicked() {
 }
 
 void KuGouApp::on_play_or_pause_toolButton_clicked() {
+    //如果未设置播放源就return
+    if(this->m_player->source().isEmpty()) return;
     this->m_isPlaying = !this->m_isPlaying;
     if (this->m_isPlaying) {
         this->m_player->play();
@@ -378,8 +386,10 @@ void KuGouApp::on_play_or_pause_toolButton_clicked() {
 
 void KuGouApp::setPlayMusic(const QUrl &url) {
     //qDebug()<<"播放 "<<url;
+    this->m_player->pause();
     this->m_player->setSource(url);
     ui->progressSlider->setValue(0);
+    this->m_player->play();
 }
 
 void KuGouApp::updateProcess() {
@@ -387,7 +397,6 @@ void KuGouApp::updateProcess() {
     qint64 position = ui->progressSlider->value() * this->m_player->duration() / ui->progressSlider->maximum();
     this->m_player->setPosition(position);
     this->m_player->play();
-    if(!this->m_isPlaying)ui->play_or_pause_toolButton->clicked();
 }
 
 void KuGouApp::updateSliderRange(qint64 duration) {
@@ -396,9 +405,9 @@ void KuGouApp::updateSliderRange(qint64 duration) {
     ui->duration_label->setText(QTime::fromMSecsSinceStartOfDay(duration).toString("mm:ss"));
 }
 
-void KuGouApp::onPlayMusic(const QUrl &url) {
+void KuGouApp::onPlayMusic(const QUrl &url,const SongInfor& info) {
+    this->m_songInfor = info;
     setPlayMusic(url);
-    on_play_or_pause_toolButton_clicked();
 }
 
 void KuGouApp::on_min_toolButton_clicked() {
@@ -410,7 +419,7 @@ void KuGouApp::on_min_toolButton_clicked() {
     //this->m_animation->setStartValue(startGeometry);
     //this->m_animation->setEndValue(endGeometry);
     //this->m_animation->setEasingCurve(QEasingCurve::InOutQuad); // 设置动画曲线
-    //this->m_animation->start(QAbstractAnimation::DeleteWhenStopped); // 启动动画
+    //this->m_animation->start(); // 启动动画
     //// 最小化窗口
     //connect(this->m_animation.get(), &QPropertyAnimation::finished, this, [&]() {this->showMinimized();});
     this->showMinimized();
@@ -454,7 +463,7 @@ void KuGouApp::on_max_toolButton_clicked() {
    this->m_animation->setEasingCurve(QEasingCurve::InOutQuad); // 设置动画的缓动曲线
 
     // 开始动画
-    this->m_animation->start(QAbstractAnimation::KeepWhenStopped);
+    this->m_animation->start();
 
     // 更新按钮样式
     ui->max_toolButton->setStyleSheet(this->m_maxBtnStyle);

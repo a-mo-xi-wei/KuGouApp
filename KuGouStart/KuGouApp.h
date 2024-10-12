@@ -64,7 +64,7 @@ public slots:
 
     void updateSliderRange(qint64 duration);
 
-    void onPlayMusic(const QUrl &url);
+    void onPlayMusic(const QUrl &url,const SongInfor& info);
 
 private:
     void initUi();
@@ -81,21 +81,6 @@ private:
 
     void initCornerWidget();
 
-private:
-    Ui::KuGouApp *ui;
-    std::unique_ptr<QMediaPlayer> m_player{};
-    std::unique_ptr<QAudioOutput> m_audioOutput{};
-    std::unique_ptr<QButtonGroup> m_menuBtnGroup{};
-    std::unique_ptr<QSizeGrip> m_sizeGrip{};
-    std::unique_ptr<QPropertyAnimation> m_animation{};
-    std::unique_ptr<RecommendForYou> m_recommendForYou{};
-    std::unique_ptr<LocalDownload> m_localDownload{};
-
-    bool m_isPlaying = false;
-    QPoint m_pressPos;
-    QString m_maxBtnStyle;
-    QRect startGeometry; // 获取当前窗口的几何形状(正常状态)
-    QRect endGeometry;
 protected:
     void mousePressEvent(QMouseEvent *ev) override;
 
@@ -110,9 +95,26 @@ protected:
     bool eventFilter(QObject *watched, QEvent *event) override;
 
 private:
+    Ui::KuGouApp *ui;
+    std::unique_ptr<QMediaPlayer> m_player{};
+    std::unique_ptr<QAudioOutput> m_audioOutput{};
+    std::unique_ptr<QButtonGroup> m_menuBtnGroup{};
+    std::unique_ptr<QSizeGrip> m_sizeGrip{};
+    std::unique_ptr<QPropertyAnimation> m_animation{};
+    std::unique_ptr<RecommendForYou> m_recommendForYou{};
+    std::unique_ptr<LocalDownload> m_localDownload{};
+
     bool m_isSingleCircle = false;
     bool m_isMaxScreen = false;
     //QMetaObject::Connection mediaStatusConnection;
+
+    bool m_isPlaying = false;
+    QPoint m_pressPos;
+    QString m_maxBtnStyle;
+    QRect startGeometry; // 获取当前窗口的几何形状(正常状态)
+    QRect endGeometry;
+
+    SongInfor m_songInfor;
 
 };
 #endif // KUGOUAPP_H
