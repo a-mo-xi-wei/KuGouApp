@@ -5,7 +5,7 @@
 
 #include<QToolButton>
 #include<QGraphicsDropShadowEffect>
-class QPOintF;
+class QPointF;
 class QTimer;
 class QIcon;
 

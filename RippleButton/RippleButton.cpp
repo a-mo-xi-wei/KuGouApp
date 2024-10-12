@@ -39,7 +39,7 @@ void RippleButton::setRadius(int radius_)
 
 void RippleButton::setMyIcon(const QIcon &ico) {
     this->m_ico = ico;
-    this->setIcon(QIcon(this->m_ico));
+    this->setIcon(this->m_ico);
 }
 
 void RippleButton::enterEvent(QEnterEvent* event)
