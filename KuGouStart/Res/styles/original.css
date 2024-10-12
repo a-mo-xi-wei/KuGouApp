@@ -116,6 +116,19 @@ QWidget#play_widget .QPushButton {
 QWidget#play_widget .QPushButton:checked {
     background-color: pink;
 }
+QLabel#cover_label{
+    border-radius:8px;
+    border-image:url('://Res/playbar/default-cover-gray.svg');
+}
+QLabel#cover_label:hover{
+    border-image:url('://Res/playbar/default-cover-blue.svg');
+}
+QToolButton#circle_toolButton{
+    border-image:url('://Res/playbar/list-loop-gray.svg');
+}
+QToolButton#circle_toolButton:hover{
+    border-image:url('://Res/playbar/list-loop-blue.svg');
+}
 /*--------------------guess_love_widget------------------------------*/
 
 GLTabWidget#guess_love_widget {

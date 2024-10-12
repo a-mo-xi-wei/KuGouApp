@@ -16,6 +16,21 @@
 #include <QPropertyAnimation>
 static QRegularExpression re("^[A-Za-z0-9\\p{Han}\\\\/\\-_\\*]+$");
 
+QPixmap roundedPixmap(const QPixmap &src, QSize size, int radius) {
+    QPixmap scaled = src.scaled(size, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+    QPixmap dest(size);
+    dest.fill(Qt::transparent);
+
+    QPainter painter(&dest);
+    painter.setRenderHint(QPainter::Antialiasing);
+    QPainterPath path;
+    path.addRoundedRect(0, 0, size.width(), size.height(), radius, radius);
+    painter.setClipPath(path);
+    painter.drawPixmap(0, 0, scaled);
+
+    return dest;
+}
+
 KuGouApp::KuGouApp(MainWindow *parent)
     : MainWindow(parent)
       , ui(new Ui::KuGouApp)
@@ -51,7 +66,7 @@ KuGouApp::KuGouApp(MainWindow *parent)
     connect(this->m_player.get(), &QMediaPlayer::durationChanged, this, &KuGouApp::updateSliderRange);
     connect(this->m_player.get(), &QMediaPlayer::metaDataChanged, this, [this] {
         //qDebug()<<"metaDataChanged";
-        ui->cover_label->setPixmap(this->m_songInfor.cover);
+        ui->cover_label->setPixmap(roundedPixmap(this->m_songInfor.cover,ui->cover_label->size(),8));
         ui->song_name_label->setText(this->m_songInfor.songName);
         ui->singer_label->setText(this->m_songInfor.signer);
     });
@@ -143,20 +158,6 @@ void KuGouApp::initLocalDownload() {
     ui->stackedWidget->addWidget(this->m_localDownload.get());
 }
 
-QPixmap roundedPixmap(const QPixmap &src, QSize size, int radius) {
-    QPixmap scaled = src.scaled(size, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
-    QPixmap dest(size);
-    dest.fill(Qt::transparent);
-
-    QPainter painter(&dest);
-    painter.setRenderHint(QPainter::Antialiasing);
-    QPainterPath path;
-    path.addRoundedRect(0, 0, size.width(), size.height(), radius, radius);
-    painter.setClipPath(path);
-    painter.drawPixmap(0, 0, scaled);
-
-    return dest;
-}
 
 void KuGouApp::initTitleWidget() {
     ui->index_label1->setPixmap(QPixmap("://Res/titlebar/h-line.png").scaled(30, 15, Qt::KeepAspectRatio));
@@ -173,9 +174,9 @@ void KuGouApp::initTitleWidget() {
     //除非自定义QToolButton否则达不到 CSS 中 border-image 的效果
     //ui->listen_toolButton->setIcon(QIcon("://Res/titlebar/listen-music-black.svg"));
 
-    QPixmap rounded = roundedPixmap(QPixmap("://Res/window/portrait.jpg"), ui->title_portrait_label->size(), 20);
+    QPixmap roundedPix = roundedPixmap(QPixmap("://Res/window/portrait.jpg"), ui->title_portrait_label->size(), 20);
     // 设置圆角半径
-    ui->title_portrait_label->setPixmap(rounded);
+    ui->title_portrait_label->setPixmap(roundedPix);
 
     ui->title_gender_label->setPixmap(QPixmap("://Res/window/boy.svg"));
 
@@ -208,14 +209,6 @@ void KuGouApp::initPlayWidget() {
     ui->ci_toolButton->setIcon(QIcon("://Res/playbar/song-words.svg"));
     ui->list_toolButton->setIcon(QIcon("://Res/playbar/play-list.svg"));
 
-    //ui->volume_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/volume-on-gray.svg');}
-    //                                        QToolButton:hover{border-image:url('://Res/playbar/volume-on-blue.svg');})");
-
-    ui->circle_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/list-loop-gray.svg');}
-                                            QToolButton:hover{border-image:url('://Res/playbar/list-loop-blue.svg');})");
-
-    ui->cover_label->setStyleSheet(R"(QLabel{border-image:url('://Res/playbar/default-cover-gray.svg');}
-                                    QLabel:hover{border-image:url('://Res/playbar/default-cover-blue.svg');})");
 }
 
 void KuGouApp::initMenu() {
