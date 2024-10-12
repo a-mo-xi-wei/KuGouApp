@@ -5,8 +5,7 @@
 #ifndef LOCALDOWNLOAD_H
 #define LOCALDOWNLOAD_H
 
-#include <QWidget>
-#include<QMap>
+#include<QQueue>
 
 #include "MusicItemWidget.h"
 class QMediaPlayer;
@@ -23,7 +22,7 @@ public:
     explicit LocalDownload(QWidget *parent = nullptr);
     ~LocalDownload() override;
     void init();
-
+    void loadNextSong();
 private slots:
     void on_local_add_toolButton_clicked();
 
@@ -45,6 +44,7 @@ private:
     SongInfor m_information;
     QAction* m_searchAction;//专门为了设置图片
     QString m_mediaPath;
+    QQueue<QString> m_songQueue;
 };
 
 
