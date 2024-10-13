@@ -559,7 +559,7 @@ margin-top:0px;</string>
          </size>
         </property>
         <property name="placeholderText">
-         <string> </string>
+         <string/>
         </property>
        </widget>
       </item>

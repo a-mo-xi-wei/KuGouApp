@@ -4,8 +4,8 @@ project(KuGouApp VERSION 1.0 LANGUAGES CXX)
 
 add_subdirectory(MainWindow)
 
-#自定义标题栏模块
-add_subdirectory(TitlePlayWidget)
+#自定义窗口模块
+add_subdirectory(BasicWidget)
 
 #广告模块
 add_subdirectory(AdvertiseBoardWidget)

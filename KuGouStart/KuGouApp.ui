@@ -33,7 +33,7 @@
     <number>0</number>
    </property>
    <property name="rightMargin">
-    <number>3</number>
+    <number>0</number>
    </property>
    <property name="bottomMargin">
     <number>0</number>
@@ -473,9 +473,12 @@
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>40</width>
+          <width>20</width>
           <height>20</height>
          </size>
         </property>
@@ -627,7 +630,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QWidget" name="center_widget" native="true">
+    <widget class="CenterWidget" name="center_widget" native="true">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
        <horstretch>0</horstretch>
@@ -710,7 +713,7 @@
          <property name="geometry">
           <rect>
            <x>0</x>
-           <y>0</y>
+           <y>-39</y>
            <width>143</width>
            <height>592</height>
           </rect>
@@ -1255,7 +1258,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>867</width>
+           <width>870</width>
            <height>553</height>
           </rect>
          </property>
@@ -1281,7 +1284,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QWidget" name="play_widget" native="true">
+    <widget class="PlayWidget" name="play_widget" native="true">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -1416,6 +1419,9 @@
             <width>48</width>
             <height>48</height>
            </size>
+          </property>
+          <property name="toolTip">
+           <string>查看歌词写真</string>
           </property>
           <property name="text">
            <string/>
@@ -1828,6 +1834,18 @@
    <class>MySearchLineEdit</class>
    <extends>QLineEdit</extends>
    <header>MySearchLineEdit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>PlayWidget</class>
+   <extends>QWidget</extends>
+   <header>PlayWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CenterWidget</class>
+   <extends>QWidget</extends>
+   <header>CenterWidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

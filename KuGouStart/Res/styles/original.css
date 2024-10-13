@@ -1,7 +1,7 @@
-/*--------------------total_widget------------------------------*/
+/*--------------------total_widget------------------------------
 QWidget {
     background-color: #eef2ff;
-}
+}*/
 /*--------------------title_widget------------------------------*/
 QToolButton#title_return_toolButton{
     background-color: rgba(255,255,255,0);
@@ -19,7 +19,7 @@ QToolButton#title_refresh_toolButton:hover {
 }
 
 QWidget#title_widget .QLabel{
-    background-color: #e2f1ff;
+    background-color: rgba(255,255,255,0);
 }
 QWidget#title_widget .QPushButton{
     background-color:rgba(255,255,255,0);
@@ -83,7 +83,10 @@ QToolButton#close_toolButton {
     width: 30px;
     icon-size: 12px 12px;
 }
-
+/*--------------------center_widget------------------------------*/
+QWidget#center_widget *{
+    background-color: rgba(255,255,255,0);
+}
 
 /*--------------------menu_scrollArea------------------------------*/
 QScrollArea#menu_scrollArea .QToolButton{
@@ -98,14 +101,22 @@ QScrollArea#menu_scrollArea .QToolButton:hover{
 QScrollArea#menu_scrollArea .QToolButton:checked{
     background-color:#268cff;
 }
-
 /*--------------------play_widget------------------------------*/
 
 QWidget#play_widget {
+    background-color:rgba(255,255,255,0);
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
 }
+QWidget#song_info_widget{
+    background-color:rgba(255,255,255,0);
+}
 QWidget#play_widget .QToolButton {
+    background-color: rgba(255,255,255,0);
+    border: none;
+}
+QWidget#play_widget .QLabel {
+    background-color: rgba(255,255,255,0);
     border: none;
 }
 QWidget#play_widget .QPushButton {
@@ -115,6 +126,9 @@ QWidget#play_widget .QPushButton {
 }
 QWidget#play_widget .QPushButton:checked {
     background-color: pink;
+}
+QToolButton#volume_toolButton{
+    background-color:rgba(255,255,255,0);
 }
 QLabel#cover_label{
     border-radius:8px;
@@ -128,6 +142,10 @@ QToolButton#circle_toolButton{
 }
 QToolButton#circle_toolButton:hover{
     border-image:url('://Res/playbar/list-loop-blue.svg');
+}
+QSizeGrip#sizegrip{
+    background-color:rgba(255,255,255,0);
+    border-image:url('://Res/playbar/bottom-mark.svg');
 }
 /*--------------------guess_love_widget------------------------------*/
 

@@ -21,7 +21,7 @@ set(SOURCE_FILE
     "KuGouApp.ui"
 )
 INCLUDE_DIRECTORIES(
-    ${PROJECT_SOURCE_DIR}/../TitleWidget
+    ${PROJECT_SOURCE_DIR}/../BasicWidget
     ${PROJECT_SOURCE_DIR}/../RippleButton
     ${PROJECT_SOURCE_DIR}/../VolumeToolBtn
     ${PROJECT_SOURCE_DIR}/../SliderWidget
@@ -37,5 +37,5 @@ add_subdirectory(LocalDownload)
 add_executable(${PROJECT_NAME} ${SOURCE_FILE})
 
 target_link_libraries(${PROJECT_NAME} Qt6::Widgets Qt6::UiTools Qt6::Multimedia
-                        RecommendForYou LocalDownload TitleWidget MySearchLineEdit
+                        RecommendForYou LocalDownload BasicWidget MySearchLineEdit
                         RippleButton VolumeToolBtn SliderWidget MainWindow)

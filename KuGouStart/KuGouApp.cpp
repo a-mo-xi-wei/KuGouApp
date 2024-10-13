@@ -209,6 +209,7 @@ void KuGouApp::initPlayWidget() {
     ui->ci_toolButton->setIcon(QIcon("://Res/playbar/song-words.svg"));
     ui->list_toolButton->setIcon(QIcon("://Res/playbar/play-list.svg"));
 
+    connect(ui->play_widget, &PlayWidget::doubleClicked, this, [this] { ui->max_toolButton->click(); });
 }
 
 void KuGouApp::initMenu() {
@@ -245,7 +246,7 @@ void KuGouApp::initMenu() {
 
 void KuGouApp::initCornerWidget() {
     this->m_sizeGrip->setFixedSize(11, 11);
-    this->m_sizeGrip->setStyleSheet("border-image:url('://Res/playbar/bottom-mark.svg');");
+    this->m_sizeGrip->setObjectName("sizegrip");
 }
 
 void KuGouApp::mousePressEvent(QMouseEvent *ev) {
