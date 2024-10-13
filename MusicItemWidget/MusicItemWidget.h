@@ -34,6 +34,7 @@ protected:
     void leaveEvent(QEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
     void resizeEvent(QResizeEvent *event) override;
+    void mouseDoubleClickEvent(QMouseEvent *event) override;
 signals:
     void playRequest();
 

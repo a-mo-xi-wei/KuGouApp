@@ -150,6 +150,11 @@ void MusicItemWidget::resizeEvent(QResizeEvent *event) {
     this->m_spacerItem2->changeSize(this->width()/5,20,QSizePolicy::Fixed);
 }
 
+void MusicItemWidget::mouseDoubleClickEvent(QMouseEvent *event) {
+    QFrame::mouseDoubleClickEvent(event);
+    this->m_playToolBtn->clicked();
+}
+
 void MusicItemWidget::initUi()
 {
     this->m_playToolBtn->setIcon(QIcon("://Res/tabIcon/play3-gray.svg"));
