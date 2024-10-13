@@ -8,7 +8,7 @@
 MySearchLineEdit::MySearchLineEdit(QWidget *parent)
     :QLineEdit(parent)
     ,m_animation(new QPropertyAnimation(this,"minimumWidth",this))
-    ,m_maxWidth(270)
+    ,m_maxWidth(250)
 {
 
 }
@@ -24,7 +24,7 @@ void MySearchLineEdit::focusInEvent(QFocusEvent *event) {
     // 动画开始的大小（当前控件大小）
     this->m_startWidth = this->width();
     //qDebug()<<this->m_startWidth;
-    // 动画结束的大小，宽度变为 250
+    // 动画结束的大小，宽度变为 m_maxWidth
     this->m_endWidth = this->m_maxWidth;
     //qDebug()<<this->m_endWidth;
     // 设置动画的起始和结束状态
@@ -36,7 +36,7 @@ void MySearchLineEdit::focusInEvent(QFocusEvent *event) {
 
 void MySearchLineEdit::focusOutEvent(QFocusEvent *event) {
     QLineEdit::focusOutEvent(event);
-    // 动画结束的大小，宽度变为 250
+    // 动画结束的大小，宽度还原
     this->m_endWidth = this->m_startWidth;
     // 动画开始的大小（当前控件大小）
     this->m_startWidth = this->width();
