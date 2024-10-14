@@ -99,6 +99,12 @@ void MusicItemWidget::setRadius(int radius_) {
 
 void MusicItemWidget::enterEvent(QEnterEvent *event) {
     QFrame::enterEvent(event);
+    //显示按钮
+    this->m_playToolBtn->show();
+    this->m_playNextToolBtn->show();
+    this->m_downloadToolBtn->show();
+    this->m_durationLab->hide();
+
     mouse_point = event->position(); // 记录鼠标进入坐标
     timer->disconnect(); // 断开可能的timer的所有连接
     connect(timer, &QTimer::timeout, this, [=]{ // 定时器触发，半径增大
@@ -114,6 +120,12 @@ void MusicItemWidget::enterEvent(QEnterEvent *event) {
 
 void MusicItemWidget::leaveEvent(QEvent *event) {
     QFrame::leaveEvent(event);
+    //隐藏按钮
+    this->m_playToolBtn->hide();
+    this->m_playNextToolBtn->hide();
+    this->m_downloadToolBtn->hide();
+    this->m_durationLab->show();
+
     mouse_point = mapFromGlobal(QCursor::pos());
     timer->disconnect();
     connect(timer, &QTimer::timeout, this, [=]{ // 定时器触发半径减小
@@ -179,5 +191,5 @@ void MusicItemWidget::initUi()
     hlayout->addWidget(this->m_collectToolBtn);
     hlayout->addWidget(this->m_moreToolBtn);
 
-    this->m_durationLab->move(this->width()*4/5,(this->height() - this->m_durationLab->height()) / 2);
+    this->m_durationLab->move(this->width()*7/8,(this->height() - this->m_durationLab->height()) / 2);
 }
