@@ -16,6 +16,7 @@ typedef struct SongInformation {
     QString songName;
     QString signer;
     QString duration;
+    QString mediaPath;
 }SongInfor;
 
 class MusicItemWidget : public QFrame
