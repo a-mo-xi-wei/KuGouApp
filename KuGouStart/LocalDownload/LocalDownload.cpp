@@ -82,9 +82,9 @@ LocalDownload::LocalDownload(QWidget *parent)
             this->m_information.index = this->m_locationMusicVector.size();
             //加载相关信息
             auto item = new MusicItemWidget(m_information, this);
-            item->setFillColor(QColor("#CAE7E7"));
+            item->setFillColor(QColor("#B0EDF6"));
             item->setRadius(10);
-            item->setInitval(2);
+            item->setInitval(1);
             QString fixedMediaPath = this->m_mediaPath; // 捕获当前的 m_mediaPath
             SongInfor info = this->m_information;// 捕获当前的 m_information
             connect(item, &MusicItemWidget::playRequest, this, [fixedMediaPath,info, this] {
