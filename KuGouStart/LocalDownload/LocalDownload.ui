@@ -781,33 +781,12 @@ margin-top:0px;</string>
    <item>
     <widget class="QWidget" name="local_song_list_widget" native="true">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_10">
-      <item>
-       <layout class="QVBoxLayout" name="local_song_list_layout">
-        <property name="spacing">
-         <number>3</number>
-        </property>
-        <item>
-         <spacer name="vs">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>283</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </item>
-     </layout>
+     <layout class="QVBoxLayout" name="verticalLayout_10"/>
     </widget>
    </item>
   </layout>

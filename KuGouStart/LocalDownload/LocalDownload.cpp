@@ -91,7 +91,7 @@ LocalDownload::LocalDownload(QWidget *parent)
                 emit playMusic(QUrl(fixedMediaPath),info);
             });
             //qDebug()<<"添加 "<<m_information.songName<<" :"<<m_information.signer<<" 成功";
-            ui->local_song_list_layout->insertWidget(ui->local_song_list_layout->count() - 1, item);
+            dynamic_cast<QVBoxLayout*>(ui->local_song_list_widget->layout())->insertWidget(ui->local_song_list_widget->layout()->count() - 1, item);
             ui->local_music_number_label->setText(QString::number(this->m_locationMusicVector.size()));
             //加载下一首歌
             loadNextSong();
@@ -105,6 +105,11 @@ LocalDownload::~LocalDownload() {
 }
 
 void LocalDownload::init() {
+    auto layout = ui->local_song_list_widget->layout();
+    layout->setSpacing(0);
+    layout->addItem(new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding));
+    layout->setContentsMargins(0,0,0,0);
+
     //下标图片
     ui->idx1_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
     ui->idx2_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
