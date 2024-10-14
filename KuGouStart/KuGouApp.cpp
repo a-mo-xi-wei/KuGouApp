@@ -83,7 +83,7 @@ KuGouApp::KuGouApp(MainWindow *parent)
         if (status == QMediaPlayer::EndOfMedia) {
             if(this->m_isOrderPlay) {
                 qDebug()<<"播放结束，开始播放下一首";
-                
+
             }
         }
     });
