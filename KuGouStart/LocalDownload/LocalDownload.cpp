@@ -54,7 +54,7 @@ LocalDownload::LocalDownload(QWidget *parent)
                 title = QUrl::fromLocalFile(this->m_mediaPath).fileName();
                 title = title.mid(0,title.lastIndexOf('.'));
             }
-            //判重
+            //判重（仅通过标题）
             auto it = std::find(this->m_locationMusicVector.begin(),
             this->m_locationMusicVector.end(),title);
             if(it == this->m_locationMusicVector.end())this->m_locationMusicVector.emplace_back(title);
@@ -75,20 +75,21 @@ LocalDownload::LocalDownload(QWidget *parent)
             const auto duration = data.value(QMediaMetaData::Duration).value<qint64>();
 
             //信息赋值
-            this->m_information.duration = QTime::fromMSecsSinceStartOfDay(duration).toString("mm:ss");
-            this->m_information.songName = title;
-            this->m_information.cover = cover;
-            this->m_information.signer = singer;
             this->m_information.index = this->m_locationMusicVector.size();
+            this->m_information.cover = cover;
+            this->m_information.songName = title;
+            this->m_information.signer = singer;
+            this->m_information.duration = QTime::fromMSecsSinceStartOfDay(duration).toString("mm:ss");
+            this->m_information.mediaPath = this->m_mediaPath;
+
             //加载相关信息
             auto item = new MusicItemWidget(m_information, this);
             item->setFillColor(QColor("#B0EDF6"));
             item->setRadius(10);
             item->setInitval(1);
-            QString fixedMediaPath = this->m_mediaPath; // 捕获当前的 m_mediaPath
             SongInfor info = this->m_information;// 捕获当前的 m_information
-            connect(item, &MusicItemWidget::playRequest, this, [fixedMediaPath,info, this] {
-                emit playMusic(QUrl(fixedMediaPath),info);
+            connect(item, &MusicItemWidget::playRequest, this, [info, this] {
+                emit playMusic(info);
             });
             //qDebug()<<"添加 "<<m_information.songName<<" :"<<m_information.signer<<" 成功";
             dynamic_cast<QVBoxLayout*>(ui->local_song_list_widget->layout())->insertWidget(ui->local_song_list_widget->layout()->count() - 1, item);
@@ -97,6 +98,7 @@ LocalDownload::LocalDownload(QWidget *parent)
             loadNextSong();
         }
     });
+
     init();
 }
 
@@ -144,6 +146,10 @@ void LocalDownload::loadNextSong() {
         this->m_player->setSource(QUrl(this->m_mediaPath));
         this->m_player->play();  // 触发状态改变信号，获取元数据信息
     }
+}
+
+void LocalDownload::on_local_play_toolButton_clicked() {
+
 }
 
 void LocalDownload::on_local_add_toolButton_clicked() {

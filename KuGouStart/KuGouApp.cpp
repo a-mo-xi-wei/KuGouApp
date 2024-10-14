@@ -158,7 +158,6 @@ void KuGouApp::initLocalDownload() {
     ui->stackedWidget->addWidget(this->m_localDownload.get());
 }
 
-
 void KuGouApp::initTitleWidget() {
     ui->index_label1->setPixmap(QPixmap("://Res/titlebar/h-line.png").scaled(30, 15, Qt::KeepAspectRatio));
     ui->index_label2->setPixmap(QPixmap("://Res/titlebar/h-line.png").scaled(30, 15, Qt::KeepAspectRatio));
@@ -399,9 +398,9 @@ void KuGouApp::updateSliderRange(qint64 duration) {
     ui->duration_label->setText(QTime::fromMSecsSinceStartOfDay(duration).toString("mm:ss"));
 }
 
-void KuGouApp::onPlayMusic(const QUrl &url,const SongInfor& info) {
+void KuGouApp::onPlayMusic(const SongInfor& info) {
     this->m_songInfor = info;
-    setPlayMusic(url);
+    setPlayMusic(QUrl(info.mediaPath));
 }
 
 void KuGouApp::on_min_toolButton_clicked() {
@@ -475,21 +474,27 @@ void KuGouApp::on_circle_toolButton_clicked() {
         ui->circle_toolButton->setStyleSheet(
             R"(QToolButton{border-image:url('://Res/playbar/single-list-loop-gray.svg');}
                                             QToolButton:hover{border-image:url('://Res/playbar/single-list-loop-blue.svg');})");
-        //mediaStatusConnection = connect(this->m_player.get(),&QMediaPlayer::mediaStatusChanged,this, [=](QMediaPlayer::MediaStatus status) {
-        //    if (status == QMediaPlayer::EndOfMedia) {
-        //        qDebug()<<"播放结束";
-        //        // 当播放结束时，重新开始播放
-        //        qDebug()<<"循环播放 ："<<this->m_isSingleCircle;
-        //        this->m_player->setPosition(0);  // 设置到文件的开头
-        //        this->m_player->play();
-        //    }
-        //});
+        mediaStatusConnection = connect(this->m_player.get(),&QMediaPlayer::mediaStatusChanged,this, [=](QMediaPlayer::MediaStatus status) {
+            if (status == QMediaPlayer::EndOfMedia) {
+                qDebug()<<"播放结束";
+                // 当播放结束时，重新开始播放
+                qDebug()<<"循环播放 ："<<this->m_isSingleCircle;
+                //this->m_player->setPosition(0);  // 设置到文件的开头
+                //this->m_player->play();
+            }
+        });
     } else {
         qDebug()<<"播放一次";
-        //if (mediaStatusConnection) {
-        //    disconnect(mediaStatusConnection);
-        //    mediaStatusConnection = QMetaObject::Connection(); // 重置连接
-        //}
+        if (mediaStatusConnection) {
+            disconnect(mediaStatusConnection);
+            mediaStatusConnection = connect(this->m_player.get(),&QMediaPlayer::mediaStatusChanged,this, [=](QMediaPlayer::MediaStatus status) {
+                if (status == QMediaPlayer::EndOfMedia) {
+                    qDebug()<<"播放结束，开始播放下一首";
+                    //this->m_player->setPosition(0);  // 设置到文件的开头
+                    //this->m_player->play();
+                }
+            });
+        }
         this->m_player->setLoops(QMediaPlayer::Loops::Once);
         ui->circle_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/list-loop-gray.svg');}
                                             QToolButton:hover{border-image:url('://Res/playbar/list-loop-blue.svg');})");

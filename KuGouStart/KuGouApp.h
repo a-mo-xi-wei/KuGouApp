@@ -64,7 +64,7 @@ public slots:
 
     void updateSliderRange(qint64 duration);
 
-    void onPlayMusic(const QUrl &url,const SongInfor& info);
+    void onPlayMusic(const SongInfor& info);
 
 private:
     void initUi();
@@ -106,7 +106,7 @@ private:
 
     bool m_isSingleCircle = false;
     bool m_isMaxScreen = false;
-    //QMetaObject::Connection mediaStatusConnection;
+    QMetaObject::Connection mediaStatusConnection;
 
     bool m_isPlaying = false;
     QPoint m_pressPos;
