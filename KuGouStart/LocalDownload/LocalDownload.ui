@@ -471,7 +471,7 @@ margin-top:0px;</string>
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="toolTip">
-         <string>播放歌曲</string>
+         <string>顺序播放</string>
         </property>
         <property name="text">
          <string>全部播放</string>

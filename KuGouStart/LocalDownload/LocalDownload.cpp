@@ -149,7 +149,7 @@ void LocalDownload::loadNextSong() {
 }
 
 void LocalDownload::on_local_play_toolButton_clicked() {
-
+    emit startPlay();
 }
 
 void LocalDownload::on_local_add_toolButton_clicked() {

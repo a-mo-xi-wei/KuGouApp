@@ -38,6 +38,7 @@ private slots:
 
 signals:
     void playMusic(const SongInfor& info);
+    void startPlay();
 private:
     Ui::LocalDownload *ui;
     std::unique_ptr<QMediaPlayer> m_player{};
@@ -46,6 +47,7 @@ private:
     QAction* m_searchAction;//专门为了设置图片
     QString m_mediaPath;
     QQueue<QString> m_songQueue;
+
 };
 
 
