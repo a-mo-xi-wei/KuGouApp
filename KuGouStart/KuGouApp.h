@@ -66,6 +66,8 @@ public slots:
 
     void onPlayMusic(const SongInfor& info);
 
+    void onStartPlay();
+
 private:
     void initUi();
 
@@ -116,5 +118,6 @@ private:
 
     SongInfor m_songInfor;
 
+    bool m_isOrderPlay;//专门提供给开始播放按钮
 };
 #endif // KUGOUAPP_H
