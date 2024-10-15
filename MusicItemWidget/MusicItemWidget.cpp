@@ -13,6 +13,11 @@
 #include <QPainterPath>
 #include <QtMath>
 #include <QPointF>
+
+//图片大小
+#define PIX_SIZE 50
+//图片圆角
+#define PIX_RADIUS 9
 // 创建一个宏来截取 __FILE__ 宏中的目录部分
 #define GET_CURRENT_DIR (std::string(__FILE__).substr(0, std::string(__FILE__).find_last_of("/\\")))
 QPixmap roundedPix(const QPixmap &src, QSize size, int radius) {
@@ -45,8 +50,8 @@ MusicItemWidget::MusicItemWidget(const SongInfor& infor, QWidget *parent)
     this->m_indexLab        = new QLabel(QString("%1").arg(this->m_index, 2, 10, QChar('0')), this);
     this->m_coverLab        = new QLabel(this);
     this->m_coverLab->setAlignment(Qt::AlignCenter);
-    this->m_coverLab->setFixedSize(45,45);
-    this->m_coverLab->setPixmap(roundedPix(this->m_cover,this->m_coverLab->size(),8));
+    this->m_coverLab->setFixedSize(PIX_SIZE,PIX_SIZE);
+    this->m_coverLab->setPixmap(roundedPix(this->m_cover,this->m_coverLab->size(),PIX_RADIUS));
     this->m_nameLab         = new QLabel(this->m_name,this);
     this->m_singerLab       = new QLabel(this->m_singer,this);
     this->m_spacerItem1     = new QSpacerItem(40,20,QSizePolicy::Expanding);
@@ -63,6 +68,7 @@ MusicItemWidget::MusicItemWidget(const SongInfor& infor, QWidget *parent)
     this->m_coverLab->setObjectName("coverLab");
     this->m_nameLab->setObjectName("nameLab");
     this->m_singerLab->setObjectName("singerLab");
+    this->m_durationLab->setObjectName("durationLab");
     this->m_playToolBtn->setObjectName("playToolBtn");
     this->m_playNextToolBtn->setObjectName("playNextToolBtn");
     this->m_downloadToolBtn->setObjectName("downloadToolBtn");
@@ -104,7 +110,7 @@ void MusicItemWidget::setInformation(const SongInfor &info) {
     this->m_cover = info.cover;
     this->m_singer = info.signer;
     this->m_indexLab->setText(QString("%1").arg(this->m_index, 2, 10, QChar('0')));
-    this->m_coverLab->setPixmap(roundedPix(this->m_cover, this->m_coverLab->size(), 8));
+    this->m_coverLab->setPixmap(roundedPix(this->m_cover, this->m_coverLab->size(), PIX_RADIUS));
     this->m_nameLab->setText(this->m_name);
     this->m_singerLab->setText(this->m_singer);
     this->m_durationLab->setText(this->m_duration);

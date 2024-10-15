@@ -86,7 +86,7 @@ LocalDownload::LocalDownload(QWidget *parent)
             //加载相关信息
             auto item = new MusicItemWidget(m_information, this);
             item->setFillColor(QColor(QStringLiteral("#B0EDF6")));
-            item->setRadius(10);
+            item->setRadius(12);
             item->setInterval(1);
             auto index = this->m_information.index;// 捕获当前的 index
             connect(item, &MusicItemWidget::playRequest, this, [index, this] {
