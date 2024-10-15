@@ -20,8 +20,7 @@ typedef struct SongInformation {
     QString mediaPath;
     QDateTime addTime;
     bool operator== (const struct SongInformation& info) {
-        return info.songName == this->songName &&info.signer == this->signer &&
-                info.duration == this->duration&&info.mediaPath == this->mediaPath;
+        return info.songName == this->songName &&info.signer == this->signer && info.duration == this->duration;
     }
 
 }SongInfor;
