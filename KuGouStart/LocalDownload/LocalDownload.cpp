@@ -54,14 +54,6 @@ LocalDownload::LocalDownload(QWidget *parent)
                 title = QUrl::fromLocalFile(this->m_mediaPath).fileName();
                 title = title.mid(0,title.lastIndexOf('.'));
             }
-            //判重（仅通过标题）
-            auto it = std::find(this->m_locationMusicVector.begin(),
-            this->m_locationMusicVector.end(),title);
-            if(it == this->m_locationMusicVector.end())this->m_locationMusicVector.emplace_back(title);
-            else {
-                //qDebug()<<title<<"已存在，请勿重复插入";
-                return;
-            }
             //获取歌手
             auto singer = data.value(QMediaMetaData::ContributingArtist).toString();
             if(!re.match(singer).hasMatch())singer = "网络歌手";
@@ -73,15 +65,22 @@ LocalDownload::LocalDownload(QWidget *parent)
             }
             //获取时长
             const auto duration = data.value(QMediaMetaData::Duration).value<qint64>();
-
             //信息赋值
-            this->m_information.index = this->m_locationMusicVector.size();
+            this->m_information.index = this->m_locationMusicVector.size()+1;//让他先加1
             this->m_information.cover = cover;
             this->m_information.songName = title;
             this->m_information.signer = singer;
             this->m_information.duration = QTime::fromMSecsSinceStartOfDay(duration).toString("mm:ss");
             this->m_information.mediaPath = this->m_mediaPath;
-
+            this->m_information.addTime = QDateTime::currentDateTime();
+            //判重（通过元数据信息）
+            auto it = std::find(this->m_locationMusicVector.begin(),
+            this->m_locationMusicVector.end(),this->m_information);
+            if(it == this->m_locationMusicVector.end())this->m_locationMusicVector.emplace_back(this->m_information);
+            else {
+                //qDebug()<<title<<"已存在，请勿重复插入";
+                return;
+            }
             //加载相关信息
             auto item = new MusicItemWidget(m_information, this);
             item->setFillColor(QColor("#B0EDF6"));
