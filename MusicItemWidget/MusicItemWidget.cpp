@@ -85,8 +85,8 @@ MusicItemWidget::MusicItemWidget(const SongInfor& infor, QWidget *parent)
     connect(this->m_playToolBtn,&QToolButton::clicked,this,[this]{emit playRequest();});
 }
 
-void MusicItemWidget::setInitval(const int &timeinitval) {
-    timer->setInterval(timeinitval);
+void MusicItemWidget::setInterval(const int &timeinterval) {
+    timer->setInterval(timeinterval);
 }
 
 void MusicItemWidget::setFillColor(const QColor &fillcolor) {

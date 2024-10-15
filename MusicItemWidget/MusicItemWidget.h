@@ -31,7 +31,7 @@ class MusicItemWidget : public QFrame
 public:
     explicit MusicItemWidget(const SongInfor&info, QWidget *parent = nullptr);
 
-    void setInitval(const int& timeinitval); // 设置定时器时间间隔，控制填充速度
+    void setInterval(const int& timeinterval); // 设置定时器时间间隔，控制填充速度
 
     void setFillColor(const QColor &fillcolor); // 设置填充颜色
 
