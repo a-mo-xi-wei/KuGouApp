@@ -2,6 +2,7 @@
 #define MUSICITEMWIDGET_H
 
 
+#include <QDateTime>
 #include <QFrame>
 class QPointF;
 class QTimer;
@@ -17,6 +18,12 @@ typedef struct SongInformation {
     QString signer;
     QString duration;
     QString mediaPath;
+    QDateTime addTime;
+    bool operator== (const struct SongInformation& info) {
+        return info.songName == this->songName &&info.signer == this->signer &&
+                info.duration == this->duration&&info.mediaPath == this->mediaPath;
+    }
+
 }SongInfor;
 
 class MusicItemWidget : public QFrame

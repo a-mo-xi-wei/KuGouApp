@@ -99,11 +99,6 @@ void MusicItemWidget::setRadius(int radius_) {
 
 void MusicItemWidget::enterEvent(QEnterEvent *event) {
     QFrame::enterEvent(event);
-    //显示按钮
-    this->m_playToolBtn->show();
-    this->m_playNextToolBtn->show();
-    this->m_downloadToolBtn->show();
-    this->m_durationLab->hide();
 
     mouse_point = event->position(); // 记录鼠标进入坐标
     timer->disconnect(); // 断开可能的timer的所有连接
@@ -120,11 +115,6 @@ void MusicItemWidget::enterEvent(QEnterEvent *event) {
 
 void MusicItemWidget::leaveEvent(QEvent *event) {
     QFrame::leaveEvent(event);
-    //隐藏按钮
-    this->m_playToolBtn->hide();
-    this->m_playNextToolBtn->hide();
-    this->m_downloadToolBtn->hide();
-    this->m_durationLab->show();
 
     mouse_point = mapFromGlobal(QCursor::pos());
     timer->disconnect();
@@ -169,11 +159,17 @@ void MusicItemWidget::mouseDoubleClickEvent(QMouseEvent *event) {
 
 void MusicItemWidget::initUi()
 {
-    this->m_playToolBtn->setIcon(QIcon("://Res/tabIcon/play3-gray.svg"));
-    this->m_playNextToolBtn->setIcon(QIcon("://Res/tabIcon/add-music-list-gray.svg"));
-    this->m_downloadToolBtn->setIcon(QIcon("://Res/window/download.svg"));
-    this->m_collectToolBtn->setIcon(QIcon("://Res/window/collect.svg"));
-    this->m_moreToolBtn->setIcon(QIcon("://Res/tabIcon/more2-gray.svg"));
+    this->m_playToolBtn     ->setIcon(QIcon("://Res/tabIcon/play3-gray.svg"));
+    this->m_playNextToolBtn ->setIcon(QIcon("://Res/tabIcon/add-music-list-gray.svg"));
+    this->m_downloadToolBtn ->setIcon(QIcon("://Res/window/download.svg"));
+    this->m_collectToolBtn  ->setIcon(QIcon("://Res/window/collect.svg"));
+    this->m_moreToolBtn      ->setIcon(QIcon("://Res/tabIcon/more2-gray.svg"));
+
+    this->m_playToolBtn     ->setCursor(Qt::PointingHandCursor);
+    this->m_playNextToolBtn ->setCursor(Qt::PointingHandCursor);
+    this->m_downloadToolBtn ->setCursor(Qt::PointingHandCursor);
+    this->m_collectToolBtn  ->setCursor(Qt::PointingHandCursor);
+    this->m_moreToolBtn     ->setCursor(Qt::PointingHandCursor);
 
     QHBoxLayout* hlayout = new QHBoxLayout(this);
     hlayout->addWidget(this->m_indexLab);
@@ -191,5 +187,5 @@ void MusicItemWidget::initUi()
     hlayout->addWidget(this->m_collectToolBtn);
     hlayout->addWidget(this->m_moreToolBtn);
 
-    this->m_durationLab->move(this->width()*7/8,(this->height() - this->m_durationLab->height()) / 2);
+    this->m_durationLab->move(this->width()*5/6,(this->height() - this->m_durationLab->height()) / 2);
 }
