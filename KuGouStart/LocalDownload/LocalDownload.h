@@ -50,7 +50,7 @@ private:
     Ui::LocalDownload *ui;
     std::unique_ptr<QMediaPlayer> m_player{};
     QVector<SongInfor> m_locationMusicVector;
-    SongInfor m_information;
+
     QAction* m_searchAction;//专门为了设置图片
     QString m_mediaPath;
     QQueue<QString> m_songQueue;

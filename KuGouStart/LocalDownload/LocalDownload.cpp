@@ -66,33 +66,35 @@ LocalDownload::LocalDownload(QWidget *parent)
             //获取时长
             const auto duration = data.value(QMediaMetaData::Duration).value<qint64>();
             //信息赋值
-            this->m_information.index = this->m_locationMusicVector.size()+1;//让他先加1
-            this->m_information.cover = cover;
-            this->m_information.songName = title;
-            this->m_information.signer = singer;
-            this->m_information.duration = QTime::fromMSecsSinceStartOfDay(duration).toString("mm:ss");
-            this->m_information.mediaPath = this->m_mediaPath;
-            this->m_information.addTime = QDateTime::currentDateTime();
+            SongInfor tempInformation;
+            tempInformation.index = this->m_locationMusicVector.size()+1;//让他先加1
+            tempInformation.cover = cover;
+            tempInformation.songName = title;
+            tempInformation.signer = singer;
+            tempInformation.duration = QTime::fromMSecsSinceStartOfDay(duration).toString("mm:ss");
+            tempInformation.mediaPath = this->m_mediaPath;
+            tempInformation.addTime = QDateTime::currentDateTime();
             //判重（通过元数据信息）
             auto it = std::find(this->m_locationMusicVector.begin(),
-            this->m_locationMusicVector.end(),this->m_information);
-            if(it == this->m_locationMusicVector.end())this->m_locationMusicVector.emplace_back(this->m_information);
+            this->m_locationMusicVector.end(),tempInformation);
+            if(it == this->m_locationMusicVector.end())this->m_locationMusicVector.emplace_back(tempInformation);
             else {
-                //qDebug()<<title<<"已存在，请勿重复插入";
+                qDebug()<<title<<"已存在，请勿重复插入";
+                //加载下一首歌
+                loadNextSong();
                 return;
             }
             //向parent发送添加MediaPath的信号
-            emit addSongInfo(this->m_information);
+            emit addSongInfo(tempInformation);
             //加载相关信息
-            auto item = new MusicItemWidget(m_information, this);
+            auto item = new MusicItemWidget(tempInformation, this);
             item->setFillColor(QColor(QStringLiteral("#B0EDF6")));
             item->setRadius(12);
             item->setInterval(1);
-            auto index = this->m_information.index;// 捕获当前的 index
+            auto index = tempInformation.index;// 捕获当前的 index
             connect(item, &MusicItemWidget::playRequest, this, [index, this] {
                 emit playMusic(index);
             });
-            //qDebug()<<"添加 "<<m_information.songName<<" :"<<m_information.signer<<" 成功";
             dynamic_cast<QVBoxLayout*>(ui->local_song_list_widget->layout())->insertWidget(ui->local_song_list_widget->layout()->count() - 1, item);
             ui->local_music_number_label->setText(QString::number(this->m_locationMusicVector.size()));
             //加载下一首歌
@@ -134,16 +136,17 @@ void LocalDownload::init() {
     ui->local_search_lineEdit->setWidth(150);
 
     //先直接往里面嵌入一首歌
-    this->m_songQueue.enqueue(QStringLiteral("qrc:/Res/audio/紫荆花盛开.mp3"));
-
-    this->loadNextSong();
+    //this->m_songQueue.enqueue();
+    this->m_mediaPath = QStringLiteral("qrc:/Res/audio/紫荆花盛开.mp3");
+    this->m_player->setSource(QUrl(this->m_mediaPath));
+    this->m_player->play();  // 触发状态改变信号，获取元数据信息
 }
 
 void LocalDownload::loadNextSong() {
     if (!m_songQueue.isEmpty()) {
         this->m_mediaPath = m_songQueue.dequeue();  // 取出队列中的下一首歌路径
         //qDebug()<<this->m_mediaPath<<"=================";
-        this->m_player->setSource(QUrl(this->m_mediaPath));
+        this->m_player->setSource(QUrl::fromLocalFile(this->m_mediaPath));
         this->m_player->play();  // 触发状态改变信号，获取元数据信息
     }
 }
@@ -158,7 +161,10 @@ void LocalDownload::on_local_add_toolButton_clicked() {
     if (paths.isEmpty())return;
     //QString fileName = QUrl::fromLocalFile(path).fileName();
     //qDebug() << "插入："<<paths.size()<<"条数据";
-    for(auto& path : paths)this->m_songQueue.enqueue(path);
+    for(auto& path : paths) {
+        qDebug()<<"添加歌曲 ："<<path;
+        this->m_songQueue.enqueue(path);
+    }
     this->loadNextSong();
 }
 
