@@ -37,8 +37,9 @@ private slots:
     void on_downloading_pushButton_clicked();
 
 signals:
-    void playMusic(const SongInfor& info);
+    void playMusic(const int& index);
     void startPlay();
+    void addSongInfo(const SongInfor& info);
 private:
     Ui::LocalDownload *ui;
     std::unique_ptr<QMediaPlayer> m_player{};

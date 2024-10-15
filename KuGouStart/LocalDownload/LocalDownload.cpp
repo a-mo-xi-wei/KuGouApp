@@ -81,14 +81,16 @@ LocalDownload::LocalDownload(QWidget *parent)
                 //qDebug()<<title<<"已存在，请勿重复插入";
                 return;
             }
+            //向parent发送添加MediaPath的信号
+            emit addSongInfo(this->m_information);
             //加载相关信息
             auto item = new MusicItemWidget(m_information, this);
             item->setFillColor(QColor("#B0EDF6"));
             item->setRadius(10);
             item->setInitval(1);
-            SongInfor info = this->m_information;// 捕获当前的 m_information
-            connect(item, &MusicItemWidget::playRequest, this, [info, this] {
-                emit playMusic(info);
+            auto index = this->m_information.index;// 捕获当前的 index
+            connect(item, &MusicItemWidget::playRequest, this, [index, this] {
+                emit playMusic(index);
             });
             //qDebug()<<"添加 "<<m_information.songName<<" :"<<m_information.signer<<" 成功";
             dynamic_cast<QVBoxLayout*>(ui->local_song_list_widget->layout())->insertWidget(ui->local_song_list_widget->layout()->count() - 1, item);

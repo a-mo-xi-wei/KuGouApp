@@ -64,9 +64,11 @@ public slots:
 
     void updateSliderRange(qint64 duration);
 
-    void onPlayMusic(const SongInfor& info);
+    void onPlayMusic(const int& index);
 
     void onStartPlay();
+
+    void onAddSongInfo(const SongInfor &info);
 
 private:
     void initUi();
@@ -116,8 +118,9 @@ private:
     QRect startGeometry; // 获取当前窗口的几何形状(正常状态)
     QRect endGeometry;
 
-    SongInfor m_songInfor;
-
-    bool m_isOrderPlay;//专门提供给开始播放按钮
+    bool m_isOrderPlay = false;//专门提供给开始播放按钮
+    int m_orderIndex = 0;
+    QVector<SongInfor>m_songInfoVector;
+    int m_songIndex;//播放的歌曲的下标
 };
 #endif // KUGOUAPP_H

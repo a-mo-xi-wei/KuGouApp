@@ -66,9 +66,16 @@ KuGouApp::KuGouApp(MainWindow *parent)
     connect(this->m_player.get(), &QMediaPlayer::durationChanged, this, &KuGouApp::updateSliderRange);
     connect(this->m_player.get(), &QMediaPlayer::metaDataChanged, this, [this] {
         //qDebug()<<"metaDataChanged";
-        ui->cover_label->setPixmap(roundedPixmap(this->m_songInfor.cover,ui->cover_label->size(),8));
-        ui->song_name_label->setText(this->m_songInfor.songName);
-        ui->singer_label->setText(this->m_songInfor.signer);
+        if(this->m_isOrderPlay) {
+            ui->cover_label->setPixmap(roundedPixmap(this->m_songInfoVector[this->m_orderIndex].cover,ui->cover_label->size(),8));
+            ui->song_name_label->setText(this->m_songInfoVector[this->m_orderIndex].songName);
+            ui->singer_label->setText(this->m_songInfoVector[this->m_orderIndex].signer);
+        }
+        else {
+            ui->cover_label->setPixmap(roundedPixmap(this->m_songInfoVector[this->m_songIndex].cover,ui->cover_label->size(),8));
+            ui->song_name_label->setText(this->m_songInfoVector[this->m_songIndex].songName);
+            ui->singer_label->setText(this->m_songInfoVector[this->m_songIndex].signer);
+        }
     });
     connect(this->m_player.get(), &QMediaPlayer::playbackStateChanged, this, [this](QMediaPlayer::PlaybackState state) {
        if(state == QMediaPlayer::PlayingState)this->m_isPlaying = true;
@@ -82,8 +89,8 @@ KuGouApp::KuGouApp(MainWindow *parent)
     mediaStatusConnection = connect(this->m_player.get(),&QMediaPlayer::mediaStatusChanged,this, [=](QMediaPlayer::MediaStatus status) {
         if (status == QMediaPlayer::EndOfMedia) {
             if(this->m_isOrderPlay) {
-                qDebug()<<"播放结束，开始播放下一首";
-
+                this->m_orderIndex = (this->m_orderIndex + 1 ) % static_cast<int>(this->m_songInfoVector.size());
+                setPlayMusic(this->m_songInfoVector[this->m_orderIndex].mediaPath);
             }
         }
     });
@@ -93,6 +100,7 @@ KuGouApp::KuGouApp(MainWindow *parent)
 
     connect(this->m_localDownload.get(),&LocalDownload::playMusic,this,&KuGouApp::onPlayMusic);
     connect(this->m_localDownload.get(),&LocalDownload::startPlay,this,&KuGouApp::onStartPlay);
+    connect(this->m_localDownload.get(),&LocalDownload::addSongInfo,this,&KuGouApp::onAddSongInfo);
 
     ui->progressSlider->installEventFilter(this);
 }
@@ -388,9 +396,8 @@ void KuGouApp::on_play_or_pause_toolButton_clicked() {
 
 void KuGouApp::setPlayMusic(const QUrl &url) {
     //qDebug()<<"播放 "<<url;
-    this->m_player->pause();
+    this->m_player->stop();
     this->m_player->setSource(url);
-    ui->progressSlider->setValue(0);
     this->m_player->play();
 }
 
@@ -407,14 +414,21 @@ void KuGouApp::updateSliderRange(qint64 duration) {
     ui->duration_label->setText(QTime::fromMSecsSinceStartOfDay(duration).toString("mm:ss"));
 }
 
-void KuGouApp::onPlayMusic(const SongInfor& info) {
-    this->m_songInfor = info;
-    setPlayMusic(QUrl(info.mediaPath));
+void KuGouApp::onPlayMusic(const int& index) {
+    this->m_isOrderPlay = false;//单独点击就不顺序播放，而是只播放一首
+    this->m_songIndex = index - 1;
+    setPlayMusic(QUrl(this->m_songInfoVector[this->m_songIndex].mediaPath));
 }
 
 void KuGouApp::onStartPlay() {
     this->m_isOrderPlay = true;
+    this->m_orderIndex = 0;
+    //直接从第一首开始播放
+    setPlayMusic(QUrl(this->m_songInfoVector[this->m_orderIndex].mediaPath));
+}
 
+void KuGouApp::onAddSongInfo(const SongInfor &info) {
+    this->m_songInfoVector.emplace_back(info);
 }
 
 void KuGouApp::on_min_toolButton_clicked() {
@@ -483,7 +497,7 @@ void KuGouApp::on_close_toolButton_clicked() {
 void KuGouApp::on_circle_toolButton_clicked() {
     m_isSingleCircle = !m_isSingleCircle;
     if (m_isSingleCircle) {
-        qDebug()<<"单曲循环";
+        //qDebug()<<"单曲循环";
         //this->m_player->setLoops(QMediaPlayer::Loops::Infinite);
         ////怪不得，原来错在这里，我就说怎么循环播放进度条一直有问题，服了
         ui->circle_toolButton->setStyleSheet(
@@ -493,9 +507,9 @@ void KuGouApp::on_circle_toolButton_clicked() {
             disconnect(mediaStatusConnection);
             mediaStatusConnection = connect(this->m_player.get(),&QMediaPlayer::mediaStatusChanged,this, [=](QMediaPlayer::MediaStatus status) {
                 if (status == QMediaPlayer::EndOfMedia) {
-                    qDebug()<<"播放结束";
+                    //qDebug()<<"播放结束";
                     // 当播放结束时，重新开始播放
-                    qDebug()<<"循环播放 ："<<this->m_isSingleCircle;
+                    //qDebug()<<"循环播放 ："<<this->m_isSingleCircle;
                     this->m_player->stop();  // 设置到文件的开头
                     this->m_player->play();
                 }
@@ -503,22 +517,22 @@ void KuGouApp::on_circle_toolButton_clicked() {
         }else {
             qDebug()<<"mediaStatusConnection is empty";
         }
-    } else {
-        qDebug()<<"播放一次";
+    }
+    else {
+        //qDebug()<<"播放一次";
         if (mediaStatusConnection) {
             disconnect(mediaStatusConnection);
             mediaStatusConnection = connect(this->m_player.get(),&QMediaPlayer::mediaStatusChanged,this, [=](QMediaPlayer::MediaStatus status) {
                 if (status == QMediaPlayer::EndOfMedia) {
                     if(this->m_isOrderPlay) {
-                        qDebug()<<"播放结束，开始播放下一首";
-
+                        this->m_orderIndex = (this->m_orderIndex + 1 ) % static_cast<int>(this->m_songInfoVector.size());
+                        this->m_songInfoVector[this->m_orderIndex].mediaPath;
                     }
                 }
             });
         }else {
             qDebug()<<"mediaStatusConnection is empty";
         }
-        this->m_player->setLoops(QMediaPlayer::Loops::Once);
         ui->circle_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/list-loop-gray.svg');}
                                             QToolButton:hover{border-image:url('://Res/playbar/list-loop-blue.svg');})");
     }
