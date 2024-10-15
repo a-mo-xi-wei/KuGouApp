@@ -38,8 +38,14 @@ private slots:
 
 signals:
     void playMusic(const int& index);
+
     void startPlay();
+
     void addSongInfo(const SongInfor& info);
+
+public slots:
+    void setPlayIndex(const int& index);
+
 private:
     Ui::LocalDownload *ui;
     std::unique_ptr<QMediaPlayer> m_player{};
@@ -49,6 +55,9 @@ private:
     QString m_mediaPath;
     QQueue<QString> m_songQueue;
 
+    //固定颜色专用
+    int m_curPlatIndex = -1;
+    int m_setPlayIndex = -1;
 };
 
 

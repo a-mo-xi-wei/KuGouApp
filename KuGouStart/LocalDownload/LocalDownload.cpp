@@ -20,7 +20,7 @@
 // 创建一个宏来截取 __FILE__ 宏中的目录部分
 #define GET_CURRENT_DIR (std::string(__FILE__).substr(0, std::string(__FILE__).find_last_of("/\\")))
 //匹配是否有乱码
-static QRegularExpression re("^[A-Za-z0-9\\p{Han}\\\\/\\-_\\*]+$");
+static QRegularExpression re(QStringLiteral("^[A-Za-z0-9\\p{Han}\\\\/\\-_\\*]+$"));
 
 LocalDownload::LocalDownload(QWidget *parent)
     :QWidget(parent)
@@ -56,7 +56,7 @@ LocalDownload::LocalDownload(QWidget *parent)
             }
             //获取歌手
             auto singer = data.value(QMediaMetaData::ContributingArtist).toString();
-            if(!re.match(singer).hasMatch())singer = "网络歌手";
+            if(!re.match(singer).hasMatch())singer = QStringLiteral("网络歌手");
             //获取封面
             auto cover = data.value(QMediaMetaData::ThumbnailImage).value<QPixmap>();
             if(cover.isNull()) {
@@ -85,7 +85,7 @@ LocalDownload::LocalDownload(QWidget *parent)
             emit addSongInfo(this->m_information);
             //加载相关信息
             auto item = new MusicItemWidget(m_information, this);
-            item->setFillColor(QColor("#B0EDF6"));
+            item->setFillColor(QColor(QStringLiteral("#B0EDF6")));
             item->setRadius(10);
             item->setInitval(1);
             auto index = this->m_information.index;// 捕获当前的 index
@@ -114,28 +114,27 @@ void LocalDownload::init() {
     layout->setContentsMargins(0,0,0,0);
 
     //下标图片
-    ui->idx1_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
-    ui->idx2_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
-    ui->idx3_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
-    ui->idx4_lab->setPixmap(QPixmap("://Res/window/index_lab.svg"));
+    ui->idx1_lab->setPixmap(QPixmap(QStringLiteral("://Res/window/index_lab.svg")));
+    ui->idx2_lab->setPixmap(QPixmap(QStringLiteral("://Res/window/index_lab.svg")));
+    ui->idx3_lab->setPixmap(QPixmap(QStringLiteral("://Res/window/index_lab.svg")));
+    ui->idx4_lab->setPixmap(QPixmap(QStringLiteral("://Res/window/index_lab.svg")));
     ui->idx2_lab->hide();
     ui->idx3_lab->hide();
     ui->idx4_lab->hide();
 
-    ui->local_play_toolButton->setIcon(QIcon("://Res/tabIcon/play3-white.svg"));
-    ui->local_add_toolButton->setIcon(QIcon("://Res/tabIcon/add-gray.svg"));
-    ui->upload_toolButton->setIcon(QIcon("://Res/tabIcon/upload-cloud-gray.svg"));
-    ui->sort_toolButton->setIcon(QIcon("://Res/tabIcon/sort-gray.svg"));
+    ui->local_play_toolButton->setIcon(QIcon(QStringLiteral("://Res/tabIcon/play3-white.svg")));
+    ui->local_add_toolButton->setIcon(QIcon(QStringLiteral("://Res/tabIcon/add-gray.svg")));
+    ui->upload_toolButton->setIcon(QIcon(QStringLiteral("://Res/tabIcon/upload-cloud-gray.svg")));
+    ui->sort_toolButton->setIcon(QIcon(QStringLiteral("://Res/tabIcon/sort-gray.svg")));
 
     //使用 addAction 添加右侧图标
-    this->m_searchAction->setIcon(QIcon("://Res/titlebar/search-black.svg"));
+    this->m_searchAction->setIcon(QIcon(QStringLiteral("://Res/titlebar/search-black.svg")));
     this->m_searchAction->setIconVisibleInMenu(false);  // 仅显示图标
     ui->local_search_lineEdit->addAction(this->m_searchAction,QLineEdit::TrailingPosition);
     ui->local_search_lineEdit->setWidth(150);
 
     //先直接往里面嵌入一首歌
-    this->m_songQueue.enqueue("qrc:/Res/audio/紫荆花盛开.mp3");
-    //this->m_songQueue.enqueue("qrc:/Res/audio/青花瓷.mp3");
+    this->m_songQueue.enqueue(QStringLiteral("qrc:/Res/audio/紫荆花盛开.mp3"));
 
     this->loadNextSong();
 }
@@ -155,7 +154,7 @@ void LocalDownload::on_local_play_toolButton_clicked() {
 
 void LocalDownload::on_local_add_toolButton_clicked() {
     QString musicPath = QStandardPaths::standardLocations(QStandardPaths::MusicLocation).first();
-    QStringList paths = QFileDialog::getOpenFileNames(this, "添加音乐", musicPath, "Music (*.mp3 *.aac *.wav)");
+    QStringList paths = QFileDialog::getOpenFileNames(this, QStringLiteral("添加音乐"), musicPath, "Music (*.mp3 *.aac *.wav)");
     if (paths.isEmpty())return;
     //QString fileName = QUrl::fromLocalFile(path).fileName();
     //qDebug() << "插入："<<paths.size()<<"条数据";
@@ -168,7 +167,7 @@ void LocalDownload::on_local_music_pushButton_clicked() {
     ui->idx2_lab->hide();
     ui->idx3_lab->hide();
     ui->idx4_lab->hide();
-    ui->local_music_number_label->setStyleSheet("color:#26a1ff;font-size:16px;font-weight:bold;");
+    ui->local_music_number_label->setStyleSheet(QStringLiteral("color:#26a1ff;font-size:16px;font-weight:bold;"));
     ui->downloaded_music_number_label->setStyleSheet("");
     ui->downloaded_video_number_label->setStyleSheet("");
     ui->downloading_number_label->setStyleSheet("");
@@ -179,7 +178,7 @@ void LocalDownload::on_downloaded_music_pushButton_clicked() {
     ui->idx2_lab->show();
     ui->idx3_lab->hide();
     ui->idx4_lab->hide();
-    ui->downloaded_music_number_label->setStyleSheet("color:#26a1ff;font-size:16px;font-weight:bold;");
+    ui->downloaded_music_number_label->setStyleSheet(QStringLiteral("color:#26a1ff;font-size:16px;font-weight:bold;"));
     ui->local_music_number_label->setStyleSheet("");
     ui->downloaded_video_number_label->setStyleSheet("");
     ui->downloading_number_label->setStyleSheet("");
@@ -190,7 +189,7 @@ void LocalDownload::on_downloaded_video_pushButton_clicked() {
     ui->idx2_lab->hide();
     ui->idx3_lab->show();
     ui->idx4_lab->hide();
-    ui->downloaded_video_number_label->setStyleSheet("color:#26a1ff;font-size:16px;font-weight:bold;");
+    ui->downloaded_video_number_label->setStyleSheet(QStringLiteral("color:#26a1ff;font-size:16px;font-weight:bold;"));
     ui->downloaded_music_number_label->setStyleSheet("");
     ui->local_music_number_label->setStyleSheet("");
     ui->downloading_number_label->setStyleSheet("");
@@ -201,8 +200,27 @@ void LocalDownload::on_downloading_pushButton_clicked() {
     ui->idx2_lab->hide();
     ui->idx3_lab->hide();
     ui->idx4_lab->show();
-    ui->downloading_number_label->setStyleSheet("color:#26a1ff;font-size:16px;font-weight:bold;");
+    ui->downloading_number_label->setStyleSheet(QStringLiteral("color:#26a1ff;font-size:16px;font-weight:bold;"));
     ui->downloaded_music_number_label->setStyleSheet("");
     ui->downloaded_video_number_label->setStyleSheet("");
     ui->local_music_number_label->setStyleSheet("");
+}
+
+void LocalDownload::setPlayIndex(const int &index) {
+    this->m_setPlayIndex = index;
+    if(this->m_curPlatIndex == -1) {
+        this->m_curPlatIndex = index;
+        auto widget = dynamic_cast<MusicItemWidget*>(ui->local_song_list_widget->layout()->itemAt(index)->widget());
+        widget->setPlayState(true);
+    }
+    else {
+        if(this->m_setPlayIndex != this->m_curPlatIndex) {
+            auto widget = dynamic_cast<MusicItemWidget*>(ui->local_song_list_widget->layout()->itemAt(this->m_curPlatIndex)->widget());
+            widget->setPlayState(false);
+            widget = dynamic_cast<MusicItemWidget*>(ui->local_song_list_widget->layout()->itemAt(this->m_setPlayIndex)->widget());
+            widget->setPlayState(true);
+            this->m_curPlatIndex = this->m_setPlayIndex;
+        }
+    }
+
 }

@@ -36,6 +36,10 @@ public:
     void setFillColor(const QColor &fillcolor); // 设置填充颜色
 
     void setRadius(int radius_); // 设置圆角半径
+
+    void setInformation(const SongInfor& info);
+
+    void setPlayState(const bool& state);
 protected:
     void enterEvent(QEnterEvent *event) override;
     void leaveEvent(QEvent *event) override;
@@ -69,6 +73,7 @@ private:
     QString m_duration;
 
     SongInfor m_information;
+    bool m_isPlaying = false;
 private:
     int timeInterval = 10; // 定时器时间间隔，单位：ms
     QTimer *timer = Q_NULLPTR; // 定时器对象

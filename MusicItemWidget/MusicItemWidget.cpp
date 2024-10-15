@@ -1,7 +1,6 @@
 #include "MusicItemWidget.h"
 #include<QLabel>
 #include<QToolButton>
-#include<QHBoxLayout>
 #include<QVBoxLayout>
 #include<QSpacerItem>
 #include<QFile>
@@ -10,6 +9,7 @@
 #include <QPainter>
 #include <QPaintEvent>
 #include <QBrush>
+#include <QCoreApplication>
 #include <QPainterPath>
 #include <QtMath>
 #include <QPointF>
@@ -97,6 +97,38 @@ void MusicItemWidget::setRadius(int radius_) {
     frame_radius = radius_;
 }
 
+void MusicItemWidget::setInformation(const SongInfor &info) {
+    this->m_index = info.index;
+    this->m_name = info.songName;
+    this->m_duration = info.duration;
+    this->m_cover = info.cover;
+    this->m_singer = info.signer;
+    this->m_indexLab->setText(QString("%1").arg(this->m_index, 2, 10, QChar('0')));
+    this->m_coverLab->setPixmap(roundedPix(this->m_cover, this->m_coverLab->size(), 8));
+    this->m_nameLab->setText(this->m_name);
+    this->m_singerLab->setText(this->m_singer);
+    this->m_durationLab->setText(this->m_duration);
+    update(); // 重绘
+}
+
+void MusicItemWidget::setPlayState(const bool &state) {
+    this->m_isPlaying = state;
+    if(this->m_isPlaying) {
+        //发送进入事件
+        // 创建一个进入事件
+        QEvent enterEvent(QEvent::Enter);
+        // 发送离开事件
+        QCoreApplication::sendEvent(this, &enterEvent);
+    }
+    else {
+        //发送离开事件
+        // 创建一个离开事件
+        QEvent leaveEvent(QEvent::Leave);
+        // 发送离开事件
+        QCoreApplication::sendEvent(this, &leaveEvent);
+    }
+}
+
 void MusicItemWidget::enterEvent(QEnterEvent *event) {
     QFrame::enterEvent(event);
 
@@ -115,19 +147,20 @@ void MusicItemWidget::enterEvent(QEnterEvent *event) {
 
 void MusicItemWidget::leaveEvent(QEvent *event) {
     QFrame::leaveEvent(event);
-
-    mouse_point = mapFromGlobal(QCursor::pos());
-    timer->disconnect();
-    connect(timer, &QTimer::timeout, this, [=]{ // 定时器触发半径减小
-        radius -= radius_var;
-        if (radius < 0) {
-            timer->stop(); // 减小到小于0时定时器停止
-            radius = 0; // 确保半径不为负
-            return;
-        }
-        update();
-    });
-    timer->start();
+    if(!this->m_isPlaying) {
+        mouse_point = mapFromGlobal(QCursor::pos());
+        timer->disconnect();
+        connect(timer, &QTimer::timeout, this, [=]{ // 定时器触发半径减小
+            radius -= radius_var;
+            if (radius < 0) {
+                timer->stop(); // 减小到小于0时定时器停止
+                radius = 0; // 确保半径不为负
+                return;
+            }
+            update();
+        });
+        timer->start();
+    }
 }
 
 void MusicItemWidget::paintEvent(QPaintEvent *event) {
@@ -159,11 +192,11 @@ void MusicItemWidget::mouseDoubleClickEvent(QMouseEvent *event) {
 
 void MusicItemWidget::initUi()
 {
-    this->m_playToolBtn     ->setIcon(QIcon("://Res/tabIcon/play3-gray.svg"));
-    this->m_playNextToolBtn ->setIcon(QIcon("://Res/tabIcon/add-music-list-gray.svg"));
-    this->m_downloadToolBtn ->setIcon(QIcon("://Res/window/download.svg"));
-    this->m_collectToolBtn  ->setIcon(QIcon("://Res/window/collect.svg"));
-    this->m_moreToolBtn      ->setIcon(QIcon("://Res/tabIcon/more2-gray.svg"));
+    this->m_playToolBtn     ->setIcon(QIcon(QStringLiteral("://Res/tabIcon/play3-gray.svg")));
+    this->m_playNextToolBtn ->setIcon(QIcon(QStringLiteral("://Res/tabIcon/add-music-list-gray.svg")));
+    this->m_downloadToolBtn ->setIcon(QIcon(QStringLiteral("://Res/window/download.svg")));
+    this->m_collectToolBtn  ->setIcon(QIcon(QStringLiteral("://Res/window/collect.svg")));
+    this->m_moreToolBtn     ->setIcon(QIcon(QStringLiteral("://Res/tabIcon/more2-gray.svg")));
 
     this->m_playToolBtn     ->setCursor(Qt::PointingHandCursor);
     this->m_playNextToolBtn ->setCursor(Qt::PointingHandCursor);
@@ -171,10 +204,10 @@ void MusicItemWidget::initUi()
     this->m_collectToolBtn  ->setCursor(Qt::PointingHandCursor);
     this->m_moreToolBtn     ->setCursor(Qt::PointingHandCursor);
 
-    QHBoxLayout* hlayout = new QHBoxLayout(this);
+    auto hlayout = new QHBoxLayout(this);
     hlayout->addWidget(this->m_indexLab);
     hlayout->addWidget(this->m_coverLab);
-    QVBoxLayout* vlayout = new QVBoxLayout;
+    auto vlayout = new QVBoxLayout;
     vlayout->addWidget(this->m_nameLab);
     vlayout->addWidget(this->m_singerLab);
     hlayout->addLayout(vlayout);

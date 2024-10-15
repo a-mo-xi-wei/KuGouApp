@@ -14,7 +14,6 @@
 #include<QButtonGroup>
 #include<QSizeGrip>
 #include <QPropertyAnimation>
-static QRegularExpression re("^[A-Za-z0-9\\p{Han}\\\\/\\-_\\*]+$");
 
 QPixmap roundedPixmap(const QPixmap &src, QSize size, int radius) {
     QPixmap scaled = src.scaled(size, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
@@ -81,14 +80,15 @@ KuGouApp::KuGouApp(MainWindow *parent)
        if(state == QMediaPlayer::PlayingState)this->m_isPlaying = true;
        else this->m_isPlaying = false;
         if (this->m_isPlaying) {
-         ui->play_or_pause_toolButton->setIcon(QIcon("://Res/playbar/pause.svg"));
+         ui->play_or_pause_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/pause.svg")));
          } else {
-             ui->play_or_pause_toolButton->setIcon(QIcon("://Res/playbar/play.svg"));
+             ui->play_or_pause_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/play.svg")));
          }
     });
     mediaStatusConnection = connect(this->m_player.get(),&QMediaPlayer::mediaStatusChanged,this, [=](QMediaPlayer::MediaStatus status) {
         if (status == QMediaPlayer::EndOfMedia) {
             if(this->m_isOrderPlay) {
+                //qDebug()<<"结束，开始播放下一首";
                 this->m_orderIndex = (this->m_orderIndex + 1 ) % static_cast<int>(this->m_songInfoVector.size());
                 setPlayMusic(this->m_orderIndex);
             }
@@ -102,6 +102,8 @@ KuGouApp::KuGouApp(MainWindow *parent)
     connect(this->m_localDownload.get(),&LocalDownload::startPlay,this,&KuGouApp::onStartPlay);
     connect(this->m_localDownload.get(),&LocalDownload::addSongInfo,this,&KuGouApp::onAddSongInfo);
 
+    connect(this,&KuGouApp::setPlayIndex,this->m_localDownload.get(),&LocalDownload::setPlayIndex);
+
     ui->progressSlider->installEventFilter(this);
 }
 
@@ -109,45 +111,8 @@ KuGouApp::~KuGouApp() {
     delete ui;
 }
 
-void KuGouApp::on_title_return_toolButton_clicked() {
-    qDebug()<<"返回，估计要使用堆栈";
-}
-
-void KuGouApp::on_title_refresh_toolButton_clicked() {
-    qDebug()<<"刷新界面";
-    ui->center_widget->repaint();
-}
-
-void KuGouApp::on_title_music_pushButton_clicked() {
-    ui->index_label1->show();
-    ui->index_label2->hide();
-    ui->index_label3->hide();
-    ui->index_label4->hide();
-}
-
-void KuGouApp::on_title_live_pushButton_clicked() {
-    ui->index_label1->hide();
-    ui->index_label2->show();
-    ui->index_label3->hide();
-    ui->index_label4->hide();
-}
-
-void KuGouApp::on_title_listenBook_pushButton_clicked() {
-    ui->index_label1->hide();
-    ui->index_label2->hide();
-    ui->index_label3->show();
-    ui->index_label4->hide();
-}
-
-void KuGouApp::on_title_found_pushButton_clicked() {
-    ui->index_label1->hide();
-    ui->index_label2->hide();
-    ui->index_label3->hide();
-    ui->index_label4->show();
-}
-
 void KuGouApp::initUi() {
-    this->setWindowIcon(QIcon("://Res/window/windowIcon.svg"));
+    this->setWindowIcon(QIcon(QStringLiteral("://Res/window/windowIcon.svg")));
     //去掉标题栏
     setWindowFlags(Qt::FramelessWindowHint);
     move(QGuiApplication::primaryScreen()->geometry().width()/2-this->width()/2, 100);
@@ -176,73 +141,73 @@ void KuGouApp::initLocalDownload() {
 }
 
 void KuGouApp::initTitleWidget() {
-    ui->index_label1->setPixmap(QPixmap("://Res/titlebar/h-line.png").scaled(30, 15, Qt::KeepAspectRatio));
-    ui->index_label2->setPixmap(QPixmap("://Res/titlebar/h-line.png").scaled(30, 15, Qt::KeepAspectRatio));
-    ui->index_label3->setPixmap(QPixmap("://Res/titlebar/h-line.png").scaled(30, 15, Qt::KeepAspectRatio));
-    ui->index_label4->setPixmap(QPixmap("://Res/titlebar/h-line.png").scaled(30, 15, Qt::KeepAspectRatio));
+    ui->index_label1->setPixmap(QPixmap(QStringLiteral("://Res/titlebar/h-line.png")).scaled(30, 15, Qt::KeepAspectRatio));
+    ui->index_label2->setPixmap(QPixmap(QStringLiteral("://Res/titlebar/h-line.png")).scaled(30, 15, Qt::KeepAspectRatio));
+    ui->index_label3->setPixmap(QPixmap(QStringLiteral("://Res/titlebar/h-line.png")).scaled(30, 15, Qt::KeepAspectRatio));
+    ui->index_label4->setPixmap(QPixmap(QStringLiteral("://Res/titlebar/h-line.png")).scaled(30, 15, Qt::KeepAspectRatio));
     ui->index_label2->hide();
     ui->index_label3->hide();
     ui->index_label4->hide();
 
-    ui->title_line->setPixmap(QPixmap(":/Res/tabIcon/line-gray.svg"));
-    ui->search_lineEdit->addAction(QIcon("://Res/titlebar/search-black.svg"), QLineEdit::LeadingPosition);
+    ui->title_line->setPixmap(QPixmap(QStringLiteral(":/Res/tabIcon/line-gray.svg")));
+    ui->search_lineEdit->addAction(QIcon(QStringLiteral("://Res/titlebar/search-black.svg")), QLineEdit::LeadingPosition);
 
     //除非自定义QToolButton否则达不到 CSS 中 border-image 的效果
     //ui->listen_toolButton->setIcon(QIcon("://Res/titlebar/listen-music-black.svg"));
 
-    QPixmap roundedPix = roundedPixmap(QPixmap("://Res/window/portrait.jpg"), ui->title_portrait_label->size(), 20);
+    QPixmap roundedPix = roundedPixmap(QPixmap(QStringLiteral("://Res/window/portrait.jpg")), ui->title_portrait_label->size(), 20);
     // 设置圆角半径
     ui->title_portrait_label->setPixmap(roundedPix);
 
-    ui->title_gender_label->setPixmap(QPixmap("://Res/window/boy.svg"));
+    ui->title_gender_label->setPixmap(QPixmap(QStringLiteral("://Res/window/boy.svg")));
 
     //设置设置按钮的Frame圆角，填充颜色
     ui->min_toolButton->setRadius(6);
     ui->max_toolButton->setRadius(6);
     ui->close_toolButton->setRadius(6);
 
-    ui->min_toolButton->setFillColor(QColor("#969696"));
-    ui->max_toolButton->setFillColor(QColor("#969696"));
-    ui->close_toolButton->setFillColor(QColor("#FF0066"));
+    ui->min_toolButton->setFillColor(QColor(QStringLiteral("#969696")));
+    ui->max_toolButton->setFillColor(QColor(QStringLiteral("#969696")));
+    ui->close_toolButton->setFillColor(QColor(QStringLiteral("#FF0066")));
 
-    ui->min_toolButton->setMyIcon(QIcon("://Res/titlebar/minimize-black.svg"));
-    ui->max_toolButton->setMyIcon(QIcon("://Res/titlebar/maximize-black.svg"));
-    ui->close_toolButton->setMyIcon(QIcon("://Res/titlebar/close-black.svg"));
+    ui->min_toolButton->setMyIcon(QIcon(QStringLiteral("://Res/titlebar/minimize-black.svg")));
+    ui->max_toolButton->setMyIcon(QIcon(QStringLiteral("://Res/titlebar/maximize-black.svg")));
+    ui->close_toolButton->setMyIcon(QIcon(QStringLiteral("://Res/titlebar/close-black.svg")));
 
     connect(ui->title_widget, &TitleWidget::doubleClicked, this, [this] { ui->max_toolButton->click(); });
 }
 
 void KuGouApp::initPlayWidget() {
-    ui->love_toolButton->setIcon(QIcon("://Res/playbar/collect.svg"));
-    ui->download_toolButton->setIcon(QIcon("://Res/playbar/download.svg"));
-    ui->comment_toolButton->setIcon(QIcon("://Res/playbar/comment.svg"));
-    ui->share_toolButton->setIcon(QIcon("://Res/playbar/share.svg"));
-    ui->more_toolButton->setIcon(QIcon("://Res/playbar/more.svg"));
-    ui->pre_toolButton->setIcon(QIcon("://Res/playbar/previous-song.svg"));
-    ui->play_or_pause_toolButton->setIcon(QIcon("://Res/playbar/play.svg"));
-    ui->next_toolButton->setIcon(QIcon("://Res/playbar/next-song.svg"));
-    ui->erji_toolButton->setIcon(QIcon("://Res/playbar/together.svg"));
-    ui->ci_toolButton->setIcon(QIcon("://Res/playbar/song-words.svg"));
-    ui->list_toolButton->setIcon(QIcon("://Res/playbar/play-list.svg"));
+    ui->love_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/collect.svg")));
+    ui->download_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/download.svg")));
+    ui->comment_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/comment.svg")));
+    ui->share_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/share.svg")));
+    ui->more_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/more.svg")));
+    ui->pre_toolButton->setIcon( QIcon(QStringLiteral("://Res/playbar/previous-song.svg")));
+    ui->play_or_pause_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/play.svg")));
+    ui->next_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/next-song.svg")));
+    ui->erji_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/together.svg")));
+    ui->ci_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/song-words.svg")));
+    ui->list_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/play-list.svg")));
 
     connect(ui->play_widget, &PlayWidget::doubleClicked, this, [this] { ui->max_toolButton->click(); });
 }
 
 void KuGouApp::initMenu() {
     this->m_menuBtnGroup->setParent(ui->center_menu_widget);
-    ui->recommend_toolButton->setIcon(QIcon("://Res/window/recommend.svg"));
-    ui->yueku_toolButton->setIcon(QIcon("://Res/window/music-library.svg"));
-    ui->gedan_toolButton->setIcon(QIcon("://Res/window/song-list.svg"));
-    ui->pindao_toolButton->setIcon(QIcon("://Res/window/my-channel.svg"));
-    ui->video_toolButton->setIcon(QIcon("://Res/window/video.svg"));
-    ui->live_toolButton->setIcon(QIcon("://Res/window/live.svg"));
-    ui->my_shoucang_toolButton->setIcon(QIcon("://Res/window/collect.svg"));
-    ui->my_pindao_toolButton->setIcon(QIcon("://Res/window/my-channel.svg"));
-    ui->local_download_toolButton->setIcon(QIcon("://Res/window/download.svg"));
-    ui->music_yunpan_toolButton->setIcon(QIcon("://Res/window/cloud.svg"));
-    ui->yigou_yunpan_toolButton->setIcon(QIcon("://Res/window/bought.svg"));
-    ui->zuijin_bofang_toolButton->setIcon(QIcon("://Res/window/history.svg"));
-    ui->moren_liebiao_toolButton->setIcon(QIcon("://Res/titlebar/menu-black.svg"));
+    ui->recommend_toolButton->setIcon(QIcon(QStringLiteral("://Res/window/recommend.svg")));
+    ui->yueku_toolButton->setIcon(QIcon(QStringLiteral("://Res/window/music-library.svg")));
+    ui->gedan_toolButton->setIcon(QIcon(QStringLiteral("://Res/window/song-list.svg")));
+    ui->pindao_toolButton->setIcon(QIcon(QStringLiteral("://Res/window/my-channel.svg")));
+    ui->video_toolButton->setIcon(QIcon(QStringLiteral("://Res/window/video.svg")));
+    ui->live_toolButton->setIcon(QIcon(QStringLiteral("://Res/window/live.svg")));
+    ui->my_shoucang_toolButton->setIcon(QIcon(QStringLiteral("://Res/window/collect.svg")));
+    ui->my_pindao_toolButton->setIcon(QIcon(QStringLiteral("://Res/window/my-channel.svg")));
+    ui->local_download_toolButton->setIcon(QIcon(QStringLiteral("://Res/window/download.svg")));
+    ui->music_yunpan_toolButton->setIcon(QIcon(QStringLiteral("://Res/window/cloud.svg")));
+    ui->yigou_yunpan_toolButton->setIcon(QIcon(QStringLiteral("://Res/window/bought.svg")));
+    ui->zuijin_bofang_toolButton->setIcon(QIcon(QStringLiteral("://Res/window/history.svg")));
+    ui->moren_liebiao_toolButton->setIcon(QIcon(QStringLiteral("://Res/titlebar/menu-black.svg")));
 
     m_menuBtnGroup->addButton(ui->recommend_toolButton);
     m_menuBtnGroup->addButton(ui->yueku_toolButton);
@@ -262,7 +227,7 @@ void KuGouApp::initMenu() {
 
 void KuGouApp::initCornerWidget() {
     this->m_sizeGrip->setFixedSize(11, 11);
-    this->m_sizeGrip->setObjectName("sizegrip");
+    this->m_sizeGrip->setObjectName(QStringLiteral("sizegrip"));
 }
 
 void KuGouApp::mousePressEvent(QMouseEvent *ev) {
@@ -326,7 +291,7 @@ void KuGouApp::paintEvent(QPaintEvent *ev) {
     QWidget::paintEvent(ev);
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
-    QBrush brush(QColor("#eef2ff"));
+    QBrush brush(QColor(QStringLiteral("#eef2ff")));
     painter.setBrush(brush);
     painter.setPen(Qt::NoPen);
     QRect rect = this->rect();
@@ -346,8 +311,13 @@ void KuGouApp::resizeEvent(QResizeEvent *event) {
 bool KuGouApp::event(QEvent *event) {
     if(QEvent::HoverMove == event->type())//鼠标移动
     {
-        QMouseEvent *ev = static_cast<QMouseEvent*>(event);
-        this->mouseMoveEvent(ev);
+        //auto ev = dynamic_cast<QMouseEvent*>(event);
+        //auto ev = static_cast<QMouseEvent*>(event);
+        auto ev = dynamic_cast<QMouseEvent*>(event);
+        if (ev) {
+            this->mouseMoveEvent(ev);
+        }
+        //this->mouseMoveEvent(ev);
     }
 
     return QWidget::event(event);
@@ -385,29 +355,9 @@ bool KuGouApp::eventFilter(QObject *watched, QEvent *event) {
     return MainWindow::eventFilter(watched, event);
 }
 
-void KuGouApp::on_recommend_toolButton_clicked() {
-    ui->stackedWidget->setCurrentWidget(this->m_recommendForYou.get());
-}
-
-void KuGouApp::on_local_download_toolButton_clicked() {
-    ui->stackedWidget->setCurrentWidget(this->m_localDownload.get());
-}
-
-void KuGouApp::on_play_or_pause_toolButton_clicked() {
-    //如果未设置播放源就return
-    if(this->m_player->source().isEmpty()) return;
-    this->m_isPlaying = !this->m_isPlaying;
-    if (this->m_isPlaying) {
-        this->m_player->play();
-        ui->play_or_pause_toolButton->setIcon(QIcon("://Res/playbar/pause.svg"));
-    } else {
-        this->m_player->pause();
-        ui->play_or_pause_toolButton->setIcon(QIcon("://Res/playbar/play.svg"));
-    }
-}
-
 void KuGouApp::setPlayMusic(const int &index) {
     //qDebug()<<"播放 "<<url;
+    emit setPlayIndex(index);
     this->m_player->stop();
     this->m_player->setSource(QUrl(this->m_songInfoVector[index].mediaPath));
     this->m_player->play();
@@ -420,10 +370,10 @@ void KuGouApp::updateProcess() {
     this->m_player->play();
 }
 
-void KuGouApp::updateSliderRange(qint64 duration) {
-    ui->progressSlider->setMaximum(duration);
+void KuGouApp::updateSliderRange(const qint64& duration) {
+    ui->progressSlider->setMaximum(static_cast<int>(duration));
     //qDebug()<<"改变总时长";
-    ui->duration_label->setText(QTime::fromMSecsSinceStartOfDay(duration).toString("mm:ss"));
+    ui->duration_label->setText(QTime::fromMSecsSinceStartOfDay(static_cast<int>(duration)).toString("mm:ss"));
 }
 
 void KuGouApp::onPlayMusic(const int& index) {
@@ -441,6 +391,43 @@ void KuGouApp::onStartPlay() {
 
 void KuGouApp::onAddSongInfo(const SongInfor &info) {
     this->m_songInfoVector.emplace_back(info);
+}
+
+void KuGouApp::on_title_return_toolButton_clicked() {
+    qDebug()<<"返回，估计要使用堆栈";
+}
+
+void KuGouApp::on_title_refresh_toolButton_clicked() {
+    qDebug()<<"刷新界面";
+    ui->center_widget->repaint();
+}
+
+void KuGouApp::on_title_music_pushButton_clicked() {
+    ui->index_label1->show();
+    ui->index_label2->hide();
+    ui->index_label3->hide();
+    ui->index_label4->hide();
+}
+
+void KuGouApp::on_title_live_pushButton_clicked() {
+    ui->index_label1->hide();
+    ui->index_label2->show();
+    ui->index_label3->hide();
+    ui->index_label4->hide();
+}
+
+void KuGouApp::on_title_listenBook_pushButton_clicked() {
+    ui->index_label1->hide();
+    ui->index_label2->hide();
+    ui->index_label3->show();
+    ui->index_label4->hide();
+}
+
+void KuGouApp::on_title_found_pushButton_clicked() {
+    ui->index_label1->hide();
+    ui->index_label2->hide();
+    ui->index_label3->hide();
+    ui->index_label4->show();
 }
 
 void KuGouApp::on_min_toolButton_clicked() {
@@ -506,6 +493,27 @@ void KuGouApp::on_close_toolButton_clicked() {
     this->close();
 }
 
+void KuGouApp::on_recommend_toolButton_clicked() {
+    ui->stackedWidget->setCurrentWidget(this->m_recommendForYou.get());
+}
+
+void KuGouApp::on_local_download_toolButton_clicked() {
+    ui->stackedWidget->setCurrentWidget(this->m_localDownload.get());
+}
+
+void KuGouApp::on_play_or_pause_toolButton_clicked() {
+    //如果未设置播放源就return
+    if(this->m_player->source().isEmpty()) return;
+    this->m_isPlaying = !this->m_isPlaying;
+    if (this->m_isPlaying) {
+        this->m_player->play();
+        ui->play_or_pause_toolButton->setIcon(QIcon("://Res/playbar/pause.svg"));
+    } else {
+        this->m_player->pause();
+        ui->play_or_pause_toolButton->setIcon(QIcon("://Res/playbar/play.svg"));
+    }
+}
+
 void KuGouApp::on_circle_toolButton_clicked() {
     m_isSingleCircle = !m_isSingleCircle;
     if (m_isSingleCircle) {
@@ -526,9 +534,8 @@ void KuGouApp::on_circle_toolButton_clicked() {
                     this->m_player->play();
                 }
             });
-        }else {
-            qDebug()<<"mediaStatusConnection is empty";
-        }
+        }else qDebug()<<"mediaStatusConnection is empty";
+
     }
     else {
         //qDebug()<<"播放一次";
@@ -537,14 +544,14 @@ void KuGouApp::on_circle_toolButton_clicked() {
             mediaStatusConnection = connect(this->m_player.get(),&QMediaPlayer::mediaStatusChanged,this, [=](QMediaPlayer::MediaStatus status) {
                 if (status == QMediaPlayer::EndOfMedia) {
                     if(this->m_isOrderPlay) {
+                        //qDebug()<<"结束，开始播放下一首";
                         this->m_orderIndex = (this->m_orderIndex + 1 ) % static_cast<int>(this->m_songInfoVector.size());
-                        this->m_songInfoVector[this->m_orderIndex].mediaPath;
+                        setPlayMusic(this->m_orderIndex);
                     }
                 }
             });
-        }else {
-            qDebug()<<"mediaStatusConnection is empty";
-        }
+        }else qDebug()<<"mediaStatusConnection is empty";
+
         ui->circle_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/list-loop-gray.svg');}
                                             QToolButton:hover{border-image:url('://Res/playbar/list-loop-blue.svg');})");
     }

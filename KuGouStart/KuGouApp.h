@@ -29,6 +29,34 @@ public:
 
     ~KuGouApp() override;
 
+private:
+    void initUi();
+
+    void initCommendForYouWidget();
+
+    void initLocalDownload();
+
+    void initTitleWidget();
+
+    void initPlayWidget();
+
+    void initMenu();
+
+    void initCornerWidget();
+
+protected:
+    void mousePressEvent(QMouseEvent *ev) override;
+
+    void mouseMoveEvent(QMouseEvent *event) override;
+
+    void paintEvent(QPaintEvent *ev) override;
+
+    void resizeEvent(QResizeEvent *event) override;
+
+    bool event(QEvent *event) override;
+
+    bool eventFilter(QObject *watched, QEvent *event) override;
+
 private slots:
     void on_title_return_toolButton_clicked();
 
@@ -62,7 +90,7 @@ public slots:
 
     void updateProcess();
 
-    void updateSliderRange(qint64 duration);
+    void updateSliderRange(const qint64& duration);
 
     void onPlayMusic(const int& index);
 
@@ -70,34 +98,8 @@ public slots:
 
     void onAddSongInfo(const SongInfor &info);
 
-private:
-    void initUi();
-
-    void initCommendForYouWidget();
-
-    void initLocalDownload();
-
-    void initTitleWidget();
-
-    void initPlayWidget();
-
-    void initMenu();
-
-    void initCornerWidget();
-
-protected:
-    void mousePressEvent(QMouseEvent *ev) override;
-
-    void mouseMoveEvent(QMouseEvent *event) override;
-
-    void paintEvent(QPaintEvent *ev) override;
-
-    void resizeEvent(QResizeEvent *event) override;
-
-    bool event(QEvent *event) override;
-
-    bool eventFilter(QObject *watched, QEvent *event) override;
-
+signals:
+    void setPlayIndex(const int& index);
 private:
     Ui::KuGouApp *ui;
     std::unique_ptr<QMediaPlayer> m_player{};
@@ -121,6 +123,6 @@ private:
     bool m_isOrderPlay = false;//专门提供给开始播放按钮
     int m_orderIndex = 0;
     QVector<SongInfor>m_songInfoVector;
-    int m_songIndex;//播放的歌曲的下标
+    int m_songIndex = 0;//播放的歌曲的下标
 };
 #endif // KUGOUAPP_H
