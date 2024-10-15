@@ -51,7 +51,7 @@ KuGouApp::KuGouApp(MainWindow *parent)
     }
     initUi();
     this->m_player->setAudioOutput(this->m_audioOutput.get());
-    this->m_audioOutput->setVolume(0.15);
+    this->m_audioOutput->setVolume(0.2);
     connect(ui->volume_toolButton,&VolumeToolBtn::volumeChange,this,[this](const int value) {
         const float volume = static_cast<float>(value) / 100; // 将值转换为0.0到1.0之间
         this->m_audioOutput->setVolume(volume); // 设置音量
@@ -90,7 +90,7 @@ KuGouApp::KuGouApp(MainWindow *parent)
         if (status == QMediaPlayer::EndOfMedia) {
             if(this->m_isOrderPlay) {
                 this->m_orderIndex = (this->m_orderIndex + 1 ) % static_cast<int>(this->m_songInfoVector.size());
-                setPlayMusic(this->m_songInfoVector[this->m_orderIndex].mediaPath);
+                setPlayMusic(this->m_orderIndex);
             }
         }
     });
@@ -365,6 +365,18 @@ bool KuGouApp::eventFilter(QObject *watched, QEvent *event) {
                 qint64 value = QStyle::sliderValueFromPosition(ui->progressSlider->minimum(),
                     ui->progressSlider->maximum(), mouseEvent->pos().x(),
                     ui->progressSlider->width());
+                //水平进度条动态地划到点击位置
+                //auto ani = new QPropertyAnimation(ui->progressSlider,"sliderPosition");
+                // 设置动画持续时间，单位是毫秒，这里设置为100毫秒
+                //ani->setDuration(100);
+                // 动画开始值为滑块的当前位置
+                //ani->setStartValue(ui->progressSlider->value());
+                // 动画结束值为你希望的目标值
+                //ani->setEndValue(value);
+                // 设置动画的曲线类型，比如缓入缓出的效果
+                //ani->setEasingCurve(QEasingCurve::Linear);
+                // 启动动画
+                //ani->start(QAbstractAnimation::DeleteWhenStopped);
                 this->m_player->setPosition(value);
                 if(!this->m_isPlaying)ui->play_or_pause_toolButton->clicked();
             }
@@ -394,10 +406,10 @@ void KuGouApp::on_play_or_pause_toolButton_clicked() {
     }
 }
 
-void KuGouApp::setPlayMusic(const QUrl &url) {
+void KuGouApp::setPlayMusic(const int &index) {
     //qDebug()<<"播放 "<<url;
     this->m_player->stop();
-    this->m_player->setSource(url);
+    this->m_player->setSource(QUrl(this->m_songInfoVector[index].mediaPath));
     this->m_player->play();
 }
 
@@ -417,14 +429,14 @@ void KuGouApp::updateSliderRange(qint64 duration) {
 void KuGouApp::onPlayMusic(const int& index) {
     this->m_isOrderPlay = false;//单独点击就不顺序播放，而是只播放一首
     this->m_songIndex = index - 1;
-    setPlayMusic(QUrl(this->m_songInfoVector[this->m_songIndex].mediaPath));
+    setPlayMusic(this->m_songIndex);
 }
 
 void KuGouApp::onStartPlay() {
     this->m_isOrderPlay = true;
     this->m_orderIndex = 0;
     //直接从第一首开始播放
-    setPlayMusic(QUrl(this->m_songInfoVector[this->m_orderIndex].mediaPath));
+    setPlayMusic(this->m_orderIndex);
 }
 
 void KuGouApp::onAddSongInfo(const SongInfor &info) {

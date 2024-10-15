@@ -58,7 +58,7 @@ private slots:
 
 
 public slots:
-    void setPlayMusic(const QUrl &url);
+    void setPlayMusic(const int &index);
 
     void updateProcess();
 
