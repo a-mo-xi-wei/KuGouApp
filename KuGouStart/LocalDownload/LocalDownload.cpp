@@ -16,6 +16,7 @@
 #include<QStringList>
 #include<QRandomGenerator>
 #include<QRegularExpression>
+#include <memory>
 
 // 创建一个宏来截取 __FILE__ 宏中的目录部分
 #define GET_CURRENT_DIR (QString(__FILE__).first(qMax(QString(__FILE__).lastIndexOf('/'), QString(__FILE__).lastIndexOf('\\'))))
@@ -25,7 +26,7 @@ static QRegularExpression re(QStringLiteral("^[A-Za-z0-9\\p{Han}\\\\/\\-_\\*]+$"
 LocalDownload::LocalDownload(QWidget *parent)
     :QWidget(parent)
     ,ui(new Ui::LocalDownload)
-    , m_player(new QMediaPlayer(this))
+    , m_player(std::make_unique<QMediaPlayer>(this))
     ,m_searchAction(new QAction(this))
 {
     ui->setupUi(this);
@@ -37,72 +38,7 @@ LocalDownload::LocalDownload(QWidget *parent)
         qDebug() << "样式表打开失败QAQ";
         return;
     }
-    //经过一段时间的搜索得到的结论，如果想不调用play()就获得元数据信息是不现实的，能做到的也就只有加载完成之后立马停止
-    connect(m_player, &QMediaPlayer::mediaStatusChanged, [=](const QMediaPlayer::MediaStatus& status) {
-        if (status == QMediaPlayer::LoadedMedia) {
-            qDebug()<<"媒体状态改变，加载完成";
-            // 停止播放
-            this->m_player->stop();
-            //qDebug()<<"元数据加载完成";
-            const QMediaMetaData data = this->m_player->metaData();
-            for(auto val : data.keys()) {
-                qDebug()<<val<<": "<<data.value(val).toString();
-            }
-
-            //获取标题
-            auto title = data.value(QMediaMetaData::Title).toString();
-            if(!re.match(title).hasMatch()) {
-                title = QUrl::fromLocalFile(this->m_mediaPath).fileName();
-                title = title.first(title.lastIndexOf('.'));
-            }
-            //获取歌手
-            auto singer = data.value(QMediaMetaData::ContributingArtist).toString();
-            if(!re.match(singer).hasMatch())singer = QStringLiteral("网络歌手");
-            //获取封面
-            auto cover = data.value(QMediaMetaData::ThumbnailImage).value<QPixmap>();
-            if(cover.isNull()) {
-                //qDebug()<<"封面为空";
-                cover = QPixmap(QString("://Res/tablisticon/pix%1.png").arg(QRandomGenerator::global()->bounded(1,11)));
-            }
-            //获取时长
-            const auto duration = data.value(QMediaMetaData::Duration).value<qint64>();
-            //信息赋值
-            SongInfor tempInformation;
-            tempInformation.index = this->m_locationMusicVector.size()+1;//让他先加1
-            tempInformation.cover = cover;
-            tempInformation.songName = title;
-            tempInformation.signer = singer;
-            tempInformation.duration = QTime::fromMSecsSinceStartOfDay(duration).toString("mm:ss");
-            tempInformation.mediaPath = this->m_mediaPath;
-            tempInformation.addTime = QDateTime::currentDateTime();
-            //判重（通过元数据信息）
-            auto it = std::find(this->m_locationMusicVector.begin(),
-            this->m_locationMusicVector.end(),tempInformation);
-            if(it == this->m_locationMusicVector.end())this->m_locationMusicVector.emplace_back(tempInformation);
-            else {
-                qDebug()<<title<<"已存在，请勿重复插入";
-                //加载下一首歌
-                loadNextSong();
-                return;
-            }
-            //向parent发送添加MediaPath的信号
-            emit addSongInfo(tempInformation);
-            //加载相关信息
-            auto item = new MusicItemWidget(tempInformation, this);
-            item->setFillColor(QColor(QStringLiteral("#B0EDF6")));
-            item->setRadius(12);
-            item->setInterval(1);
-            auto index = tempInformation.index;// 捕获当前的 index
-            connect(item, &MusicItemWidget::playRequest, this, [index, this] {
-                emit playMusic(index);
-            });
-            dynamic_cast<QVBoxLayout*>(ui->local_song_list_widget->layout())->insertWidget(ui->local_song_list_widget->layout()->count() - 1, item);
-            ui->local_music_number_label->setText(QString::number(this->m_locationMusicVector.size()));
-            //加载下一首歌
-            loadNextSong();
-        }
-    });
-
+    getMetaData();
     init();
 }
 
@@ -143,17 +79,88 @@ void LocalDownload::init() {
     this->m_player->play();  // 触发状态改变信号，获取元数据信息
 }
 
+void LocalDownload::getMetaData() {
+    //经过一段时间的搜索得到的结论，如果想不调用play()就获得元数据信息是不现实的，能做到的也就只有加载完成之后立马停止
+    connect(m_player.get(), &QMediaPlayer::mediaStatusChanged, [=](const QMediaPlayer::MediaStatus& status) {
+        if (status == QMediaPlayer::LoadedMedia) {
+            //qDebug()<<"媒体状态改变，加载完成";
+            //qDebug()<<"元数据加载完成";
+            const QMediaMetaData data = this->m_player->metaData();
+            for(auto val : data.keys()) {
+                qDebug()<<val<<": "<<data.value(val).toString();
+            }
+            // 停止播放
+            this->m_player->stop();
+            //获取标题
+            auto title = data.value(QMediaMetaData::Title).toString();
+            if(!re.match(title).hasMatch()) {
+                title = QUrl::fromLocalFile(this->m_mediaPath).fileName();
+                title = title.first(title.lastIndexOf('.'));
+            }
+            //获取歌手
+            auto singer = data.value(QMediaMetaData::ContributingArtist).toString();
+            if(!re.match(singer).hasMatch())singer = QStringLiteral("网络歌手");
+            //获取封面
+            auto cover = data.value(QMediaMetaData::ThumbnailImage).value<QPixmap>();
+            if(cover.isNull()) {
+                //qDebug()<<"封面为空";
+                cover = QPixmap(QString("://Res/tablisticon/pix%1.png").arg(QRandomGenerator::global()->bounded(1,11)));
+            }
+            //获取时长
+            const auto duration = data.value(QMediaMetaData::Duration).value<qint64>();
+            //信息赋值
+            SongInfor tempInformation;
+            tempInformation.index = this->m_locationMusicVector.size()+1;//让他先加1
+            tempInformation.cover = cover;
+            tempInformation.songName = title;
+            tempInformation.signer = singer;
+            tempInformation.duration = QTime::fromMSecsSinceStartOfDay(duration).toString("mm:ss");
+            tempInformation.mediaPath = this->m_mediaPath;
+            tempInformation.addTime = QDateTime::currentDateTime();
+            //判重（通过元数据信息）
+            auto it = std::find(this->m_locationMusicVector.begin(),
+            this->m_locationMusicVector.end(),tempInformation);
+            if(it == this->m_locationMusicVector.end())this->m_locationMusicVector.emplace_back(tempInformation);
+            else {
+                //qDebug()<<title<<"已存在，请勿重复插入";
+                //加载下一首歌
+                loadNextSong();
+                return;
+            }
+            //向parent发送添加MediaPath的信号
+            emit addSongInfo(tempInformation);
+            //加载相关信息
+            auto item = new MusicItemWidget(tempInformation, this);
+            item->setFillColor(QColor(QStringLiteral("#B0EDF6")));
+            item->setRadius(12);
+            item->setInterval(1);
+            auto index = tempInformation.index;// 捕获当前的 index
+            connect(item, &MusicItemWidget::playRequest, this, [index, this] {
+                emit playMusic(index);
+            });
+            dynamic_cast<QVBoxLayout*>(ui->local_song_list_widget->layout())->insertWidget(ui->local_song_list_widget->layout()->count() - 1, item);
+            ui->local_music_number_label->setText(QString::number(this->m_locationMusicVector.size()));
+            //加载下一首歌
+            loadNextSong();
+        }
+    });
+}
+
 void LocalDownload::loadNextSong() {
     if (!m_songQueue.isEmpty()) {
         this->m_mediaPath = m_songQueue.dequeue();  // 取出队列中的下一首歌路径
-        qDebug()<<"取出歌曲 ： "<<this->m_mediaPath<<"=================";
+        //qDebug()<<"取出歌曲 ： "<<this->m_mediaPath<<"=================";
 
-        // 在加载新媒体前，重置媒体状态
+        /*// 在加载新媒体前，重置媒体状态
         this->m_player->stop();
         this->m_player->setSource(QUrl());  // 清空当前媒体源
-        this->m_player->play();
+        this->m_player->play();*/ //不起效果
+
+        // 释放并重建 QMediaPlayer 对象
+        this->m_player = std::make_unique<QMediaPlayer>(this);//它会自动释放之前的对象
+        getMetaData();
+
         this->m_player->setSource(QUrl::fromLocalFile(this->m_mediaPath));
-        //this->m_player->stop();
         this->m_player->play();  // 触发状态改变信号，获取元数据信息
     }
 }

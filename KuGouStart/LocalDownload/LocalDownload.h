@@ -22,6 +22,7 @@ public:
     explicit LocalDownload(QWidget *parent = nullptr);
     ~LocalDownload() override;
     void init();
+    void getMetaData();
     void loadNextSong();
 private slots:
     void on_local_play_toolButton_clicked();
@@ -48,7 +49,7 @@ public slots:
 
 private:
     Ui::LocalDownload *ui;
-    QMediaPlayer* m_player{};
+    std::unique_ptr<QMediaPlayer>m_player;
     QVector<SongInfor> m_locationMusicVector;
 
     QAction* m_searchAction;//专门为了设置图片
