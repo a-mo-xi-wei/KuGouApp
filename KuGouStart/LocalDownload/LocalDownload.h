@@ -48,7 +48,7 @@ public slots:
 
 private:
     Ui::LocalDownload *ui;
-    std::unique_ptr<QMediaPlayer> m_player{};
+    QMediaPlayer* m_player{};
     QVector<SongInfor> m_locationMusicVector;
 
     QAction* m_searchAction;//专门为了设置图片

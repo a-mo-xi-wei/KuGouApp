@@ -25,7 +25,7 @@ static QRegularExpression re(QStringLiteral("^[A-Za-z0-9\\p{Han}\\\\/\\-_\\*]+$"
 LocalDownload::LocalDownload(QWidget *parent)
     :QWidget(parent)
     ,ui(new Ui::LocalDownload)
-    , m_player(std::make_unique<QMediaPlayer>(this))
+    , m_player(new QMediaPlayer(this))
     ,m_searchAction(new QAction(this))
 {
     ui->setupUi(this);
@@ -38,21 +38,22 @@ LocalDownload::LocalDownload(QWidget *parent)
         return;
     }
     //经过一段时间的搜索得到的结论，如果想不调用play()就获得元数据信息是不现实的，能做到的也就只有加载完成之后立马停止
-    connect(m_player.get(), &QMediaPlayer::mediaStatusChanged, [=](QMediaPlayer::MediaStatus status) {
+    connect(m_player, &QMediaPlayer::mediaStatusChanged, [=](const QMediaPlayer::MediaStatus& status) {
         if (status == QMediaPlayer::LoadedMedia) {
+            qDebug()<<"媒体状态改变，加载完成";
             // 停止播放
             this->m_player->stop();
             //qDebug()<<"元数据加载完成";
             const QMediaMetaData data = this->m_player->metaData();
-            //for(auto val : data.keys()) {
-            //    qDebug()<<val<<": "<<data.value(val).toString();
-            //}
+            for(auto val : data.keys()) {
+                qDebug()<<val<<": "<<data.value(val).toString();
+            }
 
             //获取标题
             auto title = data.value(QMediaMetaData::Title).toString();
             if(!re.match(title).hasMatch()) {
                 title = QUrl::fromLocalFile(this->m_mediaPath).fileName();
-                title = title.mid(0,title.lastIndexOf('.'));
+                title = title.first(title.lastIndexOf('.'));
             }
             //获取歌手
             auto singer = data.value(QMediaMetaData::ContributingArtist).toString();
@@ -145,8 +146,14 @@ void LocalDownload::init() {
 void LocalDownload::loadNextSong() {
     if (!m_songQueue.isEmpty()) {
         this->m_mediaPath = m_songQueue.dequeue();  // 取出队列中的下一首歌路径
-        //qDebug()<<this->m_mediaPath<<"=================";
+        qDebug()<<"取出歌曲 ： "<<this->m_mediaPath<<"=================";
+
+        // 在加载新媒体前，重置媒体状态
+        this->m_player->stop();
+        this->m_player->setSource(QUrl());  // 清空当前媒体源
+        this->m_player->play();
         this->m_player->setSource(QUrl::fromLocalFile(this->m_mediaPath));
+        //this->m_player->stop();
         this->m_player->play();  // 触发状态改变信号，获取元数据信息
     }
 }
@@ -162,7 +169,7 @@ void LocalDownload::on_local_add_toolButton_clicked() {
     //QString fileName = QUrl::fromLocalFile(path).fileName();
     //qDebug() << "插入："<<paths.size()<<"条数据";
     for(auto& path : paths) {
-        qDebug()<<"添加歌曲 ："<<path;
+        //qDebug()<<"添加歌曲 ："<<path;
         this->m_songQueue.enqueue(path);
     }
     this->loadNextSong();
