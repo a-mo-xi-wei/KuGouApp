@@ -3,10 +3,12 @@
 
 #include<memory>
 #include<QUrl>
+#include<QEasingCurve>
+
 #include"MainWindow.h"
 #include"RecommendForYou.h"
 #include"LocalDownload.h"
-#include"UpWidget.h"
+#include"UpToolButton.h"
 
 
 class QMediaPlayer;
@@ -14,6 +16,7 @@ class QAudioOutput;
 class QButtonGroup;
 class QSizeGrip;
 class QPropertyAnimation;
+class QScrollBar;
 
 QT_BEGIN_NAMESPACE
 
@@ -86,7 +89,6 @@ private slots:
 
     void on_circle_toolButton_clicked();
 
-
 public slots:
     void setPlayMusic(const int &index);
 
@@ -100,15 +102,21 @@ public slots:
 
     void onAddSongInfo(const SongInfor &info);
 
+    void onUpBtnClicked();
+
+    void onScrollBarValueChanged(const int& value);
+
+    void onUpBtnShowOrNot();
 signals:
     void setPlayIndex(const int& index);
+
 private:
     Ui::KuGouApp *ui;
     std::unique_ptr<QMediaPlayer> m_player{};
     std::unique_ptr<QAudioOutput> m_audioOutput{};
     std::unique_ptr<QButtonGroup> m_menuBtnGroup{};
     std::unique_ptr<QSizeGrip> m_sizeGrip{};
-    std::unique_ptr<UpWidget> m_upWidget{};
+    std::unique_ptr<UpToolButton> m_upBtn{};
     std::unique_ptr<QPropertyAnimation> m_animation{};  //专门用于窗口的缩放动画
     std::unique_ptr<RecommendForYou> m_recommendForYou{};
     std::unique_ptr<LocalDownload> m_localDownload{};
@@ -127,5 +135,12 @@ private:
     int m_orderIndex = 0;
     QVector<SongInfor>m_songInfoVector;
     int m_songIndex = 0;//播放的歌曲的下标
+
+    QEasingCurve m_curves = QEasingCurve::OutBounce;
+    QScrollBar* m_vScrollBar{};
+
+    //专门处理透明度
+    QTimer *m_scrollBarTimer;  // 定时器
+    int m_scrollValue;  // 存储最新的滚动值
 };
 #endif // KUGOUAPP_H

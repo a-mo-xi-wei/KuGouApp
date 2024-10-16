@@ -36,7 +36,7 @@ add_subdirectory(SliderWidget)
 add_subdirectory(MySearchLineEdit)
 
 #回到顶部模块
-add_subdirectory(UpWidget)
+add_subdirectory(UpToolButton)
 
 #滚动区域模块
 add_subdirectory(MyScrollArea)
