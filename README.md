@@ -1,10 +1,10 @@
 # 高仿酷狗音乐客户端
 
 #### 软件说明
-Qt版本 ：Qt6.6.2 
-编译环境 ：Mingw
-开发工具 ：CLion
-生成器 ： Ninja
+Qt版本 ：Qt6.6.2         
+编译环境 ：Mingw        
+开发工具 ：CLion        
+生成器 ： Ninja        
 
 #### 介绍
 Based on Qt Widget + UiTools module+ Custom control +QSS
