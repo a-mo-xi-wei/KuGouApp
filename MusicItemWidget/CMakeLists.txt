@@ -17,6 +17,7 @@ file(GLOB SOURCE_H ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 set(SOURCE_FILE
     ${SOURCE_CPP}
     ${SOURCE_H}
+    item.css
 )
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE_FILE})
