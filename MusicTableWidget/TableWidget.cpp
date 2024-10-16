@@ -23,7 +23,7 @@ TableWidget::TableWidget(const QString &title, KIND kind, QWidget *parent)
     this->m_play_ToolBtn = new QToolButton(this);
     this->m_adjust_ToolBtn = new QToolButton(this);
     this->m_refresh_ToolBtn = new QToolButton(this);
-    this->m_more_Lab = new QLabel("更多 >", this);
+    this->m_more_Lab = new QLabel(QStringLiteral("更多 >"), this);
 
     initUi();
 
@@ -41,6 +41,7 @@ TableWidget::TableWidget(const QString &title, KIND kind, QWidget *parent)
 }
 
 void TableWidget::paintEvent(QPaintEvent *ev) {
+    QWidget::paintEvent(ev);
     QStyleOption opt;
     opt.initFrom(this);
     QPainter p(this);
@@ -147,8 +148,8 @@ void TableWidget::initItemListWidget() {
     this->m_gridLayout->setSpacing(10);
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
-            auto pixPath = QStringLiteral(":///Res/tabIcon/music-cover.jpg");
-            auto item = new ItemListWidget(QPixmap(pixPath), QStringLiteral("歌曲名字"), "作者", this);
+            auto pixPath = QPixmap(QStringLiteral(":///Res/tabIcon/music-cover.jpg"));
+            auto item = new ItemListWidget(pixPath, QStringLiteral("歌曲名字"), QStringLiteral("作者"), this);
             this->m_gridLayout->addWidget(item, i, j);
         }
     }
@@ -161,7 +162,7 @@ void TableWidget::initItemListWidget() {
 void TableWidget::onGridChange(int len) {
     //qDebug()<<"收到 len = "<<len<<"现在有 "<<this->m_gridLayout->columnCount()<<" 列";
     bool hide_col_6 = true, hide_col_7 = true;
-    QLayoutItem *item = this->m_gridLayout->itemAtPosition(0, 5);
+    auto item = this->m_gridLayout->itemAtPosition(0, 5);
     if (item) {
         hide_col_6 = item->widget()->isHidden();
         //qDebug()<<"hide_col_6 : "<<hide_col_6;
@@ -177,7 +178,7 @@ void TableWidget::onGridChange(int len) {
         //if(this->m_gridLayout->columnCount() == 7){
         this->m_showCol = 5;
         if (len < 1000)return;
-        if (len < 1250) {
+        if (len < 1200) {
             for (int i = 0; i < 2; ++i) {
                 auto item = this->m_gridLayout->itemAtPosition(i, 5);
                 if(item)item->widget()->show();
@@ -195,7 +196,7 @@ void TableWidget::onGridChange(int len) {
                 if(item)item->widget()->hide();
             }
             this->m_showCol = 5;
-        } else if (len >= 1250) {
+        } else if (len >= 1200) {
             for (int i = 0; i < 2; ++i) {
                 auto item = this->m_gridLayout->itemAtPosition(i, 6);
                 if(item)item->widget()->show();
@@ -205,7 +206,7 @@ void TableWidget::onGridChange(int len) {
     } else if (!hide_col_7) {
         this->m_showCol = 7;
         //显示前7列
-        if (len < 1250) {
+        if (len < 1200) {
             for (int i = 0; i < 2; ++i) {
                 auto item = this->m_gridLayout->itemAtPosition(i, 6);
                 if(item)item->widget()->hide();
