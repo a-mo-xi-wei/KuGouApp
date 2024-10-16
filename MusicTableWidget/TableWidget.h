@@ -1,7 +1,6 @@
 #ifndef TABLEWIDGET_H_
 #define TABLEWIDGET_H_
 
-#include <QWidget>
 #include<QHBoxLayout>
 #include<QGridLayout>
 #include<memory>
@@ -32,6 +31,10 @@ protected:
     void resizeEvent(QResizeEvent* event)override;
 private:
     void initUi();
+    //初始化BlockCover
+    void initBlockCover();
+    //打乱BlockCover
+    void shuffleBlockCover();
     //1.大图标TabWidget
     void initBlockListWidget();
     //2.小图标TabListWidget
@@ -44,6 +47,7 @@ signals:
 
 public slots:
     void onGridChange(int len);
+    void onRefreshBtnClicked();
 private:
     std::unique_ptr<QHBoxLayout>m_tabHLayout;
     std::unique_ptr<QGridLayout>m_gridLayout;
@@ -56,6 +60,11 @@ private:
     QToolButton* m_refresh_ToolBtn{};
     QLabel* m_more_Lab{};
     int m_showCol = 5;
+    //存储图片
+    QVector<QString>m_blockCoverPaths;
+    //隐藏列数
+    bool m_hide_col_6 = true;
+    bool m_hide_col_7 = true;
 };
 
 class ItemBlockWidget : public QWidget{
@@ -64,6 +73,7 @@ public:
     ItemBlockWidget(const QString& path,QWidget* parent = nullptr);
     void setTipLabText(const QString& text);
     void setPopularBtnText(const QString& text);
+
 protected:
     void paintEvent(QPaintEvent* ev)override;
     void enterEvent(QEnterEvent* ev)override;

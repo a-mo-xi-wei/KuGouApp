@@ -11,6 +11,8 @@
 #include<QPainterPath>
 #include<QRandomGenerator>
 #include<vector>
+// 使用当前时间作为随机数种子
+unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 
 TableWidget::TableWidget(const QString &title, KIND kind, QWidget *parent)
     : QWidget(parent)
@@ -25,6 +27,7 @@ TableWidget::TableWidget(const QString &title, KIND kind, QWidget *parent)
     this->m_refresh_ToolBtn = new QToolButton(this);
     this->m_more_Lab = new QLabel(QStringLiteral("更多 >"), this);
 
+    initBlockCover();
     initUi();
 
     this->m_adjust_ToolBtn->hide();
@@ -38,6 +41,8 @@ TableWidget::TableWidget(const QString &title, KIND kind, QWidget *parent)
     }
 
     connect(this, &TableWidget::gridChange, this, [this](int len) { onGridChange(len); });
+
+    connect(this->m_refresh_ToolBtn,&QToolButton::clicked,this,&TableWidget::onRefreshBtnClicked);
 }
 
 void TableWidget::paintEvent(QPaintEvent *ev) {
@@ -122,13 +127,27 @@ void TableWidget::initUi() {
     }
 }
 
+void TableWidget::initBlockCover() {
+    for (int i = 0; i < 2; ++i) {
+        for (int j = 0; j < 7; ++j) {
+            this->m_blockCoverPaths.emplace_back(QString(":/Res/tabIcon/music-block-cover%1.jpg").arg(i * 7 + j + 1));
+        }
+    }
+}
+
+void TableWidget::shuffleBlockCover() {
+    // 随机打乱 QVector
+    std::shuffle(this->m_blockCoverPaths.begin(), this->m_blockCoverPaths.end(), std::default_random_engine(seed));
+}
+
 void TableWidget::initBlockListWidget() {
     this->m_gridContainer->setLayout(m_gridLayout.get());
     this->m_gridLayout->setVerticalSpacing(10);
     this->m_gridLayout->setHorizontalSpacing(5);
+    this->m_gridLayout->setContentsMargins(0,5,0,5);
     for (int i = 0; i < 2; ++i) {
         for (int j = 0; j < 7; ++j) {
-            QString pixPath = QString(":/Res/tabIcon/music-block-cover%1.jpg").arg(i * 7 + j + 1);
+            QString pixPath = this->m_blockCoverPaths[i * 7 + j];
             auto block = new ItemBlockWidget(pixPath, this);
             block->hide();
             this->m_gridLayout->addWidget(block, i, j);
@@ -140,6 +159,7 @@ void TableWidget::initBlockListWidget() {
         }
     }
     auto vlayout = new QVBoxLayout(this);
+    vlayout->setContentsMargins(0,5,0,5);
     vlayout->addLayout(m_tabHLayout.get());
     vlayout->addWidget(this->m_gridContainer.get());
 }
@@ -148,7 +168,7 @@ void TableWidget::initItemListWidget() {
     this->m_gridLayout->setSpacing(10);
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
-            auto pixPath = QPixmap(QStringLiteral(":///Res/tabIcon/music-cover.jpg"));
+            auto pixPath = QPixmap(QStringLiteral(":/Res/tabIcon/music-cover.jpg"));
             auto item = new ItemListWidget(pixPath, QStringLiteral("歌曲名字"), QStringLiteral("作者"), this);
             this->m_gridLayout->addWidget(item, i, j);
         }
@@ -160,20 +180,20 @@ void TableWidget::initItemListWidget() {
 }
 
 void TableWidget::onGridChange(int len) {
-    //qDebug()<<"收到 len = "<<len<<"现在有 "<<this->m_gridLayout->columnCount()<<" 列";
-    bool hide_col_6 = true, hide_col_7 = true;
+    this->m_hide_col_6 = true;
+    this->m_hide_col_7 = true;
     auto item = this->m_gridLayout->itemAtPosition(0, 5);
     if (item) {
-        hide_col_6 = item->widget()->isHidden();
+        this->m_hide_col_6 = item->widget()->isHidden();
         //qDebug()<<"hide_col_6 : "<<hide_col_6;
     }
     item = this->m_gridLayout->itemAtPosition(0, 6);
     if (item) {
-        hide_col_7 = item->widget()->isHidden();
+        this->m_hide_col_7 = item->widget()->isHidden();
         //qDebug()<<"hide_col_7 : "<<hide_col_7;
     }
 
-    if (hide_col_6) {
+    if (this->m_hide_col_6) {
         //显示前5列
         //if(this->m_gridLayout->columnCount() == 7){
         this->m_showCol = 5;
@@ -186,8 +206,10 @@ void TableWidget::onGridChange(int len) {
             }
             this->m_showCol = 6;
             //qDebug()<<"//////////////////////////";
-        } //由于直接全屏需要一定时间，因此不存在从5列直接变成7列的情况
-    } else if (!hide_col_6 && hide_col_7) {
+        }
+        //由于直接全屏需要一定时间，因此不存在从5列直接变成7列的情况
+        //但是，上面说的是正常缩放的情况，但如果存在突然发送的信号的情况。。。
+    } else if (!this->m_hide_col_6 && this->m_hide_col_7) {
         //显示前6列
         this->m_showCol = 6;
         if (len < 1000) {
@@ -203,17 +225,63 @@ void TableWidget::onGridChange(int len) {
             }
             this->m_showCol = 7;
         }
-    } else if (!hide_col_7) {
+    } else if (!this->m_hide_col_7) {
         this->m_showCol = 7;
         //显示前7列
-        if (len < 1200) {
+        if(len < 1200){
             for (int i = 0; i < 2; ++i) {
                 auto item = this->m_gridLayout->itemAtPosition(i, 6);
                 if(item)item->widget()->hide();
             }
             this->m_showCol = 6;
             //qDebug()<<"********************";
-        } //缩小同样需要时间差
+        }
+    }
+}
+
+void TableWidget::onRefreshBtnClicked() {
+    if(this->m_kindList == KIND::BlockList) {
+        shuffleBlockCover();
+        for (int i = 0; i < 2; ++i) {
+            for (int j = 0; j < 7; ++j) {
+                auto item = this->m_gridLayout->itemAtPosition(i,j);
+                if(item) {
+                    auto widget = item->widget();
+                    if(widget) {
+                        this->m_gridLayout->removeWidget(widget);
+                        widget->deleteLater();
+                    }
+                }
+                QString pixPath = this->m_blockCoverPaths[i * 7 + j];
+                auto block = new ItemBlockWidget(pixPath, this);
+                block->hide();
+                this->m_gridLayout->addWidget(block, i, j);
+            }
+        }
+        emit gridChange(this->width());
+        for (int i = 0; i < 2; ++i) {
+            for (int j = 0; j < this->m_showCol; ++j) {
+                this->m_gridLayout->itemAtPosition(i, j)->widget()->show();
+            }
+        }
+
+    }
+    else {
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 3; ++j) {
+                auto item = this->m_gridLayout->itemAtPosition(i,j);
+                if(item) {
+                    auto widget = item->widget();
+                    if(widget) {
+                        this->m_gridLayout->removeWidget(widget);
+                        widget->deleteLater();
+                    }
+                }
+                auto pixPath = QPixmap(QStringLiteral(":///Res/tabIcon/music-cover.jpg"));
+                auto list = new ItemListWidget(pixPath, QStringLiteral("歌曲名字"), QStringLiteral("作者"), this);
+                this->m_gridLayout->addWidget(list, i, j);
+            }
+        }
     }
 }
 
