@@ -39,7 +39,6 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event) {
 
 void MainWindow::mouseMoveEvent(QMouseEvent *event) {
     QWidget::mouseMoveEvent(event);
-    //qDebug()<<"鼠标位置 ： "<<ev->pos();
     // 设置鼠标的形状
     SetMouseCursor(event->pos().x(), event->pos().y());
 
