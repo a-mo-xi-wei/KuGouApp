@@ -25,7 +25,9 @@ INCLUDE_DIRECTORIES(
     ${PROJECT_SOURCE_DIR}/../RippleButton
     ${PROJECT_SOURCE_DIR}/../VolumeToolBtn
     ${PROJECT_SOURCE_DIR}/../SliderWidget
+    ${PROJECT_SOURCE_DIR}/../MyScrollArea
     ${PROJECT_SOURCE_DIR}/../MySearchLineEdit
+    ${PROJECT_SOURCE_DIR}/../UpWidget
     ${PROJECT_SOURCE_DIR}/../LocalDownload
     ${PROJECT_SOURCE_DIR}/../MainWindow)
 
@@ -37,5 +39,6 @@ add_subdirectory(LocalDownload)
 add_executable(${PROJECT_NAME} ${SOURCE_FILE})
 
 target_link_libraries(${PROJECT_NAME} Qt6::Widgets Qt6::UiTools Qt6::Multimedia
-                        RecommendForYou LocalDownload BasicWidget MySearchLineEdit
-                        RippleButton VolumeToolBtn SliderWidget MainWindow)
+                        RecommendForYou LocalDownload BasicWidget MyScrollArea
+                        MySearchLineEdit UpWidget RippleButton VolumeToolBtn
+                        SliderWidget MainWindow)

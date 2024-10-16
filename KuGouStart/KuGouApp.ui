@@ -1240,7 +1240,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QScrollArea" name="context_scrollArea">
+       <widget class="MyScrollArea" name="context_scrollArea">
         <property name="frameShape">
          <enum>QFrame::NoFrame</enum>
         </property>
@@ -1845,6 +1845,12 @@
    <class>CenterWidget</class>
    <extends>QWidget</extends>
    <header>CenterWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyScrollArea</class>
+   <extends>QScrollArea</extends>
+   <header>MyScrollArea.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

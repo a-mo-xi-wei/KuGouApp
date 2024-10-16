@@ -87,7 +87,7 @@ void LocalDownload::getMetaData() {
             //qDebug()<<"元数据加载完成";
             const QMediaMetaData data = this->m_player->metaData();
             for(auto val : data.keys()) {
-                qDebug()<<val<<": "<<data.value(val).toString();
+                //qDebug()<<val<<": "<<data.value(val).toString();
             }
             // 停止播放
             this->m_player->stop();

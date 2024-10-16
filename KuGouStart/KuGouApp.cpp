@@ -13,7 +13,8 @@
 #include<QMouseEvent>
 #include<QButtonGroup>
 #include<QSizeGrip>
-#include <QPropertyAnimation>
+#include<QPropertyAnimation>
+#include<QScrollBar>
 
 QPixmap roundedPixmap(const QPixmap &src, QSize size, int radius) {
     QPixmap scaled = src.scaled(size, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
@@ -37,11 +38,12 @@ KuGouApp::KuGouApp(MainWindow *parent)
       , m_audioOutput(std::make_unique<QAudioOutput>(this))
       , m_menuBtnGroup(std::make_unique<QButtonGroup>(this))
       , m_sizeGrip(std::make_unique<QSizeGrip>(this))
+      , m_upWidget(std::make_unique<UpWidget>(this))
       , m_animation(std::make_unique<QPropertyAnimation>(this,"geometry"))
       , m_recommendForYou(std::make_unique<RecommendForYou>(this))
       , m_localDownload(std::make_unique<LocalDownload>(this)) {
     ui->setupUi(this);
-    QFile file("://Res/styles/original.css");
+    QFile file(QStringLiteral("://Res/styles/original.css"));
     if (file.open(QIODevice::ReadOnly)) {
         this->setStyleSheet(file.readAll());
     } else {
@@ -85,7 +87,7 @@ KuGouApp::KuGouApp(MainWindow *parent)
              ui->play_or_pause_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/play.svg")));
          }
     });
-    mediaStatusConnection = connect(this->m_player.get(),&QMediaPlayer::mediaStatusChanged,this, [=](QMediaPlayer::MediaStatus status) {
+    mediaStatusConnection = connect(this->m_player.get(),&QMediaPlayer::mediaStatusChanged,this, [=](const QMediaPlayer::MediaStatus& status) {
         if (status == QMediaPlayer::EndOfMedia) {
             if(this->m_isOrderPlay) {
                 //qDebug()<<"结束，开始播放下一首";
@@ -302,10 +304,17 @@ void KuGouApp::paintEvent(QPaintEvent *ev) {
 
 void KuGouApp::resizeEvent(QResizeEvent *event) {
     QWidget::resizeEvent(event);
+    //角标移动
     this->m_sizeGrip->move(this->width() - this->m_sizeGrip->width() - 3,
                            this->height() - this->m_sizeGrip->height() - 3);
     this->m_sizeGrip->raise();
     this->m_sizeGrip->setVisible(true);
+    //UpWidget移动
+    this->m_upWidget->move(this->width() - this->m_upWidget->width() - 20,
+                            this->height() - this->m_upWidget->height() - 100);
+    this->m_upWidget->show();
+    this->m_upWidget->raise();
+    this->m_upWidget->setVisible(true);
 }
 
 bool KuGouApp::event(QEvent *event) {
@@ -496,10 +505,52 @@ void KuGouApp::on_close_toolButton_clicked() {
 
 void KuGouApp::on_recommend_toolButton_clicked() {
     ui->stackedWidget->setCurrentWidget(this->m_recommendForYou.get());
+    // 创建 QPropertyAnimation 对象
+    // 获取 QScrollArea 的垂直滚动条
+    QScrollBar* vScrollBar = ui->context_scrollArea->verticalScrollBar();
+
+    // 标记动画开始
+    ui->context_scrollArea->setAnimating(true);//开始禁用滚轮
+
+    auto animation = new QPropertyAnimation(vScrollBar,"value", this);
+    // 设置动画的起始值（当前滚动条位置）和结束值（最顶部）
+    animation->setStartValue(vScrollBar->value());  // 当前滚动条位置
+    animation->setEndValue(0);  // 滚动到顶部（0 表示最上方）
+    animation->setDuration(500);  // 动画持续时间，500ms
+    animation->setEasingCurve(QEasingCurve::OutBounce);  // 缓动曲线
+
+    // 在动画结束后标记动画停止
+    connect(animation, &QPropertyAnimation::finished, this, [this]() {
+        ui->context_scrollArea->setAnimating(false);//动画结束启用滚轮
+    });
+
+    // 启动动画
+    animation->start(QAbstractAnimation::DeleteWhenStopped);  // 动画结束后自动删除
 }
 
 void KuGouApp::on_local_download_toolButton_clicked() {
     ui->stackedWidget->setCurrentWidget(this->m_localDownload.get());
+    // 创建 QPropertyAnimation 对象
+    // 获取 QScrollArea 的垂直滚动条
+    QScrollBar* vScrollBar = ui->context_scrollArea->verticalScrollBar();
+
+    // 标记动画开始
+    ui->context_scrollArea->setAnimating(true);//开始禁用滚轮
+
+    auto animation = new QPropertyAnimation(vScrollBar,"value", this);
+    // 设置动画的起始值（当前滚动条位置）和结束值（最顶部）
+    animation->setStartValue(vScrollBar->value());  // 当前滚动条位置
+    animation->setEndValue(0);  // 滚动到顶部（0 表示最上方）
+    animation->setDuration(500);  // 动画持续时间，500ms
+    animation->setEasingCurve(QEasingCurve::OutQuart);  // 缓动曲线
+
+    // 在动画结束后标记动画停止
+    connect(animation, &QPropertyAnimation::finished, this, [this]() {
+        ui->context_scrollArea->setAnimating(false);//动画结束启用滚轮
+    });
+
+    // 启动动画
+    animation->start(QAbstractAnimation::DeleteWhenStopped);  // 动画结束后自动删除
 }
 
 void KuGouApp::on_play_or_pause_toolButton_clicked() {

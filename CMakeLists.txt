@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 project(KuGouApp VERSION 1.0 LANGUAGES CXX)
 
+#主窗口
 add_subdirectory(MainWindow)
 
 #自定义窗口模块
@@ -25,7 +26,7 @@ add_subdirectory(SMaskWidget)
 #涟漪模块
 add_subdirectory(RippleButton)
 
-#音量调剂模块
+#音量调节模块
 add_subdirectory(VolumeToolBtn)
 
 #滑动条模块
@@ -33,6 +34,12 @@ add_subdirectory(SliderWidget)
 
 #搜索框模块
 add_subdirectory(MySearchLineEdit)
+
+#回到顶部模块
+add_subdirectory(UpWidget)
+
+#滚动区域模块
+add_subdirectory(MyScrollArea)
 
 #开始模块
 add_subdirectory(KuGouStart)

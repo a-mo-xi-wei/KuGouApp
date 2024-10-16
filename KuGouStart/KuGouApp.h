@@ -6,6 +6,8 @@
 #include"MainWindow.h"
 #include"RecommendForYou.h"
 #include"LocalDownload.h"
+#include"UpWidget.h"
+
 
 class QMediaPlayer;
 class QAudioOutput;
@@ -106,7 +108,8 @@ private:
     std::unique_ptr<QAudioOutput> m_audioOutput{};
     std::unique_ptr<QButtonGroup> m_menuBtnGroup{};
     std::unique_ptr<QSizeGrip> m_sizeGrip{};
-    std::unique_ptr<QPropertyAnimation> m_animation{};
+    std::unique_ptr<UpWidget> m_upWidget{};
+    std::unique_ptr<QPropertyAnimation> m_animation{};  //专门用于窗口的缩放动画
     std::unique_ptr<RecommendForYou> m_recommendForYou{};
     std::unique_ptr<LocalDownload> m_localDownload{};
 
