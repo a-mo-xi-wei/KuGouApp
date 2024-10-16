@@ -678,7 +678,7 @@
        <number>0</number>
       </property>
       <property name="rightMargin">
-       <number>0</number>
+       <number>3</number>
       </property>
       <item>
        <widget class="QScrollArea" name="menu_scrollArea">
@@ -713,7 +713,7 @@
          <property name="geometry">
           <rect>
            <x>0</x>
-           <y>-39</y>
+           <y>0</y>
            <width>143</width>
            <height>592</height>
           </rect>
@@ -1258,7 +1258,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>870</width>
+           <width>867</width>
            <height>553</height>
           </rect>
          </property>

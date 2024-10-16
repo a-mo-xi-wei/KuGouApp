@@ -312,12 +312,13 @@ bool KuGouApp::event(QEvent *event) {
     if(QEvent::HoverMove == event->type())//鼠标移动
     {
         //auto ev = dynamic_cast<QMouseEvent*>(event);
-        //auto ev = static_cast<QMouseEvent*>(event);
-        auto ev = dynamic_cast<QMouseEvent*>(event);
-        if (ev) {
-            this->mouseMoveEvent(ev);
-        }
-        //this->mouseMoveEvent(ev);
+        //if (ev) {
+        //    this->mouseMoveEvent(ev);
+        //}
+
+        // 此处最好用static_cast
+        auto ev = static_cast<QMouseEvent*>(event);
+        this->mouseMoveEvent(ev);
     }
 
     return QWidget::event(event);
