@@ -7,3 +7,9 @@ Based on Qt Widget + UiTools module+ Custom control +QSS
 #### 图例
 ![输入图片说明](image-show/image1.png)
 ![输入图片说明](image-show/image2.png)
+
+#### 软件说明
+Qt版本 ：Qt6.6.2 
+编译环境 ：Mingw
+开发工具 ：CLion
+生成器 ： Ninja
