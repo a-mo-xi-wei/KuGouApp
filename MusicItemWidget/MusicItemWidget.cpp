@@ -13,13 +13,14 @@
 #include <QPainterPath>
 #include <QtMath>
 #include <QPointF>
+#include <utility>
 
 //图片大小
 #define PIX_SIZE 50
 //图片圆角
 #define PIX_RADIUS 9
 // 创建一个宏来截取 __FILE__ 宏中的目录部分
-#define GET_CURRENT_DIR (std::string(__FILE__).substr(0, std::string(__FILE__).find_last_of("/\\")))
+#define GET_CURRENT_DIR (QString(__FILE__).first(qMax(QString(__FILE__).lastIndexOf('/'), QString(__FILE__).lastIndexOf('\\'))))
 QPixmap roundedPix(const QPixmap &src, QSize size, int radius) {
     QPixmap scaled = src.scaled(size, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
     QPixmap dest(size);
@@ -34,9 +35,9 @@ QPixmap roundedPix(const QPixmap &src, QSize size, int radius) {
 
     return dest;
 }
-MusicItemWidget::MusicItemWidget(const SongInfor& infor, QWidget *parent)
+MusicItemWidget::MusicItemWidget(SongInfor  infor, QWidget *parent)
     :QFrame(parent)
-    ,m_information(infor)
+    ,m_information(std::move(infor))
     ,timer(new QTimer(this))
 {
 
@@ -63,19 +64,19 @@ MusicItemWidget::MusicItemWidget(const SongInfor& infor, QWidget *parent)
     this->m_collectToolBtn  = new QToolButton(this);
     this->m_moreToolBtn     = new QToolButton(this);
 
-    this->setObjectName("window");
-    this->m_indexLab->setObjectName("indexLab");
-    this->m_coverLab->setObjectName("coverLab");
-    this->m_nameLab->setObjectName("nameLab");
-    this->m_singerLab->setObjectName("singerLab");
-    this->m_durationLab->setObjectName("durationLab");
-    this->m_playToolBtn->setObjectName("playToolBtn");
-    this->m_playNextToolBtn->setObjectName("playNextToolBtn");
-    this->m_downloadToolBtn->setObjectName("downloadToolBtn");
-    this->m_collectToolBtn->setObjectName("collectToolBtn");
-    this->m_moreToolBtn->setObjectName("moreToolBtn");
+    this->setObjectName(QStringLiteral("window"));
+    this->m_indexLab->setObjectName(QStringLiteral("indexLab"));
+    this->m_coverLab->setObjectName(QStringLiteral("coverLab"));
+    this->m_nameLab->setObjectName(QStringLiteral("nameLab"));
+    this->m_singerLab->setObjectName(QStringLiteral("singerLab"));
+    this->m_durationLab->setObjectName(QStringLiteral("durationLab"));
+    this->m_playToolBtn->setObjectName(QStringLiteral("playToolBtn"));
+    this->m_playNextToolBtn->setObjectName(QStringLiteral("playNextToolBtn"));
+    this->m_downloadToolBtn->setObjectName(QStringLiteral("downloadToolBtn"));
+    this->m_collectToolBtn->setObjectName(QStringLiteral("collectToolBtn"));
+    this->m_moreToolBtn->setObjectName(QStringLiteral("moreToolBtn"));
     //设置样式
-    QFile file((GET_CURRENT_DIR + "/item.css").data());
+    QFile file(GET_CURRENT_DIR + QStringLiteral("/item.css"));
     if (file.open(QIODevice::ReadOnly)) {
         this->setStyleSheet(file.readAll());
     } else {
@@ -84,7 +85,7 @@ MusicItemWidget::MusicItemWidget(const SongInfor& infor, QWidget *parent)
     }
 
     timer->setInterval(timeInterval); // 设置定时器时间间隔
-    max_radius = qSqrt(width() * width() + height() * height()); // 计算最大半径
+    max_radius = static_cast<int>(qSqrt(width() * width() + height() * height())); // 计算最大半径
 
     initUi();
 
@@ -186,7 +187,7 @@ void MusicItemWidget::paintEvent(QPaintEvent *event) {
 
 void MusicItemWidget::resizeEvent(QResizeEvent *event) {
     QFrame::resizeEvent(event);
-    max_radius = qSqrt(width() * width() + height() * height()); // 重新计算最大半径
+    max_radius = static_cast<int>(qSqrt(width() * width() + height() * height())); // 重新计算最大半径
     //设置弹簧宽度
     this->m_spacerItem2->changeSize(this->width()/5,20,QSizePolicy::Fixed);
 }

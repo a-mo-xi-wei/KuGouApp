@@ -65,19 +65,19 @@ void TableWidget::resizeEvent(QResizeEvent *event) {
 
 void TableWidget::initUi() {
 
-    this->m_play_ToolBtn->setToolTip("开始播放");
-    this->m_adjust_ToolBtn->setToolTip("隐藏栏目");
-    this->m_refresh_ToolBtn->setToolTip("刷新");
+    this->m_play_ToolBtn->setToolTip(QStringLiteral("开始播放"));
+    this->m_adjust_ToolBtn->setToolTip(QStringLiteral("隐藏栏目"));
+    this->m_refresh_ToolBtn->setToolTip(QStringLiteral("刷新"));
 
     this->m_play_ToolBtn->setCursor(Qt::PointingHandCursor);
     this->m_adjust_ToolBtn->setCursor(Qt::PointingHandCursor);
     this->m_refresh_ToolBtn->setCursor(Qt::PointingHandCursor);
 
-    this->m_titleLab->setObjectName("titleLab");
-    this->m_play_ToolBtn->setObjectName("play_ToolBtn");
-    this->m_adjust_ToolBtn->setObjectName("adjust_ToolBtn");
-    this->m_refresh_ToolBtn->setObjectName("refresh_ToolBtn");
-    this->m_more_Lab->setObjectName("moreLab");
+    this->m_titleLab->setObjectName(QStringLiteral("titleLab"));
+    this->m_play_ToolBtn->setObjectName(QStringLiteral("play_ToolBtn"));
+    this->m_adjust_ToolBtn->setObjectName(QStringLiteral("adjust_ToolBtn"));
+    this->m_refresh_ToolBtn->setObjectName(QStringLiteral("refresh_ToolBtn"));
+    this->m_more_Lab->setObjectName(QStringLiteral("moreLab"));
 
     this->m_play_ToolBtn->setIconSize(QSize(20, 20));
 
@@ -102,13 +102,13 @@ void TableWidget::initUi() {
     line1->hide();
     line1->setScaledContents(true);
     line1->setFixedSize(20, 15);
-    line1->setPixmap(QPixmap(":/Res/tabIcon/line-gray.svg"));
+    line1->setPixmap(QPixmap(QStringLiteral(":/Res/tabIcon/line-gray.svg")));
     m_tabHLayout->addWidget(line1);
     m_tabHLayout->addWidget(this->m_refresh_ToolBtn);
-    QLabel *line2 = new QLabel(this);
+    const auto line2 = new QLabel(this);
     line2->setScaledContents(true);
     line2->setFixedSize(20, 15);
-    line2->setPixmap(QPixmap(":/Res/tabIcon/line-gray.svg"));
+    line2->setPixmap(QPixmap(QStringLiteral(":/Res/tabIcon/line-gray.svg")));
     m_tabHLayout->addWidget(line2);
     m_tabHLayout->addWidget(this->m_more_Lab);
 
@@ -116,7 +116,7 @@ void TableWidget::initUi() {
         initItemListWidget();
     } else if (this->m_kindList == KIND::BlockList) {
         this->m_play_ToolBtn->hide();
-        this->m_more_Lab->setText("歌单广场 >");
+        this->m_more_Lab->setText(QStringLiteral("歌单广场 >"));
         initBlockListWidget();
     }
 }
@@ -138,7 +138,7 @@ void TableWidget::initBlockListWidget() {
             this->m_gridLayout->itemAtPosition(i, j)->widget()->show();
         }
     }
-    QVBoxLayout *vlayout = new QVBoxLayout(this);
+    auto vlayout = new QVBoxLayout(this);
     vlayout->addLayout(m_tabHLayout.get());
     vlayout->addWidget(this->m_gridContainer.get());
 }
@@ -147,13 +147,13 @@ void TableWidget::initItemListWidget() {
     this->m_gridLayout->setSpacing(10);
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
-            QString pixPath = QString(":///Res/tabIcon/music-cover.jpg");
-            auto item = new ItemListWidget(QPixmap(pixPath), "歌曲名字", "作者", this);
+            auto pixPath = QStringLiteral(":///Res/tabIcon/music-cover.jpg");
+            auto item = new ItemListWidget(QPixmap(pixPath), QStringLiteral("歌曲名字"), "作者", this);
             this->m_gridLayout->addWidget(item, i, j);
         }
     }
 
-    QVBoxLayout *vlayout = new QVBoxLayout(this);
+    auto vlayout = new QVBoxLayout(this);
     vlayout->addLayout(m_tabHLayout.get());
     vlayout->addLayout(this->m_gridLayout.get());
 }
@@ -311,12 +311,12 @@ void ItemListWidget::initUi() {
     this->m_like_ToolBtn->setCursor(Qt::PointingHandCursor);
     this->m_more_ToolBtn->setCursor(Qt::PointingHandCursor);
 
-    this->m_coverLab->setObjectName("coverLab");
-    this->m_nameLab->setObjectName("nameLab");
-    this->m_authorLab->setObjectName("authorLab");
-    this->m_play_add_ToolBtn->setObjectName("play_add_ToolBtn");
-    this->m_like_ToolBtn->setObjectName("like_ToolBtn");
-    this->m_more_ToolBtn->setObjectName("more_ToolBtn");
+    this->m_coverLab->setObjectName(QStringLiteral("coverLab"));
+    this->m_nameLab->setObjectName(QStringLiteral("nameLab"));
+    this->m_authorLab->setObjectName(QStringLiteral("authorLab"));
+    this->m_play_add_ToolBtn->setObjectName(QStringLiteral("play_add_ToolBtn"));
+    this->m_like_ToolBtn->setObjectName(QStringLiteral("like_ToolBtn"));
+    this->m_more_ToolBtn->setObjectName(QStringLiteral("more_ToolBtn"));
 
 
     this->m_play_add_ToolBtn->setStyleSheet(
@@ -349,7 +349,13 @@ void ItemListWidget::onHide() {
 }
 
 #define FontHeight 25
-std::vector<QString> tipArr = {"日语", "国语", "流行", "兴奋", "英语", "古风", "韩语", "寂寞", "运动", "说唱", "校园", "经典"};
+std::vector<QString> tipArr =
+    {QStringLiteral("日语"),QStringLiteral("经典"),
+    QStringLiteral("国语"), QStringLiteral("流行"),
+    QStringLiteral("兴奋"), QStringLiteral("英语"),
+    QStringLiteral("古风"), QStringLiteral("韩语"),
+    QStringLiteral("寂寞"), QStringLiteral("运动"),
+    QStringLiteral("说唱"), QStringLiteral("校园") };
 
 ItemBlockWidget::ItemBlockWidget(const QString &path, QWidget *parent)
     : QWidget(parent)
@@ -389,7 +395,7 @@ void ItemBlockWidget::paintEvent(QPaintEvent *ev) {
     if (this->m_isHoverCoverLab) {
         this->m_mask->show();
         this->m_mask->raise();
-        this->m_popularBtn->setStyleSheet("color:white;border-radius:10px;background-color: rgba(60,60,60, 127);");
+        this->m_popularBtn->setStyleSheet(QStringLiteral("color:white;border-radius:10px;background-color: rgba(60,60,60, 127);"));
     } else {
         this->m_mask->hide();
     }
@@ -427,29 +433,29 @@ void ItemBlockWidget::resizeEvent(QResizeEvent *event) {
 
 void ItemBlockWidget::initUi() {
     this->setCursor(Qt::PointingHandCursor);
-    this->m_describeLab->setObjectName("describeLab");
-    this->m_tipLab->setObjectName("tipLab");
-    this->m_popularBtn->setObjectName("popularLab");
+    this->m_describeLab->setObjectName(QStringLiteral("describeLab"));
+    this->m_tipLab->setObjectName(QStringLiteral("tipLab"));
+    this->m_popularBtn->setObjectName(QStringLiteral("popularLab"));
 
     this->m_tipLab->setFixedSize(50, 20);
     this->setTipLabText(tipArr[QRandomGenerator::global()->bounded(0, static_cast<int>(tipArr.size()))]);
     this->m_tipLab->setAlignment(Qt::AlignCenter);
-    this->m_tipLab->setStyleSheet("border-radius:10px;background-color:black;color:white;");
+    this->m_tipLab->setStyleSheet(QStringLiteral("border-radius:10px;background-color:black;color:white;"));
     this->m_tipLab->move(10, 10);
 
     this->m_popularBtn->setFixedSize(70, 20);
-    this->m_popularBtn->setIcon(QIcon("://Res/tabIcon/popular-white.svg"));
+    this->m_popularBtn->setIcon(QIcon(QStringLiteral("://Res/tabIcon/popular-white.svg")));
     this->setPopularBtnText(QString::number(QRandomGenerator::global()->generateDouble() * 1000, 'f', 1));
     this->m_popularBtn->setContentsMargins(5, 0, 5, 0);
     this->m_popularBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    this->m_popularBtn->setStyleSheet("color:white;border-radius:10px;background-color: rgba(128, 128, 128, 127);");
+    this->m_popularBtn->setStyleSheet(QStringLiteral("color:white;border-radius:10px;background-color: rgba(128, 128, 128, 127);"));
     //this->m_popularBtn->move(this->width()-this->m_popularBtn->height()-10,this->m_bacWidget->height()-this->m_popularBtn->height()-10);
     //qDebug()<<"this->m_bacWidget->width() : "<<this->m_bacWidget->width()<<"\nthis->width() : "<<this->width();
 
-    this->m_describeLab->setText("游戏主播常用音乐");
+    this->m_describeLab->setText(QStringLiteral("游戏主播常用音乐"));
     this->m_describeLab->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
-    QVBoxLayout *vlayout = new QVBoxLayout(this);
+    auto vlayout = new QVBoxLayout(this);
     vlayout->setContentsMargins(0, 0, 0, 0);
     vlayout->addWidget(this->m_bacWidget);
     vlayout->addWidget(this->m_describeLab);

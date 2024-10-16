@@ -18,7 +18,7 @@
 #include<QRegularExpression>
 
 // 创建一个宏来截取 __FILE__ 宏中的目录部分
-#define GET_CURRENT_DIR (std::string(__FILE__).substr(0, std::string(__FILE__).find_last_of("/\\")))
+#define GET_CURRENT_DIR (QString(__FILE__).first(qMax(QString(__FILE__).lastIndexOf('/'), QString(__FILE__).lastIndexOf('\\'))))
 //匹配是否有乱码
 static QRegularExpression re(QStringLiteral("^[A-Za-z0-9\\p{Han}\\\\/\\-_\\*]+$"));
 
@@ -30,7 +30,7 @@ LocalDownload::LocalDownload(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QFile file((GET_CURRENT_DIR + "/local.css").data());
+    QFile file(GET_CURRENT_DIR + QStringLiteral("/local.css"));
     if (file.open(QIODevice::ReadOnly)) {
         this->setStyleSheet(file.readAll());
     } else {

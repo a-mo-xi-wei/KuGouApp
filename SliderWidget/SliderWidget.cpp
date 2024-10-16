@@ -15,26 +15,26 @@ const int SliderWidget::getValue() const {
 void SliderWidget::mousePressEvent(QMouseEvent *event) {
     if(orientation() == Qt::Horizontal) {
         // 获取鼠标点击相对于滑动条的位置
-        int pos = event->position().x();
+        const auto pos = event->position().x();
         // 获取滑动条的可用长度 (即滑块可以滑动的范围)
-        int sliderLength = this->width();
+        const auto sliderLength = this->width();
         // 计算点击位置相对于整个滑动条的百分比
-        double percentage = static_cast<double>(pos) / sliderLength;
+        const auto percentage = static_cast<double>(pos) / sliderLength;
         // 根据百分比计算出滑动条的新值
-        this->m_currentValue = this->m_minValue + percentage * (this->m_maxValue - this->m_minValue);
+        this->m_currentValue = this->m_minValue + static_cast<int>(percentage * (this->m_maxValue - this->m_minValue));
         qDebug()<<"水平 "<< this->m_currentValue << " percentage "<<percentage;
         // 设置滑动条的新值
         this->setValue(this->m_currentValue);
     }else {
         //qDebug()<<"垂直";
-        int pos = event->position().y();
+        const auto pos = event->position().y();
         // 获取滑动条的可用长度 (即滑块可以滑动的范围)
-        int sliderLength = this->height();
+        const auto sliderLength = this->height();
         // 计算点击位置相对于整个滑动条的百分比
         double percentage = static_cast<double>(pos) / sliderLength;
         percentage = 1 - percentage;
         // 根据百分比计算出滑动条的新值
-        this->m_currentValue = this->m_minValue + percentage * (this->m_maxValue - this->m_minValue);
+        this->m_currentValue = this->m_minValue + static_cast<int>(percentage * (this->m_maxValue - this->m_minValue));
         // 设置滑动条的新值
         this->setValue(this->m_currentValue);
         emit noVolume(this->m_currentValue == 0);
@@ -49,14 +49,14 @@ void SliderWidget::mouseMoveEvent(QMouseEvent *event) {
     //qDebug()<<"垂直";
     if(this->m_isPressing) {
         // 获取鼠标移动相对于滑动条的位置
-        int pos = event->position().y();
+        const auto pos = event->position().y();
         // 获取滑动条的可用长度
-        int sliderLength = this->height();
+        const auto sliderLength = this->height();
         // 将鼠标位置转换为滑动条值
         double percentage = static_cast<double>(pos) / sliderLength;
         percentage = 1 - percentage;
         // 根据百分比计算出滑动条的新值
-        this->m_currentValue = this->m_minValue + percentage * (this->m_maxValue - this->m_minValue);
+        this->m_currentValue = this->m_minValue + static_cast<int>(percentage * (this->m_maxValue - this->m_minValue));
         // 设置滑动条的新值
         this->m_currentValue = this->m_currentValue >= 0 ? this->m_currentValue : 0;
         this->setValue(this->m_currentValue);

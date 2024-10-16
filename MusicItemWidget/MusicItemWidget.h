@@ -29,7 +29,7 @@ class MusicItemWidget : public QFrame
 {
     Q_OBJECT
 public:
-    explicit MusicItemWidget(const SongInfor&info, QWidget *parent = nullptr);
+    explicit MusicItemWidget(SongInfor info, QWidget *parent = nullptr);
 
     void setInterval(const int& timeinterval); // 设置定时器时间间隔，控制填充速度
 

@@ -22,11 +22,11 @@ VolumeToolBtn::VolumeToolBtn(QWidget *parent)
     connect(this, &QToolButton::clicked, this, [this] {
         m_isNoVolume = !m_isNoVolume;
         if (m_isNoVolume) {
-            this->setIcon(QIcon(":/Res/playbar/volume-off-blue.svg"));
+            this->setIcon(QIcon(QStringLiteral(":/Res/playbar/volume-off-blue.svg")));
             emit m_volumeWidget->noVolume(true);
         }
         else {
-            this->setIcon(QIcon(":/Res/playbar/volume-on-blue.svg"));
+            this->setIcon(QIcon(QStringLiteral(":/Res/playbar/volume-on-blue.svg")));
             emit m_volumeWidget->noVolume(false);
         }
     });
@@ -51,12 +51,12 @@ void VolumeToolBtn::initVolumeWidget() {
     this->m_volumeSlider->setFixedHeight(135);
     this->m_volumeSlider->setMaximum(100);
     this->m_volumeSlider->setValue(20);
-    this->m_volumeSlider->setToolTip("调节音量");
+    this->m_volumeSlider->setToolTip(QStringLiteral("调节音量"));
     this->m_volumeSlider->setContentsMargins(0,0,0,0);
     this->m_volumeLab->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
     this->m_volumeLab->setContentsMargins(0,0,0,0);
     this->m_volumeLab->setText(QString::number(this->m_volumeSlider->getValue()) + "%");
-    auto *hBoxLayout = new QHBoxLayout;
+    auto hBoxLayout = new QHBoxLayout;
     hBoxLayout->setAlignment(Qt::AlignCenter);
     hBoxLayout->setContentsMargins(0, 0, 0, 0);
     hBoxLayout->setSpacing(0);
@@ -69,8 +69,8 @@ void VolumeToolBtn::initVolumeWidget() {
 }
 
 void VolumeToolBtn::initUi() {
-    this->setStyleSheet("border:none;");
-    this->setIcon(QIcon(":/Res/playbar/volume-on-gray.svg"));
+    this->setStyleSheet(QStringLiteral("border:none;"));
+    this->setIcon(QIcon(QStringLiteral(":/Res/playbar/volume-on-gray.svg")));
     initVolumeWidget();
 }
 
@@ -103,8 +103,8 @@ void VolumeToolBtn::getVolumeWidgetPosition() {
 
 void VolumeToolBtn::enterEvent(QEnterEvent *event) {
     QToolButton::enterEvent(event);
-    if (m_isNoVolume)this->setIcon(QIcon(":/Res/playbar/volume-off-blue.svg"));
-    else this->setIcon(QIcon(":/Res/playbar/volume-on-blue.svg"));
+    if (m_isNoVolume)this->setIcon(QIcon(QStringLiteral(":/Res/playbar/volume-off-blue.svg")));
+    else this->setIcon(QIcon(QStringLiteral(":/Res/playbar/volume-on-blue.svg")));
     getVolumeWidgetPosition();
     this->m_volumeWidget->move(this->m_volumePosition);
     this->m_volumeWidget->show();
@@ -120,8 +120,8 @@ void VolumeToolBtn::enterEvent(QEnterEvent *event) {
 
 void VolumeToolBtn::leaveEvent(QEvent *event) {
     QToolButton::leaveEvent(event);
-    if (m_isNoVolume)this->setIcon(QIcon(":/Res/playbar/volume-off-gray.svg"));
-    else this->setIcon(QIcon(":/Res/playbar/volume-on-gray.svg"));
+    if (m_isNoVolume)this->setIcon(QIcon(QStringLiteral(":/Res/playbar/volume-off-gray.svg")));
+    else this->setIcon(QIcon(QStringLiteral(":/Res/playbar/volume-on-gray.svg")));
     // 鼠标离开时启动1秒的延迟定时器
     m_leaveTimer->start(500);
     // 启动定时器开始检查鼠标位置
@@ -140,14 +140,14 @@ void VolumeToolBtn::onNoVolume(bool flag) {
 
         if(!this->m_isNoVolume) {
             this->m_isNoVolume = true;
-            this->setIcon(QIcon(":/Res/playbar/volume-off-gray.svg"));
+            this->setIcon(QIcon(QStringLiteral(":/Res/playbar/volume-off-gray.svg")));
         }
     }
     else {
         //有声音
         if(this->m_isNoVolume) {//之前无声
             this->m_isNoVolume = false;
-            this->setIcon(QIcon(":/Res/playbar/volume-on-gray.svg"));
+            this->setIcon(QIcon(QStringLiteral(":/Res/playbar/volume-on-gray.svg")));
         }
     }
 }

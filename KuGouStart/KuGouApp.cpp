@@ -507,10 +507,10 @@ void KuGouApp::on_play_or_pause_toolButton_clicked() {
     this->m_isPlaying = !this->m_isPlaying;
     if (this->m_isPlaying) {
         this->m_player->play();
-        ui->play_or_pause_toolButton->setIcon(QIcon("://Res/playbar/pause.svg"));
+        ui->play_or_pause_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/pause.svg")));
     } else {
         this->m_player->pause();
-        ui->play_or_pause_toolButton->setIcon(QIcon("://Res/playbar/play.svg"));
+        ui->play_or_pause_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/play.svg")));
     }
 }
 

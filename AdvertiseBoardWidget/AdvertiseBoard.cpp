@@ -6,8 +6,8 @@
 #include<QPainterPath>
 #include<QMouseEvent>
 
-static const int G_Radius = 5;  //圆球半径
-static const int G_Space = 2 * G_Radius;   //圆球之间的间隔
+static constexpr int G_Radius = 5;  //圆球半径
+static constexpr int G_Space = 2 * G_Radius;   //圆球之间的间隔
 static int posterIndex = 0;
 
 AdvertiseBoard::AdvertiseBoard(QWidget *parent)
@@ -17,14 +17,14 @@ AdvertiseBoard::AdvertiseBoard(QWidget *parent)
     ,m_timer(new QTimer(this))
 {
 
-    connect(this->m_timer,&QTimer::timeout,this,[this]{posterIndex = (++posterIndex) % this->m_posters.size();update();});
+    connect(this->m_timer,&QTimer::timeout,this,[this]{posterIndex = (++posterIndex) % static_cast<int>(this->m_posters.size());update();});
     this->m_timer->start(3000);
 
     this->m_leftLab->setObjectName("leftLab");
     this->m_rightLab->setObjectName("rightLab");
 
-    this->m_leftLab->setPixmap(QPixmap("://Res/window/left.svg"));
-    this->m_rightLab->setPixmap(QPixmap("://Res/window/right.svg"));
+    this->m_leftLab->setPixmap(QPixmap(QStringLiteral("://Res/window/left.svg")));
+    this->m_rightLab->setPixmap(QPixmap(QStringLiteral("://Res/window/right.svg")));
 
     this->m_leftLab->hide();
     this->m_rightLab->hide();
@@ -38,23 +38,23 @@ AdvertiseBoard::AdvertiseBoard(QWidget *parent)
     this->m_leftLab->setAlignment(Qt::AlignCenter);
     this->m_rightLab->setAlignment(Qt::AlignCenter);
 
-    connect(this->m_leftLab, &MyLLabel::clicked, [this] {posterIndex = (posterIndex - 1 + this->m_posters.size()) % this->m_posters.size(); this->update(); });
-    connect(this->m_rightLab, &MyRLabel::clicked, [this] {posterIndex = (posterIndex + 1) % this->m_posters.size(); this->update(); });
+    connect(this->m_leftLab, &MyLLabel::clicked, [this] {posterIndex = (posterIndex - 1 + static_cast<int>(this->m_posters.size())) % static_cast<int>(this->m_posters.size()); this->update(); });
+    connect(this->m_rightLab, &MyRLabel::clicked, [this] {posterIndex = (posterIndex + 1) % static_cast<int>(this->m_posters.size()); this->update(); });
 
     updateLabPosition();
 }
 
 AdvertiseBoard::~AdvertiseBoard()
 {
-    for(auto& pix : this->m_posters){
-        if(pix)delete pix;
+    for(const auto& pix : this->m_posters){
+        delete pix;
     }
     this->m_posters.clear();
 }
 
 void AdvertiseBoard::addPoster(const QPixmap &posterPix)
 {
-    QPixmap* pix = new QPixmap(posterPix);
+    const auto pix = new QPixmap(posterPix);
     this->m_posters.append(pix);
 }
 
@@ -74,7 +74,7 @@ void AdvertiseBoard::paintEvent(QPaintEvent *ev)
     painter.setRenderHint(QPainter::Antialiasing,true);
     if(this->m_posters.isEmpty())return;
 
-    QPixmap img = this->m_posters[posterIndex]->scaled(this->size(),Qt::KeepAspectRatio);
+    const QPixmap img = this->m_posters[posterIndex]->scaled(this->size(),Qt::KeepAspectRatio);
     //将图片变成圆角
     QPainterPath path;
     path.addRoundedRect(this->rect(),10,10);
@@ -84,7 +84,7 @@ void AdvertiseBoard::paintEvent(QPaintEvent *ev)
     painter.drawPixmap(this->rect(),img);
 
     //绘制广告播放进度
-    auto s = this->m_posters.size();
+    const auto s = static_cast<int>(this->m_posters.size());
     auto drawStartPos = QPoint((this->width() - (s-1) * (G_Radius * 2 + G_Space)) / 2,this->height() - 10);
     for(auto i = 0 ; i < this->m_posters.size() ; ++i){
         if(i == posterIndex)

@@ -17,8 +17,8 @@ GLTabWidget::GLTabWidget(QWidget *parent)
 
 void GLTabWidget::initUi()
 {
-    this->m_glLab           = new QLabel("猜你喜欢",this);
-    this->m_songNameLab     = new QLabel("歌曲名称",this);
+    this->m_glLab           = new QLabel(QStringLiteral("猜你喜欢"),this);
+    this->m_songNameLab     = new QLabel(QStringLiteral("歌曲名称"),this);
     this->m_playToolBtn     = new QToolButton(this);
     this->m_nextToolBtn     = new QToolButton(this);
     this->m_likeToolBtn     = new QToolButton(this);
@@ -37,7 +37,7 @@ void GLTabWidget::initUi()
     this->m_likeToolBtn->setCursor(Qt::CursorShape::PointingHandCursor);
     this->m_dislikeToolBtn->setCursor(Qt::CursorShape::PointingHandCursor);
 
-    this->setStyleSheet("background-color:rgba(255,255,255,0);");
+    this->setStyleSheet(QStringLiteral("background-color:rgba(255,255,255,0);"));
 
 }
 
@@ -60,17 +60,17 @@ void GLTabWidget::resizeEvent(QResizeEvent *event)
 
 void GLTabWidget::layoutUi()
 {
-    QHBoxLayout* hLayout1 = new QHBoxLayout();
+    const auto hLayout1 = new QHBoxLayout;
     hLayout1->addSpacerItem(new QSpacerItem(20,40,QSizePolicy::Preferred,QSizePolicy::Preferred));
     hLayout1->addWidget(this->m_glLab);
     hLayout1->addSpacerItem(new QSpacerItem(20,40,QSizePolicy::Expanding,QSizePolicy::Preferred));
 
-    QHBoxLayout* hLayout2 = new QHBoxLayout();
+    const auto hLayout2 = new QHBoxLayout;
     hLayout2->addSpacerItem(new QSpacerItem(20,40,QSizePolicy::Preferred,QSizePolicy::Preferred));
     hLayout2->addWidget(this->m_songNameLab);
     hLayout2->addSpacerItem(new QSpacerItem(20,40,QSizePolicy::Expanding,QSizePolicy::Preferred));
 
-    QHBoxLayout* hLayout3 = new QHBoxLayout();
+    const auto hLayout3 = new QHBoxLayout;
     hLayout3->addSpacerItem(new QSpacerItem(20,40,QSizePolicy::Preferred,QSizePolicy::Preferred));
     hLayout3->addWidget(this->m_playToolBtn);
     hLayout3->addWidget(this->m_nextToolBtn);
@@ -78,7 +78,7 @@ void GLTabWidget::layoutUi()
     hLayout3->addWidget(this->m_dislikeToolBtn);
     hLayout3->addSpacerItem(new QSpacerItem(20,40,QSizePolicy::Expanding,QSizePolicy::Preferred));
 
-    QVBoxLayout* vLayout = new QVBoxLayout(this);
+    const auto vLayout = new QVBoxLayout(this);
     vLayout->addSpacerItem(new QSpacerItem(40,20, QSizePolicy::Expanding));
     vLayout->addLayout(hLayout1);
     vLayout->addLayout(hLayout2);

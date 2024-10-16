@@ -22,8 +22,8 @@ void TitleWidget::paintEvent(QPaintEvent *ev) {
     p.setPen(Qt::NoPen);
     // 创建一个线性渐变
     QLinearGradient gradient(rect().topLeft(), rect().bottomLeft());
-    gradient.setColorAt(0, QColor("#87CEFA")); // 起始颜色
-    gradient.setColorAt(1, QColor("#eef2ff")); // 结束颜色
+    gradient.setColorAt(0, QColor(QStringLiteral("#87CEFA"))); // 起始颜色
+    gradient.setColorAt(1, QColor(QStringLiteral("#eef2ff"))); // 结束颜色
     p.setBrush(gradient);
     p.drawRoundedRect(rect(), 8, 8);
 }

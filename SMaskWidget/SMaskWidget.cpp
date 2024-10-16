@@ -75,8 +75,8 @@ void SMaskWidget::paintEvent(QPaintEvent *event) {
 }
 void SMaskWidget::mouseMoveEvent(QMouseEvent *event) {
     QWidget::mouseMoveEvent(event);
-    auto x = static_cast<float>(event->pos().x());
-    auto y= static_cast<float>(event->pos().y());
+    const auto x = static_cast<float>(event->pos().x());
+    const auto y= static_cast<float>(event->pos().y());
     this->m_isEnter = isMouseInCircle(x,y);
     if(this->m_isEnter)this->setCursor(Qt::PointingHandCursor);
     else this->setCursor(Qt::ArrowCursor);

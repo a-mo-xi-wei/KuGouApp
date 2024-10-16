@@ -11,11 +11,11 @@
 RippleButton::RippleButton(QWidget* parent)
     : QToolButton(parent),
     timer(new QTimer(this)),
-    fill_color("#DDDDDD"),
+    fill_color(QStringLiteral("#DDDDDD")),
     m_effect(std::make_unique<QGraphicsDropShadowEffect>(this))
 {
     timer->setInterval(timeInterval); // 设置定时器时间间隔
-    max_radius = qSqrt(width() * width() + height() * height()); // 计算最大半径
+    max_radius = static_cast<int>(qSqrt(width() * width() + height() * height())); // 计算最大半径
     //设置按钮的阴影效果
     m_effect->setOffset(0, 0); //阴影的偏移量（右，下）
     m_effect->setColor(QColor(0, 0, 0)); //阴影的颜色
@@ -96,5 +96,5 @@ void RippleButton::paintEvent(QPaintEvent* event)
 void RippleButton::resizeEvent(QResizeEvent *event)
 {
     QToolButton::resizeEvent(event);
-    max_radius = qSqrt(width() * width() + height() * height()); // 重新计算最大半径
+    max_radius = static_cast<int>(qSqrt(width() * width() + height() * height())); // 重新计算最大半径
 }

@@ -11,13 +11,13 @@
 #include<QDir>
 
 // 创建一个宏来截取 __FILE__ 宏中的目录部分
-#define GET_CURRENT_DIR (std::string(__FILE__).substr(0, std::string(__FILE__).find_last_of("/\\")))
+#define GET_CURRENT_DIR (QString(__FILE__).left(qMax(QString(__FILE__).lastIndexOf('/'), QString(__FILE__).lastIndexOf('\\'))))
 
 RecommendForYou::RecommendForYou(QWidget *parent) :
     QWidget(parent), ui(new Ui::RecommendForYou) {
     ui->setupUi(this);
 
-    QFile file((GET_CURRENT_DIR + "/recommend.css").data());
+    QFile file(GET_CURRENT_DIR + QStringLiteral("/recommend.css"));
     //qDebug()<<(GET_CURRENT_DIR + "/recommend.css").data();
     if (file.open(QIODevice::ReadOnly)) {
         this->setStyleSheet(file.readAll());
@@ -45,10 +45,10 @@ void RecommendForYou::initAdvertiseBoard()
 }
 
 void RecommendForYou::initTabWidget() {
-    QVBoxLayout *layout = dynamic_cast<QVBoxLayout *>(ui->table_widget->layout());
+    const auto layout = dynamic_cast<QVBoxLayout *>(ui->table_widget->layout());
     if (!layout)return;
-    layout->insertWidget(layout->count() - 1, new TableWidget("今日专属推荐", TableWidget::KIND::BlockList,this));
-    layout->insertWidget(layout->count() - 1, new TableWidget("潮流音乐站", TableWidget::KIND::ItemList,this));
-    layout->insertWidget(layout->count() - 1, new TableWidget("热门好歌精选",TableWidget::KIND::ItemList, this));
-    layout->insertWidget(layout->count() - 1, new TableWidget("私人专属好歌",TableWidget::KIND::ItemList, this));
+    layout->insertWidget(layout->count() - 1, new TableWidget(QStringLiteral("今日专属推荐"), TableWidget::KIND::BlockList,this));
+    layout->insertWidget(layout->count() - 1, new TableWidget(QStringLiteral("潮流音乐站"), TableWidget::KIND::ItemList,this));
+    layout->insertWidget(layout->count() - 1, new TableWidget(QStringLiteral("热门好歌精选"),TableWidget::KIND::ItemList, this));
+    layout->insertWidget(layout->count() - 1, new TableWidget(QStringLiteral("私人专属好歌"),TableWidget::KIND::ItemList, this));
 }
