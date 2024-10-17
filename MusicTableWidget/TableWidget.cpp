@@ -136,7 +136,7 @@ void TableWidget::initUi() {
 }
 
 void TableWidget::initBlockCover() {
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 7; ++j) {
             this->m_blockCoverPaths.emplace_back(QString(":/Res/tabIcon/music-block-cover%1.jpg").arg(i * 7 + j + 1));
         }
@@ -153,7 +153,7 @@ void TableWidget::shuffleBlockCover() {
 
 void TableWidget::initListCover() {
     for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < 3; ++j) {
+        for (int j = 0; j < 6; ++j) {
             this->m_listCoverPaths.emplace_back(QString(":/Res/tabIcon/music-list-cover%1.jpg").arg(i * 3 + j + 1));
         }
     }
@@ -444,7 +444,7 @@ ItemListWidget::ItemListWidget(QPixmap coverPix, const QString &name, const QStr
 }
 
 void ItemListWidget::setNameText(QString name) {
-    const QFont font("楷体",this->m_coverLab->height()/4+1);
+    const QFont font("楷体",this->m_coverLab->height()/4);
     // 应用字体到标签
     this->m_nameLab->setFont(font);
     //设置字体测量工具
@@ -458,7 +458,7 @@ void ItemListWidget::setNameText(QString name) {
 
 void ItemListWidget::setAuthorText(QString author) {
     //qDebug()<<"font size : "<<this->m_coverLab->height()/4;
-    const QFont font(QStringLiteral("楷体"),this->m_coverLab->height()/4-1);
+    const QFont font(QStringLiteral("楷体"),this->m_coverLab->height()/4-2);
     // 应用字体到标签
     this->m_authorLab->setFont(font);
     //设置字体测量工具
@@ -605,7 +605,7 @@ void ItemBlockWidget::setPopularBtnText(const QString &text) {
 }
 
 void ItemBlockWidget::setDescribeText(QString desc) {
-    const QFont font(QStringLiteral("楷体"),DescribeLabHeight-15);
+    const QFont font(QStringLiteral("楷体"),DescribeLabHeight-14);
     // 应用字体到标签
     this->m_describeLab->setFont(font);
     //设置字体测量工具
