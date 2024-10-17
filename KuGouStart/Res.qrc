@@ -82,7 +82,21 @@
         <file>Res/tabIcon/music-block-cover11.jpg</file>
         <file>Res/tabIcon/music-block-cover12.jpg</file>
         <file>Res/tabIcon/music-block-cover13.jpg</file>
-        <file>Res/tabIcon/music-block-cover14.jpg</file>
+        <file>Res/tabIcon/music-block-cover14.jpg</file><file>Res/tabIcon/music-block-cover10.jpg</file>
+        <file>Res/tabIcon/music-block-cover15.jpg</file>
+        <file>Res/tabIcon/music-block-cover16.jpg</file>
+        <file>Res/tabIcon/music-block-cover17.jpg</file>
+        <file>Res/tabIcon/music-block-cover18.jpg</file>
+        <file>Res/tabIcon/music-block-cover19.jpg</file>
+        <file>Res/tabIcon/music-block-cover20.jpg</file>
+        <file>Res/tabIcon/music-block-cover21.jpg</file>
+        <file>Res/tabIcon/music-block-cover22.jpg</file>
+        <file>Res/tabIcon/music-block-cover23.jpg</file>
+        <file>Res/tabIcon/music-block-cover24.jpg</file>
+        <file>Res/tabIcon/music-block-cover25.jpg</file>
+        <file>Res/tabIcon/music-block-cover26.jpg</file>
+        <file>Res/tabIcon/music-block-cover27.jpg</file>
+        <file>Res/tabIcon/music-block-cover28.jpg</file>
         <file>Res/tabIcon/music-list-cover1.jpg</file>
         <file>Res/tabIcon/music-list-cover2.jpg</file>
         <file>Res/tabIcon/music-list-cover3.jpg</file>
@@ -92,6 +106,15 @@
         <file>Res/tabIcon/music-list-cover7.jpg</file>
         <file>Res/tabIcon/music-list-cover8.jpg</file>
         <file>Res/tabIcon/music-list-cover9.jpg</file>
+        <file>Res/tabIcon/music-list-cover10.jpg</file>
+        <file>Res/tabIcon/music-list-cover11.jpg</file>
+        <file>Res/tabIcon/music-list-cover12.jpg</file>
+        <file>Res/tabIcon/music-list-cover13.jpg</file>
+        <file>Res/tabIcon/music-list-cover14.jpg</file>
+        <file>Res/tabIcon/music-list-cover15.jpg</file>
+        <file>Res/tabIcon/music-list-cover16.jpg</file>
+        <file>Res/tabIcon/music-list-cover17.jpg</file>
+        <file>Res/tabIcon/music-list-cover18.jpg</file>
         <file>Res/titlebar/close-black.svg</file>
         <file>Res/titlebar/close-blue.svg</file>
         <file>Res/titlebar/h-line.png</file>
