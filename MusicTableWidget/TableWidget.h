@@ -4,6 +4,7 @@
 #include<QHBoxLayout>
 #include<QGridLayout>
 #include<memory>
+
 #include"SMaskWidget.h"
 
 class QLabel;
@@ -13,7 +14,7 @@ class QEnterEvent;
 class QEvent;
 class QLine;
 class ItemBlockWidget;
-
+class QTimer;
 
 class TableWidget : public QWidget
 {
@@ -35,8 +36,12 @@ private:
     void initBlockCover();
     //打乱BlockCover
     void shuffleBlockCover();
+    //初始化ListCover
+    void initListCover();
+    //打乱ListCover
+    void shuffleListCover();
     //1.大图标TabWidget
-    void initBlockListWidget();
+    void initItemBlockWidget();
     //2.小图标TabListWidget
     void initItemListWidget();
 
@@ -48,6 +53,7 @@ signals:
 public slots:
     void onGridChange(int len);
     void onRefreshBtnClicked();
+    void onRefreshTimeout();
 private:
     std::unique_ptr<QHBoxLayout>m_tabHLayout;
     std::unique_ptr<QGridLayout>m_gridLayout;
@@ -62,9 +68,12 @@ private:
     int m_showCol = 5;
     //存储图片
     QVector<QString>m_blockCoverPaths;
+    QVector<QString>m_listCoverPaths;
     //隐藏列数
     bool m_hide_col_6 = true;
     bool m_hide_col_7 = true;
+    //设置定时器，防止刷新次数太多，导致显示问题
+    QTimer* m_refreshTimer;
 };
 
 class ItemBlockWidget : public QWidget{
