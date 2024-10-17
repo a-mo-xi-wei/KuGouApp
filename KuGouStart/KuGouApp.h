@@ -89,6 +89,10 @@ private slots:
 
     void on_circle_toolButton_clicked();
 
+    void on_pre_toolButton_clicked();
+
+    void on_next_toolButton_clicked();
+
 public slots:
     void setPlayMusic(const int &index);
 

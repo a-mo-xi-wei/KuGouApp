@@ -44,7 +44,6 @@ KuGouApp::KuGouApp(MainWindow *parent)
       , m_recommendForYou(std::make_unique<RecommendForYou>(this))
       , m_localDownload(std::make_unique<LocalDownload>(this))
       , m_scrollBarTimer(new QTimer(this))
-
 {
     ui->setupUi(this);
     QFile file(QStringLiteral("://Res/styles/original.css"));
@@ -112,10 +111,12 @@ KuGouApp::KuGouApp(MainWindow *parent)
 
     connect(this->m_upBtn.get(),&QToolButton::clicked,this,&KuGouApp::onUpBtnClicked);
 
-    //专门处理透明度
+    //专门处理upBtn
     this->m_vScrollBar = ui->context_scrollArea->verticalScrollBar();
     connect(this->m_vScrollBar,&QScrollBar::valueChanged,this,&KuGouApp::onScrollBarValueChanged);
     connect(this->m_scrollBarTimer,&QTimer::timeout,this,&KuGouApp::onUpBtnShowOrNot);
+
+
     ui->progressSlider->installEventFilter(this);
 }
 
@@ -620,6 +621,18 @@ void KuGouApp::on_circle_toolButton_clicked() {
         ui->circle_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/list-loop-gray.svg');}
                                             QToolButton:hover{border-image:url('://Res/playbar/list-loop-blue.svg');})");
     }
+}
+
+void KuGouApp::on_pre_toolButton_clicked() {
+    if(this->m_player->source().isEmpty()) return;
+    this->m_songIndex = (this->m_songIndex +  static_cast<int>(this->m_songInfoVector.size())-1) % static_cast<int>(this->m_songInfoVector.size());;
+    setPlayMusic(this->m_songIndex);
+}
+
+void KuGouApp::on_next_toolButton_clicked() {
+    if(this->m_player->source().isEmpty()) return;
+    this->m_songIndex =  (this->m_songIndex + 1)% static_cast<int>(this->m_songInfoVector.size());
+    setPlayMusic(this->m_songIndex);
 }
 
 
