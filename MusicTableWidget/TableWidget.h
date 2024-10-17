@@ -40,6 +40,12 @@ private:
     void initListCover();
     //打乱ListCover
     void shuffleListCover();
+
+    //初始化歌曲名和歌手
+    void initSongInfo();
+    //初始化描述文字
+    void initDescVector();
+
     //1.大图标TabWidget
     void initItemBlockWidget();
     //2.小图标TabListWidget
@@ -66,9 +72,14 @@ private:
     QToolButton* m_refresh_ToolBtn{};
     QLabel* m_more_Lab{};
     int m_showCol = 5;
+
     //存储图片
     QVector<QString>m_blockCoverPaths;
     QVector<QString>m_listCoverPaths;
+    QVector<QString>m_descVector;
+
+    //存储歌曲名与歌手
+    QVector<QPair<QString,QString>>m_songInfo;
     //隐藏列数
     bool m_hide_col_6 = true;
     bool m_hide_col_7 = true;
@@ -79,14 +90,21 @@ private:
 class ItemBlockWidget : public QWidget{
     Q_OBJECT
 public:
-    ItemBlockWidget(const QString& path,QWidget* parent = nullptr);
+    ItemBlockWidget(const QString& path,const QString& desc,QWidget* parent = nullptr);
+
     void setTipLabText(const QString& text);
+
     void setPopularBtnText(const QString& text);
+
+    void setDescribeText(QString desc);
 
 protected:
     void paintEvent(QPaintEvent* ev)override;
+
     void enterEvent(QEnterEvent* ev)override;
+
     void leaveEvent(QEvent* ev)override;
+
     void resizeEvent(QResizeEvent *event) override;
 private:
     void initUi();
@@ -98,6 +116,7 @@ private:
     QLabel* m_tipLab{};
     QToolButton* m_popularBtn{};
     bool m_isHoverCoverLab = false;
+    QString m_descText;
 };
 
 
@@ -105,6 +124,8 @@ class ItemListWidget : public QWidget{
     Q_OBJECT
 public:
     ItemListWidget(QPixmap coverPix,const QString& name,const QString& author,QWidget* parent = nullptr);
+    void setNameText(QString name);
+    void setAuthorText(QString author);
 protected:
     void paintEvent(QPaintEvent* ev)override;
     void enterEvent(QEnterEvent* ev)override;
@@ -122,6 +143,9 @@ private:
     QToolButton* m_play_add_ToolBtn{};
     QToolButton* m_like_ToolBtn{};
     QToolButton* m_more_ToolBtn{};
+
+    QString m_songName;
+    QString m_singer;
     bool m_isHoverCoverLab = false;
     int m_aspectRatio = 6;
 };
