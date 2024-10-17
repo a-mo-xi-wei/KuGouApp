@@ -111,6 +111,13 @@ public slots:
     void onScrollBarValueChanged(const int& value);
 
     void onUpBtnShowOrNot();
+
+    void onKeyPause();
+
+    void onKeyLeft();
+
+    void onKeyRight();
+
 signals:
     void setPlayIndex(const int& index);
 

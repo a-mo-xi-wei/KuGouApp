@@ -16,6 +16,7 @@
 #include<QPropertyAnimation>
 #include<QScrollBar>
 #include <QTimer>
+#include <QShortcut>
 
 QPixmap roundedPixmap(const QPixmap &src, QSize size, int radius) {
     QPixmap scaled = src.scaled(size, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
@@ -60,6 +61,11 @@ KuGouApp::KuGouApp(MainWindow *parent)
         const float volume = static_cast<float>(value) / 100; // 将值转换为0.0到1.0之间
         this->m_audioOutput->setVolume(volume); // 设置音量
     });
+
+    // 设置快捷键
+    new QShortcut(QKeySequence("Space"), this, SLOT(onKeyPause()));// 空格键暂停/播放
+    new QShortcut(QKeySequence("Right"), this, SLOT(onKeyRight()));// 右箭头快进
+    new QShortcut(QKeySequence("Left"), this, SLOT(onKeyLeft()));// 左箭头快退
 
     connect(this->m_player.get(), &QMediaPlayer::positionChanged,this, [this](int position) {
         if(ui->progressSlider->isSliderDown())return;
@@ -453,6 +459,25 @@ void KuGouApp::onUpBtnShowOrNot() {
     //qDebug()<<this->m_scrollValue;
     if(this->m_scrollValue>120)this->m_upBtn->show();
     else this->m_upBtn->hide();
+}
+
+void KuGouApp::onKeyPause() {
+    if(this->m_player->playbackState() == QMediaPlayer::PlaybackState::PlayingState) {
+        this->m_player->pause();
+    }
+    else {
+        this->m_player->play();
+    }
+}
+
+void KuGouApp::onKeyLeft() {
+    qint64 pos = this->m_player->position() - 5000;
+    this->m_player->setPosition( pos< 0 ? 0 : pos);
+}
+
+void KuGouApp::onKeyRight() {
+    qint64 pos = this->m_player->position() + 5000;
+    this->m_player->setPosition(pos > this->m_player->duration()? this->m_player->duration() : pos);
 }
 
 void KuGouApp::on_title_return_toolButton_clicked() {
