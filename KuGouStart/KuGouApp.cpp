@@ -41,11 +41,10 @@ KuGouApp::KuGouApp(MainWindow *parent)
       , m_menuBtnGroup(std::make_unique<QButtonGroup>(this))
       , m_sizeGrip(std::make_unique<QSizeGrip>(this))
       , m_upBtn(std::make_unique<UpToolButton>(this))
-      , m_animation(std::make_unique<QPropertyAnimation>(this,"geometry"))
+      , m_animation(std::make_unique<QPropertyAnimation>(this, "geometry"))
       , m_recommendForYou(std::make_unique<RecommendForYou>(this))
       , m_localDownload(std::make_unique<LocalDownload>(this))
-      , m_scrollBarTimer(new QTimer(this))
-{
+      , m_scrollBarTimer(new QTimer(this)) {
     ui->setupUi(this);
     QFile file(QStringLiteral("://Res/styles/original.css"));
     if (file.open(QIODevice::ReadOnly)) {
@@ -57,70 +56,71 @@ KuGouApp::KuGouApp(MainWindow *parent)
     initUi();
     this->m_player->setAudioOutput(this->m_audioOutput.get());
     this->m_audioOutput->setVolume(0.2);
-    connect(ui->volume_toolButton,&VolumeToolBtn::volumeChange,this,[this](const int value) {
+    connect(ui->volume_toolButton, &VolumeToolBtn::volumeChange, this, [this](const int value) {
         const float volume = static_cast<float>(value) / 100; // 将值转换为0.0到1.0之间
         this->m_audioOutput->setVolume(volume); // 设置音量
     });
 
     // 设置快捷键
-    new QShortcut(QKeySequence("Space"), this, SLOT(onKeyPause()));// 空格键暂停/播放
-    new QShortcut(QKeySequence("Right"), this, SLOT(onKeyRight()));// 右箭头快进
-    new QShortcut(QKeySequence("Left"), this, SLOT(onKeyLeft()));// 左箭头快退
+    new QShortcut(QKeySequence("Space"), this, SLOT(onKeyPause())); // 空格键暂停/播放
+    new QShortcut(QKeySequence("Right"), this, SLOT(onKeyRight())); // 右箭头快进
+    new QShortcut(QKeySequence("Left"), this, SLOT(onKeyLeft())); // 左箭头快退
 
-    connect(this->m_player.get(), &QMediaPlayer::positionChanged,this, [this](int position) {
-        if(ui->progressSlider->isSliderDown())return;
+    connect(this->m_player.get(), &QMediaPlayer::positionChanged, this, [this](int position) {
+        if (ui->progressSlider->isSliderDown())return;
         //qDebug()<<"position "<<position;
         ui->progressSlider->setValue(position);
         ui->position_label->setText(QTime::fromMSecsSinceStartOfDay(position).toString("mm:ss"));
     });
     connect(this->m_player.get(), &QMediaPlayer::durationChanged, this, &KuGouApp::updateSliderRange);
     connect(this->m_player.get(), &QMediaPlayer::metaDataChanged, this, [this] {
-        //qDebug()<<"metaDataChanged";
-        if(this->m_isOrderPlay) {
-            ui->cover_label->setPixmap(roundedPixmap(this->m_songInfoVector[this->m_orderIndex].cover,ui->cover_label->size(),8));
+        //qDebug() << "metaDataChanged";
+        if (this->m_isOrderPlay) {
+            ui->cover_label->setPixmap(roundedPixmap(this->m_songInfoVector[this->m_orderIndex].cover,
+                                                     ui->cover_label->size(), 8));
             ui->song_name_label->setText(this->m_songInfoVector[this->m_orderIndex].songName);
             ui->singer_label->setText(this->m_songInfoVector[this->m_orderIndex].signer);
-        }
-        else {
-            ui->cover_label->setPixmap(roundedPixmap(this->m_songInfoVector[this->m_songIndex].cover,ui->cover_label->size(),8));
+        } else {
+            ui->cover_label->setPixmap(roundedPixmap(this->m_songInfoVector[this->m_songIndex].cover,
+                                                     ui->cover_label->size(), 8));
             ui->song_name_label->setText(this->m_songInfoVector[this->m_songIndex].songName);
             ui->singer_label->setText(this->m_songInfoVector[this->m_songIndex].signer);
         }
     });
     connect(this->m_player.get(), &QMediaPlayer::playbackStateChanged, this, [this](QMediaPlayer::PlaybackState state) {
-       if(state == QMediaPlayer::PlayingState)this->m_isPlaying = true;
-       else this->m_isPlaying = false;
+        if (state == QMediaPlayer::PlayingState)this->m_isPlaying = true;
+        else this->m_isPlaying = false;
         if (this->m_isPlaying) {
-         ui->play_or_pause_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/pause.svg")));
-         } else {
-             ui->play_or_pause_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/play.svg")));
-         }
-    });
-    mediaStatusConnection = connect(this->m_player.get(),&QMediaPlayer::mediaStatusChanged,this, [=](const QMediaPlayer::MediaStatus& status) {
-        if (status == QMediaPlayer::EndOfMedia) {
-            if(this->m_isOrderPlay) {
-                //qDebug()<<"结束，开始播放下一首";
-                this->m_orderIndex = (this->m_orderIndex + 1 ) % static_cast<int>(this->m_songInfoVector.size());
-                setPlayMusic(this->m_orderIndex);
-            }
+            ui->play_or_pause_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/pause.svg")));
+        } else {
+            ui->play_or_pause_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/play.svg")));
         }
     });
+    mediaStatusConnection = connect(this->m_player.get(), &QMediaPlayer::mediaStatusChanged, this,
+                                    [=](const QMediaPlayer::MediaStatus &status) {
+                                        if (status == QMediaPlayer::EndOfMedia) {
+                                            if (this->m_isOrderPlay) {
+                                                //qDebug()<<"结束，开始播放下一首";
+                                                addOrderIndex();
+                                            }
+                                        }
+                                    });
 
-    connect(ui->progressSlider,&QSlider::sliderReleased, this,&KuGouApp::updateProcess);
-    connect(ui->progressSlider,&QSlider::sliderMoved,this,&KuGouApp::updateProcess);
+    connect(ui->progressSlider, &QSlider::sliderReleased, this, &KuGouApp::updateProcess);
+    connect(ui->progressSlider, &QSlider::sliderMoved, this, &KuGouApp::updateProcess);
 
-    connect(this->m_localDownload.get(),&LocalDownload::playMusic,this,&KuGouApp::onPlayMusic);
-    connect(this->m_localDownload.get(),&LocalDownload::startPlay,this,&KuGouApp::onStartPlay);
-    connect(this->m_localDownload.get(),&LocalDownload::addSongInfo,this,&KuGouApp::onAddSongInfo);
+    connect(this->m_localDownload.get(), &LocalDownload::playMusic, this, &KuGouApp::onPlayMusic);
+    connect(this->m_localDownload.get(), &LocalDownload::startPlay, this, &KuGouApp::onStartPlay);
+    connect(this->m_localDownload.get(), &LocalDownload::addSongInfo, this, &KuGouApp::onAddSongInfo);
 
-    connect(this,&KuGouApp::setPlayIndex,this->m_localDownload.get(),&LocalDownload::setPlayIndex);
+    connect(this, &KuGouApp::setPlayIndex, this->m_localDownload.get(), &LocalDownload::setPlayIndex);
 
-    connect(this->m_upBtn.get(),&QToolButton::clicked,this,&KuGouApp::onUpBtnClicked);
+    connect(this->m_upBtn.get(), &QToolButton::clicked, this, &KuGouApp::onUpBtnClicked);
 
     //专门处理upBtn
     this->m_vScrollBar = ui->context_scrollArea->verticalScrollBar();
-    connect(this->m_vScrollBar,&QScrollBar::valueChanged,this,&KuGouApp::onScrollBarValueChanged);
-    connect(this->m_scrollBarTimer,&QTimer::timeout,this,&KuGouApp::onUpBtnShowOrNot);
+    connect(this->m_vScrollBar, &QScrollBar::valueChanged, this, &KuGouApp::onScrollBarValueChanged);
+    connect(this->m_scrollBarTimer, &QTimer::timeout, this, &KuGouApp::onUpBtnShowOrNot);
 
 
     ui->progressSlider->installEventFilter(this);
@@ -135,7 +135,7 @@ void KuGouApp::initUi() {
     //去掉标题栏
     setWindowFlags(Qt::FramelessWindowHint);
     //移动窗口到合适的地方
-    move(QGuiApplication::primaryScreen()->geometry().width()/2-this->width()/2, 100);
+    move(QGuiApplication::primaryScreen()->geometry().width() / 2 - this->width() / 2, 100);
     //设置鼠标追踪
     this->setMouseTracking(true);
     ui->title_widget->setMouseTracking(true);
@@ -143,9 +143,9 @@ void KuGouApp::initUi() {
     ui->play_widget->setMouseTracking(true);
     //设置窗口属性
     this->setAttribute(Qt::WA_TranslucentBackground);
-    this->setAttribute(Qt::WA_Hover,true);
+    this->setAttribute(Qt::WA_Hover, true);
     //设置滚动定时器
-    this->m_scrollBarTimer->setSingleShot(true);  // 只触发一次
+    this->m_scrollBarTimer->setSingleShot(true); // 只触发一次
 
     initTitleWidget();
     initCommendForYouWidget();
@@ -165,21 +165,27 @@ void KuGouApp::initLocalDownload() {
 }
 
 void KuGouApp::initTitleWidget() {
-    ui->index_label1->setPixmap(QPixmap(QStringLiteral("://Res/titlebar/h-line.png")).scaled(30, 15, Qt::KeepAspectRatio));
-    ui->index_label2->setPixmap(QPixmap(QStringLiteral("://Res/titlebar/h-line.png")).scaled(30, 15, Qt::KeepAspectRatio));
-    ui->index_label3->setPixmap(QPixmap(QStringLiteral("://Res/titlebar/h-line.png")).scaled(30, 15, Qt::KeepAspectRatio));
-    ui->index_label4->setPixmap(QPixmap(QStringLiteral("://Res/titlebar/h-line.png")).scaled(30, 15, Qt::KeepAspectRatio));
+    ui->index_label1->setPixmap(
+        QPixmap(QStringLiteral("://Res/titlebar/h-line.png")).scaled(30, 15, Qt::KeepAspectRatio));
+    ui->index_label2->setPixmap(
+        QPixmap(QStringLiteral("://Res/titlebar/h-line.png")).scaled(30, 15, Qt::KeepAspectRatio));
+    ui->index_label3->setPixmap(
+        QPixmap(QStringLiteral("://Res/titlebar/h-line.png")).scaled(30, 15, Qt::KeepAspectRatio));
+    ui->index_label4->setPixmap(
+        QPixmap(QStringLiteral("://Res/titlebar/h-line.png")).scaled(30, 15, Qt::KeepAspectRatio));
     ui->index_label2->hide();
     ui->index_label3->hide();
     ui->index_label4->hide();
 
     ui->title_line->setPixmap(QPixmap(QStringLiteral(":/Res/tabIcon/line-gray.svg")));
-    ui->search_lineEdit->addAction(QIcon(QStringLiteral("://Res/titlebar/search-black.svg")), QLineEdit::LeadingPosition);
+    ui->search_lineEdit->addAction(QIcon(QStringLiteral("://Res/titlebar/search-black.svg")),
+                                   QLineEdit::LeadingPosition);
 
     //除非自定义QToolButton否则达不到 CSS 中 border-image 的效果
     //ui->listen_toolButton->setIcon(QIcon("://Res/titlebar/listen-music-black.svg"));
 
-    QPixmap roundedPix = roundedPixmap(QPixmap(QStringLiteral("://Res/window/portrait.jpg")), ui->title_portrait_label->size(), 20);
+    QPixmap roundedPix = roundedPixmap(QPixmap(QStringLiteral("://Res/window/portrait.jpg")),
+                                       ui->title_portrait_label->size(), 20);
     // 设置圆角半径
     ui->title_portrait_label->setPixmap(roundedPix);
 
@@ -207,7 +213,7 @@ void KuGouApp::initPlayWidget() {
     ui->comment_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/comment.svg")));
     ui->share_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/share.svg")));
     ui->more_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/more.svg")));
-    ui->pre_toolButton->setIcon( QIcon(QStringLiteral("://Res/playbar/previous-song.svg")));
+    ui->pre_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/previous-song.svg")));
     ui->play_or_pause_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/play.svg")));
     ui->next_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/next-song.svg")));
     ui->erji_toolButton->setIcon(QIcon(QStringLiteral("://Res/playbar/together.svg")));
@@ -254,6 +260,30 @@ void KuGouApp::initCornerWidget() {
     this->m_sizeGrip->setObjectName(QStringLiteral("sizegrip"));
 }
 
+void KuGouApp::addOrderIndex() {
+    this->m_orderIndex = (this->m_orderIndex + 1) % static_cast<int>(this->m_songInfoVector.size());
+    this->m_songIndex = this->m_orderIndex;
+    setPlayMusic(this->m_orderIndex);
+}
+
+void KuGouApp::subOrderIndex() {
+    int s = static_cast<int>(this->m_songInfoVector.size());
+    this->m_orderIndex = (this->m_orderIndex + s - 1) % s;
+    this->m_songIndex = this->m_orderIndex;
+    setPlayMusic(this->m_orderIndex);
+}
+
+void KuGouApp::addSongIndex() {
+    this->m_songIndex = (this->m_songIndex + 1) % static_cast<int>(this->m_songInfoVector.size());;
+    setPlayMusic(this->m_songIndex);
+}
+
+void KuGouApp::subSongIndex() {
+    int s = static_cast<int>(this->m_songInfoVector.size());
+    this->m_songIndex = (this->m_songIndex + s - 1) % s;;
+    setPlayMusic(this->m_songIndex);
+}
+
 void KuGouApp::mousePressEvent(QMouseEvent *ev) {
     MainWindow::mousePressEvent(ev);
     if (ev->button() == Qt::LeftButton) {
@@ -268,10 +298,10 @@ void KuGouApp::mouseMoveEvent(QMouseEvent *event) {
     QPoint point_offset = event->globalPosition().toPoint() - mousePs;
     if ((event->buttons() == Qt::LeftButton) && isPress) {
         if (mouse_press_region == kMousePositionMid) {
-            if(ui->title_widget->geometry().contains(this->m_pressPos) ||
+            if (ui->title_widget->geometry().contains(this->m_pressPos) ||
                 ui->play_widget->geometry().contains(this->m_pressPos)) {
-                    move(windowsLastPs + point_offset);
-                }
+                move(windowsLastPs + point_offset);
+            }
         } else {
             // 其他部分 是拉伸窗口
             // 获取客户区
@@ -280,28 +310,28 @@ void KuGouApp::mouseMoveEvent(QMouseEvent *event) {
                 // 左上角
                 case kMousePositionLeftTop:
                     rect.setTopLeft(rect.topLeft() + point_offset);
-                break;
+                    break;
                 case kMousePositionTop:
                     rect.setTop(rect.top() + point_offset.y());
-                break;
+                    break;
                 case kMousePositionRightTop:
                     rect.setTopRight(rect.topRight() + point_offset);
-                break;
+                    break;
                 case kMousePositionRight:
                     rect.setRight(rect.right() + point_offset.x());
-                break;
+                    break;
                 case kMousePositionRightBottom:
                     rect.setBottomRight(rect.bottomRight() + point_offset);
-                break;
+                    break;
                 case kMousePositionBottom:
                     rect.setBottom(rect.bottom() + point_offset.y());
-                break;
+                    break;
                 case kMousePositionLeftBottom:
                     rect.setBottomLeft(rect.bottomLeft() + point_offset);
-                break;
+                    break;
                 case kMousePositionLeft:
                     rect.setLeft(rect.left() + point_offset.x());
-                break;
+                    break;
                 default:
                     break;
             }
@@ -333,12 +363,12 @@ void KuGouApp::resizeEvent(QResizeEvent *event) {
     this->m_sizeGrip->setVisible(true);
     //UpWidget移动
     this->m_upBtn->move(this->width() - this->m_upBtn->width() - 20,
-                            this->height() - this->m_upBtn->height() - 100);
+                        this->height() - this->m_upBtn->height() - 100);
     this->m_upBtn->raise();
 }
 
 bool KuGouApp::event(QEvent *event) {
-    if(QEvent::HoverMove == event->type())//鼠标移动
+    if (QEvent::HoverMove == event->type()) //鼠标移动
     {
         //auto ev = dynamic_cast<QMouseEvent*>(event);
         //if (ev) {
@@ -346,7 +376,7 @@ bool KuGouApp::event(QEvent *event) {
         //}
 
         // 此处最好用static_cast
-        auto ev = static_cast<QMouseEvent*>(event);
+        auto ev = static_cast<QMouseEvent *>(event);
         this->mouseMoveEvent(ev);
     }
 
@@ -354,17 +384,17 @@ bool KuGouApp::event(QEvent *event) {
 }
 
 bool KuGouApp::eventFilter(QObject *watched, QEvent *event) {
-    if(watched == ui->progressSlider) {
-        if (event->type()==QEvent::MouseButtonPress)//判断类型
+    if (watched == ui->progressSlider) {
+        if (event->type() == QEvent::MouseButtonPress) //判断类型
         {
             auto mouseEvent = dynamic_cast<QMouseEvent *>(event);
             if (mouseEvent->button() == Qt::LeftButton) //判断左键
             {
-                if(this->m_player->source().isEmpty()) return false;
+                if (this->m_player->source().isEmpty()) return false;
                 //qDebug() << "触发点击";
                 qint64 value = QStyle::sliderValueFromPosition(ui->progressSlider->minimum(),
-                    ui->progressSlider->maximum(), mouseEvent->pos().x(),
-                    ui->progressSlider->width());
+                                                               ui->progressSlider->maximum(), mouseEvent->pos().x(),
+                                                               ui->progressSlider->width());
                 //水平进度条动态地划到点击位置
                 //auto ani = new QPropertyAnimation(ui->progressSlider,"sliderPosition");
                 // 设置动画持续时间，单位是毫秒，这里设置为100毫秒
@@ -378,7 +408,7 @@ bool KuGouApp::eventFilter(QObject *watched, QEvent *event) {
                 // 启动动画
                 //ani->start(QAbstractAnimation::DeleteWhenStopped);
                 this->m_player->setPosition(value);
-                if(!this->m_isPlaying)ui->play_or_pause_toolButton->clicked();
+                if (!this->m_isPlaying)ui->play_or_pause_toolButton->clicked();
             }
         }
     }
@@ -400,14 +430,14 @@ void KuGouApp::updateProcess() {
     this->m_player->play();
 }
 
-void KuGouApp::updateSliderRange(const qint64& duration) {
+void KuGouApp::updateSliderRange(const qint64 &duration) {
     ui->progressSlider->setMaximum(static_cast<int>(duration));
     //qDebug()<<"改变总时长";
     ui->duration_label->setText(QTime::fromMSecsSinceStartOfDay(static_cast<int>(duration)).toString("mm:ss"));
 }
 
-void KuGouApp::onPlayMusic(const int& index) {
-    this->m_isOrderPlay = false;//单独点击就不顺序播放，而是只播放一首
+void KuGouApp::onPlayMusic(const int &index) {
+    this->m_isOrderPlay = false;
     this->m_songIndex = index - 1;
     setPlayMusic(this->m_songIndex);
 }
@@ -429,63 +459,62 @@ void KuGouApp::onUpBtnClicked() {
     this->m_vScrollBar = ui->context_scrollArea->verticalScrollBar();
 
     // 标记动画开始
-    ui->context_scrollArea->setAnimating(true);//开始禁用滚轮
+    ui->context_scrollArea->setAnimating(true); //开始禁用滚轮
 
-    auto animation = new QPropertyAnimation(this->m_vScrollBar,"value", this);
+    auto animation = new QPropertyAnimation(this->m_vScrollBar, "value", this);
     // 设置动画的起始值（当前滚动条位置）和结束值（最顶部）
-    animation->setStartValue(this->m_vScrollBar->value());  // 当前滚动条位置
-    animation->setEndValue(0);  // 滚动到顶部（0 表示最上方）
-    animation->setDuration(500);  // 动画持续时间，500ms
-    animation->setEasingCurve(this->m_curves);  // 缓动曲线
+    animation->setStartValue(this->m_vScrollBar->value()); // 当前滚动条位置
+    animation->setEndValue(0); // 滚动到顶部（0 表示最上方）
+    animation->setDuration(500); // 动画持续时间，500ms
+    animation->setEasingCurve(this->m_curves); // 缓动曲线
 
     // 在动画结束后标记动画停止
     connect(animation, &QPropertyAnimation::finished, this, [this]() {
-        ui->context_scrollArea->setAnimating(false);//动画结束启用滚轮
+        ui->context_scrollArea->setAnimating(false); //动画结束启用滚轮
     });
 
     // 启动动画
-    animation->start(QAbstractAnimation::DeleteWhenStopped);  // 动画结束后自动删除
+    animation->start(QAbstractAnimation::DeleteWhenStopped); // 动画结束后自动删除
 }
 
-void KuGouApp::onScrollBarValueChanged(const int& value) {
+void KuGouApp::onScrollBarValueChanged(const int &value) {
     // 启动定时器，延迟处理
     if (!this->m_scrollBarTimer->isActive()) {
-        this->m_scrollBarTimer->start(500);  // 500ms 延迟，避免过于频繁地触发
+        this->m_scrollBarTimer->start(500); // 500ms 延迟，避免过于频繁地触发
     }
     this->m_scrollValue = value;
 }
 
 void KuGouApp::onUpBtnShowOrNot() {
     //qDebug()<<this->m_scrollValue;
-    if(this->m_scrollValue>120)this->m_upBtn->show();
+    if (this->m_scrollValue > 120)this->m_upBtn->show();
     else this->m_upBtn->hide();
 }
 
 void KuGouApp::onKeyPause() {
-    if(this->m_player->playbackState() == QMediaPlayer::PlaybackState::PlayingState) {
+    if (this->m_player->playbackState() == QMediaPlayer::PlaybackState::PlayingState) {
         this->m_player->pause();
-    }
-    else {
+    } else {
         this->m_player->play();
     }
 }
 
 void KuGouApp::onKeyLeft() {
     qint64 pos = this->m_player->position() - 5000;
-    this->m_player->setPosition( pos< 0 ? 0 : pos);
+    this->m_player->setPosition(pos < 0 ? 0 : pos);
 }
 
 void KuGouApp::onKeyRight() {
     qint64 pos = this->m_player->position() + 5000;
-    this->m_player->setPosition(pos > this->m_player->duration()? this->m_player->duration() : pos);
+    this->m_player->setPosition(pos > this->m_player->duration() ? this->m_player->duration() : pos);
 }
 
 void KuGouApp::on_title_return_toolButton_clicked() {
-    qDebug()<<"返回，估计要使用堆栈";
+    qDebug() << "返回，估计要使用堆栈";
 }
 
 void KuGouApp::on_title_refresh_toolButton_clicked() {
-    qDebug()<<"刷新界面";
+    qDebug() << "刷新界面";
     ui->center_widget->repaint();
 }
 
@@ -565,9 +594,9 @@ void KuGouApp::on_max_toolButton_clicked() {
         this->m_animation->setDuration(400); // 设置动画持续时间
     }
 
-   this->m_animation->setStartValue(startGeometry); // 动画开始时的窗口几何
-   this->m_animation->setEndValue(endGeometry); // 动画结束时的窗口几何
-   this->m_animation->setEasingCurve(QEasingCurve::InOutQuad); // 设置动画的缓动曲线
+    this->m_animation->setStartValue(startGeometry); // 动画开始时的窗口几何
+    this->m_animation->setEndValue(endGeometry); // 动画结束时的窗口几何
+    this->m_animation->setEasingCurve(QEasingCurve::InOutQuad); // 设置动画的缓动曲线
 
     // 开始动画
     this->m_animation->start();
@@ -582,19 +611,19 @@ void KuGouApp::on_close_toolButton_clicked() {
 
 void KuGouApp::on_recommend_toolButton_clicked() {
     ui->stackedWidget->setCurrentWidget(this->m_recommendForYou.get());
-    this->m_curves = QEasingCurve::OutBounce;  // 缓动曲线
+    this->m_curves = QEasingCurve::OutBounce; // 缓动曲线
     this->m_upBtn->clicked();
 }
 
 void KuGouApp::on_local_download_toolButton_clicked() {
     ui->stackedWidget->setCurrentWidget(this->m_localDownload.get());
-    this->m_curves = QEasingCurve::OutQuart;  // 缓动曲线
+    this->m_curves = QEasingCurve::OutQuart; // 缓动曲线
     this->m_upBtn->clicked();
 }
 
 void KuGouApp::on_play_or_pause_toolButton_clicked() {
     //如果未设置播放源就return
-    if(this->m_player->source().isEmpty()) return;
+    if (this->m_player->source().isEmpty()) return;
     this->m_isPlaying = !this->m_isPlaying;
     if (this->m_isPlaying) {
         this->m_player->play();
@@ -616,32 +645,33 @@ void KuGouApp::on_circle_toolButton_clicked() {
                                             QToolButton:hover{border-image:url('://Res/playbar/single-list-loop-blue.svg');})");
         if (mediaStatusConnection) {
             disconnect(mediaStatusConnection);
-            mediaStatusConnection = connect(this->m_player.get(),&QMediaPlayer::mediaStatusChanged,this, [=](QMediaPlayer::MediaStatus status) {
-                if (status == QMediaPlayer::EndOfMedia) {
-                    //qDebug()<<"播放结束";
-                    // 当播放结束时，重新开始播放
-                    //qDebug()<<"循环播放 ："<<this->m_isSingleCircle;
-                    this->m_player->stop();  // 设置到文件的开头
-                    this->m_player->play();
-                }
-            });
-        }else qDebug()<<"mediaStatusConnection is empty";
-
-    }
-    else {
+            mediaStatusConnection = connect(this->m_player.get(), &QMediaPlayer::mediaStatusChanged, this,
+                                            [=](QMediaPlayer::MediaStatus status) {
+                                                if (status == QMediaPlayer::EndOfMedia) {
+                                                    //qDebug()<<"播放结束";
+                                                    // 当播放结束时，重新开始播放
+                                                    //qDebug()<<"循环播放 ："<<this->m_isSingleCircle;
+                                                    this->m_player->stop(); // 设置到文件的开头
+                                                    this->m_player->play();
+                                                }
+                                            });
+        } else
+            qDebug() << "mediaStatusConnection is empty";
+    } else {
         //qDebug()<<"播放一次";
         if (mediaStatusConnection) {
             disconnect(mediaStatusConnection);
-            mediaStatusConnection = connect(this->m_player.get(),&QMediaPlayer::mediaStatusChanged,this, [=](QMediaPlayer::MediaStatus status) {
-                if (status == QMediaPlayer::EndOfMedia) {
-                    if(this->m_isOrderPlay) {
-                        //qDebug()<<"结束，开始播放下一首";
-                        this->m_orderIndex = (this->m_orderIndex + 1 ) % static_cast<int>(this->m_songInfoVector.size());
-                        setPlayMusic(this->m_orderIndex);
-                    }
-                }
-            });
-        }else qDebug()<<"mediaStatusConnection is empty";
+            mediaStatusConnection = connect(this->m_player.get(), &QMediaPlayer::mediaStatusChanged, this,
+                                            [=](QMediaPlayer::MediaStatus status) {
+                                                if (status == QMediaPlayer::EndOfMedia) {
+                                                    if (this->m_isOrderPlay) {
+                                                        //qDebug()<<"结束，开始播放下一首";
+                                                        addOrderIndex();
+                                                    }
+                                                }
+                                            });
+        } else
+            qDebug() << "mediaStatusConnection is empty";
 
         ui->circle_toolButton->setStyleSheet(R"(QToolButton{border-image:url('://Res/playbar/list-loop-gray.svg');}
                                             QToolButton:hover{border-image:url('://Res/playbar/list-loop-blue.svg');})");
@@ -649,15 +679,13 @@ void KuGouApp::on_circle_toolButton_clicked() {
 }
 
 void KuGouApp::on_pre_toolButton_clicked() {
-    if(this->m_player->source().isEmpty()) return;
-    this->m_songIndex = (this->m_songIndex +  static_cast<int>(this->m_songInfoVector.size())-1) % static_cast<int>(this->m_songInfoVector.size());;
-    setPlayMusic(this->m_songIndex);
+    if (this->m_player->source().isEmpty()) return;
+    if (this->m_isOrderPlay) subOrderIndex();
+    else subSongIndex();
 }
 
 void KuGouApp::on_next_toolButton_clicked() {
-    if(this->m_player->source().isEmpty()) return;
-    this->m_songIndex =  (this->m_songIndex + 1)% static_cast<int>(this->m_songInfoVector.size());
-    setPlayMusic(this->m_songIndex);
+    if (this->m_player->source().isEmpty()) return;
+    if (this->m_isOrderPlay) addOrderIndex();
+    else addSongIndex();
 }
-
-

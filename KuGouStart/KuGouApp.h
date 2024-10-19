@@ -49,6 +49,15 @@ private:
 
     void initCornerWidget();
 
+private:
+    void addOrderIndex();
+
+    void subOrderIndex();
+
+    void addSongIndex();
+
+    void subSongIndex();
+
 protected:
     void mousePressEvent(QMouseEvent *ev) override;
 
