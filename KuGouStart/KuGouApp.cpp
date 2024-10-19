@@ -17,7 +17,8 @@
 #include<QScrollBar>
 #include <QTimer>
 #include <QShortcut>
-
+constexpr int SHADOW_WIDTH = 5;
+constexpr int RADIUS = 8;
 QPixmap roundedPixmap(const QPixmap &src, QSize size, int radius) {
     QPixmap scaled = src.scaled(size, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
     QPixmap dest(size);
@@ -122,7 +123,6 @@ KuGouApp::KuGouApp(MainWindow *parent)
     connect(this->m_vScrollBar, &QScrollBar::valueChanged, this, &KuGouApp::onScrollBarValueChanged);
     connect(this->m_scrollBarTimer, &QTimer::timeout, this, &KuGouApp::onUpBtnShowOrNot);
 
-
     ui->progressSlider->installEventFilter(this);
 }
 
@@ -131,11 +131,11 @@ KuGouApp::~KuGouApp() {
 }
 
 void KuGouApp::initUi() {
-    this->setWindowIcon(QIcon(QStringLiteral("://Res/window/windowIcon.svg")));
-    //去掉标题栏
-    setWindowFlags(Qt::FramelessWindowHint);
+    setWindowFlags(Qt::Popup | Qt::FramelessWindowHint |Qt::NoDropShadowWindowHint);
+    setAttribute(Qt::WA_TranslucentBackground);
     //移动窗口到合适的地方
     move(QGuiApplication::primaryScreen()->geometry().width() / 2 - this->width() / 2, 100);
+
     //设置鼠标追踪
     this->setMouseTracking(true);
     ui->title_widget->setMouseTracking(true);
@@ -344,14 +344,28 @@ void KuGouApp::mouseMoveEvent(QMouseEvent *event) {
 void KuGouApp::paintEvent(QPaintEvent *ev) {
     QWidget::paintEvent(ev);
     QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setRenderHint(QPainter::Antialiasing,true);
     QBrush brush(QColor(QStringLiteral("#eef2ff")));
     painter.setBrush(brush);
     painter.setPen(Qt::NoPen);
     QRect rect = this->rect();
     QPainterPath path;
-    path.addRoundedRect(rect, 8, 8);
+    path.addRoundedRect(rect, RADIUS, RADIUS);
     painter.drawPath(path);
+    //------------绘制阴影
+    /*QPainterPath path1;
+    path1.setFillRule(Qt::WindingFill);
+    path1.addRoundedRect(SHADOW_WIDTH,SHADOW_WIDTH, this->width() - SHADOW_WIDTH * 2, this->height() - SHADOW_WIDTH * 2,RADIUS,RADIUS);
+    QColor color(150, 150, 150, 55);
+    for (int i = 0; i != SHADOW_WIDTH; ++i)
+    {
+        QPainterPath path;
+        path.setFillRule(Qt::WindingFill);
+        path.addRoundedRect(SHADOW_WIDTH - i, SHADOW_WIDTH- i, this->width() - (SHADOW_WIDTH- i) * 2, this->height() - (SHADOW_WIDTH- i) * 2, RADIUS, RADIUS);
+        color.setAlpha(180 - static_cast<int>(qSqrt(i) * 80));
+        painter.setPen(color);
+        painter.drawPath(path);
+    }*/
 }
 
 void KuGouApp::resizeEvent(QResizeEvent *event) {
@@ -606,7 +620,7 @@ void KuGouApp::on_max_toolButton_clicked() {
 }
 
 void KuGouApp::on_close_toolButton_clicked() {
-    this->close();
+    QApplication::quit();  // 退出应用程序
 }
 
 void KuGouApp::on_recommend_toolButton_clicked() {
