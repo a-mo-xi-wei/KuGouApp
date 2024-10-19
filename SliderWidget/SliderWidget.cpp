@@ -22,7 +22,7 @@ void SliderWidget::mousePressEvent(QMouseEvent *event) {
         const auto percentage = static_cast<double>(pos) / sliderLength;
         // 根据百分比计算出滑动条的新值
         this->m_currentValue = this->m_minValue + static_cast<int>(percentage * (this->m_maxValue - this->m_minValue));
-        qDebug()<<"水平 "<< this->m_currentValue << " percentage "<<percentage;
+        //qDebug()<<"水平 "<< this->m_currentValue << " percentage "<<percentage;
         // 设置滑动条的新值
         this->setValue(this->m_currentValue);
     }else {
