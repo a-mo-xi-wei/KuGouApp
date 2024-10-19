@@ -676,7 +676,7 @@ void ItemBlockWidget::initUi() {
     this->setTipLabText(tipArr[QRandomGenerator::global()->bounded(0, static_cast<int>(tipArr.size()))]);
     this->m_tipLab->setAlignment(Qt::AlignCenter);
     this->m_tipLab->setStyleSheet(QStringLiteral("border-radius:10px;background-color:black;color:white;"));
-    this->m_tipLab->move(10, 10);
+    this->m_tipLab->move(6, 6);
 
     this->m_popularBtn->setFixedSize(70, 20);
     this->m_popularBtn->setIcon(QIcon(QStringLiteral("://Res/tabIcon/popular-white.svg")));
