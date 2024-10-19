@@ -129,7 +129,7 @@ void VolumeToolBtn::leaveEvent(QEvent *event) {
 
 void VolumeToolBtn::showEvent(QShowEvent *event) {
     QToolButton::showEvent(event);
-     getVolumeWidgetPosition();
+    getVolumeWidgetPosition();
     //qDebug()<<this->m_volumePosition;
     this->m_volumeWidget->move(this->m_volumePosition);
 }
