@@ -47,6 +47,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
 protected:
+
     void mousePressEvent(QMouseEvent *ev) override;
 
     void mouseReleaseEvent(QMouseEvent *event) override;
