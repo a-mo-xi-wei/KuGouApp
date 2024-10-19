@@ -1457,14 +1457,14 @@
              <item>
               <widget class="QLabel" name="song_name_label">
                <property name="text">
-                <string>歌名</string>
+                <string/>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="singer_label">
                <property name="text">
-                <string>作者</string>
+                <string/>
                </property>
               </widget>
              </item>

@@ -96,6 +96,16 @@ private slots:
 
     void on_close_toolButton_clicked();
 
+    void on_love_toolButton_clicked();
+
+    void on_download_toolButton_clicked();
+
+    void on_comment_toolButton_clicked();
+
+    void on_share_toolButton_clicked();
+
+    void on_more_toolButton_clicked();
+
     void on_circle_toolButton_clicked();
 
     void on_pre_toolButton_clicked();

@@ -634,7 +634,28 @@ void KuGouApp::on_play_or_pause_toolButton_clicked() {
     }
 }
 
+void KuGouApp::on_love_toolButton_clicked() {
+    if (this->m_player->source().isEmpty()) return;
+}
+
+void KuGouApp::on_download_toolButton_clicked() {
+    if (this->m_player->source().isEmpty()) return;
+}
+
+void KuGouApp::on_comment_toolButton_clicked() {
+    if (this->m_player->source().isEmpty()) return;
+}
+
+void KuGouApp::on_share_toolButton_clicked() {
+    if (this->m_player->source().isEmpty()) return;
+}
+
+void KuGouApp::on_more_toolButton_clicked() {
+    if (this->m_player->source().isEmpty()) return;
+}
+
 void KuGouApp::on_circle_toolButton_clicked() {
+    if (this->m_player->source().isEmpty()) return;
     m_isSingleCircle = !m_isSingleCircle;
     if (m_isSingleCircle) {
         //qDebug()<<"单曲循环";
