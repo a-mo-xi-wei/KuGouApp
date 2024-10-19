@@ -1,0 +1,35 @@
+QSlider::groove:vertical {
+    background-color:#ecf1f7;
+    border:none;
+    border-radius:2px;
+    width: 3px;
+}
+QSlider::handle:vertical {
+    background-color:#26a1ff;
+    border:none;
+    height:13px;
+    border-radius:6px;
+    margin:0px -5px;
+}
+QSlider::add-page:vertical {
+    background-color:#26a1ff;
+    border:none;
+    border-radius:2px;
+}
+QSlider::sub-page:vertical {
+    border:none;
+    border-radius:2px;
+}
+/*
+QSlider:vertical{
+    border: 1px solid black;
+}*/
+QLabel {
+    border: none;
+    background-color:#ecf1f7
+}
+QWidget{
+    background-color:#fcfeff;
+    border:none;
+    border-radius:6px;
+}

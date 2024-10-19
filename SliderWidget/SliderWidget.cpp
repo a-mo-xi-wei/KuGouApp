@@ -45,6 +45,7 @@ void SliderWidget::mousePressEvent(QMouseEvent *event) {
     // 让父类处理其余的鼠标事件
     QSlider::mousePressEvent(event);
 }
+
 void SliderWidget::mouseMoveEvent(QMouseEvent *event) {
     //qDebug()<<"垂直";
     if(this->m_isPressing) {
@@ -70,6 +71,21 @@ void SliderWidget::mouseReleaseEvent(QMouseEvent *event) {
     // 鼠标释放时，重置按下标志
     m_isPressing = false;
     QSlider::mouseReleaseEvent(event);
+}
+
+void SliderWidget::wheelEvent(QWheelEvent *event) {
+    QSlider::wheelEvent(event);
+    // 获取滚轮滚动的角度
+    int delta = event->angleDelta().y();
+    if(delta > 0) {
+        this->m_currentValue += 2 ;
+        this->m_currentValue = this->m_currentValue >= this->m_maxValue ? this->m_maxValue : this->m_currentValue;
+    }
+    else if(delta < 0) {
+        this->m_currentValue -= 2;
+        this->m_currentValue = this->m_currentValue < this->m_minValue ? this->m_minValue : this->m_currentValue;
+    }
+    this->setValue(this->m_currentValue);
 }
 
 void SliderWidget::showEvent(QShowEvent *event) {

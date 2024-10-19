@@ -48,7 +48,7 @@ void VolumeToolBtn::initVolumeWidget() {
     this->m_volumeLab->setParent(this->m_volumeWidget.get());
     this->m_volumeSlider->setParent(this->m_volumeWidget.get());
     this->m_volumeSlider->setOrientation(Qt::Vertical);
-    this->m_volumeSlider->setFixedHeight(135);
+    this->m_volumeSlider->setFixedSize(40,135);
     this->m_volumeSlider->setMaximum(100);
     this->m_volumeSlider->setValue(20);
     this->m_volumeSlider->setToolTip(QStringLiteral("调节音量"));
@@ -59,7 +59,6 @@ void VolumeToolBtn::initVolumeWidget() {
     auto hBoxLayout = new QHBoxLayout;
     hBoxLayout->setAlignment(Qt::AlignCenter);
     hBoxLayout->setContentsMargins(0, 0, 0, 0);
-    hBoxLayout->setSpacing(0);
     hBoxLayout->addWidget(this->m_volumeSlider.get());
     this->m_vBoxLayout = new QVBoxLayout(this->m_volumeWidget.get());
     this->m_vBoxLayout->setAlignment(Qt::AlignCenter);

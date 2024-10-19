@@ -3,10 +3,11 @@
 
 #include<QWidget>
 #include<memory>
-#include <QSlider>
+#include <QFile>
 #include<QGraphicsDropShadowEffect>
 #include <QPainter>
 #include <QStyleOption>
+#define GET_CURRENT_DIR (QString(__FILE__).first(qMax(QString(__FILE__).lastIndexOf('/'), QString(__FILE__).lastIndexOf('\\'))))
 
 /*此处重写的QWidget的唯一目的就是作为中转传递信号。。。。*/
 class MyWidget : public QWidget {
@@ -16,18 +17,19 @@ public:
         :QWidget(parent)
         ,m_effect(std::make_unique<QGraphicsDropShadowEffect>(this))
     {
+
         this->setFixedSize(64, 200);
         this->setContentsMargins(0, 0, 0, 10);
-       const QString style = R"(
-                        QSlider::groove:vertical {background-color:#ecf1f7;border:none;border-radius:2px;width: 3px;}
-                        QSlider::handle:vertical {background-color:#26a1ff;border:none;height:13px;border-radius:6px;margin:0px -5px;}
-                        QSlider::add-page:vertical {background-color:#26a1ff;border:none;border-radius:2px;}
-                        QSlider::sub-page:vertical {border:none;border-radius:2px;}
-                        QLabel {border: none;background-color:#ecf1f7}
-                        QWidget{background-color:#fcfeff;border:none;border-radius:6px;}
-)";
-
-        this->setStyleSheet(style);
+        {
+            //设置样式
+            QFile file(GET_CURRENT_DIR + QStringLiteral("/slider.css"));
+            if (file.open(QIODevice::ReadOnly)) {
+                this->setStyleSheet(file.readAll());
+            } else {
+                qDebug() << "样式表打开失败QAQ";
+                return;
+            }
+        }
         this->m_effect->setColor(QColor(80, 80, 80));
         this->m_effect->setOffset(0, 0);
         this->m_effect->setBlurRadius(30);
@@ -40,6 +42,7 @@ protected:
         QPainter p(this);
         style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
     }
+
 signals:
     void noVolume(bool flag);
 private:
@@ -58,6 +61,8 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) override;
 
     void mouseReleaseEvent(QMouseEvent *event) override;
+
+    void wheelEvent(QWheelEvent *event) override;
 
     void showEvent(QShowEvent *event) override;
 
