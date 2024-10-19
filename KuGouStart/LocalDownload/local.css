@@ -38,7 +38,6 @@ QWidget#operation_widget QToolButton#local_play_toolButton:hover{
 }
 
 QWidget#small_widget{
-    border:none;
     border: 1px solid #b4bcff;
     border-radius:15px;
 }
@@ -47,7 +46,7 @@ QWidget#small_widget > QFrame{
     background-color:#dadeff;
 }
 
-QWidget#small_widget > .QToolButton {
+QWidget#small_widget > QToolButton {
     background-color: transparent;
 }
 QToolButton#local_share_toolButton {
