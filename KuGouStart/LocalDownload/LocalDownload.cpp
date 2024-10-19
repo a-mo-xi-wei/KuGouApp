@@ -34,7 +34,8 @@ LocalDownload::LocalDownload(QWidget *parent)
     QFile file(GET_CURRENT_DIR + QStringLiteral("/local.css"));
     if (file.open(QIODevice::ReadOnly)) {
         this->setStyleSheet(file.readAll());
-    } else {
+    }
+    else {
         qDebug() << "样式表打开失败QAQ";
         return;
     }
