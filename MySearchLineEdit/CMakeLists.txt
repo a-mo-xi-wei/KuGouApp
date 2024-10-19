@@ -11,7 +11,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
-
 set(SOURCE_FILE
     MySearchLineEdit.cpp
     MySearchLineEdit.h

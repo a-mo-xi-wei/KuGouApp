@@ -41,5 +41,8 @@ add_subdirectory(UpToolButton)
 #滚动区域模块
 add_subdirectory(MyScrollArea)
 
+#菜单模块
+add_subdirectory(MyWidgetMenu)
+
 #开始模块
 add_subdirectory(KuGouStart)

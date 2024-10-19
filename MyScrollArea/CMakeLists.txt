@@ -11,12 +11,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
-file(GLOB SOURCE_CPP ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
-file(GLOB SOURCE_H ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
-
 set(SOURCE_FILE
-    ${SOURCE_CPP}
-    ${SOURCE_H}
+    MyScrollArea.h
+    MyScrollArea.cpp
 )
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE_FILE})
