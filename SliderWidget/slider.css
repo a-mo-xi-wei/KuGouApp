@@ -1,5 +1,5 @@
 QSlider::groove:vertical {
-    background-color:#ecf1f7;
+    background-color:white;
     border:none;
     border-radius:2px;
     width: 3px;
@@ -14,11 +14,11 @@ QSlider::handle:vertical {
 QSlider::add-page:vertical {
     background-color:#26a1ff;
     border:none;
-    border-radius:2px;
+    border-radius:1px;
 }
 QSlider::sub-page:vertical {
     border:none;
-    border-radius:2px;
+    border-radius:1px;
 }
 /*
 QSlider:vertical{
@@ -26,10 +26,10 @@ QSlider:vertical{
 }*/
 QLabel {
     border: none;
-    background-color:#ecf1f7
+    background-color:rgba(255,255,255,0);
 }
 QWidget{
-    background-color:#fcfeff;
+    background-color:#edf2ff;
     border:none;
     border-radius:6px;
 }
