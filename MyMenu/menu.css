@@ -1,0 +1,13 @@
+QMenu{
+    background-color: #edf2ff;
+    margin: 7px;
+}
+QMenu::item{
+    border-radius: 8px;
+    border: none;
+
+}
+QMenu::item:hover{
+    background-color: #B0EDF6;
+    color: #268cff;
+}

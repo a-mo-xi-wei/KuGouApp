@@ -11,3 +11,8 @@ QLabel#coverLab{
 QLabel#indexLab,QLabel#durationLab{
     color:#8c8d8d;
 }
+QToolButton{
+    icon-size:18px;
+    margin-left:3px;
+    margin-right:3px;
+}

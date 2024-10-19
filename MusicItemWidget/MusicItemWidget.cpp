@@ -9,7 +9,7 @@
 #include <QPainter>
 #include <QPaintEvent>
 #include <QBrush>
-#include <QCoreApplication>
+#include <QGuiApplication>
 #include <QPainterPath>
 #include <QtMath>
 #include <QPointF>
@@ -38,6 +38,8 @@ QPixmap roundedPix(const QPixmap &src, QSize size, int radius) {
 MusicItemWidget::MusicItemWidget(SongInfor  infor, QWidget *parent)
     :QFrame(parent)
     ,m_information(std::move(infor))
+    ,m_menu(new MyMenu(this))
+    ,m_window(this->window())
     ,timer(new QTimer(this))
 {
 
@@ -89,7 +91,11 @@ MusicItemWidget::MusicItemWidget(SongInfor  infor, QWidget *parent)
 
     initUi();
 
-    connect(this->m_playToolBtn,&QToolButton::clicked,this,[this]{emit playRequest();});
+    connect(this->m_playToolBtn,&QToolButton::clicked,this,&MusicItemWidget::onPlayToolBtnClicked);
+    connect(this->m_playNextToolBtn,&QToolButton::clicked,this,&MusicItemWidget::onPlayNextToolBtnClicked);
+    connect(this->m_downloadToolBtn,&QToolButton::clicked,this,&MusicItemWidget::onDownloadToolBtnClicked);
+    connect(this->m_collectToolBtn,&QToolButton::clicked,this,&MusicItemWidget::onCollectToolBtnClicked);
+    connect(this->m_moreToolBtn,&QToolButton::clicked,this,&MusicItemWidget::onMoreToolBtnClicked);
 }
 
 void MusicItemWidget::setInterval(const int &timeinterval) {
@@ -134,6 +140,38 @@ void MusicItemWidget::setPlayState(const bool &state) {
         // 发送离开事件
         QCoreApplication::sendEvent(this, &leaveEvent);
     }
+}
+
+void MusicItemWidget::getMenuPosition(const QPoint& pos) {
+    if(pos == QPoint()) {
+        this->m_menuPosition = this->m_window->mapFromGlobal(this->m_moreToolBtn->mapToGlobal(QPoint(0, 0)));
+    }
+    else {
+        this->m_menuPosition = this->m_window->mapFromGlobal(this->mapToGlobal(pos));
+    }
+    this->m_menuPosition += QPoint(5,5);
+    /*// 获取屏幕的尺寸
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect screenGeometry = screen->geometry();
+
+    // 计算菜单右侧的全局位置
+    QPoint menuGlobalPos = this->mapToGlobal(m_menuPosition);
+    int menuRightPos  = menuGlobalPos.x() + m_menu->width();
+    int menuBottomPos = menuGlobalPos.y() + m_menu->height();
+
+    // 如果菜单右侧超出屏幕右侧
+    if (menuRightPos > screenGeometry.right()) {
+        // 动态调整菜单位置，使其在屏幕内显示
+        int offset = menuRightPos - screenGeometry.right() + 10;
+        m_menuPosition.setX(m_menuPosition.x() - offset);
+    }
+    // 如果菜单下侧超出屏幕下侧
+    if (menuBottomPos > screenGeometry.bottom()) {
+        // 动态调整菜单位置，使其在屏幕内显示
+        int offset = menuBottomPos - screenGeometry.bottom() + 10;
+        m_menuPosition.setY(m_menuPosition.y() - offset);
+    }
+*/
 }
 
 void MusicItemWidget::enterEvent(QEnterEvent *event) {
@@ -197,6 +235,35 @@ void MusicItemWidget::mouseDoubleClickEvent(QMouseEvent *event) {
     this->m_playToolBtn->clicked();
 }
 
+void MusicItemWidget::mousePressEvent(QMouseEvent *event) {
+    QFrame::mousePressEvent(event);
+    // 判断是否为右键点击
+    if (event->button() == Qt::RightButton) {
+        getMenuPosition(mapToParent(event->pos()));
+        this->m_menu->move(this->m_menuPosition);
+        this->m_menu->show();
+    }
+}
+
+void MusicItemWidget::onPlayToolBtnClicked() {
+    emit playRequest();
+}
+
+void MusicItemWidget::onPlayNextToolBtnClicked() {
+}
+
+void MusicItemWidget::onDownloadToolBtnClicked() {
+}
+
+void MusicItemWidget::onCollectToolBtnClicked() {
+}
+
+void MusicItemWidget::onMoreToolBtnClicked() {
+    getMenuPosition();
+    this->m_menu->move(this->m_menuPosition);
+    this->m_menu->show();
+}
+
 void MusicItemWidget::initUi()
 {
     this->m_playToolBtn     ->setIcon(QIcon(QStringLiteral("://Res/tabIcon/play3-gray.svg")));
@@ -210,6 +277,8 @@ void MusicItemWidget::initUi()
     this->m_downloadToolBtn ->setCursor(Qt::PointingHandCursor);
     this->m_collectToolBtn  ->setCursor(Qt::PointingHandCursor);
     this->m_moreToolBtn     ->setCursor(Qt::PointingHandCursor);
+
+    this->m_menu->hide();
 
     auto hlayout = new QHBoxLayout(this);
     hlayout->addWidget(this->m_indexLab);
