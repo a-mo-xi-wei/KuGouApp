@@ -42,7 +42,7 @@ add_subdirectory(UpToolButton)
 add_subdirectory(MyScrollArea)
 
 #菜单模块
-add_subdirectory(MyWidgetMenu)
+add_subdirectory(MyMenu)
 
 #开始模块
 add_subdirectory(KuGouStart)
