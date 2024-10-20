@@ -131,7 +131,8 @@ KuGouApp::~KuGouApp() {
 }
 
 void KuGouApp::initUi() {
-    setWindowFlags(Qt::Popup | Qt::FramelessWindowHint |Qt::NoDropShadowWindowHint);
+    this->setWindowIcon(QIcon(QStringLiteral("://Res/window/windowIcon.svg")));
+    setWindowFlags(Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground);
     //移动窗口到合适的地方
     move(QGuiApplication::primaryScreen()->geometry().width() / 2 - this->width() / 2, 100);

@@ -5,9 +5,6 @@
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent)
 {
-    this->setWindowIcon(QIcon(QStringLiteral("://Res/window/windowIcon.svg")));
-    //去掉标题栏
-    setWindowFlags(Qt::Popup |Qt::FramelessWindowHint |Qt::NoDropShadowWindowHint);
 }
 
 MainWindow::~MainWindow() {
