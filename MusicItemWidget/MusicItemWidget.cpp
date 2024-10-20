@@ -39,7 +39,6 @@ MusicItemWidget::MusicItemWidget(SongInfor  infor, QWidget *parent)
     :QFrame(parent)
     ,m_information(std::move(infor))
     ,m_menu(new MyMenu(this))
-    ,m_window(this->window())
     ,timer(new QTimer(this))
 {
 
@@ -143,13 +142,14 @@ void MusicItemWidget::setPlayState(const bool &state) {
 }
 
 void MusicItemWidget::getMenuPosition(const QPoint& pos) {
-    if(pos == QPoint()) {
-        this->m_menuPosition = this->m_window->mapFromGlobal(this->m_moreToolBtn->mapToGlobal(QPoint(0, 0)));
+    this->m_window = this->window();
+    if(pos.isNull()) {
+        this->m_menuPosition = this->m_window->mapFromGlobal(mapToGlobal(this->m_moreToolBtn->pos()));
     }
     else {
-        this->m_menuPosition = this->m_window->mapFromGlobal(this->mapToGlobal(pos));
+        this->m_menuPosition = this->m_window->mapFromGlobal(mapToGlobal(pos));
     }
-    this->m_menuPosition += QPoint(5,5);
+    this->m_menuPosition += QPoint(10,10);
     /*// 获取屏幕的尺寸
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->geometry();
@@ -236,13 +236,14 @@ void MusicItemWidget::mouseDoubleClickEvent(QMouseEvent *event) {
 }
 
 void MusicItemWidget::mousePressEvent(QMouseEvent *event) {
-    QFrame::mousePressEvent(event);
     // 判断是否为右键点击
     if (event->button() == Qt::RightButton) {
-        getMenuPosition(mapToParent(event->pos()));
+        qDebug()<<"右键";
+        getMenuPosition(event->pos());
         this->m_menu->move(this->m_menuPosition);
         this->m_menu->show();
     }
+    //QFrame::mousePressEvent(event);要注释掉这一行，否则会不显示
 }
 
 void MusicItemWidget::onPlayToolBtnClicked() {
