@@ -43,7 +43,7 @@ public:
 
     void setPlayState(const bool& state);
 
-    void getMenuPosition(const QPoint& pos = QPoint());
+    void getMenuPosition(const QPoint& pos);
 protected:
     void enterEvent(QEnterEvent *event) override;
 

@@ -39,6 +39,7 @@ MusicItemWidget::MusicItemWidget(SongInfor  infor, QWidget *parent)
     :QFrame(parent)
     ,m_information(std::move(infor))
     ,m_menu(new MyMenu(this))
+    ,m_window(this->window())
     ,timer(new QTimer(this))
 {
 
@@ -142,36 +143,39 @@ void MusicItemWidget::setPlayState(const bool &state) {
 }
 
 void MusicItemWidget::getMenuPosition(const QPoint& pos) {
-    this->m_window = this->window();
-    if(pos.isNull()) {
-        this->m_menuPosition = this->m_window->mapFromGlobal(mapToGlobal(this->m_moreToolBtn->pos()));
-    }
-    else {
-        this->m_menuPosition = this->m_window->mapFromGlobal(mapToGlobal(pos));
-    }
-    this->m_menuPosition += QPoint(10,10);
-    /*// 获取屏幕的尺寸
+    this->m_menuPosition = pos;
+    // 获取屏幕的尺寸
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->geometry();
 
     // 计算菜单右侧的全局位置
-    QPoint menuGlobalPos = this->mapToGlobal(m_menuPosition);
-    int menuRightPos  = menuGlobalPos.x() + m_menu->width();
-    int menuBottomPos = menuGlobalPos.y() + m_menu->height();
-
+    //int menuLeftPos = pos.x() - m_menu->width();
+    int menuRightPos  = pos.x() + m_menu->width();
+    int menuBottomPos = pos.y() + m_menu->height();
+    //int menuTopPos = pos.y() - m_menu->height();
+    // 若菜单左侧超出屏幕左侧 (不存在)
+    //if(menuLeftPos < 0) {
+    //    // 动态调整菜单位置，使其在屏幕内显示
+    //    m_menuPosition.setX(10);
+    //}
     // 如果菜单右侧超出屏幕右侧
     if (menuRightPos > screenGeometry.right()) {
         // 动态调整菜单位置，使其在屏幕内显示
-        int offset = menuRightPos - screenGeometry.right() + 10;
-        m_menuPosition.setX(m_menuPosition.x() - offset);
+        int offset = menuRightPos - screenGeometry.right() + 5;
+        m_menuPosition.setX(pos.x() - offset);
     }
     // 如果菜单下侧超出屏幕下侧
     if (menuBottomPos > screenGeometry.bottom()) {
         // 动态调整菜单位置，使其在屏幕内显示
-        int offset = menuBottomPos - screenGeometry.bottom() + 10;
-        m_menuPosition.setY(m_menuPosition.y() - offset);
+        int offset = menuBottomPos - screenGeometry.bottom() + 5;
+        m_menuPosition.setY(pos.y() - offset);
     }
-*/
+    // 如果菜单下侧超出屏幕下侧（不存在）
+    //if(menuTopPos < 0) {
+    //    // 动态调整菜单位置，使其在屏幕内显示
+    //    m_menuPosition.setY(10);
+    //}
+
 }
 
 void MusicItemWidget::enterEvent(QEnterEvent *event) {
@@ -238,12 +242,13 @@ void MusicItemWidget::mouseDoubleClickEvent(QMouseEvent *event) {
 void MusicItemWidget::mousePressEvent(QMouseEvent *event) {
     // 判断是否为右键点击
     if (event->button() == Qt::RightButton) {
-        qDebug()<<"右键";
-        getMenuPosition(event->pos());
+        getMenuPosition(this->mapToGlobal(event->pos()));
         this->m_menu->move(this->m_menuPosition);
         this->m_menu->show();
     }
-    //QFrame::mousePressEvent(event);要注释掉这一行，否则会不显示
+    else {
+        QFrame::mousePressEvent(event);//要么放else里面，要么注释掉这一行，否则会不显示
+    }
 }
 
 void MusicItemWidget::onPlayToolBtnClicked() {
@@ -260,7 +265,8 @@ void MusicItemWidget::onCollectToolBtnClicked() {
 }
 
 void MusicItemWidget::onMoreToolBtnClicked() {
-    getMenuPosition();
+    // 获取当前鼠标的全局位置
+    getMenuPosition(QCursor::pos());
     this->m_menu->move(this->m_menuPosition);
     this->m_menu->show();
 }
