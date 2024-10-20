@@ -151,6 +151,7 @@ private:
     std::unique_ptr<RecommendForYou> m_recommendForYou{};
     std::unique_ptr<LocalDownload> m_localDownload{};
 
+    bool m_isTransForming = false; //专门用于在窗口缩放动画播放时，禁用拖动事件
     bool m_isSingleCircle = false;
     bool m_isMaxScreen = false;
     QMetaObject::Connection mediaStatusConnection;
@@ -169,7 +170,7 @@ private:
     QEasingCurve m_curves = QEasingCurve::OutBounce;
     QScrollBar* m_vScrollBar{};
 
-    //专门处理透明度
+    //专门处理回到最顶部按钮
     QTimer *m_scrollBarTimer;  // 定时器
     int m_scrollValue;  // 存储最新的滚动值
 };

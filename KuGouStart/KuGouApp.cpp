@@ -19,6 +19,7 @@
 #include <QShortcut>
 constexpr int SHADOW_WIDTH = 5;
 constexpr int RADIUS = 8;
+
 QPixmap roundedPixmap(const QPixmap &src, QSize size, int radius) {
     QPixmap scaled = src.scaled(size, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
     QPixmap dest(size);
@@ -295,9 +296,21 @@ void KuGouApp::mousePressEvent(QMouseEvent *ev) {
 
 void KuGouApp::mouseMoveEvent(QMouseEvent *event) {
     MainWindow::mouseMoveEvent(event);
+    if (this->m_isTransForming)return;
     // 计算的鼠标移动偏移量, 就是鼠标全局坐标 - 减去点击时鼠标坐标
     QPoint point_offset = event->globalPosition().toPoint() - mousePs;
+
     if ((event->buttons() == Qt::LeftButton) && isPress) {
+        if (this->m_isMaxScreen == true) //如果是最大化拖动，则还原大小再拖动
+        {
+            this->endGeometry = this->startGeometry;
+            this->endGeometry.setX(event->pos().x() - this->startGeometry.width() / 2);
+            this->endGeometry.setY(event->pos().y() - 3);
+            this->startGeometry = this->endGeometry;
+            //qDebug()<<"点击pos : "<<event->pos()<<" start :"<<startGeometry;
+            ui->max_toolButton->clicked();
+            return;
+        }
         if (mouse_press_region == kMousePositionMid) {
             if (ui->title_widget->geometry().contains(this->m_pressPos) ||
                 ui->play_widget->geometry().contains(this->m_pressPos)) {
@@ -345,7 +358,7 @@ void KuGouApp::mouseMoveEvent(QMouseEvent *event) {
 void KuGouApp::paintEvent(QPaintEvent *ev) {
     QWidget::paintEvent(ev);
     QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing,true);
+    painter.setRenderHint(QPainter::Antialiasing, true);
     QBrush brush(QColor(QStringLiteral("#eef2ff")));
     painter.setBrush(brush);
     painter.setPen(Qt::NoPen);
@@ -592,7 +605,8 @@ void KuGouApp::on_max_toolButton_clicked() {
                             })";
         ui->max_toolButton->setMyIcon(QIcon("://Res/titlebar/maximize-black.svg"));
         this->m_animation->setDuration(500); // 设置动画持续时间
-    } else {
+    }
+    else {
         this->m_isMaxScreen = true;
         // 如果当前不是最大化状态，则目标是最大化
         startGeometry = this->geometry();
@@ -608,20 +622,28 @@ void KuGouApp::on_max_toolButton_clicked() {
         ui->max_toolButton->setMyIcon(QIcon("://Res/titlebar/resume-black.svg"));
         this->m_animation->setDuration(400); // 设置动画持续时间
     }
-
+    //qDebug()<<"start : "<<this->startGeometry<<" end : "<<this->endGeometry;
     this->m_animation->setStartValue(startGeometry); // 动画开始时的窗口几何
     this->m_animation->setEndValue(endGeometry); // 动画结束时的窗口几何
     this->m_animation->setEasingCurve(QEasingCurve::InOutQuad); // 设置动画的缓动曲线
 
+    this->m_isTransForming = true; // 正在变形，禁用点击、拖动事件
     // 开始动画
     this->m_animation->start();
+    // 在动画结束后标记动画停止
+    connect(this->m_animation.get(), &QPropertyAnimation::finished, this, [this] {
+        // 动画结束后，延迟 500 毫秒启用拖拽
+        QTimer::singleShot(500, this, [this] {
+            this->m_isTransForming = false; // 启用拖拽
+        });
+    });
 
     // 更新按钮样式
     ui->max_toolButton->setStyleSheet(this->m_maxBtnStyle);
 }
 
 void KuGouApp::on_close_toolButton_clicked() {
-    QApplication::quit();  // 退出应用程序
+    QApplication::quit(); // 退出应用程序
 }
 
 void KuGouApp::on_recommend_toolButton_clicked() {
