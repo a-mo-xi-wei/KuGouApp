@@ -13,8 +13,6 @@
 #include <QPainterPath>
 #include <QtMath>
 #include <QPointF>
-#include <utility>
-
 //图片大小
 #define PIX_SIZE 50
 //图片圆角
@@ -38,8 +36,7 @@ QPixmap roundedPix(const QPixmap &src, QSize size, int radius) {
 MusicItemWidget::MusicItemWidget(SongInfor  infor, QWidget *parent)
     :QFrame(parent)
     ,m_information(std::move(infor))
-    ,m_menu(new MyMenu(this))
-    ,m_window(this->window())
+    ,m_songOptMenu(new MyMenu(MyMenu::MenuKind::SongOptionMenu,this))
     ,timer(new QTimer(this))
 {
 
@@ -150,8 +147,8 @@ void MusicItemWidget::getMenuPosition(const QPoint& pos) {
 
     // 计算菜单右侧的全局位置
     //int menuLeftPos = pos.x() - m_menu->width();
-    int menuRightPos  = pos.x() + m_menu->width();
-    int menuBottomPos = pos.y() + m_menu->height();
+    int menuRightPos  = pos.x() + m_songOptMenu->width();
+    int menuBottomPos = pos.y() + m_songOptMenu->height();
     //int menuTopPos = pos.y() - m_menu->height();
     // 若菜单左侧超出屏幕左侧 (不存在)
     //if(menuLeftPos < 0) {
@@ -243,8 +240,8 @@ void MusicItemWidget::mousePressEvent(QMouseEvent *event) {
     // 判断是否为右键点击
     if (event->button() == Qt::RightButton) {
         getMenuPosition(this->mapToGlobal(event->pos()));
-        this->m_menu->move(this->m_menuPosition);
-        this->m_menu->show();
+        this->m_songOptMenu->move(this->m_menuPosition);
+        this->m_songOptMenu->show();
     }
     else {
         QFrame::mousePressEvent(event);//要么放else里面，要么注释掉这一行，否则会不显示
@@ -267,8 +264,8 @@ void MusicItemWidget::onCollectToolBtnClicked() {
 void MusicItemWidget::onMoreToolBtnClicked() {
     // 获取当前鼠标的全局位置
     getMenuPosition(QCursor::pos());
-    this->m_menu->move(this->m_menuPosition);
-    this->m_menu->show();
+    this->m_songOptMenu->move(this->m_menuPosition);
+    this->m_songOptMenu->show();
 }
 
 void MusicItemWidget::initUi()
@@ -285,7 +282,7 @@ void MusicItemWidget::initUi()
     this->m_collectToolBtn  ->setCursor(Qt::PointingHandCursor);
     this->m_moreToolBtn     ->setCursor(Qt::PointingHandCursor);
 
-    this->m_menu->hide();
+    this->m_songOptMenu->hide();
 
     auto hlayout = new QHBoxLayout(this);
     hlayout->addWidget(this->m_indexLab);
