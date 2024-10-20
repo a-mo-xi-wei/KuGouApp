@@ -190,5 +190,28 @@
         <file>Res/tablisticon/pix8.png</file>
         <file>Res/tablisticon/pix9.png</file>
         <file>Res/tablisticon/pix10.png</file>
+        <file>Res/menuIcon/add-gray.svg</file>
+        <file>Res/menuIcon/add-blue.svg</file>
+        <file>Res/menuIcon/comment-gray.svg</file>
+        <file>Res/menuIcon/comment-blue.svg</file>
+        <file>Res/menuIcon/delete-gray.svg</file>
+        <file>Res/menuIcon/delete-blue.svg</file>
+        <file>Res/menuIcon/download-gray.svg</file>
+        <file>Res/menuIcon/download-blue.svg</file>
+        <file>Res/menuIcon/next-play-gray.svg</file>
+        <file>Res/menuIcon/next-play-blue.svg</file>
+        <file>Res/menuIcon/openfile-gray.svg</file>
+        <file>Res/menuIcon/openfile-blue.svg</file>
+        <file>Res/menuIcon/play-gray.svg</file>
+        <file>Res/menuIcon/play-blue.svg</file>
+        <file>Res/menuIcon/same-gray.svg</file>
+        <file>Res/menuIcon/same-blue.svg</file>
+        <file>Res/menuIcon/share-gray.svg</file>
+        <file>Res/menuIcon/share-blue.svg</file>
+        <file>Res/menuIcon/songinfo-gray.svg</file>
+        <file>Res/menuIcon/songinfo-blue.svg</file>
+        <file>Res/menuIcon/upload-gray.svg</file>
+        <file>Res/menuIcon/upload-blue.svg</file>
+        <file>Res/menuIcon/sub_menu_arrow.png</file>
     </qresource>
 </RCC>
