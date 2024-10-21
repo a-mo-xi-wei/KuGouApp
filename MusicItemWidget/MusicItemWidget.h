@@ -89,8 +89,8 @@ private:
     QToolButton*    m_downloadToolBtn{};
     QToolButton*    m_collectToolBtn{};
     QToolButton*    m_moreToolBtn{};
-    MyMenu*   m_songOptMenu{};
     //菜单相关
+    MyMenu*         m_songOptMenu{};
     QPoint          m_menuPosition;
     //歌曲信息相关
     int             m_index;
