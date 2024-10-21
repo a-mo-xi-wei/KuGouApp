@@ -82,7 +82,8 @@
         <file>Res/tabIcon/music-block-cover11.jpg</file>
         <file>Res/tabIcon/music-block-cover12.jpg</file>
         <file>Res/tabIcon/music-block-cover13.jpg</file>
-        <file>Res/tabIcon/music-block-cover14.jpg</file><file>Res/tabIcon/music-block-cover10.jpg</file>
+        <file>Res/tabIcon/music-block-cover14.jpg</file>
+        <file>Res/tabIcon/music-block-cover10.jpg</file>
         <file>Res/tabIcon/music-block-cover15.jpg</file>
         <file>Res/tabIcon/music-block-cover16.jpg</file>
         <file>Res/tabIcon/music-block-cover17.jpg</file>
@@ -190,28 +191,36 @@
         <file>Res/tablisticon/pix8.png</file>
         <file>Res/tablisticon/pix9.png</file>
         <file>Res/tablisticon/pix10.png</file>
-        <file>Res/menuIcon/add-gray.svg</file>
+        <file>Res/menuIcon/add-black.svg</file>
         <file>Res/menuIcon/add-blue.svg</file>
-        <file>Res/menuIcon/comment-gray.svg</file>
+        <file>Res/menuIcon/comment-black.svg</file>
         <file>Res/menuIcon/comment-blue.svg</file>
-        <file>Res/menuIcon/delete-gray.svg</file>
+        <file>Res/menuIcon/delete-black.svg</file>
         <file>Res/menuIcon/delete-blue.svg</file>
-        <file>Res/menuIcon/download-gray.svg</file>
+        <file>Res/menuIcon/download-black.svg</file>
         <file>Res/menuIcon/download-blue.svg</file>
-        <file>Res/menuIcon/next-play-gray.svg</file>
-        <file>Res/menuIcon/next-play-blue.svg</file>
-        <file>Res/menuIcon/openfile-gray.svg</file>
+        <file>Res/menuIcon/nextplay-black.svg</file>
+        <file>Res/menuIcon/nextplay-blue.svg</file>
+        <file>Res/menuIcon/openfile-black.svg</file>
         <file>Res/menuIcon/openfile-blue.svg</file>
-        <file>Res/menuIcon/play-gray.svg</file>
+        <file>Res/menuIcon/play-black.svg</file>
         <file>Res/menuIcon/play-blue.svg</file>
-        <file>Res/menuIcon/same-gray.svg</file>
+        <file>Res/menuIcon/same-black.svg</file>
         <file>Res/menuIcon/same-blue.svg</file>
-        <file>Res/menuIcon/share-gray.svg</file>
+        <file>Res/menuIcon/share-black.svg</file>
         <file>Res/menuIcon/share-blue.svg</file>
-        <file>Res/menuIcon/songinfo-gray.svg</file>
+        <file>Res/menuIcon/songinfo-black.svg</file>
         <file>Res/menuIcon/songinfo-blue.svg</file>
-        <file>Res/menuIcon/upload-gray.svg</file>
+        <file>Res/menuIcon/upload-black.svg</file>
         <file>Res/menuIcon/upload-blue.svg</file>
         <file>Res/menuIcon/sub_menu_arrow.png</file>
+        <file>Res/menuIcon/collect-blue.svg</file>
+        <file>Res/menuIcon/collect-black.svg</file>
+        <file>Res/menuIcon/defaultlist-blue.svg</file>
+        <file>Res/menuIcon/defaultlist-black.svg</file>
+        <file>Res/menuIcon/like-blue.svg</file>
+        <file>Res/menuIcon/like-black.svg</file>
+        <file>Res/menuIcon/playqueue-blue.svg</file>
+        <file>Res/menuIcon/playqueue-black.svg</file>
     </qresource>
 </RCC>
