@@ -3,21 +3,36 @@ QToolButton{
     background-color: rgba(255,255,255,0);
     font-size: 12px;
     padding-left: 10px;
+    padding-right: 10px;
 }
 QToolButton:hover{
-    background-color: #d6e1ff;
+    background-color: #e6edfe;
     color: #268cff;
+}
+QToolButton#addToToolBtn:hover{
+    background-color: rgba(255,255,255,0);
+    color: #268cff;
+}
+QToolButton#addToRightToolBtn:hover{
+    background-color: rgba(255,255,255,0);
+    color: #268cff;
+}
+QWidget{
+    border-radius: 6px;
+    background-color: rgba(255,255,255,0);
+}
+QWidget:hover{
+    background-color: #e6edfe;
 }
 QMenu{
     border-radius: 8px;
-    background-color: #edf2ff;
+    background-color: #f6f9ff;
     margin: 5px;
     padding: 10px 5px 10px 5px;
-
 }
 QMenu::separator { /* 菜单子控件separator，定义菜单项之间的分隔线 */
     height: 1px;
-    background: #CCCCCC;
+    background: #eeeeee;
     margin: 2px; /* 距离菜单边界2px */
 }
 
