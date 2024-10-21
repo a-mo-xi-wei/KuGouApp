@@ -17,6 +17,7 @@
 #include<QRandomGenerator>
 #include<QRegularExpression>
 #include <memory>
+#include <QScreen>
 
 // 创建一个宏来截取 __FILE__ 宏中的目录部分
 #define GET_CURRENT_DIR (QString(__FILE__).first(qMax(QString(__FILE__).lastIndexOf('/'), QString(__FILE__).lastIndexOf('\\'))))
@@ -28,16 +29,18 @@ LocalDownload::LocalDownload(QWidget *parent)
     ,ui(new Ui::LocalDownload)
     , m_player(std::make_unique<QMediaPlayer>(this))
     ,m_searchAction(new QAction(this))
+    ,m_sortOptMenu(new MyMenu(MyMenu::MenuKind::SortOptionMenu,this))
 {
     ui->setupUi(this);
-
-    QFile file(GET_CURRENT_DIR + QStringLiteral("/local.css"));
-    if (file.open(QIODevice::ReadOnly)) {
-        this->setStyleSheet(file.readAll());
-    }
-    else {
-        qDebug() << "样式表打开失败QAQ";
-        return;
+    {
+        QFile file(GET_CURRENT_DIR + QStringLiteral("/local.css"));
+        if (file.open(QIODevice::ReadOnly)) {
+            this->setStyleSheet(file.readAll());
+        }
+        else {
+            qDebug() << "样式表打开失败QAQ";
+            return;
+        }
     }
     getMetaData();
     init();
@@ -65,7 +68,6 @@ void LocalDownload::init() {
     ui->local_play_toolButton->setIcon(QIcon(QStringLiteral("://Res/tabIcon/play3-white.svg")));
     ui->local_add_toolButton->setIcon(QIcon(QStringLiteral("://Res/tabIcon/add-gray.svg")));
     ui->upload_toolButton->setIcon(QIcon(QStringLiteral("://Res/tabIcon/upload-cloud-gray.svg")));
-    ui->sort_toolButton->setIcon(QIcon(QStringLiteral("://Res/tabIcon/sort-gray.svg")));
 
     //使用 addAction 添加右侧图标
     this->m_searchAction->setIcon(QIcon(QStringLiteral("://Res/titlebar/search-black.svg")));
@@ -166,6 +168,42 @@ void LocalDownload::loadNextSong() {
     }
 }
 
+void LocalDownload::getMenuPosition(const QPoint &pos) {
+    this->m_menuPosition = pos;
+    // 获取屏幕的尺寸
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect screenGeometry = screen->geometry();
+
+    // 计算菜单右侧的全局位置
+    //int menuLeftPos = pos.x() - m_menu->width();
+    int menuRightPos  = pos.x() + m_sortOptMenu->width();
+    int menuBottomPos = pos.y() + m_sortOptMenu->height();
+    //int menuTopPos = pos.y() - m_menu->height();
+    // 若菜单左侧超出屏幕左侧 (不存在)
+    //if(menuLeftPos < 0) {
+    //    // 动态调整菜单位置，使其在屏幕内显示
+    //    m_menuPosition.setX(10);
+    //}
+    // 如果菜单右侧超出屏幕右侧
+    if (menuRightPos > screenGeometry.right()) {
+        // 动态调整菜单位置，使其在屏幕内显示
+        int offset = menuRightPos - screenGeometry.right() + 5;
+        m_menuPosition.setX(pos.x() - offset);
+    }
+    // 如果菜单下侧超出屏幕下侧
+    if (menuBottomPos > screenGeometry.bottom()) {
+        // 动态调整菜单位置，使其在屏幕内显示
+        int offset = menuBottomPos - screenGeometry.bottom() + 5;
+        m_menuPosition.setY(pos.y() - offset);
+    }
+    // 如果菜单下侧超出屏幕下侧（不存在）
+    //if(menuTopPos < 0) {
+    //    // 动态调整菜单位置，使其在屏幕内显示
+    //    m_menuPosition.setY(10);
+    //}
+
+}
+
 void LocalDownload::on_local_play_toolButton_clicked() {
     emit startPlay();
 }
@@ -244,4 +282,10 @@ void LocalDownload::setPlayIndex(const int &index) {
         }
     }
 
+}
+
+void LocalDownload::on_local_sort_toolButton_clicked() {
+    getMenuPosition(QCursor::pos());
+    this->m_sortOptMenu->move(this->m_menuPosition);
+    this->m_sortOptMenu->show();
 }

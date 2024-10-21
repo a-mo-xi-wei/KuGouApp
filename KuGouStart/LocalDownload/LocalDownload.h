@@ -20,10 +20,16 @@ Q_OBJECT
 
 public:
     explicit LocalDownload(QWidget *parent = nullptr);
+
     ~LocalDownload() override;
+
     void init();
+
     void getMetaData();
+
     void loadNextSong();
+
+    void getMenuPosition(const QPoint& pos);
 private slots:
     void on_local_play_toolButton_clicked();
 
@@ -47,6 +53,7 @@ signals:
 public slots:
     void setPlayIndex(const int& index);
 
+    void on_local_sort_toolButton_clicked();
 private:
     Ui::LocalDownload *ui;
     std::unique_ptr<QMediaPlayer>m_player;
@@ -59,6 +66,10 @@ private:
     //固定颜色专用
     int m_curPlatIndex = -1;
     int m_setPlayIndex = -1;
+
+    //菜单相关
+    MyMenu* m_sortOptMenu{};
+    QPoint m_menuPosition;
 };
 
 

@@ -564,28 +564,6 @@ margin-top:0px;</string>
        </widget>
       </item>
       <item>
-       <widget class="QToolButton" name="sort_toolButton">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>35</height>
-         </size>
-        </property>
-        <property name="cursor">
-         <cursorShape>PointingHandCursor</cursorShape>
-        </property>
-        <property name="toolTip">
-         <string>默认正序（歌名）</string>
-        </property>
-        <property name="text">
-         <string>排序</string>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextBesideIcon</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QWidget" name="small_widget" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout_14">
          <property name="spacing">
@@ -616,8 +594,8 @@ margin-top:0px;</string>
            </property>
            <property name="iconSize">
             <size>
-             <width>25</width>
-             <height>25</height>
+             <width>20</width>
+             <height>20</height>
             </size>
            </property>
           </widget>
@@ -668,8 +646,8 @@ margin-top:0px;</string>
            </property>
            <property name="iconSize">
             <size>
-             <width>25</width>
-             <height>25</height>
+             <width>20</width>
+             <height>20</height>
             </size>
            </property>
           </widget>
@@ -705,7 +683,7 @@ margin-top:0px;</string>
           </widget>
          </item>
          <item>
-          <widget class="QToolButton" name="local_singer_toolButton">
+          <widget class="QToolButton" name="local_sort_toolButton">
            <property name="cursor">
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
@@ -717,8 +695,8 @@ margin-top:0px;</string>
            </property>
            <property name="iconSize">
             <size>
-             <width>25</width>
-             <height>25</height>
+             <width>20</width>
+             <height>20</height>
             </size>
            </property>
           </widget>
@@ -766,8 +744,8 @@ margin-top:0px;</string>
            </property>
            <property name="iconSize">
             <size>
-             <width>25</width>
-             <height>25</height>
+             <width>20</width>
+             <height>20</height>
             </size>
            </property>
           </widget>

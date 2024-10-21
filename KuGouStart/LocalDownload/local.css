@@ -70,11 +70,11 @@ QToolButton#local_zhuanji_toolButton:hover {
     border-image:url("://Res/titlebar/zhuanji-blue.svg");
 }
 
-QToolButton#local_singer_toolButton {
-    border-image:url("://Res/titlebar/singer-gray.svg");
+QToolButton#local_sort_toolButton {
+    border-image:url("://Res/titlebar/sort-gray.svg");
 }
-QToolButton#local_singer_toolButton:hover {
-    border-image:url("://Res/titlebar/singer-blue.svg");
+QToolButton#local_sort_toolButton:hover {
+    border-image:url("://Res/titlebar/sort-blue.svg");
 }
 
 QLineEdit#local_search_lineEdit{
